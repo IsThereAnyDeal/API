@@ -3,20 +3,16 @@ HOST: https://api.isthereanydeal.com
 
 # IsThereAnyDeal.com API
 
-This API provides (or will provide) programatic access to features found on IsThereAnyDeal.com such as info about current
-deals and historical prices as well as provides access to users' data and manipulation with them.
-
-Whole API is under active development, so if you miss some endpoints they may be coming in the future. You can use our [issue tracker](https://bitbucket.org/tfedor/isthereanydeal.com/issues)
-to provide feedback or request new features, or you can use some of the contacts listed on [the web](https://isthereanydeal.com/#/page:web/contact).
+This API provides programatic access to features found on [IsThereAnyDeal](https://isthereanydeal.com).
 
 > In this API we will be refering to all apps, browser extensions or any other software as an *app*.
 
 # Latest changes
 
 * **2017-12-16** Added source for these docs to [GitHub](https://github.com/tfedor/IsThereAnyDealApiDocs)
-* **2016-03-20** Several new endpoints: game/plain/id, game/prices, game/lowest, game/bundles, game/info, deals/list, added [mailing list](https://isthereanydeal.com/devmail/)  
+* **2016-03-20** Several new endpoints: game/plain/id, game/prices, game/lowest, game/bundles, game/info, deals/list, added [mailing list](https://isthereanydeal.com/dev/mailing-list/)  
 
-# Documentation Source
+# Documentation source
 
 You can find source file for this documentation over at [GitHub](https://github.com/tfedor/IsThereAnyDealApiDocs).
 Feel free to help us improve it.
@@ -25,7 +21,7 @@ Feel free to help us improve it.
 
 Whole API is provided in good faith. We trust you won't misuse the API to damage IsThereAnyDeal.com, its users or its reputation.
 
-* You **may** use this API for commercial purposes **IF** the resulting app is available to public. If you want to use this API privately please contact us.
+* You **may** use this API for commercial purposes **IF** the resulting app is available to public. If you want to use this API privately contact us.
 * You **should** provide a link to IsThereAnyDeal.com or mention IsThereAnyDeal.com API.
 * You **must not** make an impression that you are affiliated with IsThereAnyDeal.com, unless agreed otherwise. If you are interested in making an official app, please contact us.
 * You **must not** change provided data in any way. This means that you can't remove affiliate tags from the URLs, change prices and so on. You **may** use only part of data provided and enrich them from different sources (e.g. you may add images to games).  
@@ -34,112 +30,72 @@ Whole API is provided in good faith. We trust you won't misuse the API to damage
 
 All data are provided *as-is*. We reserve the right to deny you access to the API at any point without notice. If you are not sure about any of the points, please contact us.
 
+# Contact
+
+* General API contact: [api@isthereanydeal.com](mailto:api@isthereanydeal.com)
+* Bug reports: [issue tracker](https://bitbucket.org/tfedor/isthereanydeal.com/issues)
+
 # Following changes
 
-You can join developer's [mailing list](https://isthereanydeal.com/devmail/), which will be used to occassionally notify you about latest changes in the API.
+You can join developer's [mailing list](https://isthereanydeal.com/dev/mailing-list/), which will be used to occassionally notify you about latest changes in the API.
 
 # Endpoints
 
 All regular API endpoints will list current version, type and scope, if endpoint requires it.
 
-## Version
+## Versioning
 
-Almost all API endpoints will be versioned. Version is denoted by letter `v` and number, like `v01` for version 1. Zeroes are optional and it doesn't matter whether you use `v1` or `v0001`. We prefer two digit format.
+All API endpoints are versioned. Version is denoted by letter `v` and number, like `v01` for version 1. Zeroes are optional and it doesn't matter whether you use `v1` or `v0001`. We prefer two digit format.
 
-In general, version number will change only when the format of the response changes. We may add more info to an endpoint and not change the version number.
+Non-breaking changes may be made without changing the version number. If possible, always use the latest version.
 
-You should always try to use the latest version if possible. Older versions may become
-*deprecated* (we will still make updates to ensure that endpoint works, but you should switch to a newer version)
-or *unsupported* (we no longer guarantee the endpoint will work). This will be denoted by `.deprecated`
-or `.unsupported` field in the response.
+Older versions may become:
+* *deprecated* - there is a newer version of the endpoint or a replacement; you should switch as soon as possible
+* *unsupported* - the endpoint is no longer supported and may be removed at any time
 
-## Type
+Before being removed, endpoint will go through deprecated and unsupported phase. No guarantees are made for the duration of these phases.
+
+## Access
 
 There are three levels of API endpoints that we provide:
 
-* public
-* protected
-* private
+* *public* - unrestricted access without any prerequisites
+* *protected* - access is restricted by use of *API key* or *OAuth token*, depending on whether the API manipulates or reads user's data
+* *private* - explicit permission is required, [contact us](#introduction/contact)
 
-You can access *public* endpoints without any other prerequisites.
-These endpoints will provide some basic info about ITAD, such as covered stores or regions.
- 
-To access *protected* endpoints you will need *API key* or *OAuth token*, depending on whether the API manipulates or reads user's data or not.
- 
-To access *private* endpoints you will need explicit permission. You can request it via email listed on the [contact page](https://isthereanydeal.com/#/page:web/contact).
-Misuse of private endpoints will lead to restricting all API access.
+Misuse of any endpoint may lead to restricting all API access.
 
 An endpoint may be of multiple types, e.g. `public/protected`. That means that you can get some basic info from
-the endpoint but to get more detailed information you will need to use your API key.
+the endpoint but to get more detailed information you will need to use an API key or OAuth token.
+ 
+### Accessing protected and private endpoints 
+If you want to access protected and/or private endpoints, you will have to [register](https://isthereanydeal.com/dev/app/) your app.
 
-## Scope
+Upon registration you will be able to manage your OAuth credentials and API keys.
 
-Endpoints that require user data manipulation will require you to define scope. Scope is used to tell user what your app
-may do. You should define minimal scope your app really needs.
+> Do not forget that both API keys and OAuth credentials uniquely identify your app
+
+Once released, your app will be listed in our own [repository](https://isthereanydeal.com/apps/).
  
 ## Debugging
 
 For all endpoints that return json you may use `?pretty` parameter to get prettified output.
 
-Some endpoints may contain `.meta` field describing the output, such as if the request was loaded from cache or not.
- 
 ## Regions
 
-Some endpoints may require you to specify region. Often in such endpoints the accuracy of the results may be
-improved by also supplying country code. Internally ITAD uses hidden regions, which is a fancy name for exceptions for
-some region/store/country combinations.
-
-> At the time of writing this an example may be Green Man Gaming and Sweden. Although Sweden is listed in `eu1` region
-on ITAD, GMG uses GBP as a currency for Sweden, instead of EUR.
+Some endpoints may require you to specify *region*.
+Accuracy of the response may be further improved by also supplying *country code*.
   
-If you don't specify the country, *some* country from given region will be used, most probably the first one listed.
+If you don't specify the country, *some* country from given region will be used.
 
-## Optional data
+## Common response fields 
 
-Some endpoints may offer additional data which are not included in default response. For example,
-[Stores endpoint](#reference/web/stores) by default returns only `id`, `title` and `color` for each store but with
-`optional` parameter you can request data about `deals` and `catalog` of the store.
+A response may contain one or more fields beginning by dot `.`. These are not part of a data request but instead may contain
+information about the endpoint or the specific response.
 
-When endpoint offers optional data, all possible values will be listed in specification. Moreover, you can list
-more options if you separate them by comma.
- 
-# Your apps
-
-If you want to access protected or private endpoints, you will have to [register](https://isthereanydeal.com/apps/new/) your app.
-
-> Please note that you can't change app's name after you register it. All registered apps will be tied to your account.
-> Consider creating new account if you want to manage app in team or don't want it to be associated with your ITAD's account
-
-## Managing your apps
-
-You can manage all apps you create from [Mine apps](https://isthereanydeal.com/apps/mine/) section.
-
-### OAuth
-
-Upon registration, `client ID` and `client secret` will be generated for you. To be able to use them you need to set correct `redirect URI`.
-You can change `redirect URI` at any time. You may also list more than one URL, separated by space.
-
-### API keys
-
-API keys are used to access protected and private endpoints, which do not operate with users' data. You can request new keys and make them active or inactive as you please,
-but you can only have limited number of keys active at one time.
-
-> For both API keys and OAuth credentials, take into consideration that they uniquely identify your app. If you misuse API access, you may be denied access to some or all endpoints.
-
-### Basic info
-
-Allows you to change app description or URLs. Remember that you have to set at least one valid URL before releasing your app.
-
-### Rights
-
-This section will list any permissions or restrictions that may apply to your app.
-
-## Releasing apps
-
-Before releasing your app to public you have to set at least one URL at which your app will be available. This may be a GitHub repo, your personal page, browser extension repository or any other website.
-You will also have to set up your username, if you haven't already.
-
-Once released, your app will be listed in our own [repository](https://isthereanydeal.com/apps/).
+* `.deprecated` denotes that the endpoint is deprecated. You should always check for the existence of this field
+* `.unsupported` denotes that the endpoint is unsupported. You should always check for the existence of this field
+* `.meta` field describes the output, e.g. if the request was loaded from cache
 
 # Group OAuth authentication
 
@@ -150,6 +106,12 @@ A lot has been written about OAuth, but in a short and simplified way it works s
 2. User allows access for your app
 3. Request is redirected back to a `redirect URI` with an *authorization code* which you will use to get token or with *token* itself, depending on the grant type you used.
 4. With token acquired you may finally access API endpoints 
+
+## Scope
+
+OAuth requests requires you to define `scope` when you ask usesr to authorize the app.
+Scope is used to tell a user what your app may do. You should always define the minimal scope your app will really need.
+
 
 ## Grant types
 
