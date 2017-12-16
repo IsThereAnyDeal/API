@@ -1,4 +1,4 @@
-# IsThereAnyDealApiDocs
+# IsThereAnyDeal API Documentation
 
 This is a repository for [IsThereAnyDeal](https://isthereanydeal.com) API documentation located at https://itad.docs.apiary.io/
 
