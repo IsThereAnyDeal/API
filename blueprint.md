@@ -99,56 +99,58 @@ information about the endpoint or the specific response.
 
 # Group OAuth authentication
 
-OAuth authentication is required for protected and private endpoints that manipulate users' data. For our API we use OAuth 2.
+OAuth authentication is required for protected and private endpoints that manipulate users' data. We use OAuth 2.
 A lot has been written about OAuth, but in a short and simplified way it works something like this:
 
-1. Your app will redirect user to an authorization page
+1. Your app will redirect user to an authorization page with a defined scope and grant type
 2. User allows access for your app
-3. Request is redirected back to a `redirect URI` with an *authorization code* which you will use to get token or with *token* itself, depending on the grant type you used.
-4. With token acquired you may finally access API endpoints 
+3. Request is redirected back to a `redirect URI` with an *authorization code* which you will use to get token or with *token* itself, depending on the grant type you have used.
+4. With **token** acquired you may finally access API endpoints 
 
 ## Scope
 
-OAuth requests requires you to define `scope` when you ask usesr to authorize the app.
-Scope is used to tell a user what your app may do. You should always define the minimal scope your app will really need.
+OAuth requests requires you to define `scope` when you ask a user to authorize the app.
+Scope tells the user what permissions are you requesting from them.
 
+> You should always define the minimal scope your app will really need
 
 ## Grant types
 
 Currently we allow following grant types:
 
-* Authorization code
 * Implicit
+* Authorization code
 * Refresh token
 
 For more information about grant types take a look at e.g. [A guide to OAuth 2.0 grants by Alex Bilbie](http://alexbilbie.com/2013/02/a-guide-to-oauth-2-grants/).  
             
-## Tokens summary
+## Token lifetime
 
-Unlike API keys, OAuth tokens will expire. Following table lists how long the tokens are valid.
+Unlike API keys, OAuth tokens will **expire**. Following table lists for how long the tokens are valid.
 
-| Key                | Use      | Lifetime |          |
-|--------------------|:--------:|:--------:|:--------:|
-| Authorization code | once     | 60       | 1 minute |
-| Access token       | multiple | 2073600  | 24 days  |
-| Refresh token      | once     | 2073600  | 24 days  |
+| Key                | Use      | Lifetime       |
+|--------------------|:--------:|:--------------:|
+| Authorization code | once     | 1 minute       |
+| Access token       | multiple | 1 year         |
+| Refresh token      | once     | 1 year         |
 
 ## Authorize [/oauth/authorize/]
 
 ### Authorize app [GET /oauth/authorize/{?response_type,client_id,state,scope,redirect_uri}]
 
-Provides a way for user to authorize your app.
+Ask user to authorize your app.
 
-Redirect user to this URL and let him decide whether he will authorize your app. After user's action, the request will be sent back to `redirect_uri` you set for your app or you sent as a parameter.
+Redirect user to this URL and let him decide whether he will authorize your app.
+After user's action, the response will be sent back to `redirect_uri` you set for your app or you sent as a parameter.
 
-Response depends on the grant type you are using. If you are using `implicit` grant type you will receive token in a URL fragment, with `authorization code` grant type you will get one-time use code to ask for token.
+Response depends on the grant type you are using.
+If you are using `implicit` grant type you will receive token in a URL fragment,
+with `authorization code` grant type you will get one-time use code to request token.
 
 **Always** define **minimal** scope your app will really need. If you're not using endpoints to user's Collection data,
 there's no point to request Collection scopes. If your app grows in the future you can let user re-authorize your app.
 
-**Always** use the API URL listed, even though the real request will be redirected to different URL. This will ensure that if we move authorization page, your requests will still work.
-
-**See also:** [some reading about `state` parameter](http://www.thread-safe.com/2014/05/the-correct-use-of-state-parameter-in.html)
+*See also:* [some reading about `state` parameter](http://www.thread-safe.com/2014/05/the-correct-use-of-state-parameter-in.html)
 
 + Parameters
     + client_id (required) - OAuth client ID
@@ -195,10 +197,8 @@ there's no point to request Collection scopes. If your app grows in the future y
 
 There are 2 types of tokens: 
 
-* access tokens
-* refresh tokens
-
-You will use **access tokens** to access API endpoints and **refresh tokens** to generate new access token.
+* *access tokens*, used to access API endpoints
+* *refresh tokens*, used to generate new access token
 
 ### Request access token [POST]
 
@@ -227,6 +227,15 @@ You will use **access tokens** to access API endpoints and **refresh tokens** to
                 "scope": "wait_read wait_write",
                 "token_type": "Bearer"
             }
+            
++ Response 400
+
+    + Body
+    
+            {
+                "error": "invalid_grant",
+                "error_description": "Authorization code doesn't exist or is invalid for the client"
+            }            
 
 ### Request refresh token [POST]
 
@@ -1110,7 +1119,7 @@ When successful, response will contain URL to published Special.
 
             {
               "data": {
-                "url": "https://dev.isthereanydeal.com/specials/1555/"
+                "url": "https://isthereanydeal.com/specials/1555/"
               }
             }
 
