@@ -13,7 +13,13 @@ to provide feedback or request new features, or you can use some of the contacts
 
 # Latest changes
 
-**2016-03-20** Several new endpoints: game/plain/id, game/prices, game/lowest, game/bundles, game/info, deals/list, added [mailing list](https://isthereanydeal.com/devmail/)  
+* **2017-12-16** Added source for these docs to [GitHub](https://github.com/tfedor/IsThereAnyDealApiDocs)
+* **2016-03-20** Several new endpoints: game/plain/id, game/prices, game/lowest, game/bundles, game/info, deals/list, added [mailing list](https://isthereanydeal.com/devmail/)  
+
+# Documentation Source
+
+You can find source file for this documentation over at [GitHub](https://github.com/tfedor/IsThereAnyDealApiDocs).
+Feel free to help us improve it.
 
 # Do's and don'ts
 
