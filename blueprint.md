@@ -377,15 +377,11 @@ Identification is done in following order:
 1. by ID
 2. by URL
 3. by title
- 
-If any of the methods succeeds, the process will stop.
 
-If the `plain` identifier was found, it's checked whether it wasn't merged with another game updated.
+The `.meta` part of the response includes `match` (tells you which part of the process succeded)
+and `active` (true if we have pricing info for the game).
 
-In the `.meta` part of the response you can see `match` (tells you which part of process succeded) and `active`
-(true if the game has pricing info).
-
-Optionally this endpoint can also return title associated to found plain.
+Optionally this endpoint can also return game's title.
 
 ### Identify by ID
 
@@ -393,12 +389,9 @@ To uniquely identify the game on different stores and map it to our `plain` we u
 Ideally, game ID is the same the given store uses in their system. This method is the fastest and the most accurate.
 
 Most of the time the ID the store uses to identify the game can be guessed from URL or found in page source. 
-However, internally, IDs on ITAD may differ from those used by stores. That is mainly due to historic reasons,
-where the real ID could not be fetched (mostly because it was unknown to us what the store uses to identify the game).
-In such cases we opted to use part of the URL as ID. If you are not sure what IDs we use for given store, you can
+However, internally, IDs on ITAD may differ from those used by stores (either because they are not known or IDs
+provided in feeds differ from what is shown in the store). If you are not sure what IDs we use for given store, you can
 contact us for more information. We don't list it for each store since the situation may change.
-
-> Take into consideration that game ID for given store as ITAD recognizes it may change.
 
 Requires `shop` and `game_id` parameters.
 
@@ -414,8 +407,8 @@ Requires `shop` and `url` parameters.
 
 ### Identify by Title
 
-Identification by title tries fixes some "title flaws" that often show up in stores and tries to match them against
-known titles. Should provide reasonable results.
+Identification by title tries to match provided title against our database.
+Should provide reasonable results.
 
 Requires `title` parameter.
 
@@ -444,9 +437,10 @@ Requires `title` parameter.
 ## Multiple plains by ID [/v01/game/plain/id/{?key,shop,ids}]
 ```Version: v01 | Type: protected```
 
-If you need to get more plains at once, you can use this endpoint. It's limitation is that it works only with IDs and one shop at once.
+If you need to get more `plain`s at once, you can use this endpoint.
+Its limitation is that it works only with IDs and one shop at once.
 
-> This endpoint will provide ONLY `plain` for given `id` (or `null if not found), no additional info like title or whether the entry has active deals.
+> This endpoint will provide ONLY `plain` for given `id` (or `null` if not found), no additional info like title or whether the entry has active deals.
 
 ### Get plain [GET]
 
