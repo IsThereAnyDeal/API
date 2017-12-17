@@ -295,7 +295,7 @@ Optionally also displays English country name.
                 }
         }
 
-## Stores in region [/v02/web/stores/{region}/{?country,optional}]
+## Stores in region [/v02/web/stores/{?region,country,optional}]
 ```Version: v02 | Type: public```
 
 Lists all covered stores for given *region*. Optionally also loads current *deals* and *catalog* game count
