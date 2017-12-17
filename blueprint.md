@@ -270,8 +270,16 @@ There are 2 types of tokens:
 ```Version: v01 | Type: public```
 
 Lists all covered regions with the country codes associated to the region and currency information.
+Optionally also displays English country name.
 
 ### List covered regions [GET]
+
++ Parameters
+    
+    + optional (enum[string], optional) - Separate multiple values with comma
+        + Members
+            + `names`
+
 
 + Response 200
 
