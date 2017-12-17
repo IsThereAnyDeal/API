@@ -462,19 +462,19 @@ Its limitation is that it works only with IDs and one shop at once.
         }
         
 
-## Prices [/v01/game/prices/{region}/{?key,plains,country}]
+## Prices [/v01/game/prices/{?key,plains,region,country}]
 ```Version: v01 | Type: protected ```
 
-Provides way to get all current prices for selected games. Use `region` and `country` to get more accurate results.
+Get all current prices for one or more selected games. Use `region` and `country` to get more accurate results.
 
 > Prices will be sorted from lowest to highest.
 
 ### Get current prices [GET]
 
 + Parameters
-    + region: `eu2` (optional)
     + key (required) - Your API key
     + plains: `endorlight,storyofsurvivor` (required)
+    + region: `eu2` (optional)
     + country: `SK` (optional)
 
 + Response 200
