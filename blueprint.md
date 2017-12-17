@@ -568,17 +568,18 @@ Get all current prices for one or more selected games. Use `region` and `country
         }
 
 
-## Historical low [/v01/game/lowest/{region}/{?key,plains}]
+## Historical low [/v01/game/lowest/{?key,plains,region,country}]
 ```Version: v01 | Type: protected ```
 
-Provides information about historical low selected games had.
+Get historically lowest price for one or more games.
 
 ### Get historical low [GET]
 
 + Parameters
-    + region: `eu2` (optional)
     + key (required) - Your API key
     + plains: `europauniversalisiv,falloutiv` (required) - List of plains separated by comma
+    + region: `eu2` (optional)
+    + country: `SK` (optional)
     
 + Response 200
         
