@@ -618,7 +618,7 @@ Get historically lowest price for one or more games.
         }
 
 
-## Bundles [/v01/game/bundles/{region}/{?key,plains,limit,expired,sort}]
+## Bundles [/v01/game/bundles/{?key,plains,limit,expired,sort,region}]
 ```Version: v01 | Type: protected ```
 
 Provides information about how many times the game has been bundled and lists these bundles.
@@ -628,20 +628,18 @@ Provides information about how many times the game has been bundled and lists th
 ### Get info about where the game was bundled [GET]
 
 + Parameters
-    + region: `us` (optional)
     + key (required) - Your API key
     + plains: `endorlight,storyofsurvivor` (required) - List of plains separated by comma
-    + limit: 1 (optional) - How many bundles to list at most, `-1` for no limit
-    + expired: 0 (optional) - Whether to list expired bundles
-    + sort: `recent` (optional) - Sorting order of listed bundles
-
-        `recent` - newest first
-        `expiry` - ending soonest first
+    + limit: `1` (int,optional) - How many bundles to list at most, `-1` for no limit
+    + expired: `0` (1/0,optional) - Whether to list expired bundles
+    + sort (enum[string],optional) - Sorting order of listed bundles
     
         + Values
-            `expiry`
-            `recent`
-
+            + `expiry`
+            + `recent`
+            
+    + region: `us` (optional)
+                
 + Response 200
         
         {
