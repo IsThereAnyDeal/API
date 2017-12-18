@@ -753,7 +753,7 @@ url in `urls` field. If Metacritic info is not available, it will be `null`.
 
 # Group Deals
 
-## Recent Deals [/v01/deals/list/{region}/{?key,country,offset,limit}]
+## Recent Deals [/v01/deals/list/{?key,offset,limit,region,country}]
 ```Version: v01 | Type: protected ```
 
 Provides list of deals sorted from newest to oldest.
@@ -763,11 +763,11 @@ Provides list of deals sorted from newest to oldest.
 ### Get deals [GET]
 
 + Parameters
-    + region: `eu2` (optional)
     + key (required) - Your API key
-    + country: `CZ` (optional)
     + offset: 0 (optional)
-    + limit: 20 (optional) - How many deals to get in one query, maximum 50
+    + limit: 20 (optional)
+    + region: `eu2` (optional)
+    + country: `CZ` (optional)
 
 + Response 200
         
