@@ -689,9 +689,9 @@ Provides information about how many times the game has been bundled and lists th
 ## Info [/v01/game/info/{?key,plains}]
 ```Version: v01 | Type: protected ```
 
-Provides basic information about game.
+Get basic information about game.
 
-> Greenlight status and reviews will be null if unknown and array otherwise, other fields are boolean. Check example.
+> Since Greenlight no longer exists on Steam, `greenlight` field will be always null 
 
 With `optional=metacritic` parameter you can also get summary for this game from Metacritic, if we found one. However,
 you **have to** mention that this text is authored by Metacritic and you should link to Metacritic page - you can find
