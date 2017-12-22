@@ -832,8 +832,8 @@ Provides list of deals sorted from newest to oldest.
 ## Create [/v01/specials/create/{?key,type}]
 ```Version: v01 | Type: private (request access)```
 
-Endpoint for creating Specials programatically. May be used by bundle pages to create bundles, shops to add vouchers as soon as they launch etc.
-Special will be created under account of the app owner, same rules will apply as if the Special was created via [public interface](https://isthereanydeal.com/specials/interface/bundle/).
+Add [Specials](https://isthereanydeal.com/specials/) programatically. 
+Special will be created under the account of the app owner. Same rules will apply as if the Special was created via [public interface](https://isthereanydeal.com/specials/interface/bundle/).
 
 Body of the POST request are JSON data, for specific format for each type of Special look at examples. You may omit some
  parts of the request, if they are not neccessary for given Special type. If omitted, default value will be used.
@@ -841,16 +841,12 @@ Body of the POST request are JSON data, for specific format for each type of Spe
 Upon successful creation, the response will contain ID of newly created Special and URL to check it on ITAD.
 
 If the creation fails, response will contain details of errors when possible.
-
-> `bundle` and `media` types are synonyms, the actual type will be decided based on content
  
 **Important:**
     
 - misuse of this endpoint will lead to removal of provider from ITAD's Specials and restricting further API access
-- for covered regions see ITAD or [regions endpoint](#reference/web/regions)
-- for covered stores and their IDs see ITAD or [covered stores endpoint](#reference/web/covered-stores/list-all-covered-stores)
+- for covered regions see ITAD, [regions endpoint](#reference/web/regions), or [covered stores endpoint](#reference/web/covered-stores/list-all-covered-stores)
 - avoid marketing speech, keep entries as short as possible and informative only
-- when listing media item type, keep it as short as possible, ideally 5 characters maximum
 - all dates and times (expiry, publish, price change) are GMT in `YYYY-mm-dd HH:ii` format
  
 ### Create Special [POST]
@@ -860,7 +856,6 @@ If the creation fails, response will contain details of errors when possible.
     + type: `bundle` (required)
         + Members
             + `bundle`
-            + `media`
             + `voucher`
             + `giveaway`
             + `other`
@@ -966,7 +961,7 @@ If the creation fails, response will contain details of errors when possible.
     
             {
                 "title": "VOUCHER-CODE-HERE",
-                "url": "http:\/\/greenmangaming.com",
+                "url": "https:\/\/www.humblebundle.com\/store",
                 "message": "",
                 "expiry": null,
                 "publish": null,
@@ -978,7 +973,7 @@ If the creation fails, response will contain details of errors when possible.
                 "cut": 25,
                 "price": null,
                 "minimum": null,
-                "shop": "greenmangaming",
+                "shop": "humblestore",
                 "games": [
                     {
                         "title": "Europa Universalis IV"
@@ -1074,31 +1069,6 @@ If the creation fails, response will contain details of errors when possible.
                 "url": "https://isthereanydeal.com/specials/1548/"
               }
             }            
- 
-+ Request Example of bad bundle creation request
- 
-    This bundle is missing page_id and content.
- 
-    + Body
-    
-            {
-                "title": "Test Bundle",
-                "url": "http:\/\/humblebundle.com",
-                "message": "",
-                "expiry": null,
-                "publish": null
-            }
-             
-+ Response 400
-             
-            {
-              "error": "invalid_request",
-              "error_description": {
-                "page_id": "Unknown bundle page",
-                "url": "Unable to check URL",
-                "content": "This bundle has no content"
-              }
-            }
 
 
 ## Publish [/v01/specials/publish/{?key,id}]
@@ -1107,8 +1077,6 @@ If the creation fails, response will contain details of errors when possible.
 Endpoint for publishing Specials. Only Specials that are pending and you are the author can be published.
  
 When successful, response will contain URL to published Special.
-
-**Important:**  misuse of this endpoint will lead to removal of provider from ITAD's Specials and restricting further API access
 
 ### Publish Special [GET]
 
