@@ -1101,21 +1101,17 @@ When successful, response will contain URL to published Special.
 
 # Group Waitlist
 
-## Single Game [/v01/user/wait/{region}/{?access_token,plain}]
+## Single Game [/v01/user/wait/{?access_token,plain}]
 ```Version: v01 | Type: protected | Scope: wait_read```
 
-By supplying `plain` you can check if the game is in user's Waitlist. Response will be `yes` or `no`.
-
-Since Waitlist on ITAD are regional, you can improve the accuracy of the request by defining *region*.
-If no region is specified, the endpoint will check whether the game is Waitlisted in *any* region. 
+Check whether user has a game in Waitlist. Response will be `yes` or `no`.
 
 ### Check if user has game in Waitlist [GET]
 
 + Parameters
-    + region (optional)
     + access_token (required) - OAuth access token
     + plain: `dishonored` (required)
-
+        
 + Response 200
         
         {"data": {"in_waitlist": "no"}}
