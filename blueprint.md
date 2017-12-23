@@ -1188,3 +1188,120 @@ Same as in *Collection / Single Game* endpoint.
                 }
             }
         }
+
+## Import Collection [/collection/import/]
+```Latest data version: 02 | Type: public | Does not use API server```
+
+It is possible to export Collection in a JSON format and then import it back to ITAD.
+You can use the same import process to let user import data from a 3rd party source.
+User will be presented a form where he will be able to choose which games he wish to import.
+
+To get a live example of the data you may [export your Collection](https://isthereanydeal.com/collection/#/page:export/collection),
+or check out examples.
+
+> **When using this method of import you will send POST requests directly to IsThereAnyDeal, not to the API**
+
+### JSON Format
+
+Supplied JSON has to contain two fields:
+ 
+* `version` Version string
+* `data` Array of objects
+
+Each object in `data` array has to contain `title` and `copies` array, while each copy has at the very least contain `type`.
+Type may be ID of store or any string which will create [custom value](https://isthereanydeal.com/settings/collection/lists/)
+if it doesn't yet exist.
+
+#### Minimal Example
+
+```json
+{
+    "version": "02",
+    "data": [{
+        "title": "Oxygen Not Included",
+        "copies": [
+            {
+                "type": "steam"
+            }
+        ]
+    }]
+}
+```
+
+#### More Complete Example
+
+```json
+{
+    "version": "02",
+    "data": [
+        {
+            "plain": "0rbitalis",
+            "title": "0RBITALIS",
+            "group": null,
+            "note": null,
+            "status": "notplayed",
+            "user_tags": [],
+            "playtime": 0,
+            "copies": [
+            {
+                "type": "steam",
+                "platforms": ["windows", "mac"],
+                "status": "redeemed",
+                "price": null,
+                "currency": "EUR",
+                "note": null,
+                "added": 1506896003,
+                "owned": 0,
+                "source": null
+            },
+            {
+                "type": "Groupees.com",
+                "platforms": [],
+                "status": "redeemed",
+                "price": null,
+                "currency": "EUR",
+                "note": null,
+                "added": 1511669037,
+                "owned": 1,
+                "source":
+                {
+                    "type": "s",
+                    "id": "steam"
+                }
+            }]
+        }
+    ]
+}
+```
+
+Notes:
+* Unused fields may be omitted or set to null
+* If you want to use `source` (determining where the user bought the copy), you should always set `type` to `s`
+
+### Custom Values
+
+Some of the fields may contain [custom values](https://isthereanydeal.com/settings/collection/lists/), not defined by ITAD by default.
+When custom value doesn't exist, it will be created for the user during import.
+Currently you can set custom value for game's status, copy's status,
+copy's type and copy's source.
+
+### Import Collection [POST]
+ 
++ Request
+
+    The body of the request will simulate form submission. It has to contain two fields: `file` and `upload`.
+    The content of `file` is `base64` encoded JSON string, the content of `upload` field is not important.
+
+    The URL for request is `https://isthereanydeal.com/collection/import/`
+
+    Example of minimal POST data from example:
+
+    + Body    
+        file=ew0KICAgICJ2ZXJzaW9uIjogIjAyIiwNCiAgICAiZGF0YSI6IFt7DQogICAgICAgICJ0aXRsZSI6ICJPeHlnZW4gTm90IEluY2x1ZGVkIiwNCiAgICAgICAgImNvcGllcyI6IFsNCiAgICAgICAgICAgIHsNCiAgICAgICAgICAgICAgICAidHlwZSI6ICJzdGVhbSINCiAgICAgICAgICAgIH0NCiAgICAgICAgXQ0KICAgIH1dDQp9&upload=Import+Collection
+
+
+
+
+
+
+
