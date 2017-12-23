@@ -1121,11 +1121,11 @@ Check whether user has a game in Waitlist. Response will be `yes` or `no`.
 ## Single Game [/v01/user/coll/{?access_token,plain,optional}]
 ```Version: v01 | Type: protected | Scope: coll_read```
 
-By supplying `plain` you can check if the game is in user's Collection. Response will be `yes` or `no`.
+Check whether user has the game in Collection. Response will be `yes` or `no`.
 
 You can supply `optional=stores` to get info about stores at which the user owns the game.
 List of stores will be added to output, each store having `id` and `title`, which are the same as stores ITAD is
-covering with addition of `other` and `retail`. 
+covering with addition of `other` and `retail`. If the `id` is numeric, it's the user's custom value.
 
 ### Check if user has game in Collection [GET]
 
@@ -1133,8 +1133,8 @@ covering with addition of `other` and `retail`.
     + access_token (required) - OAuth access token
     + plain: `dishonored` (required)
     + optional: `stores` (enum[string], optional) - Separate multiple values with comma
-            + Members
-                + `stores`
+        + Members
+            + `stores`
 
 + Response 200
 
@@ -1157,7 +1157,7 @@ covering with addition of `other` and `retail`.
 ## Full Collection [/v01/user/coll/all/{?access_token,optional}]
 ```Version: v01 | Type: protected | Scope: coll_read```
 
-Returns full Collection of user. Result is the list of collected games.
+Get user's Collection. Result is the list of collected games.
 
 > Requesting full Collection, saving it for some time and comparing games to the saved list is often prefered than doing
 Collection request for each game individually.
@@ -1170,8 +1170,8 @@ Same as in *Collection / Single Game* endpoint.
 + Parameters
     + access_token (required) - OAuth access token
     + optional: `stores` (enum[string], optional) - Separate multiple values with comma
-            + Members
-                + `stores`
+        + Members
+            + `stores`
 
 + Response 200
 
