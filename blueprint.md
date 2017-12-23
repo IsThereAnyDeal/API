@@ -1116,6 +1116,86 @@ Check whether user has a game in Waitlist. Response will be `yes` or `no`.
         
         {"data": {"in_waitlist": "no"}}
 
+## Import [/waitlist/import/]
+```Latest data version: 02 | Type: public | Does not use API server```
+
+It is possible to export Waitlist in a JSON format and then import it back to ITAD.
+You can use the same import process to let the user import data from a 3rd party source.
+User will be presented a form where he will be able to choose which games he wishes to import.
+
+To get a live example of the data you may [export your Waitlist](https://isthereanydeal.com/waitlist/#/page:export/waitlist),
+or check out examples.
+
+> **When using this method of import you will send POST requests directly to IsThereAnyDeal, not to the API**
+
+### JSON Format
+
+Supplied JSON has to contain two fields:
+ 
+* `version` Version string
+* `data` Array of objects
+
+Each object in `data` array has to contain `title`.
+
+#### Minimal Example
+
+```json
+{
+    "version": "02",
+    "data": [
+        {"title": "Oxygen Not Included"}
+    ]
+}
+```
+
+#### More Complete Example
+
+```json
+{
+    "version": "02",
+    "data": [
+        {
+            "plain": "oxygennotincluded",
+            "title": "Oxygen Not Included",
+            "cat":
+            {
+                "id": 13,
+                "title": "Christmas Wishlist"
+            },
+            "shop": null,
+            "price_limit": "7.99",
+            "cut_limit": 25,
+            "drm": ["steam", "drmfree"],
+            "added": 1505868698
+        }
+    ]
+}
+```
+
+Notes:
+* Unused fields may be omitted or set to null, for omitted fields user's default settings will be used
+
+### Waitlist Categories
+
+You may set [Waitlist Category](https://isthereanydeal.com/settings/waitlist/categories/) either by `id`, if you know it,
+or by `title` (or both).
+If the category is set, an attempt will be made to match it with an existing one, but if none is found and you set `title`,
+it will be created.
+
+### Import Waitlist [POST]
+ 
++ Request
+
+    The body of the request will simulate form submission. It has to contain two fields: `file` and `upload`.
+    The content of `file` is `base64` encoded JSON string, the content of `upload` field is not important.
+
+    The URL for request is `https://isthereanydeal.com/waitlist/import/`
+
+    Example of minimal POST data from example:
+
+    + Body    
+        file=ew0KICAgICJ2ZXJzaW9uIjogIjAyIiwNCiAgICAiZGF0YSI6IFsNCiAgICAgICAgeyJ0aXRsZSI6ICJPeHlnZW4gTm90IEluY2x1ZGVkIn0NCiAgICBdDQp9&upload=Import+Waitlist
+        
 # Group Collection
 
 ## Single Game [/v01/user/coll/{?access_token,plain,optional}]
@@ -1189,12 +1269,12 @@ Same as in *Collection / Single Game* endpoint.
             }
         }
 
-## Import Collection [/collection/import/]
+## Import [/collection/import/]
 ```Latest data version: 02 | Type: public | Does not use API server```
 
 It is possible to export Collection in a JSON format and then import it back to ITAD.
-You can use the same import process to let user import data from a 3rd party source.
-User will be presented a form where he will be able to choose which games he wish to import.
+You can use the same import process to let the user import data from a 3rd party source.
+User will be presented a form where he will be able to choose which games he wishes to import.
 
 To get a live example of the data you may [export your Collection](https://isthereanydeal.com/collection/#/page:export/collection),
 or check out examples.
