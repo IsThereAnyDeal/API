@@ -444,11 +444,13 @@ Its limitation is that it works only with IDs and one shop at once.
 
 ### Get plain [GET]
 
+Instead of `ids` parameter you may also send JSON array in a `POST` body.
+
 + Parameters
     
     + key (required)
     + shop: `steam` (required)
-    + ids: `app/377160,app/96100,sub/28187,sub/1245` (required) - List of IDs separated by comma, max 50
+    + ids: `app/377160,app/96100,sub/28187,sub/1245` (optional) - List of IDs separated by comma
 
 + Response 200
 
