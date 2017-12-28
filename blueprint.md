@@ -1103,7 +1103,7 @@ When successful, response will contain URL to published Special.
 
 # Group Waitlist
 
-## Single Game [/v01/user/wait/{?access_token,plain}]
+## Waitlist Check [/v01/user/wait/{?access_token,plain}]
 ```Version: v01 | Type: protected | Scope: wait_read```
 
 Check whether user has a game in Waitlist. Response will be `yes` or `no`.
@@ -1117,6 +1117,33 @@ Check whether user has a game in Waitlist. Response will be `yes` or `no`.
 + Response 200
         
         {"data": {"in_waitlist": "no"}}
+
+## Waitlist [/v01/user/wait/all/{?access_token}]
+```Version: v01 | Type: protected | Scope: wait_read```
+
+Get list of games that the user has in Waitlist.
+
+### Get user's Waitlist [GET]
+
++ Parameters
+    + access_token (required) - OAuth access token
+    
++ Response 200
+
+        {
+            "data": {
+                "falloutnewvegas": {
+                    "title": "Fallout: New Vegas"
+                },
+                "racesun": {
+                    "title": "Race the Sun"
+                },
+                "vessel": {
+                    "title": "Vessel"
+                }
+            }
+        }
+
 
 ## Import via Form [/waitlist/import/]
 ```Latest data version: 02 | Type: public | Does not use API server```
@@ -1199,7 +1226,7 @@ it will be created.
         
             file=ew0KICAgICJ2ZXJzaW9uIjogIjAyIiwNCiAgICAiZGF0YSI6IFsNCiAgICAgICAgeyJ0aXRsZSI6ICJPeHlnZW4gTm90IEluY2x1ZGVkIn0NCiAgICBdDQp9&upload=Import+Waitlist
         
-## Direct Import [/v01/waitlist/import/]
+## Direct Import [/v01/waitlist/import/{?access_token}]
 ```Version: v01 | Type: protected | Scope: wait_write```
 
 Alternative to import via form is to directly import data via API. This doesn't give user
@@ -1254,7 +1281,7 @@ as much control over the import but will be simpler. Use the flow that fits your
         
 # Group Collection
 
-## Single Game [/v01/user/coll/{?access_token,plain,optional}]
+## Collection Check [/v01/user/coll/{?access_token,plain,optional}]
 ```Version: v01 | Type: protected | Scope: coll_read```
 
 Check whether user has the game in Collection. Response will be `yes` or `no`.
@@ -1290,7 +1317,7 @@ covering with addition of `other` and `retail`. If the `id` is numeric, it's the
             }
         }
         
-## Full Collection [/v01/user/coll/all/{?access_token,optional}]
+## Collection [/v01/user/coll/all/{?access_token,optional}]
 ```Version: v01 | Type: protected | Scope: coll_read```
 
 Get user's Collection. Result is the list of collected games.
@@ -1301,7 +1328,7 @@ Collection request for each game individually.
 You can supply `optional=stores` to get info about stores at which the user owns the game.
 Same as in *Collection / Single Game* endpoint. 
 
-### Get full Collection [GET]
+### Get user's Collection [GET]
 
 + Parameters
     + access_token (required) - OAuth access token
@@ -1437,7 +1464,7 @@ copy's type and copy's source.
             file=ew0KICAgICJ2ZXJzaW9uIjogIjAyIiwNCiAgICAiZGF0YSI6IFt7DQogICAgICAgICJ0aXRsZSI6ICJPeHlnZW4gTm90IEluY2x1ZGVkIiwNCiAgICAgICAgImNvcGllcyI6IFsNCiAgICAgICAgICAgIHsNCiAgICAgICAgICAgICAgICAidHlwZSI6ICJzdGVhbSINCiAgICAgICAgICAgIH0NCiAgICAgICAgXQ0KICAgIH1dDQp9&upload=Import+Collection
 
 
-## Direct Import [/v01/collection/import/]
+## Direct Import [/v01/collection/import/{?access_token}]
 ```Version: v01 | Type: protected | Scope: coll_write wait_write```
 
 Alternative to import via form is to directly import data via API. This doesn't give user
