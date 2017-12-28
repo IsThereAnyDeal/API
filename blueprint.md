@@ -1500,3 +1500,30 @@ Default status:
 * `giveaway`
 * `trade`
 * empty string for unknown/not set
+
+## Link Profile [/v01/profile/link/{?access_token,url}]
+```Version: v01 | Type: protected | Scope: profile_link```
+
+If you don't want user to link profile manually, you can link it for him with this request.
+
+> Please note that profile description has to be publicly available anyway due to ability to refresh profile
+
+### Link Remote Profile [GET]
+
++ Parameters
+    + access_token (required) - OAuth access token
+    
++ Request 
+    + Body
+
+            url=https://example.com/isthereanydeal.profile.json?id=1234
+        
++ Response 200
+        
+        {
+            ".meta": {
+                "linked": true
+            }
+        }
+
+
