@@ -1195,8 +1195,9 @@ it will be created.
 
     Example of minimal POST data from example:
 
-    + Body    
-        file=ew0KICAgICJ2ZXJzaW9uIjogIjAyIiwNCiAgICAiZGF0YSI6IFsNCiAgICAgICAgeyJ0aXRsZSI6ICJPeHlnZW4gTm90IEluY2x1ZGVkIn0NCiAgICBdDQp9&upload=Import+Waitlist
+    + Body  
+        
+            file=ew0KICAgICJ2ZXJzaW9uIjogIjAyIiwNCiAgICAiZGF0YSI6IFsNCiAgICAgICAgeyJ0aXRsZSI6ICJPeHlnZW4gTm90IEluY2x1ZGVkIn0NCiAgICBdDQp9&upload=Import+Waitlist
         
 # Group Collection
 
@@ -1378,12 +1379,124 @@ copy's type and copy's source.
 
     Example of minimal POST data from example:
 
-    + Body    
-        file=ew0KICAgICJ2ZXJzaW9uIjogIjAyIiwNCiAgICAiZGF0YSI6IFt7DQogICAgICAgICJ0aXRsZSI6ICJPeHlnZW4gTm90IEluY2x1ZGVkIiwNCiAgICAgICAgImNvcGllcyI6IFsNCiAgICAgICAgICAgIHsNCiAgICAgICAgICAgICAgICAidHlwZSI6ICJzdGVhbSINCiAgICAgICAgICAgIH0NCiAgICAgICAgXQ0KICAgIH1dDQp9&upload=Import+Collection
+    + Body
+    
+            file=ew0KICAgICJ2ZXJzaW9uIjogIjAyIiwNCiAgICAiZGF0YSI6IFt7DQogICAgICAgICJ0aXRsZSI6ICJPeHlnZW4gTm90IEluY2x1ZGVkIiwNCiAgICAgICAgImNvcGllcyI6IFsNCiAgICAgICAgICAgIHsNCiAgICAgICAgICAgICAgICAidHlwZSI6ICJzdGVhbSINCiAgICAgICAgICAgIH0NCiAgICAgICAgXQ0KICAgIH1dDQp9&upload=Import+Collection
 
+# Group Custom Profiles
 
+IsThereAnyDeal supports linking [3rd party profiles](https://isthereanydeal.com/settings/profiles/) to provide
+a way to sync in remote wishlists and libraries into user's Waitlist and Collection.
+In addition to built-in support for covered stores any 3rd party can create custom profile by creating
+a publicly accessible profile description.
+User will then be able to link this profile by [adding URL](https://isthereanydeal.com/settings/profiles/) of profile
+description into IsThereAnyDeal. 
 
+## Profile Description
 
+Profile description has to be located at the publicly accessible URL ending with `/isthereanydeal.profile.json`,
+not including query string. For example `https://example.com/isthereanydeal.profile.json?id=1234` is a valid URL.
 
+The content is a JSON string with a following format:
 
+```json
+{
+  "profile": {
+    "id": "userid0123456789",
+    "name": "UserName",
+    "waitlist": {
+      "public": "https:\/\/example.com\/profile\/waitlist\/",
+      "source": "https:\/\/example.com\/profile\/waitlist.json"
+    },
+    "collection": {
+      "public": "https:\/\/example.com\/custom\/collection\/",
+      "source": "https:\/\/example.com\/custom\/collection.json"
+    }
+  }
+}
+```
 
+`id` and `name` fields are **required**. `id` is user's (or profile's) ID and once linked can't be changed.
+If `id` changes user will still be able to sync in from last known URLs but won't be able to refresh profile
+to update user name or data URLs.  
+
+`name` is user's name and serves for easier identification of the profile on IsThereAnyDeal.
+
+## Syncing Waitlist
+
+Waitlist sync is available if profile description contains `profile.waitlist.source` URL which links to export for Waitlist. 
+`profile.waitlist.public` field is optional and may contain publicly accessible URL of this profile.
+
+### Format
+
+Format of Waitlist sync file is very simple and only lists games' names:
+
+```json
+{
+  "version": "01",
+  "data": [
+    {"title": "DOOM"},
+    {"title": "Cuphead"},
+    {"title": "Turmoil"},
+    {"title": "Songbringer"},
+    {"title": "Immortal Redneck"},
+    {"title": "Wizard of Legend"},
+    {"title": "At Sundown"}
+  ]
+}
+``` 
+
+## Syncing Collection
+
+Collection sync is available if profile description contains `profile.collection.source` URL which links to export for Collection. 
+`profile.collection.public` field is optional and may contain publicly accessible URL of this profile.
+
+### Format
+
+Collection sync allows you to specify *status*, *playtime* and *platforms* of imported copies. `id`, `title` and `type` fields
+are **required**.
+
+`id` may contain any string and serves for identifying copy so we can track it in case there are multiple copies
+of same type. You should try to prevent `id` changes, since ITAD would remove the copy and add a new one.
+
+> Since Collection on IsThereAnyDeal determines games and their copies, sync is working with individual copies.
+> This means that you can import for example both "Steam" and "DRM Free" copy for a single game.
+
+```json
+{
+  "version": "01",
+  "collection": [
+    {
+      "id": "40701",
+      "title": "0RBITALIS",
+      "type": "steam",
+      "status": "redeemed",
+      "playtime": 0,
+      "platforms": ["windows", "mac", "linux"]
+    },
+    {
+      "id": "40702",
+      "title": "Oxygen Not Included",
+      "type": "Klei Account",
+      "status": "Custom Status",
+      "playtime": 900,
+      "platforms": ["windows", "mac", "linux"]
+    }
+  ]
+}
+``` 
+
+You can use custom values for `type` and `status` or use default ones already created by ITAD.
+
+Default type:
+* any store id
+* `drmfree`
+* `retail`
+* `other`
+
+Default status:
+* `redeemed`
+* `extra`
+* `giveaway`
+* `trade`
+* empty string for unknown/not set
