@@ -1118,7 +1118,7 @@ Check whether user has a game in Waitlist. Response will be `yes` or `no`.
         
         {"data": {"in_waitlist": "no"}}
 
-## Import [/waitlist/import/]
+## Import via Form [/waitlist/import/]
 ```Latest data version: 02 | Type: public | Does not use API server```
 
 It is possible to export Waitlist in a JSON format and then import it back to ITAD.
@@ -1184,7 +1184,7 @@ or by `title` (or both).
 If the category is set, an attempt will be made to match it with an existing one, but if none is found and you set `title`,
 it will be created.
 
-### Import Waitlist [POST]
+### Send user to Waitlist import form [POST]
  
 + Request
 
@@ -1198,6 +1198,59 @@ it will be created.
     + Body  
         
             file=ew0KICAgICJ2ZXJzaW9uIjogIjAyIiwNCiAgICAiZGF0YSI6IFsNCiAgICAgICAgeyJ0aXRsZSI6ICJPeHlnZW4gTm90IEluY2x1ZGVkIn0NCiAgICBdDQp9&upload=Import+Waitlist
+        
+## Direct Import [/v01/waitlist/import/]
+```Version: v01 | Type: protected | Scope: wait_write```
+
+Alternative to import via form is to directly import data via API. This doesn't give user
+as much control over the import but will be simpler. Use the flow that fits your app the best.
+
+### Import Waitlist [POST]
+
++ Parameters
+
+    + access_token (required) - OAuth access token
+
++ Request
+
+    Data format for import is exactly the same as for import via Form,
+    **the only difference is that body of the request is JSON string that is NOT `base64` encoded**.
+    
+    + Body
+           
+        {
+            "version": "02",
+            "data": [
+                {
+                    "plain": "oxygennotincluded",
+                    "title": "Oxygen Not Included",
+                    "cat":
+                    {
+                        "id": 13,
+                        "title": "Christmas Wishlist"
+                    },
+                    "shop": null,
+                    "price_limit": "7.99",
+                    "cut_limit": 25,
+                    "drm": ["steam", "drmfree"],
+                    "added": 1505868698
+                }
+            ]
+        }
+        
++ Response 200
+
+    Response will contain number of games that were added in `.meta` field.
+    It is possible for request to be successful and still import 0 games,
+    because games that are already in Waitlist are ignored during import  
+
+    + Body
+    
+        {
+            ".meta": {
+                "games": 1
+            }
+        }
         
 # Group Collection
 
@@ -1272,7 +1325,7 @@ Same as in *Collection / Single Game* endpoint.
             }
         }
 
-## Import [/collection/import/]
+## Import via Form [/collection/import/]
 ```Latest data version: 02 | Type: public | Does not use API server```
 
 It is possible to export Collection in a JSON format and then import it back to ITAD.
@@ -1368,7 +1421,7 @@ When custom value doesn't exist, it will be created for the user during import.
 Currently you can set custom value for game's status, copy's status,
 copy's type and copy's source.
 
-### Import Collection [POST]
+### Send user to Collection import form [POST]
  
 + Request
 
@@ -1382,6 +1435,85 @@ copy's type and copy's source.
     + Body
     
             file=ew0KICAgICJ2ZXJzaW9uIjogIjAyIiwNCiAgICAiZGF0YSI6IFt7DQogICAgICAgICJ0aXRsZSI6ICJPeHlnZW4gTm90IEluY2x1ZGVkIiwNCiAgICAgICAgImNvcGllcyI6IFsNCiAgICAgICAgICAgIHsNCiAgICAgICAgICAgICAgICAidHlwZSI6ICJzdGVhbSINCiAgICAgICAgICAgIH0NCiAgICAgICAgXQ0KICAgIH1dDQp9&upload=Import+Collection
+
+
+## Direct Import [/v01/collection/import/]
+```Version: v01 | Type: protected | Scope: coll_write wait_write```
+
+Alternative to import via form is to directly import data via API. This doesn't give user
+as much control over the import but will be simpler. Use the flow that fits your app the best.
+
+> Please note that this endpoint requires `wait_write` scope. This is because user may
+> have turned on option to remove games from their Waitlist when it is added to Collection 
+
+### Import Collection [POST]
+
++ Parameters
+
+    + access_token (required) - OAuth access token
+
++ Request
+
+    Data format for import is exactly the same as for import via Form,
+    **the only difference is that body of the request is JSON string that is NOT `base64` encoded**.
+    
+    + Body
+           
+            {
+                "version": "02",
+                "data": [
+                    {
+                        "plain": "0rbitalis",
+                        "title": "0RBITALIS",
+                        "group": null,
+                        "note": null,
+                        "status": "notplayed",
+                        "user_tags": [],
+                        "playtime": 0,
+                        "copies": [
+                        {
+                            "type": "steam",
+                            "platforms": ["windows", "mac"],
+                            "status": "redeemed",
+                            "price": null,
+                            "currency": "EUR",
+                            "note": null,
+                            "added": 1506896003,
+                            "owned": 0,
+                            "source": null
+                        },
+                        {
+                            "type": "Groupees.com",
+                            "platforms": [],
+                            "status": "redeemed",
+                            "price": null,
+                            "currency": "EUR",
+                            "note": null,
+                            "added": 1511669037,
+                            "owned": 1,
+                            "source":
+                            {
+                                "type": "s",
+                                "id": "steam"
+                            }
+                        }]
+                    }
+                ]
+            }
+        
++ Response 200
+
+    Response will contain number of *copies* that were added in `.meta` field.
+    It is possible for request to be successful and still import 0 copies.
+    If copy of the same type already exists in user's Collection it is ignored during import
+
+    + Body
+    
+            {
+                ".meta": {
+                    "copies": 2
+                }
+            }
 
 # Group Custom Profiles
 
