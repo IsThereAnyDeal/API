@@ -1685,4 +1685,49 @@ If you don't want user to link profile manually, you can link it for him with th
             }
         }
 
+# Group Stats
 
+## Waitlist Price Limits [/v01/stats/waitlist/price/{?key,plain,scale,bucket,region,currency}]
+```Version: v01 | Type: private (request access)```
+
+Get statistical info about Waitlist notification price limits for specific game, including:
+* total number of occurences in Waitlists (if user has a game in different categories, all instances are used)
+* number of occurences where user did not specify price limit 
+* average notification limit
+* notification limit at specified percentiles
+* number of occurences divided into price buckets
+ 
+### Get Waitlist Price Limit Stats [GET]
+
++ Parameters
+    + key (required) - API key
+    + plain (required)
+    + scale: 25 (int, optional) - Scale determining what percentiles will be computed. Only values that divide 100 are valid. 
+    + bucket: 5 (int, optional) - Size of price buckets,
+    + region (optional) - If supplied, only Waitlists for this region will be used
+    + currency (optional) - If supplied, all prices will be converted into this currency.
+                            If not, and region is used, the region currency will be used.
+                            Otherwise prices will be shown in USD.
+    
++ Response 200
+        
+        {
+            ".meta": {
+                "currency": "USD"
+            },
+            "data": {
+                "count": 3,
+                "anyprice": 2,
+                "average": 23.88,
+                "percentiles": {
+                    "0": 23.88,
+                    "25": 23.88,
+                    "50": 23.88,
+                    "75": 23.88,
+                    "100": 23.88
+                },
+                "buckets": {
+                    "20": 1
+                }
+            }
+        }
