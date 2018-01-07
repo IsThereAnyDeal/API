@@ -7,11 +7,6 @@ This API provides programatic access to features found on [IsThereAnyDeal](https
 
 > In this API we will be refering to all apps, browser extensions or any other software as an *app*.
 
-# Latest changes
-
-* **2017-12-16** Added source for these docs to [GitHub](https://github.com/tfedor/IsThereAnyDealApiDocs)
-* **2016-03-20** Several new endpoints: game/plain/id, game/prices, game/lowest, game/bundles, game/info, deals/list, added [mailing list](https://isthereanydeal.com/dev/mailing-list/)  
-
 # Documentation source
 
 You can find source file for this documentation over at [GitHub](https://github.com/tfedor/IsThereAnyDealApiDocs).
