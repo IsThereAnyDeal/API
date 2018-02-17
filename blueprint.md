@@ -459,7 +459,7 @@ Instead of `ids` parameter you may also send JSON array in a `POST` body.
         }
         
 
-## Prices [/v01/game/prices/{?key,plains,region,country}]
+## Prices [/v01/game/prices/{?key,plains,region,country,shops,exclude,added}]
 ```Version: v01 | Type: protected ```
 
 Get all current prices for one or more selected games. Use `region` and `country` to get more accurate results.
@@ -473,6 +473,9 @@ Get all current prices for one or more selected games. Use `region` and `country
     + plains: `endorlight,storyofsurvivor` (required)
     + region: `eu2` (optional)
     + country: `SK` (optional)
+    + shops: `steam,indiegamestand,amazonus` (optional) - list of store ids to include in results, separated by comma
+    + exclude: `voidu,itchio` (optional) - list of store ids to exclude from results, separated by comma
+    + added: 0 (optional) - timestamp, only get prices added since this time
 
 + Response 200
         
@@ -565,7 +568,7 @@ Get all current prices for one or more selected games. Use `region` and `country
         }
 
 
-## Historical low [/v01/game/lowest/{?key,plains,region,country}]
+## Historical low [/v01/game/lowest/{?key,plains,region,country,shops,exclude,since}]
 ```Version: v01 | Type: protected ```
 
 Get historically lowest price for one or more games.
@@ -577,6 +580,9 @@ Get historically lowest price for one or more games.
     + plains: `europauniversalisiv,falloutiv` (required) - List of plains separated by comma
     + region: `eu2` (optional)
     + country: `SK` (optional)
+    + shops: `nuuvem,funstock,steam` (optional) - list of store ids to include in results, separated by comma
+    + exclude: `amazonus,fanatical` (optional) - list of store ids to exclude from results, separated by comma
+    + since: 0 (optional) - timestamp, only get history records starting by this time
     
 + Response 200
         
