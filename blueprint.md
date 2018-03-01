@@ -582,7 +582,9 @@ Get historically lowest price for one or more games.
     + country: `SK` (optional)
     + shops: `nuuvem,funstock,steam` (optional) - list of store ids to include in results, separated by comma
     + exclude: `amazonus,fanatical` (optional) - list of store ids to exclude from results, separated by comma
-    + since: 0 (optional) - timestamp, only get history records starting by this time
+    + since: `0` (optional, unsigned) - timestamp, only get history records since this timestamp
+    + until (optional, unsigned) - timestamp, only get history records until this timestamp
+    + new: `1`|`0` (optional) - if true (`1`), only get deals that started after specified `since`
     
 + Response 200
         
