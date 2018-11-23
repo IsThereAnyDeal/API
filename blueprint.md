@@ -457,6 +457,61 @@ Instead of `ids` parameter you may also send JSON array in a `POST` body.
                 "sub\/1245": null
             }
         }
+
+## Get all plains [/v01/game/plain/list/{?key,shops}]
+```Version: v01 | Type: protected```
+
+Get list of all `plain`s currently known by ITAD.
+You can uses `shops` parameter to restrict list to one or more shops.
+
+> Result might be quite large, please do cache the list on your end
+
+### Get all plains [GET]
+
++ Parameters
+    
+    + key (required)
+    + shops: `discord` (required) List of shop IDs separated by comma
+
++ Response 200
+
+        {
+            "data":
+            {
+                "discord":
+                {
+                    "451550535720501248": "deadcells",
+                    "466696214818193408": "pillarsofeternityiideadfire",
+                    "469679019701567528": "omensight",
+                    "471033395590201365": "spellforceiii",
+                    "471033751535616000": "starbound",
+                    "471376328319303681": "intobreach",
+                    "471501020006973451": "moonlighter",
+                    "471501184939851806": "frostpunk",
+                    "472483394085715979": "bannersagaiii",
+                    "474762737331732495": "hollowknight",
+                    "474762950108905472": "thisispoliceii",
+                    "486981988109254667": "kingofhat",
+                    "487031053454802946": "atsundown",
+                    "487272772393762826": "madmachines",
+                    "488422292137836574": "badnorth",
+                    "488607666231443456": "minionmasters",
+                    "488811098242547739": "battlechasersnightwar",
+                    "489184797936058380": "sinnersacrificeforredemption",
+                    "489420695454089217": "descenders",
+                    "489926636943441932": "subnautica",
+                    "492418279717994505": "mastersofanima",
+                    "494870847777931268": "forsakenremastered",
+                    "498690780836134912": "crosscode",
+                    "500428425362931713": "celeste",
+                    "503982482664849408": "callofcthulhu",
+                    "508008071411400724": "parkasaurus",
+                    "508057374875975682": "visage",
+                    "510199020782747732": "kynseed"
+                }
+            }
+        }
+        
         
 
 ## Prices [/v01/game/prices/{?key,plains,region,country,shops,exclude,added}]
@@ -758,7 +813,7 @@ url in `urls` field. If Metacritic info is not available, it will be `null`.
 
 # Group Deals
 
-## Recent Deals [/v01/deals/list/{?key,offset,limit,region,country}]
+## Recent Deals [/v01/deals/list/{?key,offset,limit,region,country,shops}]
 ```Version: v01 | Type: protected ```
 
 Provides list of deals sorted from newest to oldest.
