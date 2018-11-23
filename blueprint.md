@@ -773,6 +773,7 @@ Provides list of deals sorted from newest to oldest.
     + limit: 20 (optional)
     + region: `eu2` (optional)
     + country: `CZ` (optional)
+    + shops: `steam,gog` (optional) List of store ids separated by comma
 
 + Response 200
         
