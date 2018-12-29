@@ -811,6 +811,172 @@ url in `urls` field. If Metacritic info is not available, it will be `null`.
         }
 
 
+## Overview [/v01/game/overview/{?key,region,country,plains,shop,ids,allowed,optional}]
+```Version: v01 | Type: protected ```
+
+Originally made for Enhanced Steam addon, this endpoint returns basic information about game's prices:
+best current price, historical lowest price, and bundles in which the game is included.
+
+You can use `region` and/or `country` to specify country, restrict stores with `allowed` parameter, and optionally
+request prices in local currency or with vouchers applied.
+
+To request games, you can use either `plains` or `shop`/`ids`, where you specify store for which you will supply store
+specific ids - this will be most commonly used for steam.
+
+### Get game price overview [GET]
+
++ Parameters
+    + key (required) - Your API key
+    + region: `us` (string, optional)
+    + country: `US` (string, optional)
+    + plains (string, optional) - List of plains, separated by commas
+    + shop: `steam` (string, optional)
+    + ids: `app/460930,sub/37125,bundle/7078` (string, optional)
+    + allowed: `steam,gog` (string, optional) - List of allowed stores, separated by commas
+    + optional (enum[string], optional) - Separate multiple values with comma
+        + Members
+            + `voucher`
+            + `local`
+
++ Response 200
+        
+        {
+          ".meta": {
+            "region": "us",
+            "country": "US",
+            "currency": "USD"
+          },
+          "data": {
+            "app/460930": {
+              "price": {
+                "store": "Steam",
+                "cut": 65,
+                "price": 17.49,
+                "price_formatted": "$17.49",
+                "url": "https://store.steampowered.com/app/460930/",
+                "drm": [
+                  "Denuvo Anti-tamper",
+                  "steam",
+                  "Other DRM",
+                  "uplay"
+                ]
+              },
+              "lowest": {
+                "store": "Steam",
+                "cut": 65,
+                "price": 17.49,
+                "price_formatted": "$17.49",
+                "url": "https://store.steampowered.com/app/460930/",
+                "recorded": 1544469391,
+                "recorded_formatted": "18 days ago"
+              },
+              "bundles": {
+                "count": 0,
+                "live": []
+              },
+              "urls": {
+                "info": "https://isthereanydeal.com/game/tomclancysghostreconwildlands/info/",
+                "history": "https://isthereanydeal.com/game/tomclancysghostreconwildlands/history/",
+                "bundles": "https://isthereanydeal.com/specials/#/filter:search/tomclancysghostreconwildlands"
+              }
+            },
+            "sub/37125": {
+              "price": {
+                "store": "Steam",
+                "cut": 80,
+                "price": 1.99,
+                "price_formatted": "$1.99",
+                "url": "https://store.steampowered.com/app/222880/",
+                "drm": [
+                  "steam"
+                ]
+              },
+              "lowest": null,
+              "bundles": {
+                "count": 11,
+                "live": [
+                  {
+                    "title": "Batman: Arkham Asylum Game of the Year Edition",
+                    "url": "https://www.greenmangaming.com/mix-n-match/",
+                    "expiry": null,
+                    "expiry_rfc": null,
+                    "type": "bundle",
+                    "page": "GreenMan Gaming",
+                    "details": "https://isthereanydeal.com/specials/#/options:pending;/filter:id/6747",
+                    "tiers": [
+                      {
+                        "price": 5,
+                        "price_formatted": "$5.00",
+                        "fixed": 1,
+                        "note": "",
+                        "games": [
+                          "Batman: Arkham Asylum Game of the Year Edition",
+                          "Mount & Blade: Warband",
+                          "Super Cloudbuilt ",
+                          "F.E.A.R. 3",
+                          "Magicka",
+                          "Adrift",
+                          "Dead Age",
+                          "RAGE",
+                          "War Tech Fighters",
+                          "Killing Floor Complete Pack",
+                          "The Black Death",
+                          "Peregrin",
+                          "Toybox Turbos",
+                          "InnerSpace",
+                          "Beat Cop",
+                          "Mount & Blade: With Fire & Sword",
+                          "This War of Mine",
+                          "Frozen Synapse Prime",
+                          "Mount & Blade",
+                          "Ballistic Overkill",
+                          "Stable Orbit",
+                          "Fahrenheit: Indigo Prophecy Remastered",
+                          "LEGO® Batman: The Videogame",
+                          "Crusader Kings II",
+                          "Quarantine",
+                          "Warhammer: End Times - Vermintide",
+                          "INSURGENCY",
+                          "Beyond Eyes",
+                          "Next Up Hero",
+                          "Tower 57",
+                          "Injustice: Gods Among Us - Ultimate Edition"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              "urls": {
+                "info": "https://isthereanydeal.com/game/insurgency/info/",
+                "history": "https://isthereanydeal.com/game/insurgency/history/",
+                "bundles": "https://isthereanydeal.com/specials/#/filter:search/insurgency"
+              }
+            },
+            "bundle/7078": {
+              "price": {
+                "store": "Steam",
+                "cut": 87,
+                "price": 12.58,
+                "price_formatted": "$12.58",
+                "url": "https://store.steampowered.com/bundle/7078/",
+                "drm": []
+              },
+              "lowest": null,
+              "bundles": {
+                "count": 0,
+                "live": []
+              },
+              "urls": {
+                "info": "https://isthereanydeal.com/game/gamenesissuperpack/info/",
+                "history": "https://isthereanydeal.com/game/gamenesissuperpack/history/",
+                "bundles": "https://isthereanydeal.com/specials/#/filter:search/gamenesissuperpack"
+              }
+            }
+          }
+        }
+
+
 # Group Deals
 
 ## Recent Deals [/v01/deals/list/{?key,offset,limit,region,country,shops}]
