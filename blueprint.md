@@ -259,6 +259,32 @@ There are 2 types of tokens:
                 "token_type": "Bearer"
             }
 
+# Group User
+
+## User Info [/v01/user/info?access_token={access_token}]
+```Version: v01 | Type: protected | Scope: user_info```
+
+Get public info of authenticated user.
+
+### Get user info [GET]
+
+
++ Parameters
+    
+    + access_token (string) - Access token received after OAuth authentication
+    
+    
++ Response 200
+
+        {
+            "data":
+            {
+                "username": "tomas3333"
+            }
+        }
+
+
+
 # Group Web
 
 ## Regions [/v01/web/regions/]
