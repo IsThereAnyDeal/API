@@ -1654,8 +1654,120 @@ covering with addition of `other` and `retail`. If the `id` is numeric, it's the
             }
         }
         
-## Collection [/v01/user/coll/all/{?access_token,optional}]
+        
+## Collection v02 [/v02/user/coll/all/{?access_token,shop,short,optional}]
+```Version: v02 | Type: protected | Scope: coll_read```
+
+Get complete user's Collection.
+
+> Requesting full Collection, saving it for some time and comparing games to the saved list is often prefered than doing
+Collection request for each game individually.
+
+This endpoint has no formal required parameter, but you must list at least one of `plain`, `title`, `gameid` in parameter `optional`.
+If you use `gameid`, you also need to specify `shop` (an ITAD shop ID), which will return games in user's Collection with
+game ID at specificied store. 
+
+You can also supply `copy_type` to get list of copy types that user owns - e.g. Steam copy, GOG copy etc.
+Copy types will be returned as list of IDs and `typemap` will be included in a result, as a map of id to name.
+
+If you only require one identifying parameter (`plain`, `title`, `gameid`) and do not require `copy_type`,
+the result will be simple list, instead of list of objects. You can force list of objects with `short=0`.
+
+### Get user's Collection [GET]
+
++ Parameters
+    + access_token (required) - OAuth access token
+    + shop (optional) - Used in conjunction with `optional=gameid` to specify which IDs should be returned 
+    + short: `1` (optional) - Force result to be a list of objects
+    + optional: `plain,title,copy_type` (enum[string], optional) - Separate multiple values with comma
+        + Members
+            + `plain`
+            + `title`
+            + `gameid`
+            + `copy_type`
+
++ Request
+
++ Response 200
+
+        {
+          "data": {
+            "games": [
+              {
+                "plain": "thatbastardistryingtostealourgold",
+                "title": "! That Bastard Is Trying To Steal Our Gold !"
+              },
+              {
+                "plain": "iii0viiixblockactionrpg",
+                "title": "3079 -- Block Action RPG"
+              },
+              {
+                "plain": "aiwarfleetcommand",
+                "title": "AI War: Fleet Command"
+              }
+            ]
+          }
+        }
+
+
++ Request
+
++ Response 200
+
+        {
+          "data": {
+            "games": [
+              "app\/449940",
+              "app\/259620",
+              "app\/40400",
+              "app\/3730",
+            ]
+          }
+        }
+        
++ Request
+
++ Response 200
+
+        {
+          "data": {
+            "games": [
+              {
+                "gameid": "app\/952950",
+                "types": [
+                  "steam"
+                ]
+              },
+              {
+                "gameid": "app\/278440",
+                "types": [
+                  "steam"
+                ]
+              },
+              {
+                "gameid": "app\/15560",
+                "types": [
+                  "steam"
+                ]
+              }
+              ...
+            ],
+            "typemap": {
+              "steam": "Steam",
+              "gog": "GOG",
+              "bundlestars": "Bundle Stars",
+              "other": "Other",
+              "11": "Klei Account",
+              "macgamestore": "MacGameStore"
+            }
+          }
+        }
+
+        
+## Collection v01 [/v01/user/coll/all/{?access_token,optional}]
 ```Version: v01 | Type: protected | Scope: coll_read```
+
+> **This endpoint is deprecated, please use `v02`**
 
 Get user's Collection. Result is the list of collected games.
 
