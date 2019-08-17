@@ -1499,7 +1499,7 @@ Supplied JSON has to contain two fields:
 * `version` Version string
 * `data` Array of objects
 
-Each object in `data` array has to contain `title`.
+Each object in `data` array has to contain one of: `title`, `plain`, or `gameid` (a [shop, id] pair).
 
 #### Minimal Example
 
@@ -1507,7 +1507,9 @@ Each object in `data` array has to contain `title`.
 {
     "version": "02",
     "data": [
-        {"title": "Oxygen Not Included"}
+            {"gameid": ["steam", "app/440"]},
+            {"title": "Oxygen Not Included"},
+            {"plain": "leftivdead"}
     ]
 }
 ```
@@ -1706,7 +1708,7 @@ Supplied JSON has to contain two fields:
 * `version` Version string
 * `data` Array of objects
 
-Each object in `data` array has to contain `title` and `copies` array, while each copy has at the very least contain `type`.
+Each object in `data` array has to contain identifier (one of: `title`, `plain`, or `gameid` (a [shop, id] pair)) and `copies` array, while each copy has at the very least contain `type`.
 Type may be ID of store or any string which will create [custom value](https://isthereanydeal.com/settings/collection/lists/)
 if it doesn't yet exist.
 
@@ -1715,14 +1717,11 @@ if it doesn't yet exist.
 ```json
 {
     "version": "02",
-    "data": [{
-        "title": "Oxygen Not Included",
-        "copies": [
-            {
-                "type": "steam"
-            }
-        ]
-    }]
+    "data": [
+      {"gameid": ["steam", "app/440"], "copies": [{"type": "steam"}]},
+      {"title": "Oxygen Not Included", "copies": [{"type": "steam"}]},
+      {"plain": "leftivdead", "copies": [{"type": "steam"}]}
+    ]
 }
 ```
 
