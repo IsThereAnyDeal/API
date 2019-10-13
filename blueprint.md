@@ -704,6 +704,52 @@ Get historically lowest price for one or more games.
         }
 
 
+## Store low [/v01/game/storelow/{?key,plains,region,country,shops,exclude}]
+```Version: v01 | Type: protected ```
+
+Get historically lowest price for one or more games at individual stores. Max 5 games at once.
+
+### Get store low [GET]
+
++ Parameters
+    + key (required) - Your API key
+    + plains: `europauniversalisiv,falloutiv` (required) - List of plains separated by comma
+    + region: `eu2` (optional)
+    + country: `SK` (optional)
+    + shops: `gog,greenmangaming,steam` (optional) - list of store ids to include in results, separated by comma
+    + exclude: `amazonus,fanatical` (optional) - list of store ids to exclude from results, separated by comma
+    
++ Response 200
+        
+       {
+         ".meta": {
+           "currency": "EUR"
+         },
+         "data": {
+           "europauniversalisiv": [
+             {
+               "shop": "greenmangaming",
+               "price": 7.99
+             },
+             {
+               "shop": "steam",
+               "price": 7.99
+             }
+           ],
+           "falloutiv": [
+             {
+               "shop": "greenmangaming",
+               "price": 11.28
+             },
+             {
+               "shop": "steam",
+               "price": 7.49
+             }
+           ]
+         }
+       }
+
+
 ## Bundles [/v01/game/bundles/{?key,plains,limit,expired,sort,region}]
 ```Version: v01 | Type: protected ```
 
@@ -1089,10 +1135,10 @@ Finds games based on title, with their best current price.
 
 # Group Deals
 
-## Recent Deals [/v01/deals/list/{?key,offset,limit,region,country,shops}]
+## Deals List [/v01/deals/list/{?key,offset,limit,region,country,shops}]
 ```Version: v01 | Type: protected ```
 
-Provides list of deals sorted from newest to oldest.
+Provides list of deals.
 
 > Use region and country parameters to get more accurate listing
 
@@ -1104,7 +1150,9 @@ Provides list of deals sorted from newest to oldest.
     + limit: 20 (optional)
     + region: `eu2` (optional)
     + country: `CZ` (optional)
-    + shops: `steam,gog` (optional) List of store ids separated by comma
+    + shops: `steam,gog` (optional) - List of store ids separated by comma
+    + sort: `price:asc` (optional) - Sort parameter, key and direction, separated by colon.
+                                     Possible keys are: `time` (default), `price`, `cut`, `expiry`
 
 + Response 200
         
@@ -1122,6 +1170,7 @@ Provides list of deals sorted from newest to oldest.
                         "price_old": 17.74,
                         "price_cut": 55,
                         "added": 1458442019,
+                        "expiry": 1571068800,
                         "shop": {
                             "id": "amazonus",
                             "name": "Amazon"
@@ -1141,6 +1190,7 @@ Provides list of deals sorted from newest to oldest.
                         "price_old": 59.99,
                         "price_cut": 5,
                         "added": 1458441819,
+                        "expiry": 0,
                         "shop": {
                             "id": "dlgamer",
                             "name": "DLGamer"
