@@ -1503,7 +1503,7 @@ Check whether user has a game in Waitlist. Response will be `yes` or `no`.
         
         {"data": {"in_waitlist": "no"}}
 
-## Waitlist [/v01/user/wait/all/{?access_token}]
+## Waitlist [/v01/user/wait/all/{?access_token,shop,optional}]
 ```Version: v01 | Type: protected | Scope: wait_read```
 
 Get list of games that the user has in Waitlist.
@@ -1512,6 +1512,11 @@ Get list of games that the user has in Waitlist.
 
 + Parameters
     + access_token (required) - OAuth access token
+    + shop (optional) - Only used with optional `gameid`  
+    + optional:
+        + Members:
+            + `title` - default if no optional is specified
+            + `gameid`
     
 + Response 200
 
