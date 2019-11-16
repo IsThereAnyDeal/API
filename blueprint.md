@@ -1679,7 +1679,7 @@ as much control over the import but will be simpler. Use the flow that fits your
 
 Delete game from user's Waitlist (from all categories!)
 
-### Check if user has game in Waitlist [DELETE]
+### Delete game from user's Waitlist [DELETE]
 
 + Parameters
     + access_token (required) - OAuth access token
