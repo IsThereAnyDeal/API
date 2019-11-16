@@ -1666,6 +1666,29 @@ as much control over the import but will be simpler. Use the flow that fits your
             }
         }
         
+        
+
+
+## Waitlist Remove [/v01/user/wait/remove/{?access_token,plain}]
+```Version: v01 | Type: protected | Scope: wait_write```
+
+Delete game from user's Waitlist (from all categories!)
+
+### Check if user has game in Waitlist [DELETE]
+
++ Parameters
+    + access_token (required) - OAuth access token
+    + plain: `dishonored` (required)
+        
++ Response 200
+        
+        {
+          "data": {
+            "response": "success"
+          }
+        }
+
+        
 # Group Collection
 
 ## Collection Check [/v01/user/coll/{?access_token,plain,optional}]
