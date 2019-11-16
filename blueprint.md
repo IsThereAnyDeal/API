@@ -1503,7 +1503,7 @@ Check whether user has a game in Waitlist. Response will be `yes` or `no`.
         
         {"data": {"in_waitlist": "no"}}
 
-## Waitlist [/v01/user/wait/all/{?access_token}]
+## Waitlist [/v01/user/wait/all/{?access_token,shop,optional}]
 ```Version: v01 | Type: protected | Scope: wait_read```
 
 Get list of games that the user has in Waitlist.
@@ -1512,6 +1512,11 @@ Get list of games that the user has in Waitlist.
 
 + Parameters
     + access_token (required) - OAuth access token
+    + shop (optional) - Only used with optional `gameid`  
+    + optional:
+        + Members:
+            + `title` - default if no optional is specified
+            + `gameid`
     
 + Response 200
 
@@ -1665,6 +1670,29 @@ as much control over the import but will be simpler. Use the flow that fits your
                 "games": 1
             }
         }
+        
+        
+
+
+## Waitlist Remove [/v01/user/wait/remove/{?access_token,plain}]
+```Version: v01 | Type: protected | Scope: wait_write```
+
+Delete game from user's Waitlist (from all categories!)
+
+### Check if user has game in Waitlist [DELETE]
+
++ Parameters
+    + access_token (required) - OAuth access token
+    + plain: `dishonored` (required)
+        
++ Response 200
+        
+        {
+          "data": {
+            "response": "success"
+          }
+        }
+
         
 # Group Collection
 
