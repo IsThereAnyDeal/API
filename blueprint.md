@@ -1512,11 +1512,12 @@ Get list of games that the user has in Waitlist.
 
 + Parameters
     + access_token (required) - OAuth access token
-    + shop (optional) - Only used with optional `gameid`  
-    + optional:
+    + shop (optional) - Only used with optional `gameid`
+    + optional (enum[string], optional)
         + Members:
             + `title` - default if no optional is specified
             + `gameid`
+    
     
 + Response 200
 
