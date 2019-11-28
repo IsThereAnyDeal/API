@@ -1674,23 +1674,31 @@ as much control over the import but will be simpler. Use the flow that fits your
         
 
 
-## Waitlist Remove [/v01/user/wait/remove/{?access_token,plain}]
-```Version: v01 | Type: protected | Scope: wait_write```
+## Waitlist Remove [/v02/user/wait/remove/{?access_token,plain}]
+```Version: v02 | Type: protected | Scope: wait_write```
 
-Delete game from user's Waitlist (from all categories!)
+Delete games from user's Waitlist (from all categories!).
+You can either use list of plains, or ids from specific store.
 
-### Delete game from user's Waitlist [DELETE]
+### Delete games from user's Waitlist [DELETE]
 
 + Parameters
     + access_token (required) - OAuth access token
-    + plain: `dishonored` (required)
+    + plains (string, optional) - List of plains, separated by commas
+    + shop: `steam` (string, optional)
+    + ids: `app/440,bundle/7078` (string, optional)
+    
         
 + Response 200
         
-        {
-          "data": {
-            "response": "success"
-          }
+        { 
+            "data": {
+                "response": "success",
+                "plains": {
+                    "app\/440": "teamfortressii",
+                    "bundle\/7078": "gamenesissuperpack"
+                }
+            }
         }
 
         
