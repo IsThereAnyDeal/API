@@ -538,7 +538,57 @@ You can uses `shops` parameter to restrict list to one or more shops.
             }
         }
         
+
+
+## Get id/plain map [/v01/game/map/{?key,shop}]
+```Version: v01 | Type: protected```
+
+Get map of `plain -> shop id` or `shop id -> plain` for a selected store.
+
+> Result might be quite large, please do cache the list on your end
+
+### Get map [GET]
+
++ Parameters
+    
+    + key (required)
+    + shop: `steam` (required) Shop ID
+    + type (enum[string],optional)
         
+            + Values
+                + `plain:id`
+                + `id:plain`
+
++ Response 200
+
+        {
+            "data": {
+                "app\/1064990": [
+                    "thunderpaw"
+                ],
+                "app\/1081000": [
+                    "trovesweetsixteenpack"
+                ],
+                "app\/1256": [
+                    "killingflooroutbreakcharacterpack"
+                ],
+                "app\/202970": [
+                    "callofdutyblackopsii"
+                ],
+                "app\/204306": [
+                    "awesomenautsofficerlonestar"
+                ],
+                "app\/208541": [
+                    "dungeondefendersseriesevherodlc"
+                ],
+                "app\/208670": [
+                    "bladesoftime"
+                ],
+            
+                ...    
+            }
+        }
+       
 
 ## Prices [/v01/game/prices/{?key,plains,region,country,shops,exclude,added}]
 ```Version: v01 | Type: protected ```
