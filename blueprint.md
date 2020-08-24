@@ -30,13 +30,29 @@ All data are provided *as-is*. We reserve the right to deny you access to the AP
 * General API contact: [api@isthereanydeal.com](mailto:api@isthereanydeal.com)
 * Bug reports: [issue tracker](https://bitbucket.org/tfedor/isthereanydeal.com/issues)
 
-# Following changes
-
-You can join developer's [mailing list](https://isthereanydeal.com/dev/mailing-list/), which will be used to occassionally notify you about latest changes in the API.
-
 # Endpoints
 
 All regular API endpoints will list current version, type and scope, if endpoint requires it.
+
+## How to get keys
+
+1. [Register your app](https://isthereanydeal.com/dev/app/)
+2. Upon registration you will be able to manage your OAuth credentials and API keys.
+
+> Both API keys and OAuth credentials uniquely identify your app
+ 
+## Access levels
+
+There are three levels of API endpoints that we provide:
+
+* *public* - unrestricted access without any prerequisites
+* *protected* - access is restricted by use of *API key* or *OAuth token*, depending on whether the API manipulates or reads user's data
+* *private* - explicit permission is required, [contact us](#introduction/contact)
+
+Misuse of any endpoint may lead to restricting all API access.
+
+An endpoint may be of multiple types, e.g. `public/protected`. That means that you can get some basic info from
+the endpoint but to get more detailed information you will need to use an API key or OAuth token.
 
 ## Versioning
 
@@ -50,27 +66,6 @@ Older versions may become:
 
 Before being removed, endpoint will go through deprecated and unsupported phase. No guarantees are made for the duration of these phases.
 
-## Access
-
-There are three levels of API endpoints that we provide:
-
-* *public* - unrestricted access without any prerequisites
-* *protected* - access is restricted by use of *API key* or *OAuth token*, depending on whether the API manipulates or reads user's data
-* *private* - explicit permission is required, [contact us](#introduction/contact)
-
-Misuse of any endpoint may lead to restricting all API access.
-
-An endpoint may be of multiple types, e.g. `public/protected`. That means that you can get some basic info from
-the endpoint but to get more detailed information you will need to use an API key or OAuth token.
- 
-### Accessing protected and private endpoints 
-If you want to access protected and/or private endpoints, you will have to [register](https://isthereanydeal.com/dev/app/) your app.
-
-Upon registration you will be able to manage your OAuth credentials and API keys.
-
-> Do not forget that both API keys and OAuth credentials uniquely identify your app
-
-Once released, your app will be listed in our own [repository](https://isthereanydeal.com/apps/).
  
 ## Debugging
 
