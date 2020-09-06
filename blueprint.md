@@ -1996,7 +1996,7 @@ If you don't want user to link profile manually, you can link it for him with th
 ## Waitlist Price Limits [/v01/stats/waitlist/price/{?key,plain,scale,bucket,region,currency}]
 ```Version: v01 | Type: private (request access)```
 
-Get statistical info about Waitlist notification price limits for specific game, including:
+Get statistical info about Waitlist notification *price limits* for specific game, including:
 * total number of occurences in Waitlists (if user has a game in different categories, all instances are used)
 * number of occurences where user did not specify price limit 
 * average notification limit
@@ -2060,3 +2060,175 @@ Get statistical info about Waitlist notification price limits for specific game,
                 }
             }
         }
+
+
+
+## Waitlist Cut Limits [/v01/stats/waitlist/cut/{?key,plain,bucket,region}]
+```Version: v01 | Type: private (request access)```
+
+Get statistical info about Waitlist notification *price cut limits* for specific game:
+* total number of occurences in Waitlists (if user has a game in different categories, all instances are used)
+* average notification limit
+* number of occurences divided into buckets
+ 
+### Get Waitlist Price Cut Limit Stats [GET]
+
++ Parameters
+    + key (required) - API key
+    + plain (required)
+    + bucket: 5 (int, optional) - Size of price buckets,
+    + region (optional) - If supplied, only Waitlists for this region will be used
+    
++ Response 200
+        
+        {
+          "data": {
+            "count": 13669,
+            "average": 10,
+            "buckets": {
+              "0": 11267,
+              "5": 6,
+              "10": 38,
+              "15": 13,
+              "20": 60,
+              "25": 101,
+              "30": 91,
+              "35": 17,
+              "40": 83,
+              "45": 24,
+              "50": 704,
+              "55": 13,
+              "60": 181,
+              "65": 115,
+              "70": 191,
+              "75": 530,
+              "80": 138,
+              "85": 32,
+              "90": 47,
+              "95": 9,
+              "100": 9
+            }
+          }
+        }
+
+
+
+## Waitlist Chart [/v01/stats/waitlist/chart/{?key,offset,limit}]
+```Version: v01 | Type: protected```
+
+Returns Waitlist chart, games sorted from most Waitlisted to least Waitlisted.
+ 
+### Get Waitlist Chart [GET]
+
++ Parameters
+    + key (required) - API key
+    + offset: 0 (int, optional) - Position at which to start
+    + limit: 20 (int, optional) - Number of games to return (max 500)
+    
++ Response 200
+        
+            {
+              ".meta": {
+                "range": [
+                  0,
+                  5
+                ]
+              },
+              "data": [
+                {
+                  "position": 1,
+                  "title": "Cyberpunk 2077",
+                  "plain": "cyberpunkii0viivii",
+                  "count": 21707
+                },
+                {
+                  "position": 2,
+                  "title": "NieR: Automata",
+                  "plain": "nierautomata",
+                  "count": 21085
+                },
+                ...
+              ]
+            }
+
+
+
+## Collection Chart [/v01/stats/collection/chart/{?key,offset,limit}]
+```Version: v01 | Type: protected```
+
+Returns Collection chart, games sorted from most collected to least collected.
+ 
+### Get Collection Chart [GET]
+
++ Parameters
+    + key (required) - API key
+    + offset: 0 (int, optional) - Position at which to start
+    + limit: 20 (int, optional) - Number of games to return (max 500)
+    
++ Response 200
+        
+            {
+              ".meta": {
+                "range": [
+                  0,
+                  20
+                ]
+              },
+              "data": [
+                {
+                  "position": 1,
+                  "title": "Portal 2",
+                  "plain": "portalii",
+                  "count": 43151
+                },
+                {
+                  "position": 2,
+                  "title": "Portal",
+                  "plain": "portal",
+                  "count": 41817
+                },
+                ...
+              ]
+            }
+
+
+
+## Popularity Chart [/v01/stats/popularity/chart/{?key,offset,limit}]
+```Version: v01 | Type: protected```
+
+Returns popularity chart, games sorted from most popular to least popular, where popularity is
+computed as normalized count in Waitlist + normalized count in Collection,
+and rank is set based on the position in sorted list.
+ 
+### Get Popularity Chart [GET]
+
++ Parameters
+    + key (required) - API key
+    + offset: 0 (int, optional) - Position at which to start
+    + limit: 20 (int, optional) - Number of games to return (max 500)
+    
++ Response 200
+        
+            {
+              ".meta": {
+                "range": [
+                  0,
+                  20
+                ]
+              },
+              "data": [
+                {
+                  "position": 1,
+                  "title": "NieR: Automata",
+                  "plain": "nierautomata",
+                  "rank": 1
+                },
+                {
+                  "position": 2,
+                  "title": "Stardew Valley",
+                  "plain": "stardewvalley",
+                  "rank": 2
+                },
+                ...
+              ]
+            }
