@@ -1098,85 +1098,49 @@ specific ids - this will be most commonly used for steam.
 
 # Group Search
 
-## Search [/v01/search/search/{?key,q,offset,limit,region,country,shops}]
-```Version: v01 | Type: protected ```
+## Search [/v02/search/search/{?key,q,limit,strict}]
+```Version: v02 | Type: protected ```
 
-Finds games based on title, with their best current price.
-
-> Current implementation works as deals list filter. Implementation details and results may change. 
-
-> Use region and country parameters to get more accurate listing
+Search for games.
 
 ### Find games [GET]
 
 + Parameters
     + key (required) - Your API key
     + q: `assassins creed odyssey` (required) - Search query
-    + offset: 0 (optional)
     + limit: 20 (optional)
-    + region: `eu2` (optional)
-    + country: `CZ` (optional)
-    + shops: `steam,gog` (optional) List of store ids separated by comma
+    + strict: `0` (optional) - 0 or 1; with strict mode enabled we are disabling search query fuzziness  
 
 + Response 200
 
+
         {
-            ".meta":
-            {
-                "currency": "EUR"
-            },
-            "data":
-            {
-                "list": [
-                    {
-                        "plain": "assassinscreedodyssey",
-                        "title": "Assassin's Creed Odyssey",
-                        "price_new": 29.99,
-                        "price_old": 59.99,
-                        "price_cut": 50,
-                        "added": 1557562074,
-                        "shop":
-                        {
-                            "id": "humblestore",
-                            "name": "Humble Store"
-                        },
-                        "drm": ["uplay"],
-                        "urls":
-                        {
-                            "buy": "https:\/\/www.humblebundle.com\/store\/p\/assassinscreedodyssey_storefront",
-                            "game": "https:\/\/isthereanydeal.com\/game\/assassinscreedodyssey\/info\/"
-                        }
-                    },
-                    {
-                        "plain": "assassinscreedodysseyultimateedition",
-                        "title": "Assassin's Creed Odyssey Ultimate Edition",
-                        "price_new": 57.49,
-                        "price_old": 114.99,
-                        "price_cut": 50,
-                        "added": 1557562074,
-                        "shop":
-                        {
-                            "id": "humblestore",
-                            "name": "Humble Store"
-                        },
-                        "drm": ["uplay"],
-                        "urls":
-                        {
-                            "buy": "https:\/\/www.humblebundle.com\/store\/p\/assassinscreed_odyssey_ultimate_storefront",
-                            "game": "https:\/\/isthereanydeal.com\/game\/assassinscreedodysseyultimateedition\/info\/"
-                        }
-                    },
-                    
-                    ... rest of response omitted for clarity ...
-                    
-                ],
-                "urls":
-                {
-                    "deals": "https:\/\/isthereanydeal.com\/"
-                }
+          "data": {
+            "results": [
+              {
+                "id": 40805,
+                "plain": "assassinscreedodyssey",
+                "title": "Assassin's Creed Odyssey"
+              },
+              {
+                "id": 93797,
+                "plain": "assassinscreedodysseygoldedition",
+                "title": "Assassin's Creed Odyssey Gold Edition"
+              },
+              {
+                "id": 141318,
+                "plain": "assassinscreedodysseyseasonpass",
+                "title": "Assassin's Creed Odyssey Season Pass"
+              },
+              
+              ... rest of response omitted for clarity ...
+            ],
+            "urls": {
+              "search": "https:\/\/isthereanydeal.com\/search\/?q=assassins%20creed%20odyssey"
             }
+          }
         }
-        
+
 
 # Group Deals
 
