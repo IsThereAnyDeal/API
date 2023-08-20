@@ -1,0 +1,867 @@
+openapi: 3.1.0
+info:
+  title: IsThereAnyDeal API
+  description: |
+    IsThereAnyDeal API provides programmatic access to features found at IsThereAnyDeal.
+
+    ## Terms of Service
+
+    API is provided in good faith. We trust you won't misuse the API to damage IsThereAnyDeal, its users or its reputation.
+
+    - You MAY use this API for commercial purposes **IF** the resulting app is available to public. If you want to use this API privately contact us.
+    - You SHOULD provide a link to IsThereAnyDeal.com or mention IsThereAnyDeal API.
+    - You MUST NOT make an impression that you are affiliated with IsThereAnyDeal, unless agreed otherwise.
+      If you are interested in making an official app, please contact us.
+    - You MUST NOT change provided data in any way. This means that you can't remove affiliate tags from the URLs, change prices and so on.
+      You MAX use only part of data provided and enrich them from your own sources.  
+    - You MUST NOT make an app that could be considered a competition to IsThereAnyDeal or IsThereAnyDeal projects.
+    - You MUST NOT use this API to directly or indirectly help the competition of IsThereAnyDeal.
+    
+    All data are provided _as-is_. We reserve the right to deny you access to the API at any point without notice.
+    If you are not sure about any of the points, please contact us.
+    
+    ## Access
+    
+    Most of the endpoints will be restricted by either API key or OAuth.
+    In order to get neccessary keys, you have to [register your app](https://isthereanydeal.com/apps/my/).
+    Upon registration, api keys and OAuth credentials will be generated for you.
+    
+    For some endpoints you might need explicit approval for use. In such cases, contact us.
+    
+    ### OAuth
+    
+    We support [authorization code](https://www.oauth.com/oauth2-servers/access-tokens/authorization-code-request/) flow with [PKCE extension](https://oauth.net/2/pkce/).
+    
+    > You can find PKCE step-through tutorial at [OAuth 2.0 PKCE Flow](https://www.oauth.com/playground/authorization-code-with-pkce.html)
+    
+    All generated tokens will be 80 characters long.  
+    
+    > At the moment implicit flow is also enabled, but its usage is discouraged and support may be removed in the future
+    
+    ## Rate Limiting
+    
+    Access to API is rate limited. Current rate limit is 20000 requests per IP per day.
+    Further limits and restrictions may be added if we detect misuse. 
+    
+    If you need higher limits, contact us.
+    
+    ## Source
+
+    You can find source files for this documentation over at [GitHub](https://github.com/IsThereAnyDeal/API).
+    Feel free to help us improve it.
+
+  version: 2.0.0
+  contact:
+    name: General API contact
+    email: api@isthereanydeal.com
+servers:
+  - url: https://api.isthereanydeal.com
+components:
+  securitySchemes:
+    keySecurity:
+      type: apiKey
+      in: query
+      name: key
+    oauthSecurity:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://isthereanydeal.com/oauth/authorize/
+          tokenUrl: https://isthereanydeal.com/oauth/token/
+          refreshUrl: https://isthereanydeal.com/oauth/token/
+          scopes:
+            user_info: Get basic user's info
+            wait_read: Read user's Waitlist
+            wait_write: Write (add, edit, delete) in user's Waitlist
+            coll_read: Read user's Collection
+            coll_write: Write (add, edit, delete) in user's Collection
+
+  parameters:
+    country:
+      name: country
+      in: query
+      description: Two letter country code (ISO 3166-1 alpha-2)
+      schema:
+        type: string
+        minLength: 2
+        maxLength: 2
+        default: "US"
+    gid:
+      name: id
+      in: query
+      required: true
+      description: Game ID
+      schema:
+        type: string
+        format: uuid
+    shops:
+      name: shops
+      in: query
+      description: List of shop IDs
+      explode: false
+      style: form
+      schema:
+        type: array
+        items:
+          type: integer
+        example: [ 65, 35 ]
+
+  requestBodies:
+    gids:
+      description: List of Game IDs
+      content:
+        "application/json":
+          schema:
+            type: array
+            minItems: 1
+            maxItems: 100
+            items:
+              type: string
+              format: uuid
+          example: [ "01849783-6a26-7147-ab32-71804ca47e8e", "01849782-1017-7389-8de4-c97c587fd7e3" ]
+
+paths:
+  "/service/shops/v1":
+    get:
+      operationId: service-shops-v1
+      tags:
+        - service
+      summary: Shops
+      description: Return information about shops
+      security: []
+      parameters:
+        - $ref: "#/components/parameters/country"
+      responses:
+        200:
+          description: List of shops and their details
+          content:
+            "application/json":
+              schema:
+                $ref: "./schemas/resp.service.shops.json"
+              examples:
+                success:
+                  summary: Short shop list example
+                  $ref: "./examples/service/shops.v1.success.json"
+        400:
+          $ref: "./defs/error-response.yaml"
+
+        default:
+          $ref: "./defs/error-response.yaml"
+
+  "/deals/v2":
+    get:
+      operationId: deals-v2
+      tags:
+        - deals
+      summary: Deals List
+      description: |
+        Get current deals. Follows same rules as deals list displayed on the website, which means that
+        you will not get one game more than once in the list.
+        
+        For each game, the best price is displayed, ignoring stores that currently don't have game on sale,
+        even if they currently have a better price.
+      security:
+        - keySecurity: []
+      parameters:
+        - $ref: "#/components/parameters/country"
+        - name: offset
+          in: query
+          description: Deals list offset
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+        - name: limit
+          in: query
+          description: How many deals to return
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 200
+            default: 20
+        - name: sort
+          in: query
+          description: Sorting values, same as in deals list on the website
+          examples:
+            cut:
+              summary: Highest cut
+              value: "-cut"
+            price:
+              summary: Lowest price
+              value: "price"
+          schema:
+            type: string
+        - name: shops
+          in: query
+          description: List of shop IDs separated by comma
+          explode: false
+          style: form
+          schema:
+            type: array
+            items:
+              type: number
+              description: Shop ID
+          examples:
+            e1:
+              summary: Only Steam (61) and GOG (35)
+              value: [61, 35]
+        - name: filter
+          in: query
+          description: Filter string
+          schema:
+            type: string
+      responses:
+        200:
+          description: Deals list
+          content:
+            "application/json":
+              schema:
+                $ref: "./schemas/resp.deals.json"
+              examples:
+                success:
+                  summary: Deals list response example
+                  $ref: "./examples/deals/deals.v2.success.json"
+        400:
+          $ref: "./defs/error-response.yaml"
+
+        default:
+          $ref: "./defs/error-response.yaml"
+
+  /games/lookup/v1:
+    get:
+      operationId: games-lookup-v1
+      tags:
+        - games
+      summary: Game Lookup
+      description: Lookup game based on title or Steam appid
+      security:
+        - keySecurity: []
+      parameters:
+        - name: title
+          in: query
+          description: Find game by it's name
+          schema:
+            type: string
+        - name: appid
+          in: query
+          description: Find game by Steam appid
+          schema:
+            type: number
+      responses:
+        200:
+          description: Lookup response with found game
+          content:
+            "application/json":
+              schema:
+                $ref: "./schemas/resp.games.lookup.json"
+              examples:
+                found:
+                  description: Game found
+                  $ref: "./examples/games/lookup.v1.found.json"
+                not-found:
+                  description: Game not found
+                  $ref: "./examples/games/lookup.v1.not-found.json"
+        400:
+          $ref: "./defs/error-response.yaml"
+        default:
+          $ref: "./defs/error-response.yaml"
+
+  /games/search/v1:
+    get:
+      operationId: games-search-v1
+      tags:
+        - games
+      summary: Game Search
+      description: Search for games by title
+      security:
+        - keySecurity: []
+      parameters:
+        - name: title
+          in: query
+          description: Find games by name
+          required: true
+          schema:
+            type: string
+        - name: results
+          in: query
+          description: Maximum number of results to return
+          schema:
+            type: number
+            minimum: 1
+            maximum: 100
+            default: 20
+      responses:
+        200:
+          description: Search response
+          content:
+            "application/json":
+              schema:
+                $ref: "./schemas/resp.games.search.json"
+              examples:
+                results:
+                  description: "Europa Universalis IV search"
+                  $ref: "./examples/games/search.v1.results.json"
+        400:
+          $ref: "./defs/error-response.yaml"
+        default:
+          $ref: "./defs/error-response.yaml"
+
+  /games/info/v2:
+    get:
+      operationId: games-info-v2
+      tags:
+        - games
+      summary: Game Info
+      description: Get basic game information
+      security:
+        - keySecurity: []
+      parameters:
+        - $ref: "#/components/parameters/gid"
+      responses:
+        200:
+          description: Info response
+          content:
+            "application/json":
+              schema:
+                $ref: "./schemas/resp.games.info.json"
+              examples:
+                found:
+                  description: "Europa Universalis IV info"
+                  $ref: "./examples/games/info.v2.found.json"
+                not-found:
+                  description: "Game not found"
+                  $ref: "./examples/games/info.v2.not-found.json"
+        400:
+          $ref: "./defs/error-response.yaml"
+        default:
+          $ref: "./defs/error-response.yaml"
+
+  /games/prices/v2:
+    post:
+      operationId: games-prices-v2
+      tags:
+        - games
+        - deals
+      summary: Prices
+      description: Get games' prices
+      security:
+        - keySecurity: []
+      parameters:
+        - $ref: "#/components/parameters/country"
+        - name: nondeals
+          in: query
+          description: Load non-sale prices
+          schema:
+            type: boolean
+        - name: vouchers
+          in: query
+          description: Allow vouchers in prices
+          schema:
+            type: boolean
+        - name: capacity
+          in: query
+          description: How many prices to load per each game, 0 or omit for no limit
+          schema:
+            type: integer
+            minimum: 0
+        - $ref: "#/components/parameters/shops"
+          description: List of shop IDs for which you want to load prices
+      requestBody:
+        description: List of Game IDs for which to load prices
+        $ref: "#/components/requestBodies/gids"
+
+      responses:
+        200:
+          description: Info response
+          content:
+            "application/json":
+              schema:
+                $ref: "./schemas/resp.games.prices.json"
+              examples:
+                success:
+                  description: "Successful response"
+                  $ref: "./examples/games/prices.v2.success.json"
+        400:
+          $ref: "./defs/error-response.yaml"
+        default:
+          $ref: "./defs/error-response.yaml"
+
+  /games/historylow/v1:
+    post:
+      operationId: games-historylow-v1
+      tags:
+        - games
+        - history
+      summary: History Low
+      description: Get historically lowest prices
+      security:
+        - keySecurity: []
+      parameters:
+        - $ref: "#/components/parameters/country"
+      requestBody:
+        description: List of Game IDs for which to load historical lows
+        $ref: "#/components/requestBodies/gids"
+
+      responses:
+        200:
+          description: Success response
+          content:
+            "application/json":
+              schema:
+                $ref: "./schemas/resp.games.historylow.json"
+              examples:
+                success:
+                  description: "Successful response"
+                  $ref: "./examples/games/historylow.v1.success.json"
+        400:
+          $ref: "./defs/error-response.yaml"
+        default:
+          $ref: "./defs/error-response.yaml"
+
+  /games/storelow/v2:
+    post:
+      operationId: games-storelow-v2
+      tags:
+        - games
+        - history
+      summary: Store Low
+      description: Get historically lowest prices for individual stores
+      security:
+        - keySecurity: []
+      parameters:
+        - $ref: "#/components/parameters/country"
+        - $ref: "#/components/parameters/shops"
+      requestBody:
+        description: List of Game IDs for which to load store lows
+        $ref: "#/components/requestBodies/gids"
+
+      responses:
+        200:
+          description: Success response
+          content:
+            "application/json":
+              schema:
+                $ref: "./schemas/resp.games.storelow.json"
+              examples:
+                success:
+                  description: "Successful response"
+                  $ref: "./examples/games/storelow.v2.success.json"
+        400:
+          $ref: "./defs/error-response.yaml"
+        default:
+          $ref: "./defs/error-response.yaml"
+
+  /games/bundles/v2:
+    get:
+      operationId: games-bundles-v2
+      tags:
+        - games
+        - bundles
+      summary: Bundles including Game
+      description: Get all bundles which contain the game
+      security:
+        - keySecurity: []
+      parameters:
+        - $ref: "#/components/parameters/gid"
+        - $ref: "#/components/parameters/country"
+        - name: expired
+          in: query
+          description: Include expired bundles
+          schema:
+            type: boolean
+
+      responses:
+        200:
+          description: Success response
+          content:
+            "application/json":
+              schema:
+                $ref: "./schemas/resp.games.bundles.json"
+              examples:
+                success:
+                  description: "Successful response"
+                  $ref: "./examples/games/bundles.v2.success.json"
+        400:
+          $ref: "./defs/error-response.yaml"
+        default:
+          $ref: "./defs/error-response.yaml"
+
+  /games/overview/v2:
+    post:
+      operationId: games-overview-v2
+      tags:
+        - games
+      summary: Price Overview
+      description: |
+        Get basic price overview for selected games.
+        
+        For each game current best price will be loaded (optionally, only from selected shops),
+        historical low price (among all covered shops).
+        
+        Furthermore, result will also contain list of currently active bundles,
+        which contain at least one of the queried games.
+      security:
+        - keySecurity: []
+      parameters:
+        - $ref: "#/components/parameters/country"
+        - $ref: "#/components/parameters/shops"
+      requestBody:
+        $ref: "#/components/requestBodies/gids"
+      responses:
+        200:
+          description: Success response
+          content:
+            "application/json":
+              schema:
+                $ref: "./schemas/resp.games.overview.json"
+              examples:
+                success:
+                  description: "Successful response"
+                  $ref: "./examples/games/overview.v2.success.json"
+        400:
+          $ref: "./defs/error-response.yaml"
+        default:
+          $ref: "./defs/error-response.yaml"
+
+  /games/history/v2:
+    get:
+      operationId: games-history-v2
+      tags:
+        - games
+        - history
+      summary: History log
+      description: Get log of historical prices
+      security:
+        - keySecurity: []
+      parameters:
+        - $ref: "#/components/parameters/gid"
+        - $ref: "#/components/parameters/country"
+        - $ref: "#/components/parameters/shops"
+        - name: "since"
+          in: query
+          description: |
+            Load only price changes after this date.            
+            By default, only last 3 months are loaded
+          schema:
+            type: string
+            format: date-time
+      responses:
+        200:
+          description: Success response
+          content:
+            "application/json":
+              schema:
+                $ref: "./schemas/resp.games.history.json"
+              examples:
+                success:
+                  description: "Successful response"
+                  $ref: "./examples/games/history.v2.success.json"
+        400:
+          $ref: "./defs/error-response.yaml"
+        default:
+          $ref: "./defs/error-response.yaml"
+
+  /waitlist/games/v1:
+    get:
+      operationId: waitlist-games-v1-get
+      tags:
+        - user
+        - waitlist
+      summary: Games in Waitlist
+      description: Get games in user's Waitlist
+      security:
+        - oauthSecurity: [wait_read]
+      responses:
+        200:
+          description: Success response
+          content:
+            "application/json":
+              schema:
+                $ref: "./schemas/resp.waitlist.games.json"
+              examples:
+                success:
+                  description: "Successful response"
+                  $ref: "./examples/games-list.json"
+        400:
+          $ref: "./defs/error-response.yaml"
+        default:
+          $ref: "./defs/error-response.yaml"
+    put:
+      operationId: waitlist-games-v1-put
+      tags:
+        - user
+        - waitlist
+      summary: Add to Waitlist
+      description: Add games to user's Waitlist
+      security:
+        - oauthSecurity: [wait_write]
+      requestBody:
+        $ref: "#/components/requestBodies/gids"
+      responses:
+        204:
+          description: Successful response
+        400:
+          $ref: "./defs/error-response.yaml"
+        default:
+          $ref: "./defs/error-response.yaml"
+    delete:
+      operationId: waitlist-games-v1-delete
+      tags:
+        - user
+        - waitlist
+      summary: Delete from Waitlist
+      description: Delete games from user's Waitlist
+      security:
+        - oauthSecurity: [wait_write]
+      requestBody:
+        $ref: "#/components/requestBodies/gids"
+      responses:
+        204:
+          description: Successful response
+        400:
+          $ref: "./defs/error-response.yaml"
+        default:
+          $ref: "./defs/error-response.yaml"
+
+  /collection/games/v1:
+    get:
+      operationId: collection-games-v1-get
+      tags:
+        - user
+        - collection
+      summary: Games in Collection
+      description: Get games in user's Collection
+      security:
+        - oauthSecurity: [coll_read]
+      responses:
+        200:
+          description: Success response
+          content:
+            "application/json":
+              schema:
+                $ref: "./schemas/resp.collection.games.json"
+              examples:
+                success:
+                  description: "Successful response"
+                  $ref: "./examples/games-list.json"
+        400:
+          $ref: "./defs/error-response.yaml"
+        default:
+          $ref: "./defs/error-response.yaml"
+    put:
+      operationId: collection-games-v1-put
+      tags:
+        - user
+        - collection
+      summary: Add to Collection
+      description: Add games to user's Collection
+      security:
+        - oauthSecurity: [coll_write]
+      requestBody:
+        $ref: "#/components/requestBodies/gids"
+      responses:
+        204:
+          description: Successful response
+        400:
+          $ref: "./defs/error-response.yaml"
+        default:
+          $ref: "./defs/error-response.yaml"
+    delete:
+      operationId: collection-games-v1-delete
+      tags:
+        - user
+        - collection
+      summary: Delete from Collection
+      description: Delete games from user's Collection
+      security:
+        - oauthSecurity: [coll_write]
+      requestBody:
+        $ref: "#/components/requestBodies/gids"
+      responses:
+        204:
+          description: Successful response
+        400:
+          $ref: "./defs/error-response.yaml"
+        default:
+          $ref: "./defs/error-response.yaml"
+
+  /stats/waitlist/v1:
+    get:
+      operationId: stats-waitlist-v1
+      tags:
+        - stats
+        - waitlist
+      summary: Waitlist Stats
+      description: |
+        Get Waitlist statistics for a game
+        
+        > Note: stats do not take into consideration users' regions.
+        > If they have set their price limit to be a historical low, stats will be computed
+        > for all users as if they were in the region you specify
+      security:
+        - keySecurity: []
+      parameters:
+        - $ref: "#/components/parameters/gid"
+        - $ref: "#/components/parameters/country"
+        - name: bucket_price
+          in: query
+          description: Price bucket size
+          schema:
+            type: integer
+            minimum: 0
+            default: 5
+        - name: bucket_cut
+          in: query
+          description: Cut bucket size
+          schema:
+            type: integer
+            minimum: 0
+            default: 5
+      responses:
+        200:
+          description: Success response
+          content:
+            "application/json":
+              schema:
+                $ref: "./schemas/resp.stats.waitlist.json"
+        400:
+          $ref: "./defs/error-response.yaml"
+        default:
+          $ref: "./defs/error-response.yaml"
+
+  /stats/most-waitlisted/v1:
+    get:
+      operationId: stats-most-waitlisted-v1
+      tags:
+        - stats
+        - waitlist
+      summary: Most Waitlisted
+      description: |
+        Get list of most Waitlisted games
+      security:
+        - keySecurity: []
+      parameters:
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 500
+            default: 20
+      responses:
+        200:
+          description: Success response
+          content:
+            "application/json":
+              schema:
+                $ref: "./schemas/resp.stats.ranked-games.json"
+        400:
+          $ref: "./defs/error-response.yaml"
+        default:
+          $ref: "./defs/error-response.yaml"
+
+  /stats/most-collected/v1:
+    get:
+      operationId: stats-most-collected-v1
+      tags:
+        - stats
+        - collection
+      summary: Most Collected
+      description: |
+        Get list of most Collected games
+      security:
+        - keySecurity: []
+      parameters:
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 500
+            default: 20
+      responses:
+        200:
+          description: Success response
+          content:
+            "application/json":
+              schema:
+                $ref: "./schemas/resp.stats.ranked-games.json"
+        400:
+          $ref: "./defs/error-response.yaml"
+        default:
+          $ref: "./defs/error-response.yaml"
+
+  /stats/most-popular/v1:
+    get:
+      operationId: stats-most-popular-v1
+      tags:
+        - stats
+      summary: Most Popular
+      description: |
+        Get list of most popular games. Popularity for each game is computed as Waitlisted count + Collected count.
+      security:
+        - keySecurity: []
+      parameters:
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 500
+            default: 20
+      responses:
+        200:
+          description: Success response
+          content:
+            "application/json":
+              schema:
+                $ref: "./schemas/resp.stats.ranked-games.json"
+        400:
+          $ref: "./defs/error-response.yaml"
+        default:
+          $ref: "./defs/error-response.yaml"
+
+  /user/info/v2:
+    get:
+      operationId: user-info-v2
+      tags:
+        - user
+      summary: User Info
+      description: Get user info, currently just a username
+      security:
+        - oauthSecurity: [user_info]
+      responses:
+        200:
+          description: Success response
+          content:
+            "application/json":
+              schema:
+                $ref: "./schemas/resp.user.info.json"
+        400:
+          $ref: "./defs/error-response.yaml"
+        default:
+          $ref: "./defs/error-response.yaml"
+
+
+
+
+
+

@@ -1,0 +1,44 @@
+{
+  "value": [
+    {
+      "timestamp": "2022-12-27T11:21:08+01:00",
+      "shop": {
+        "id": 61,
+        "name": "Steam"
+      },
+      "deal": {
+        "price": {
+          "amount": 9.99,
+          "amountInt": 999,
+          "currency": "EUR"
+        },
+        "regular": {
+          "amount": 39.99,
+          "amountInt": 3999,
+          "currency": "EUR"
+        },
+        "cut": 75
+      }
+    },
+    {
+      "timestamp": "2022-12-14T00:12:29+01:00",
+      "shop": {
+        "id": 61,
+        "name": "Steam"
+      },
+      "deal": {
+        "price": {
+          "amount": 39.99,
+          "amountInt": 3999,
+          "currency": "EUR"
+        },
+        "regular": {
+          "amount": 39.99,
+          "amountInt": 3999,
+          "currency": "EUR"
+        },
+        "cut": 0
+      }
+    }
+  ]
+}

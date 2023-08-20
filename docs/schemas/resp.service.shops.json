@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Shops response",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "number"
+      },
+      "title":{
+        "type": "string"
+      },
+      "deals": {
+        "type": "number"
+      },
+      "games": {
+        "type": "number"
+      },
+      "update": {
+        "type": ["string", "null"],
+        "format": "date-time"
+      }
+    },
+    "required": [
+      "id", "title", "deals", "games", "update"
+    ]
+  }
+}

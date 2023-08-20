@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Overview Deal",
+  "description": "This object is basically the same as regular Deal, difference being storeLow and historyLow properties are not included",
+  "type": "object",
+  "required": [
+    "shop", "price", "regular", "cut", "voucher",
+    "flag", "drm", "platforms", "timestamp", "expiry", "url"
+  ],
+  "properties": {
+    "shop": {
+      "$ref": "obj.shop.json"
+    },
+    "price": {
+      "$ref": "obj.price.json"
+    },
+    "regular": {
+      "$ref": "obj.price.json"
+    },
+    "cut": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "voucher": {
+      "type": ["string", "null"]
+    },
+    "flag": {
+      "$ref": "obj.deal-flag.json"
+    },
+    "drm": {
+      "$ref": "obj.drm-list.json"
+    },
+    "platforms": {
+      "$ref": "obj.platform-list.json"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expiry": {
+      "type": ["string", "null"],
+      "format": "date"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri"
+    }
+  }
+}

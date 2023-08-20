@@ -1,0 +1,213 @@
+{
+  "value": [
+    {
+      "id": "01849782-1017-7389-8de4-c97c587fd7e3",
+      "deals": [
+        {
+          "shop": {
+            "id": 24,
+            "name": "GamersGate"
+          },
+          "price": {
+            "amount": 5.93,
+            "amountInt": 593,
+            "currency": "USD"
+          },
+          "regular": {
+            "amount": 21.99,
+            "amountInt": 2199,
+            "currency": "USD"
+          },
+          "cut": 73,
+          "voucher": null,
+          "storeLow": {
+            "amount": 5.93,
+            "amountInt": 593,
+            "currency": "USD"
+          },
+          "historyLow": {
+            "amount": 3.99,
+            "amountInt": 399,
+            "currency": "USD"
+          },
+          "flag": "S",
+          "drm": [
+            {
+              "id": 61,
+              "name": "Steam"
+            }
+          ],
+          "platforms": [
+            {
+              "id": 1,
+              "name": "Windows"
+            },
+            {
+              "id": 2,
+              "name": "Mac"
+            }
+          ],
+          "timestamp": "2023-06-06T21:54:09+02:00",
+          "expiry": "2023-06-07T23:59:59+02:00",
+          "url": "https:\/\/next.isthereanydeal.com\/link\/0184d081-61ab-7036-994c-6e17f1348fe7\/"
+        },
+        {
+          "shop": {
+            "id": 61,
+            "name": "Steam"
+          },
+          "price": {
+            "amount": 6.59,
+            "amountInt": 659,
+            "currency": "USD"
+          },
+          "regular": {
+            "amount": 21.99,
+            "amountInt": 2199,
+            "currency": "USD"
+          },
+          "cut": 70,
+          "voucher": null,
+          "storeLow": {
+            "amount": 6.59,
+            "amountInt": 659,
+            "currency": "USD"
+          },
+          "historyLow": {
+            "amount": 3.99,
+            "amountInt": 399,
+            "currency": "USD"
+          },
+          "flag": "S",
+          "drm": [],
+          "platforms": [
+            {
+              "id": 1,
+              "name": "Windows"
+            },
+            {
+              "id": 2,
+              "name": "Mac"
+            },
+            {
+              "id": 3,
+              "name": "Linux"
+            }
+          ],
+          "timestamp": "2022-12-21T00:29:04+01:00",
+          "expiry": null,
+          "url": "https:\/\/next.isthereanydeal.com\/link\/018531a3-cec4-700a-8534-79c6e498959f\/"
+        }
+      ]
+    },
+    {
+      "id": "01849783-6a26-7147-ab32-71804ca47e8e",
+      "deals": [
+        {
+          "shop": {
+            "id": 35,
+            "name": "GOG"
+          },
+          "price": {
+            "amount": 7.99,
+            "amountInt": 799,
+            "currency": "USD"
+          },
+          "regular": {
+            "amount": 39.99,
+            "amountInt": 3999,
+            "currency": "USD"
+          },
+          "cut": 80,
+          "voucher": null,
+          "storeLow": {
+            "amount": 7.99,
+            "amountInt": 799,
+            "currency": "USD"
+          },
+          "historyLow": {
+            "amount": 5.99,
+            "amountInt": 599,
+            "currency": "USD"
+          },
+          "flag": "S",
+          "drm": [
+            {
+              "id": 1000,
+              "name": "Drm Free"
+            }
+          ],
+          "platforms": [
+            {
+              "id": 1,
+              "name": "Windows"
+            },
+            {
+              "id": 2,
+              "name": "Mac"
+            },
+            {
+              "id": 3,
+              "name": "Linux"
+            }
+          ],
+          "timestamp": "2023-05-13T01:43:45+02:00",
+          "expiry": null,
+          "url": "https:\/\/next.isthereanydeal.com\/link\/0184d8a2-6f10-7284-811a-450d3df4feb1\/"
+        },
+        {
+          "shop": {
+            "id": 37,
+            "name": "Humble Store"
+          },
+          "price": {
+            "amount": 9.99,
+            "amountInt": 999,
+            "currency": "USD"
+          },
+          "regular": {
+            "amount": 39.99,
+            "amountInt": 3999,
+            "currency": "USD"
+          },
+          "cut": 75,
+          "voucher": null,
+          "storeLow": {
+            "amount": 9.99,
+            "amountInt": 999,
+            "currency": "USD"
+          },
+          "historyLow": {
+            "amount": 5.99,
+            "amountInt": 599,
+            "currency": "USD"
+          },
+          "flag": "S",
+          "drm": [
+            {
+              "id": 61,
+              "name": "Steam"
+            }
+          ],
+          "platforms": [
+            {
+              "id": 1,
+              "name": "Windows"
+            },
+            {
+              "id": 2,
+              "name": "Mac"
+            },
+            {
+              "id": 3,
+              "name": "Linux"
+            }
+          ],
+          "timestamp": "2023-05-11T22:05:42+02:00",
+          "expiry": "2023-05-23T19:00:00+02:00",
+          "url": "https:\/\/next.isthereanydeal.com\/link\/0184d9c7-79bf-7008-b766-5a2820c8c92b\/"
+        }
+      ]
+    }
+  ]
+}

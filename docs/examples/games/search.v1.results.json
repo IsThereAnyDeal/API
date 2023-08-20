@@ -1,0 +1,39 @@
+{
+  "value": [
+    {
+      "id": "01849783-6a26-7147-ab32-71804ca47e8e",
+      "slug": "europa-universalis-iv",
+      "title": "Europa Universalis IV",
+      "type": "game",
+      "mature": false
+    },
+    {
+      "id": "01849783-6740-7240-bf0a-194b4678243b",
+      "slug": "europa-universalis-iv-dharma",
+      "title": "Europa Universalis IV: Dharma",
+      "type": "dlc",
+      "mature": false
+    },
+    {
+      "id": "01849782-b769-715a-a0bb-9467eb5a6fa4",
+      "slug": "europa-universalis-iv-emperor",
+      "title": "Europa Universalis IV: Emperor",
+      "type": "dlc",
+      "mature": false
+    },
+    {
+      "id": "0184c0c4-7e9a-7143-a2a2-460027fabf76",
+      "slug": "europa-universalis-iv-origins",
+      "title": "Europa Universalis IV: Origins",
+      "type": "dlc",
+      "mature": false
+    },
+    {
+      "id": "01849783-74ad-7125-8c6c-f7f14f3cc5b3",
+      "slug": "europa-universalis-iv-cossacks",
+      "title": "Europa Universalis IV: Cossacks",
+      "type": "dlc",
+      "mature": false
+    }
+  ]
+}

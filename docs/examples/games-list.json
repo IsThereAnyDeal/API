@@ -1,0 +1,25 @@
+{
+  "value": [
+    {
+      "id": "01846e7e-7e96-71fb-bf16-6979fa211638",
+      "slug": "ghost-master",
+      "title": "Ghost Master®",
+      "type": "game",
+      "mature": false
+    },
+    {
+      "id": "01846e7e-816f-7226-bb91-17ba0a50f081",
+      "slug": "geometry-wars-retro-evolved",
+      "title": "Geometry Wars: Retro Evolved",
+      "type": null,
+      "mature": false
+    },
+    {
+      "id": "01846e7e-84f8-7314-94eb-6bff48d886f8",
+      "slug": "the-ship-single-player",
+      "title": "The Ship: Single Player",
+      "type": null,
+      "mature": false
+    }
+  ]
+}

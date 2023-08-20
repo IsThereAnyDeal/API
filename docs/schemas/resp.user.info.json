@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "User Info Response",
+  "type": "object",
+  "required": ["username"],
+  "properties": {
+    "username": {
+      "type": ["string", "null"]
+    }
+  }
+}

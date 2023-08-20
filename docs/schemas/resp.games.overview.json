@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Games Overview Response",
+  "type": "object",
+  "required": ["prices", "bundles"],
+  "properties": {
+    "prices": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "current", "lowest"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "current": {
+            "oneOf": [
+              {"$ref": "obj.deal-overview.json"},
+              {"type": "null"}
+            ]
+          },
+          "lowest": {
+            "oneOf": [
+              {"$ref": "obj.historylow.json"},
+              {"type": "null"}
+            ]
+          }
+        }
+      }
+    },
+    "bundles": {
+      "type": "array",
+      "items": {
+        "$ref": "obj.bundle.json"
+      }
+    }
+  }
+}

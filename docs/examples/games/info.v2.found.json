@@ -1,0 +1,81 @@
+{
+  "value": {
+    "game": {
+      "id": "01849783-6a26-7147-ab32-71804ca47e8e",
+      "slug": "europa-universalis-iv",
+      "title": "Europa Universalis IV",
+      "type": "game",
+      "mature": false,
+      "earlyAccess": false,
+      "achievements": true,
+      "tradingCards": true,
+      "appid": 236850,
+      "tags": [
+        "Grand Strategy",
+        "Historical",
+        "Simulation",
+        "Alternate History",
+        "Economy"
+      ],
+      "releaseDate": "2013-08-13",
+      "developers": [
+        {
+          "id": 65,
+          "name": "Paradox Development Studio"
+        },
+        {
+          "id": 33396,
+          "name": "Paradox Tinto"
+        },
+        {
+          "id": 35616,
+          "name": "Paradox Development Studio \/ Paradox Tinto"
+        }
+      ],
+      "publishers": [
+        {
+          "id": 35189,
+          "name": "Paradox"
+        },
+        {
+          "id": 66,
+          "name": "Paradox Interactive"
+        },
+        {
+          "id": 65,
+          "name": "Paradox Development Studio"
+        },
+        {
+          "id": 13617,
+          "name": "Paradox Interactive AB"
+        }
+      ],
+      "reviews": [
+        {
+          "score": 86,
+          "source": "Steam",
+          "count": 77016,
+          "url": "https:\/\/store.steampowered.com\/app\/236850\/"
+        },
+        {
+          "score": 87,
+          "source": "Metascore",
+          "count": null,
+          "url": "https:\/\/metacritic.com\/game\/pc\/europa-universalis-iv\/critic-reviews"
+        },
+        {
+          "score": 87,
+          "source": "Metacritic User Score",
+          "count": null,
+          "url": "https:\/\/metacritic.com\/game\/pc\/europa-universalis-iv\/user-reviews"
+        }
+      ],
+      "stats": {
+        "rank": 527,
+        "waitlisted": 0,
+        "collected": 2,
+        "players": 12107
+      }
+    }
+  }
+}

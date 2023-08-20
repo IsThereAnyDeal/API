@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Game Info Response",
+  "type": "object",
+  "properties": {
+    "game": {
+      "type": ["object", "null"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "slug": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "obj.game-type.json"
+        },
+        "mature": {
+          "type": "boolean"
+        },
+        "earlyAccess": {
+          "type": "boolean"
+        },
+        "achievements": {
+          "type": "boolean"
+        },
+        "tradingCards": {
+          "type": "boolean"
+        },
+        "appid": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "releaseDate": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "developers": {
+          "type": "array",
+          "items": {
+            "$ref": "obj.company.json"
+          }
+        },
+        "publishers": {
+          "type": "array",
+          "items": {
+            "$ref": "obj.company.json"
+          }
+        },
+        "reviews": {
+          "type": "array",
+          "items": {
+            "$ref": "obj.reviews.json"
+          }
+        },
+        "stats": {
+          "type": "object",
+          "properties": {
+            "rank": {
+              "type": "integer"
+            },
+            "waitlisted": {
+              "type": "integer"
+            },
+            "collected": {
+              "type": "integer"
+            },
+            "players": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+description: Error response
+content:
+  "application/json":
+    schema:
+      title: Error Response
+      type: object
+      properties:
+        status_code:
+          description: HTTP status code
+          type: number
+        reason_phrase:
+          description: Error description
+          type: string
+      required:
+        - status_code
+        - reason_phrase

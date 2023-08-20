@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Prices Response",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["id", "deals"],
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Game ID"
+      },
+      "deals": {
+        "type": "array",
+        "items": {
+          "$ref": "obj.deal.json"
+        }
+      }
+    }
+  }
+}

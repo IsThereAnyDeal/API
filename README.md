@@ -1,8 +1,4 @@
-# IsThereAnyDeal API Documentation
+# IsThereAnyDeal API 2
 
-This is a repository for [IsThereAnyDeal](https://isthereanydeal.com) API documentation located at https://itad.docs.apiary.io/
+A repository for [IsThereAnyDeal](https://isthereanydeal.com) API documentation.
 
-Feel free to edit it.
-
-`master` branch will contain documentation for current deployed version of the API
-while `develop` will host documentation for upcoming changes.

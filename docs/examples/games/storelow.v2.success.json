@@ -1,0 +1,86 @@
+{
+  "value": [
+    {
+      "id": "01849782-1017-7389-8de4-c97c587fd7e3",
+      "lows": [
+        {
+          "shop": {
+            "id": 13,
+            "name": "DLGamer"
+          },
+          "price": {
+            "amount": 6.6,
+            "amountInt": 660,
+            "currency": "USD"
+          },
+          "regular": {
+            "amount": 21.99,
+            "amountInt": 2199,
+            "currency": "USD"
+          },
+          "cut": 70,
+          "timestamp": "2022-11-29T02:14:37+01:00"
+        },
+        {
+          "shop": {
+            "id": 61,
+            "name": "Steam"
+          },
+          "price": {
+            "amount": 6.59,
+            "amountInt": 659,
+            "currency": "USD"
+          },
+          "regular": {
+            "amount": 21.99,
+            "amountInt": 2199,
+            "currency": "USD"
+          },
+          "cut": 70,
+          "timestamp": "2022-12-21T00:29:04+01:00"
+        }
+      ]
+    },
+    {
+      "id": "01849783-6a26-7147-ab32-71804ca47e8e",
+      "lows": [
+        {
+          "shop": {
+            "id": 13,
+            "name": "DLGamer"
+          },
+          "price": {
+            "amount": 10,
+            "amountInt": 1000,
+            "currency": "USD"
+          },
+          "regular": {
+            "amount": 39.99,
+            "amountInt": 3999,
+            "currency": "USD"
+          },
+          "cut": 75,
+          "timestamp": "2022-11-29T02:14:36+01:00"
+        },
+        {
+          "shop": {
+            "id": 61,
+            "name": "Steam"
+          },
+          "price": {
+            "amount": 39.99,
+            "amountInt": 3999,
+            "currency": "USD"
+          },
+          "regular": {
+            "amount": 39.99,
+            "amountInt": 3999,
+            "currency": "USD"
+          },
+          "cut": 0,
+          "timestamp": "2022-12-14T00:28:40+01:00"
+        }
+      ]
+    }
+  ]
+}

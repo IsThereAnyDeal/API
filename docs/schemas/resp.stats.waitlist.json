@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Waitlist Stats Response",
+  "type": "object",
+  "required": ["count", "price", "cut"],
+  "properties": {
+    "count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "price": {
+      "type": "object",
+      "required": ["currency", "any", "average", "buckets"],
+      "properties": {
+        "currency": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 3,
+          "pattern": "^[A-Z]{3}$",
+          "description": "Currency in which the prices are listed"
+        },
+        "any": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "How many users did not set price limit"
+        },
+        "average": {
+          "type": "number",
+          "minimum": 0
+        },
+        "buckets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/bucket"
+          }
+        }
+      }
+    },
+    "cut": {
+      "type": "object",
+      "required": ["average", "buckets"],
+      "properties": {
+        "average": {
+          "type": "number",
+          "minimum": 0
+        },
+        "buckets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/bucket"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "bucket": {
+      "type": "object",
+      "required": ["bucket", "count", "percentile"],
+      "properties": {
+        "bucket": {
+          "type": "number",
+          "minimum": 0
+        },
+        "count": {
+          "type": "number",
+          "minimum": 0
+        },
+        "percentile": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        }
+      }
+    }
+  }
+}

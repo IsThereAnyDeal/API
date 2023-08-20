@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Game",
+  "type": "object",
+  "required": ["id", "slug", "title", "type", "mature"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "slug":{
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "type": {
+      "$ref": "obj.game-type.json"
+    },
+    "mature": {
+      "type": "boolean"
+    }
+  }
+}

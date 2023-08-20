@@ -1,0 +1,25 @@
+{
+  "value": [
+    {
+      "id": 19,
+      "title": "2game",
+      "deals": 3170,
+      "games": 3785,
+      "update": "2023-06-06T21:51:13+02:00"
+    },
+    {
+      "id": 2,
+      "title": "AllYouPlay",
+      "deals": 435,
+      "games": 4926,
+      "update": "2023-06-06T22:10:25+02:00"
+    },
+    {
+      "id": 3,
+      "title": "Amazon",
+      "deals": 0,
+      "games": 0,
+      "update": null
+    }
+  ]
+}

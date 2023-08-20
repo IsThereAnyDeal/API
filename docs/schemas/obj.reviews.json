@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Reviews",
+  "type": "object",
+  "required": ["score", "source", "count", "url"],
+  "properties": {
+    "score": {
+      "type": ["number", "null"]
+    },
+    "source": {
+      "type": "string"
+    },
+    "count":{
+      "type": ["number", "null"]
+    },
+    "url": {
+      "type": "string",
+      "format": "uri"
+    }
+  }
+}

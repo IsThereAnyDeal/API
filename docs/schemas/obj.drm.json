@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DRM",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "number"
+    },
+    "name":{
+      "type": "string"
+    }
+  },
+  "required": ["id", "name"]
+}

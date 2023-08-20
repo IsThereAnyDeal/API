@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Ramled Game",
+  "type": "object",
+  "required": ["position", "id", "slug", "title", "type", "mature", "count"],
+  "properties": {
+    "position": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "slug":{
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "type": {
+      "$ref": "obj.game-type.json"
+    },
+    "mature": {
+      "type": "boolean"
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 0
+    }
+  }
+}

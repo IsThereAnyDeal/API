@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Historical Low",
+  "type": "object",
+  "required": ["shop", "price", "regular", "cut", "timestamp"],
+  "properties": {
+    "shop": {
+      "$ref": "obj.shop.json"
+    },
+    "price": {
+      "$ref": "obj.price.json"
+    },
+    "regular": {
+      "$ref": "obj.price.json"
+    },
+    "cut": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}
