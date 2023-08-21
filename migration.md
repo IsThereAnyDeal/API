@@ -172,3 +172,7 @@ Endpoints secured with OAuth require migration to new OAuth workflow, old tokens
 - plain may be null
 - migrate to `/stats/most-popular/v1`
 
+## User
+
+### `/v01/user/info/`
+- migrate to `/user/info/v2`
