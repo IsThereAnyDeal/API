@@ -34,16 +34,17 @@ info:
     
     > You can find PKCE step-through tutorial at [OAuth 2.0 PKCE Flow](https://www.oauth.com/playground/authorization-code-with-pkce.html)
     
-    All generated tokens will be 80 characters long.  
+    Do not set hard limits for token lengths. Server will return access token as JWT of variable length.
+    To authorize your endpoint access use Authorization header.
     
     > At the moment implicit flow is also enabled, but its usage is discouraged and support may be removed in the future
     
     ## Rate Limiting
     
-    Access to API is rate limited. Current rate limit is 20000 requests per IP per day.
+    Access to API is rate limited and subject to change. You should get rate-limit info in appropriate headers.
     Further limits and restrictions may be added if we detect misuse. 
     
-    If you need higher limits, contact us.
+    If you have questions about limits, contact us.
     
     ## Source
 
