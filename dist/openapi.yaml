@@ -34,16 +34,25 @@ info:
 
     > You can find PKCE step-through tutorial at [OAuth 2.0 PKCE Flow](https://www.oauth.com/playground/authorization-code-with-pkce.html)
 
-    All generated tokens will be 80 characters long.  
+    Do not set hard limits for token lengths. Server will return access token as JWT of variable length.
+    To authorize your endpoint access use Authorization header.
 
     > At the moment implicit flow is also enabled, but its usage is discouraged and support may be removed in the future
 
     ## Rate Limiting
 
-    Access to API is rate limited. Current rate limit is 20000 requests per IP per day.
+    Access to API is rate limited and subject to change. You should get rate-limit info in appropriate headers.
     Further limits and restrictions may be added if we detect misuse. 
 
-    If you need higher limits, contact us.
+    If you have questions about limits, contact us.
+
+    # Unstable and Internal Endpoints
+
+    Some endpoints are marked as unstable or internal. Unstable endpoints are publicly available,
+    but the API may not be completely finalized yet - either the way the endpoint is called or the response may change
+    at any time.
+
+    Internal APIs are available only for our own services. They are documented here for completeness.
 
     ## Source
 
@@ -780,6 +789,191 @@ paths:
           $ref: '#/components/responses/error-response'
         default:
           $ref: '#/components/responses/error-response'
+  /unstable/id-lookup/game/v1:
+    post:
+      operationId: unstable-idlookup-game-v1
+      tags:
+        - unstable
+        - games
+      summary: Lookup game IDs
+      description: Lookup IsThereAnyDeal game IDs by Steam IDs
+      security: []
+      requestBody:
+        description: List of Steam IDs
+        content:
+          application/json:
+            schema:
+              type: array
+              minItems: 1
+              items:
+                type: string
+                pattern: ^(app|sub|bundle)/[0-9]+$
+            example:
+              - app/220
+      responses:
+        '200':
+          description: Success response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resp.unstable.idlookup-game'
+              examples:
+                success:
+                  $ref: '#/components/examples/idlookup-game.v1.success'
+        '400':
+          $ref: '#/components/responses/error-response'
+        default:
+          $ref: '#/components/responses/error-response'
+  /unstable/id-lookup/steam/v1:
+    post:
+      operationId: unstable-idlookup-steam-v1
+      tags:
+        - unstable
+        - games
+      summary: Lookup steam IDs
+      description: Lookup Steam IDs by IsThereAnyDeal game IDs
+      security: []
+      requestBody:
+        description: List of game IDs
+        content:
+          application/json:
+            schema:
+              type: array
+              minItems: 1
+              items:
+                type: string
+                format: uuid
+      responses:
+        '200':
+          description: Success response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resp.unstable.idlookup-steam'
+              examples:
+                success:
+                  $ref: '#/components/examples/idlookup-steam.v1.success'
+        '400':
+          $ref: '#/components/responses/error-response'
+        default:
+          $ref: '#/components/responses/error-response'
+  /internal/early-access/v1:
+    get:
+      operationId: internal-earlyaccess-v1
+      tags:
+        - internal
+      summary: Early Access Games
+      description: Returns list of Steam appids, which are currently considered to be early in early access
+      security:
+        - keySecurity: []
+      responses:
+        '200':
+          description: Success response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: integer
+        '400':
+          $ref: '#/components/responses/error-response'
+        default:
+          $ref: '#/components/responses/error-response'
+  /internal/players/v1:
+    get:
+      operationId: internal-players-v1
+      tags:
+        - internal
+      summary: Number of Players Statistics
+      security:
+        - keySecurity: []
+      parameters:
+        - name: appid
+          in: query
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Success response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resp.internal.players'
+        '400':
+          $ref: '#/components/responses/error-response'
+        default:
+          $ref: '#/components/responses/error-response'
+  /internal/reviews/v1:
+    get:
+      operationId: internal-reviews-v1
+      tags:
+        - internal
+      summary: Reviews score
+      description: Returns Metacritic user reviews overview and OpenCritic overview for a given game
+      security:
+        - keySecurity: []
+      parameters:
+        - name: appid
+          in: query
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Success response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resp.internal.reviews'
+        '400':
+          $ref: '#/components/responses/error-response'
+        default:
+          $ref: '#/components/responses/error-response'
+  /internal/rates/v1:
+    get:
+      operationId: internal-rates-v1
+      tags:
+        - internal
+      summary: Conversion Rates
+      security:
+        - keySecurity: []
+      responses:
+        '200':
+          description: Success response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resp.internal.rates'
+        '400':
+          $ref: '#/components/responses/error-response'
+        default:
+          $ref: '#/components/responses/error-response'
+  /internal/twitch/stream/v1:
+    get:
+      operationId: internal-twitchstream-v1
+      tags:
+        - internal
+      summary: Current stream of Twitch channel
+      security:
+        - keySecurity: []
+      parameters:
+        - name: channel
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resp.internal.twitchstream'
+        '400':
+          $ref: '#/components/responses/error-response'
+        default:
+          $ref: '#/components/responses/error-response'
 components:
   securitySchemes:
     keySecurity:
@@ -838,7 +1032,6 @@ components:
           schema:
             type: array
             minItems: 1
-            maxItems: 100
             items:
               type: string
               format: uuid
@@ -1339,6 +1532,10 @@ components:
               type: string
         url:
           type: string
+          format: uri
+        details:
+          type: string
+          format: uri
         isMature:
           type: boolean
         publish:
@@ -1641,6 +1838,124 @@ components:
           type:
             - string
             - 'null'
+    resp.unstable.idlookup-game:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: Game IDs Lookup Response
+      type: object
+      patternProperties:
+        ^(app|sub|bundle)/[0-9]+$:
+          type: string
+          format: uuid
+    resp.unstable.idlookup-steam:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: Steam IDs Lookup Response
+      type: object
+      patternProperties:
+        ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$:
+          type: string
+          pattern: ^(app|sub|bundle)/[0-9]+$
+    resp.internal.players:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: Players Statistics Response
+      type: object
+      required:
+        - current
+        - day
+        - peak
+      properties:
+        current:
+          type: number
+          minimum: 0
+        day:
+          type: number
+          minimum: 0
+        peak:
+          type: number
+          minimum: 0
+    resp.internal.reviews:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: Reviews Overview Response
+      type: object
+      required:
+        - metauser
+        - opencritic
+      properties:
+        metauser:
+          oneOf:
+            - type: object
+              properties:
+                score:
+                  type:
+                    - integer
+                    - 'null'
+                verdict:
+                  type:
+                    - string
+                    - 'null'
+                url:
+                  type: string
+                  format: uri
+            - type: 'null'
+        opencritic:
+          oneOf:
+            - type: object
+              properties:
+                score:
+                  type:
+                    - integer
+                    - 'null'
+                verdict:
+                  type:
+                    - string
+                    - 'null'
+                url:
+                  type: string
+                  format: uri
+            - type: 'null'
+    resp.internal.rates:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: Currency Rates Response
+      type: array
+      items:
+        type: object
+        required:
+          - from
+          - to
+          - rate
+        properties:
+          from:
+            type: string
+            pattern: ^[A-Z]{3}$
+          to:
+            type: string
+            pattern: ^[A-Z]{3}$
+          rate:
+            type: number
+            exclusiveMinimum: 0
+    resp.internal.twitchstream:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      oneOf:
+        - title: Players Statistics Response
+          type: object
+          required:
+            - user_name
+            - title
+            - thumbnail_url
+            - viewer_count
+            - game
+          properties:
+            user_name:
+              type: string
+            title:
+              type: string
+            thumbnail_url:
+              type: string
+            viewer_count:
+              type: integer
+              minimum: 0
+            game:
+              type: string
+        - type: 'null'
   examples:
     shops.v1.success:
       value:
@@ -1699,7 +2014,7 @@ components:
                   name: Windows
               timestamp: '2023-06-06T21:47:39+02:00'
               expiry: '2023-06-10T18:00:00+02:00'
-              url: https://next.isthereanydeal.com/link/0184bc2c-4d32-713b-92eb-a0bc051212c7/
+              url: https://isthereanydeal.com/link/0184bc2c-4d32-713b-92eb-a0bc051212c7/
           - id: 01846e7e-86b7-70b0-94f2-902edb836ef1
             slug: luxor-3
             title: Luxor 3
@@ -1735,7 +2050,7 @@ components:
                   name: Windows
               timestamp: '2023-06-06T21:47:38+02:00'
               expiry: '2023-06-09T18:00:00+02:00'
-              url: https://next.isthereanydeal.com/link/0184bc2c-5135-71d9-813e-b7e84af11eb3/
+              url: https://isthereanydeal.com/link/0184bc2c-5135-71d9-813e-b7e84af11eb3/
           - id: 01846e7e-87f3-70af-b4f1-b7524f49dab4
             slug: prince-of-persia-the-two-thrones
             title: 'Prince of Persia: The Two Thrones™'
@@ -1767,7 +2082,7 @@ components:
               platforms: []
               timestamp: '2023-06-06T21:59:42+02:00'
               expiry: null
-              url: https://next.isthereanydeal.com/link/0184c0c4-f805-71ee-9394-3a5dd0cf0012/
+              url: https://isthereanydeal.com/link/0184c0c4-f805-71ee-9394-3a5dd0cf0012/
     lookup.v1.found:
       value:
         found: true
@@ -1899,7 +2214,7 @@ components:
                   name: Mac
               timestamp: '2023-06-06T21:54:09+02:00'
               expiry: '2023-06-07T23:59:59+02:00'
-              url: https://next.isthereanydeal.com/link/0184d081-61ab-7036-994c-6e17f1348fe7/
+              url: https://isthereanydeal.com/link/0184d081-61ab-7036-994c-6e17f1348fe7/
             - shop:
                 id: 61
                 name: Steam
@@ -1932,7 +2247,7 @@ components:
                   name: Linux
               timestamp: '2022-12-21T00:29:04+01:00'
               expiry: null
-              url: https://next.isthereanydeal.com/link/018531a3-cec4-700a-8534-79c6e498959f/
+              url: https://isthereanydeal.com/link/018531a3-cec4-700a-8534-79c6e498959f/
         - id: 01849783-6a26-7147-ab32-71804ca47e8e
           deals:
             - shop:
@@ -1969,7 +2284,7 @@ components:
                   name: Linux
               timestamp: '2023-05-13T01:43:45+02:00'
               expiry: null
-              url: https://next.isthereanydeal.com/link/0184d8a2-6f10-7284-811a-450d3df4feb1/
+              url: https://isthereanydeal.com/link/0184d8a2-6f10-7284-811a-450d3df4feb1/
             - shop:
                 id: 37
                 name: Humble Store
@@ -2004,7 +2319,7 @@ components:
                   name: Linux
               timestamp: '2023-05-11T22:05:42+02:00'
               expiry: '2023-05-23T19:00:00+02:00'
-              url: https://next.isthereanydeal.com/link/0184d9c7-79bf-7008-b766-5a2820c8c92b/
+              url: https://isthereanydeal.com/link/0184d9c7-79bf-7008-b766-5a2820c8c92b/
     historylow.v1.success:
       value:
         - id: 01849782-1017-7389-8de4-c97c587fd7e3
@@ -2166,7 +2481,7 @@ components:
                   name: Linux
               timestamp: '2023-06-06T21:47:32+02:00'
               expiry: null
-              url: https://next.isthereanydeal.com/link/0184bc2c-3993-71ca-afb2-87860fb73b84/
+              url: https://isthereanydeal.com/link/0184bc2c-3993-71ca-afb2-87860fb73b84/
             lowest:
               shop:
                 id: 6
@@ -2188,6 +2503,7 @@ components:
               id: 8
               name: Fanatical
             url: http://www.jdoqocy.com/click-6305441-13212017?URL=https%3A%2F%2Fwww.fanatical.com%2Fen%2Fbundle%2Frimworld-with-all-expansions
+            details: https://isthereanydeal.com/bundles/19/
             isMature: false
             publish: '2023-07-23T00:36:18+02:00'
             expiry: '2023-07-26T09:00:00+02:00'
@@ -2267,3 +2583,13 @@ components:
           title: 'The Ship: Single Player'
           type: null
           mature: false
+    idlookup-game.v1.success:
+      value:
+        bundle/27508: 018d29fc-e65a-7363-86c0-2b6918a6b5d8
+        bundle/28796: 018d2785-f96d-7378-aec8-c096b4df1a4b
+        sub/467072: 018d2785-d40d-722a-a2f0-14d15378ea59
+    idlookup-steam.v1.success:
+      value:
+        018d29fc-e65a-7363-86c0-2b6918a6b5d8: bundle/27508
+        018d2785-f96d-7378-aec8-c096b4df1a4b: bundle/28796
+        018d2785-d40d-722a-a2f0-14d15378ea59: sub/467072
