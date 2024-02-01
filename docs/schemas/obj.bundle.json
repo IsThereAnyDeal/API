@@ -23,7 +23,12 @@
       }
     },
     "url": {
-      "type": "string"
+      "type": "string",
+      "format": "uri"
+    },
+    "details": {
+      "type": "string",
+      "format": "uri"
     },
     "isMature": {
       "type": "boolean"
