@@ -46,6 +46,14 @@ info:
     
     If you have questions about limits, contact us.
     
+    # Unstable and Internal Endpoints
+    
+    Some endpoints are marked as unstable or internal. Unstable endpoints are publicly available,
+    but the API may not be completely finalized yet - either the way the endpoint is called or the response may change
+    at any time.
+    
+    Internal APIs are available only for our own services. They are documented here for completeness.
+    
     ## Source
 
     You can find source files for this documentation over at [GitHub](https://github.com/IsThereAnyDeal/API).
@@ -115,7 +123,6 @@ components:
           schema:
             type: array
             minItems: 1
-            maxItems: 100
             items:
               type: string
               format: uuid
@@ -860,6 +867,199 @@ paths:
           $ref: "./defs/error-response.yaml"
         default:
           $ref: "./defs/error-response.yaml"
+
+  /unstable/id-lookup/game/v1:
+    post:
+      operationId: unstable-idlookup-game-v1
+      tags:
+        - unstable
+        - games
+      summary: Lookup game IDs
+      description: Lookup IsThereAnyDeal game IDs by Steam IDs
+      security: []
+      requestBody:
+        description: List of Steam IDs
+        content:
+          "application/json":
+            schema:
+              type: array
+              minItems: 1
+              items:
+                type: string
+                pattern: "^(app|sub|bundle)/[0-9]+$"
+            example: ["app/220"]
+      responses:
+        200:
+          description: Success response
+          content:
+            "application/json":
+              schema:
+                $ref: "./schemas/resp.unstable.idlookup-game.yaml"
+              examples:
+                success:
+                  $ref: "./examples/unstable/idlookup-game.v1.success.json"
+        400:
+          $ref: "./defs/error-response.yaml"
+        default:
+          $ref: "./defs/error-response.yaml"
+
+  /unstable/id-lookup/steam/v1:
+    post:
+      operationId: unstable-idlookup-steam-v1
+      tags:
+        - unstable
+        - games
+      summary: Lookup steam IDs
+      description: Lookup Steam IDs by IsThereAnyDeal game IDs
+      security: []
+      requestBody:
+        description: List of game IDs
+        content:
+          "application/json":
+            schema:
+              type: array
+              minItems: 1
+              items:
+                type: string
+                format: uuid
+      responses:
+        200:
+          description: Success response
+          content:
+            "application/json":
+              schema:
+                $ref: "./schemas/resp.unstable.idlookup-steam.yaml"
+              examples:
+                success:
+                  $ref: "./examples/unstable/idlookup-steam.v1.success.json"
+        400:
+          $ref: "./defs/error-response.yaml"
+        default:
+          $ref: "./defs/error-response.yaml"
+
+  /internal/early-access/v1:
+    get:
+      operationId: internal-earlyaccess-v1
+      tags:
+        - internal
+      summary: Early Access Games
+      description: Returns list of Steam appids, which are currently considered to be early in early access
+      security:
+        - keySecurity: []
+      responses:
+        200:
+          description: Success response
+          content:
+            "application/json":
+              schema:
+                type: array
+                items:
+                  type: integer
+        400:
+          $ref: "./defs/error-response.yaml"
+        default:
+          $ref: "./defs/error-response.yaml"
+
+  /internal/players/v1:
+    get:
+      operationId: internal-players-v1
+      tags:
+        - internal
+      summary: Number of Players Statistics
+      security:
+        - keySecurity: []
+      parameters:
+        - name: appid
+          in: query
+          required: true
+          schema:
+            type: number
+      responses:
+        200:
+          description: Success response
+          content:
+            "application/json":
+              schema:
+                $ref: "./schemas/resp.internal.players.yaml"
+        400:
+          $ref: "./defs/error-response.yaml"
+        default:
+          $ref: "./defs/error-response.yaml"
+
+  /internal/reviews/v1:
+    get:
+      operationId: internal-reviews-v1
+      tags:
+        - internal
+      summary: Reviews score
+      description: Returns Metacritic user reviews overview and OpenCritic overview for a given game
+      security:
+        - keySecurity: []
+      parameters:
+        - name: appid
+          in: query
+          required: true
+          schema:
+            type: number
+      responses:
+        200:
+          description: Success response
+          content:
+            "application/json":
+              schema:
+                $ref: "./schemas/resp.internal.reviews.yaml"
+        400:
+          $ref: "./defs/error-response.yaml"
+        default:
+          $ref: "./defs/error-response.yaml"
+
+  /internal/rates/v1:
+    get:
+      operationId: internal-rates-v1
+      tags:
+        - internal
+      summary: Conversion Rates
+      security:
+        - keySecurity: []
+      responses:
+        200:
+          description: Success response
+          content:
+            "application/json":
+              schema:
+                $ref: "./schemas/resp.internal.rates.yaml"
+        400:
+          $ref: "./defs/error-response.yaml"
+        default:
+          $ref: "./defs/error-response.yaml"
+
+  /internal/twitch/stream/v1:
+    get:
+      operationId: internal-twitchstream-v1
+      tags:
+        - internal
+      summary: Current stream of Twitch channel
+      security:
+        - keySecurity: [ ]
+      parameters:
+        - name: channel
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Success response
+          content:
+            "application/json":
+              schema:
+                $ref: "./schemas/resp.internal.twitchstream.yaml"
+        400:
+          $ref: "./defs/error-response.yaml"
+        default:
+          $ref: "./defs/error-response.yaml"
+
+
 
 
 

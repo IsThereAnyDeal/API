@@ -1,0 +1,8 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: Steam IDs Lookup Response
+type: object
+patternProperties:
+  "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$":
+    type: string
+    pattern: "^(app|sub|bundle)/[0-9]+$"
+

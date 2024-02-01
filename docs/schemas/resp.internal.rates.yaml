@@ -1,0 +1,19 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: Currency Rates Response
+type: array
+items:
+  type: object
+  required:
+    - from
+    - to
+    - rate
+  properties:
+    from:
+      type: string
+      pattern: "^[A-Z]{3}$"
+    to:
+      type: string
+      pattern: "^[A-Z]{3}$"
+    rate:
+      type: number
+      exclusiveMinimum: 0

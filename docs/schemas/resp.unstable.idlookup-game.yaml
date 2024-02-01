@@ -1,0 +1,8 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: Game IDs Lookup Response
+type: object
+patternProperties:
+  "^(app|sub|bundle)/[0-9]+$":
+    type: string
+    format: uuid
+

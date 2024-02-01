@@ -1,0 +1,17 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: Players Statistics Response
+type: object
+required:
+  - current
+  - day
+  - peak
+properties:
+  current:
+    type: number
+    minimum: 0
+  day:
+    type: number
+    minimum: 0
+  peak:
+    type: number
+    minimum: 0

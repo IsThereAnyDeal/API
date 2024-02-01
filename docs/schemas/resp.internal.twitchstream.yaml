@@ -1,0 +1,23 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+oneOf:
+  - title: Players Statistics Response
+    type: object
+    required:
+      - user_name
+      - title
+      - thumbnail_url
+      - viewer_count
+      - game
+    properties:
+      user_name:
+        type: string
+      title:
+        type: string
+      thumbnail_url:
+        type: string
+      viewer_count:
+        type: integer
+        minimum: 0
+      game:
+        type: string
+  - type: 'null'
