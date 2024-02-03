@@ -331,16 +331,16 @@ paths:
           content:
             "application/json":
               schema:
-                $ref: "./schemas/resp.games.info.json"
+                $ref: "./schemas/resp.games.info.yaml"
               examples:
                 found:
                   description: "Europa Universalis IV info"
                   $ref: "./examples/games/info.v2.found.json"
-                not-found:
-                  description: "Game not found"
-                  $ref: "./examples/games/info.v2.not-found.json"
         400:
           $ref: "./defs/error-response.yaml"
+        404:
+          $ref: "./defs/error-response.yaml"
+          description: Game not found
         default:
           $ref: "./defs/error-response.yaml"
 
