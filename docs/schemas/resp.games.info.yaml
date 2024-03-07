@@ -1,6 +1,10 @@
 $schema: "https://json-schema.org/draft/2020-12/schema"
 title: Game Info Response
 type: object
+required: [
+  id, slug, title, type, mature, assets, earlyAccess, achievements, tradingCards, appid, tags, releaseDate,
+  developers, publishers, reviews, stats, players, urls
+]
 properties:
   id:
     type: string
@@ -13,6 +17,19 @@ properties:
     $ref: "./obj.game-type.json"
   mature:
     type: boolean
+  assets:
+    type: object
+    properties:
+      banner145:
+        type: string
+      banner300:
+        type: string
+      banner400:
+        type: string
+      banner600:
+        type: string
+      boxart:
+        type: string
   earlyAccess:
     type: boolean
   achievements:
@@ -70,3 +87,10 @@ properties:
             type: integer
             minimum: 0
       - type: 'null'
+  urls:
+    type: object
+    required: [game]
+    properties:
+      game:
+        type: string
+        format: uri

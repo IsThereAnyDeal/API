@@ -8,7 +8,7 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["id", "current", "lowest"],
+        "required": ["id", "current", "lowest", "bundled", "urls"],
         "properties": {
           "id": {
             "type": "string",
@@ -25,6 +25,20 @@
               {"$ref": "obj.historylow.json"},
               {"type": "null"}
             ]
+          },
+          "bundled": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "urls": {
+            "type": "object",
+            "required": ["game"],
+            "properties": {
+              "game": {
+                "type": "string",
+                "format": "uri"
+              }
+            }
           }
         }
       }

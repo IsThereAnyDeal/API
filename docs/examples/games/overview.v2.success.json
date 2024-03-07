@@ -2,31 +2,26 @@
   "value": {
     "prices": [
       {
-        "id": "0184bb93-26bf-724e-8e4e-6d0316662a01",
+        "id": "018d937f-12e9-71ca-a5d5-f31985870694",
         "current": {
           "shop": {
-            "id": 6,
-            "name": "Fanatical"
+            "id": 61,
+            "name": "Steam"
           },
           "price": {
-            "amount": 26.94,
-            "amountInt": 2694,
-            "currency": "USD"
+            "amount": 31.99,
+            "amountInt": 3199,
+            "currency": "EUR"
           },
           "regular": {
-            "amount": 34.99,
-            "amountInt": 3499,
-            "currency": "USD"
+            "amount": 31.99,
+            "amountInt": 3199,
+            "currency": "EUR"
           },
-          "cut": 23,
-          "voucher": "TEST-CODE-REVISED",
+          "cut": 0,
+          "voucher": null,
           "flag": null,
-          "drm": [
-            {
-              "id": 61,
-              "name": "Steam"
-            }
-          ],
+          "drm": [],
           "platforms": [
             {
               "id": 1,
@@ -41,9 +36,9 @@
               "name": "Linux"
             }
           ],
-          "timestamp": "2023-06-06T21:47:32+02:00",
+          "timestamp": "2024-02-11T02:07:53+01:00",
           "expiry": null,
-          "url": "https:\/\/isthereanydeal.com\/link\/0184bc2c-3993-71ca-afb2-87860fb73b84\/"
+          "url": "https:\/\/itad.link\/018d9386-b9c8-71ea-8724-47f829db21bd\/"
         },
         "lowest": {
           "shop": {
@@ -51,70 +46,75 @@
             "name": "Fanatical"
           },
           "price": {
-            "amount": 25.54,
-            "amountInt": 2554,
-            "currency": "USD"
+            "amount": 22.39,
+            "amountInt": 2239,
+            "currency": "EUR"
           },
           "regular": {
-            "amount": 34.99,
-            "amountInt": 3499,
-            "currency": "USD"
+            "amount": 31.99,
+            "amountInt": 3199,
+            "currency": "EUR"
           },
-          "cut": 27,
-          "timestamp": "2022-12-13T02:54:16+01:00"
+          "cut": 30,
+          "timestamp": "2023-03-08T17:35:17+01:00"
+        },
+        "bundled": 1,
+        "urls": {
+          "game": "https:\/\/isthereanydeal.com\/game\/id:018d937f-12e9-71ca-a5d5-f31985870694\/"
         }
       }
     ],
     "bundles": [
       {
-        "id": 19,
+        "id": 11631,
         "title": "Rimworld with all Expansions Bundle",
         "page": {
           "id": 8,
-          "name": "Fanatical"
+          "name": "Fanatical",
+          "shopId": 6
         },
-        "url": "http:\/\/www.jdoqocy.com\/click-6305441-13212017?URL=https%3A%2F%2Fwww.fanatical.com%2Fen%2Fbundle%2Frimworld-with-all-expansions",
-        "details": "https://isthereanydeal.com/bundles/19/",
+        "url": "https:\/\/www.jdoqocy.com\/click-6305441-13212017?URL=https%3A%2F%2Fwww.fanatical.com%2Fen%2Fbundle%2Frimworld-with-all-expansions",
+        "details": "https:\/\/isthereanydeal.com\/bundles\/11631\/",
         "isMature": false,
-        "publish": "2023-07-23T00:36:18+02:00",
-        "expiry": "2023-07-26T09:00:00+02:00",
+        "publish": "2024-03-04T19:00:00+01:00",
+        "expiry": "2024-03-22T00:59:46+01:00",
         "counts": {
           "games": 4,
-          "media": 0
+          "media": 1
         },
         "tiers": [
           {
             "price": {
-              "amount": 79.04,
-              "amountInt": 7904,
-              "currency": "EUR"
+              "amount": 87.96,
+              "amountInt": 8796,
+              "currency": "USD"
             },
             "games": [
               {
-                "id": "0184bb93-24e6-703e-8ada-7edfc6d71b54",
-                "slug": "rimworld-biotech",
-                "title": "RimWorld - Biotech",
-                "type": "dlc",
-                "mature": false
-              },
-              {
-                "id": "0184bb93-26bf-724e-8e4e-6d0316662a01",
+                "id": "018d937f-12e9-71ca-a5d5-f31985870694",
                 "slug": "rimworld",
                 "title": "RimWorld",
                 "type": "game",
                 "mature": false
               },
               {
-                "id": "0184bb93-525b-70e7-a50d-50ca8706fef6",
+                "id": "018d937f-3e88-718b-b99d-9a45bb69be55",
+                "slug": "rimworld-royalty",
+                "title": "RimWorld - Royalty",
+                "type": "dlc",
+                "mature": false
+              },
+              {
+                "id": "018d937f-5256-73e1-bba6-66fd3f4d9cd7",
                 "slug": "rimworld-ideology",
                 "title": "RimWorld - Ideology",
                 "type": "dlc",
                 "mature": false
               },
               {
-                "id": "0184bb93-57e8-7147-aebf-88778eb3e5b0",
-                "slug": "rimworld-royalty",
-                "title": "RimWorld - Royalty",
+                "id": "018d937f-65f0-70d3-83fe-71fac1505a13",
+                "slug": "rimworld-biotech",
+                "title": "RimWorld - Biotech",
                 "type": "dlc",
                 "mature": false
               }

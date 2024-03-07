@@ -19,6 +19,12 @@
         },
         "name": {
           "type": "string"
+        },
+        "shopId": {
+          "oneOf": [
+            {"type": "number"},
+            {"type": "null"}
+          ]
         }
       }
     },
