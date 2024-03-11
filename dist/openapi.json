@@ -389,7 +389,7 @@
         ],
         "requestBody": {
           "description": "List of Game IDs for which to load prices",
-          "$ref": "#/components/requestBodies/gids"
+          "$ref": "#/components/requestBodies/gids-200"
         },
         "responses": {
           "200": {
@@ -438,7 +438,7 @@
         ],
         "requestBody": {
           "description": "List of Game IDs for which to load historical lows",
-          "$ref": "#/components/requestBodies/gids"
+          "$ref": "#/components/requestBodies/gids-200"
         },
         "responses": {
           "200": {
@@ -490,7 +490,7 @@
         ],
         "requestBody": {
           "description": "List of Game IDs for which to load store lows",
-          "$ref": "#/components/requestBodies/gids"
+          "$ref": "#/components/requestBodies/gids-200"
         },
         "responses": {
           "200": {
@@ -596,7 +596,7 @@
           }
         ],
         "requestBody": {
-          "$ref": "#/components/requestBodies/gids"
+          "$ref": "#/components/requestBodies/gids-200"
         },
         "responses": {
           "200": {
@@ -1521,6 +1521,26 @@
             "schema": {
               "type": "array",
               "minItems": 1,
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              }
+            },
+            "example": [
+              "01849783-6a26-7147-ab32-71804ca47e8e",
+              "01849782-1017-7389-8de4-c97c587fd7e3"
+            ]
+          }
+        }
+      },
+      "gids-200": {
+        "description": "List of Game IDs",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 200,
               "items": {
                 "type": "string",
                 "format": "uuid"
