@@ -797,7 +797,9 @@ paths:
         - games
       summary: Lookup game IDs
       description: Lookup IsThereAnyDeal game IDs by Steam IDs
-      security: []
+      security:
+        - {}
+        - keySecurity: []
       requestBody:
         description: List of Steam IDs
         content:
@@ -832,7 +834,9 @@ paths:
         - games
       summary: Lookup steam IDs
       description: Lookup Steam IDs by IsThereAnyDeal game IDs
-      security: []
+      security:
+        - {}
+        - keySecurity: []
       requestBody:
         description: List of game IDs
         content:
