@@ -1,0 +1,23 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: HowLongToBeat Overview Response
+type: object
+required: [id, main, extra, complete]
+properties:
+  id:
+    type: number
+    minimum: 0
+  main:
+    oneOf:
+      - type: "null"
+      - type: number
+        minimum: 0
+  extra:
+    oneOf:
+      - type: "null"
+      - type: number
+        minimum: 0
+  complete:
+    oneOf:
+      - type: "null"
+      - type: number
+        minimum: 0
