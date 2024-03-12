@@ -13,7 +13,7 @@ info:
     - You MUST NOT make an impression that you are affiliated with IsThereAnyDeal, unless agreed otherwise.
       If you are interested in making an official app, please contact us.
     - You MUST NOT change provided data in any way. This means that you can't remove affiliate tags from the URLs, change prices and so on.
-      You MAX use only part of data provided and enrich them from your own sources.  
+      You MAY use only part of data provided and enrich them from your own sources.  
     - You MUST NOT make an app that could be considered a competition to IsThereAnyDeal or IsThereAnyDeal projects.
     - You MUST NOT use this API to directly or indirectly help the competition of IsThereAnyDeal.
 
@@ -908,12 +908,37 @@ paths:
           $ref: '#/components/responses/error-response'
         default:
           $ref: '#/components/responses/error-response'
+  /internal/htlb/v1:
+    get:
+      operationId: internal-hltb-v1
+      tags:
+        - internal
+      summary: HowLongToBeat Overview
+      security:
+        - keySecurity: []
+      parameters:
+        - name: appid
+          in: query
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Success response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resp.internal.hltb'
+        '400':
+          $ref: '#/components/responses/error-response'
+        default:
+          $ref: '#/components/responses/error-response'
   /internal/reviews/v1:
     get:
       operationId: internal-reviews-v1
       tags:
         - internal
-      summary: Reviews score
+      summary: Reviews Score
       description: Returns Metacritic user reviews overview and OpenCritic overview for a given game
       security:
         - keySecurity: []
@@ -1963,6 +1988,34 @@ components:
         peak:
           type: number
           minimum: 0
+    resp.internal.hltb:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: HowLongToBeat Overview Response
+      type: object
+      required:
+        - id
+        - main
+        - extra
+        - complete
+      properties:
+        id:
+          type: number
+          minimum: 0
+        main:
+          oneOf:
+            - type: 'null'
+            - type: number
+              minimum: 0
+        extra:
+          oneOf:
+            - type: 'null'
+            - type: number
+              minimum: 0
+        complete:
+          oneOf:
+            - type: 'null'
+            - type: number
+              minimum: 0
     resp.internal.reviews:
       $schema: https://json-schema.org/draft/2020-12/schema
       title: Reviews Overview Response

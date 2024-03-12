@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "IsThereAnyDeal API",
-    "description": "IsThereAnyDeal API provides programmatic access to features found at IsThereAnyDeal.\n\n## Terms of Service\n\nAPI is provided in good faith. We trust you won't misuse the API to damage IsThereAnyDeal, its users or its reputation.\n\n- You MAY use this API for commercial purposes **IF** the resulting app is available to public. If you want to use this API privately contact us.\n- You SHOULD provide a link to IsThereAnyDeal.com or mention IsThereAnyDeal API.\n- You MUST NOT make an impression that you are affiliated with IsThereAnyDeal, unless agreed otherwise.\n  If you are interested in making an official app, please contact us.\n- You MUST NOT change provided data in any way. This means that you can't remove affiliate tags from the URLs, change prices and so on.\n  You MAX use only part of data provided and enrich them from your own sources.  \n- You MUST NOT make an app that could be considered a competition to IsThereAnyDeal or IsThereAnyDeal projects.\n- You MUST NOT use this API to directly or indirectly help the competition of IsThereAnyDeal.\n\nAll data are provided _as-is_. We reserve the right to deny you access to the API at any point without notice.\nIf you are not sure about any of the points, please contact us.\n\n## Access\n\nMost of the endpoints will be restricted by either API key or OAuth.\nIn order to get neccessary keys, you have to [register your app](https://isthereanydeal.com/apps/my/).\nUpon registration, api keys and OAuth credentials will be generated for you.\n\nFor some endpoints you might need explicit approval for use. In such cases, contact us.\n\n### OAuth\n\nWe support [authorization code](https://www.oauth.com/oauth2-servers/access-tokens/authorization-code-request/) flow with [PKCE extension](https://oauth.net/2/pkce/).\n\n> You can find PKCE step-through tutorial at [OAuth 2.0 PKCE Flow](https://www.oauth.com/playground/authorization-code-with-pkce.html)\n\nDo not set hard limits for token lengths. Server will return access token as JWT of variable length.\nTo authorize your endpoint access use Authorization header.\n\n> At the moment implicit flow is also enabled, but its usage is discouraged and support may be removed in the future\n\n## Rate Limiting\n\nAccess to API is rate limited and subject to change. You should get rate-limit info in appropriate headers.\nFurther limits and restrictions may be added if we detect misuse. \n\nIf you have questions about limits, contact us.\n\n# Unstable and Internal Endpoints\n\nSome endpoints are marked as unstable or internal. Unstable endpoints are publicly available,\nbut the API may not be completely finalized yet - either the way the endpoint is called or the response may change\nat any time.\n\nInternal APIs are available only for our own services. They are documented here for completeness.\n\n## Source\n\nYou can find source files for this documentation over at [GitHub](https://github.com/IsThereAnyDeal/API).\nFeel free to help us improve it.\n",
+    "description": "IsThereAnyDeal API provides programmatic access to features found at IsThereAnyDeal.\n\n## Terms of Service\n\nAPI is provided in good faith. We trust you won't misuse the API to damage IsThereAnyDeal, its users or its reputation.\n\n- You MAY use this API for commercial purposes **IF** the resulting app is available to public. If you want to use this API privately contact us.\n- You SHOULD provide a link to IsThereAnyDeal.com or mention IsThereAnyDeal API.\n- You MUST NOT make an impression that you are affiliated with IsThereAnyDeal, unless agreed otherwise.\n  If you are interested in making an official app, please contact us.\n- You MUST NOT change provided data in any way. This means that you can't remove affiliate tags from the URLs, change prices and so on.\n  You MAY use only part of data provided and enrich them from your own sources.  \n- You MUST NOT make an app that could be considered a competition to IsThereAnyDeal or IsThereAnyDeal projects.\n- You MUST NOT use this API to directly or indirectly help the competition of IsThereAnyDeal.\n\nAll data are provided _as-is_. We reserve the right to deny you access to the API at any point without notice.\nIf you are not sure about any of the points, please contact us.\n\n## Access\n\nMost of the endpoints will be restricted by either API key or OAuth.\nIn order to get neccessary keys, you have to [register your app](https://isthereanydeal.com/apps/my/).\nUpon registration, api keys and OAuth credentials will be generated for you.\n\nFor some endpoints you might need explicit approval for use. In such cases, contact us.\n\n### OAuth\n\nWe support [authorization code](https://www.oauth.com/oauth2-servers/access-tokens/authorization-code-request/) flow with [PKCE extension](https://oauth.net/2/pkce/).\n\n> You can find PKCE step-through tutorial at [OAuth 2.0 PKCE Flow](https://www.oauth.com/playground/authorization-code-with-pkce.html)\n\nDo not set hard limits for token lengths. Server will return access token as JWT of variable length.\nTo authorize your endpoint access use Authorization header.\n\n> At the moment implicit flow is also enabled, but its usage is discouraged and support may be removed in the future\n\n## Rate Limiting\n\nAccess to API is rate limited and subject to change. You should get rate-limit info in appropriate headers.\nFurther limits and restrictions may be added if we detect misuse. \n\nIf you have questions about limits, contact us.\n\n# Unstable and Internal Endpoints\n\nSome endpoints are marked as unstable or internal. Unstable endpoints are publicly available,\nbut the API may not be completely finalized yet - either the way the endpoint is called or the response may change\nat any time.\n\nInternal APIs are available only for our own services. They are documented here for completeness.\n\n## Source\n\nYou can find source files for this documentation over at [GitHub](https://github.com/IsThereAnyDeal/API).\nFeel free to help us improve it.\n",
     "version": "2.0.0",
     "contact": {
       "name": "General API contact",
@@ -1340,13 +1340,55 @@
         }
       }
     },
+    "/internal/htlb/v1": {
+      "get": {
+        "operationId": "internal-hltb-v1",
+        "tags": [
+          "internal"
+        ],
+        "summary": "HowLongToBeat Overview",
+        "security": [
+          {
+            "keySecurity": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "appid",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/resp.internal.hltb"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error-response"
+          },
+          "default": {
+            "$ref": "#/components/responses/error-response"
+          }
+        }
+      }
+    },
     "/internal/reviews/v1": {
       "get": {
         "operationId": "internal-reviews-v1",
         "tags": [
           "internal"
         ],
-        "summary": "Reviews score",
+        "summary": "Reviews Score",
         "description": "Returns Metacritic user reviews overview and OpenCritic overview for a given game",
         "security": [
           {
@@ -2845,6 +2887,56 @@
           "peak": {
             "type": "number",
             "minimum": 0
+          }
+        }
+      },
+      "resp.internal.hltb": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "HowLongToBeat Overview Response",
+        "type": "object",
+        "required": [
+          "id",
+          "main",
+          "extra",
+          "complete"
+        ],
+        "properties": {
+          "id": {
+            "type": "number",
+            "minimum": 0
+          },
+          "main": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number",
+                "minimum": 0
+              }
+            ]
+          },
+          "extra": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number",
+                "minimum": 0
+              }
+            ]
+          },
+          "complete": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number",
+                "minimum": 0
+              }
+            ]
           }
         }
       },
