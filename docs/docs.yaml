@@ -526,6 +526,13 @@ paths:
       parameters:
         - $ref: "#/components/parameters/country"
         - $ref: "#/components/parameters/shops"
+        - name: vouchers
+          in: query
+          description: Allow vouchers in prices
+          required: false
+          schema:
+            type: boolean
+            default: true
       requestBody:
         $ref: "#/components/requestBodies/gids-200"
       responses:

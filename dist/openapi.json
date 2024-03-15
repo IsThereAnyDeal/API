@@ -593,6 +593,16 @@
           },
           {
             "$ref": "#/components/parameters/shops"
+          },
+          {
+            "name": "vouchers",
+            "in": "query",
+            "description": "Allow vouchers in prices",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": true
+            }
           }
         ],
         "requestBody": {
