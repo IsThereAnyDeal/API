@@ -3,6 +3,8 @@ title: Game IDs Lookup Response
 type: object
 patternProperties:
   "^.+$":
-    type: string
-    format: uuid
+    oneOf:
+      - type: "null"
+      - type: string
+        format: uuid
 

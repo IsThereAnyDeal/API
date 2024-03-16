@@ -4,7 +4,7 @@ type: object
 patternProperties:
   "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$":
     oneOf:
-      - type: null
+      - type: "null"
       - type: array
         items:
           type: string

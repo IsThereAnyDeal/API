@@ -901,7 +901,7 @@ paths:
         - keySecurity: []
       parameters:
         - name: shopId
-          in: query
+          in: path
           required: true
           schema:
             type: number
@@ -943,7 +943,7 @@ paths:
         - keySecurity: []
       parameters:
         - name: shopId
-          in: query
+          in: path
           required: true
           schema:
             type: number

@@ -1159,77 +1159,29 @@
         }
       }
     },
-    "/unstable/id-lookup/game/v1": {
+    "/unstable/id-lookup/shop/{shopId}/v2": {
       "post": {
-        "operationId": "unstable-idlookup-game-v1",
+        "operationId": "unstable-idlookup-shop-v2",
         "tags": [
           "unstable",
           "games"
         ],
-        "summary": "Lookup game IDs",
-        "description": "Lookup IsThereAnyDeal game IDs by Steam IDs",
+        "summary": "Lookup Shop's Game IDs",
+        "description": "Lookup shop's game IDs by IsThereAnyDeal game IDs",
         "security": [
           {},
           {
             "keySecurity": []
           }
         ],
-        "requestBody": {
-          "description": "List of Steam IDs",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "array",
-                "minItems": 1,
-                "items": {
-                  "type": "string",
-                  "pattern": "^(app|sub|bundle)/[0-9]+$"
-                }
-              },
-              "example": [
-                "app/220"
-              ]
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/resp.unstable.idlookup-game"
-                },
-                "examples": {
-                  "success": {
-                    "$ref": "#/components/examples/idlookup-game.v1.success"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/error-response"
-          },
-          "default": {
-            "$ref": "#/components/responses/error-response"
-          }
-        }
-      }
-    },
-    "/unstable/id-lookup/steam/v1": {
-      "post": {
-        "operationId": "unstable-idlookup-steam-v1",
-        "tags": [
-          "unstable",
-          "games"
-        ],
-        "summary": "Lookup steam IDs",
-        "description": "Lookup Steam IDs by IsThereAnyDeal game IDs",
-        "security": [
-          {},
+        "parameters": [
           {
-            "keySecurity": []
+            "name": "shopId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
           }
         ],
         "requestBody": {
@@ -1253,11 +1205,78 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/resp.unstable.idlookup-steam"
+                  "$ref": "#/components/schemas/resp.unstable.idlookup-shop"
                 },
                 "examples": {
                   "success": {
-                    "$ref": "#/components/examples/idlookup-steam.v1.success"
+                    "$ref": "#/components/examples/idlookup-steam.v2.success"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error-response"
+          },
+          "default": {
+            "$ref": "#/components/responses/error-response"
+          }
+        }
+      }
+    },
+    "/unstable/id-lookup/itad/{shopId}/v2": {
+      "post": {
+        "operationId": "unstable-idlookup-itad-v2",
+        "tags": [
+          "unstable",
+          "games"
+        ],
+        "summary": "Lookup Game IDs",
+        "description": "Lookup IsThereAnyDeal's game IDs by shop's game IDs",
+        "security": [
+          {},
+          {
+            "keySecurity": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "shopId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "List of shop's game IDs",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "example": [
+                "app/220"
+              ]
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/resp.unstable.idlookup-game"
+                },
+                "examples": {
+                  "success": {
+                    "$ref": "#/components/examples/idlookup-game.v2.success"
                   }
                 }
               }
@@ -2854,25 +2873,41 @@
           }
         }
       },
+      "resp.unstable.idlookup-shop": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "Shop IDs Lookup Response",
+        "type": "object",
+        "patternProperties": {
+          "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          }
+        }
+      },
       "resp.unstable.idlookup-game": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "title": "Game IDs Lookup Response",
         "type": "object",
         "patternProperties": {
-          "^(app|sub|bundle)/[0-9]+$": {
-            "type": "string",
-            "format": "uuid"
-          }
-        }
-      },
-      "resp.unstable.idlookup-steam": {
-        "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "title": "Steam IDs Lookup Response",
-        "type": "object",
-        "patternProperties": {
-          "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$": {
-            "type": "string",
-            "pattern": "^(app|sub|bundle)/[0-9]+$"
+          "^.+$": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "uuid"
+              }
+            ]
           }
         }
       },
@@ -4006,18 +4041,35 @@
           }
         ]
       },
-      "idlookup-game.v1.success": {
+      "idlookup-steam.v2.success": {
         "value": {
-          "bundle/27508": "018d29fc-e65a-7363-86c0-2b6918a6b5d8",
-          "bundle/28796": "018d2785-f96d-7378-aec8-c096b4df1a4b",
-          "sub/467072": "018d2785-d40d-722a-a2f0-14d15378ea59"
+          "018d95bc-fe96-73e6-a9f7-10afc28c0c03": [
+            "bundle/27508"
+          ],
+          "018d937f-6671-7056-b419-aac8a69a625e": [
+            "bundle/32380",
+            "bundle/28796"
+          ],
+          "018d937f-42c6-70a5-a29b-9d8c2e0f7b84": [
+            "app/1336490",
+            "sub/467072"
+          ],
+          "018d937f-6128-7151-8d2e-b4a9ad2e1ce8": [
+            "sub/637996",
+            "app/1777620",
+            "sub/752476"
+          ]
         }
       },
-      "idlookup-steam.v1.success": {
+      "idlookup-game.v2.success": {
         "value": {
-          "018d29fc-e65a-7363-86c0-2b6918a6b5d8": "bundle/27508",
-          "018d2785-f96d-7378-aec8-c096b4df1a4b": "bundle/28796",
-          "018d2785-d40d-722a-a2f0-14d15378ea59": "sub/467072"
+          "bundle/27508": "018d95bc-fe96-73e6-a9f7-10afc28c0c03",
+          "bundle/28796": "018d937f-6671-7056-b419-aac8a69a625e",
+          "sub/467072": "018d937f-42c6-70a5-a29b-9d8c2e0f7b84",
+          "sub/752476": "018d937f-6128-7151-8d2e-b4a9ad2e1ce8",
+          "sub/137730": "018d937f-6ee4-73f5-858c-2fde3407462f",
+          "app/137730": null,
+          "bundle/33608": "018d937f-7596-706f-b75d-834d76172237"
         }
       }
     }
