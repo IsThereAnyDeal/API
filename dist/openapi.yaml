@@ -133,6 +133,18 @@ paths:
               value: price
           schema:
             type: string
+        - name: nondeals
+          in: query
+          description: Load non-sale prices
+          schema:
+            type: boolean
+            default: false
+        - name: mature
+          in: query
+          description: Load deals for mature prices
+          schema:
+            type: boolean
+            default: false
         - name: shops
           in: query
           description: List of shop IDs separated by comma
