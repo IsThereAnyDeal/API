@@ -1,0 +1,18 @@
+{
+  "name": "isthereanydeal/sdk-php",
+  "license": "mit",
+  "authors": [
+    {
+      "name": "Tomáš Fedor",
+      "email": "tomas@isthereanydeal.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "IsThereAnyDeal\\SDK\\": "src/"
+    }
+  },
+  "require": {
+
+  }
+}
