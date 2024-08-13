@@ -7,12 +7,15 @@
       "email": "tomas@isthereanydeal.com"
     }
   ],
+  "scripts": {
+    "phpstan": "vendor/bin/phpstan analyse"
+  },
   "autoload": {
     "psr-4": {
       "IsThereAnyDeal\\SDK\\": "src/"
     }
   },
-  "require": {
-
+  "require-dev": {
+    "phpstan/phpstan": "^1.11"
   }
 }

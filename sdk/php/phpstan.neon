@@ -1,0 +1,8 @@
+includes:
+  - vendor/phpstan/phpstan/conf/bleedingEdge.neon
+
+parameters:
+    treatPhpDocTypesAsCertain: false
+    level: max
+    paths:
+      - src

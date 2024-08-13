@@ -56,6 +56,10 @@ class OAuth
     public function getToken(string $redirectUri, string $code, string $verifier): TokenResponse {
 
         $curl = curl_init(self::TokenEndpoint);
+        if ($curl === false) {
+            throw new \ErrorException("Failed to init curl");
+        }
+
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_POST, true);
@@ -71,18 +75,38 @@ class OAuth
         $response = curl_exec($curl);
         curl_close($curl);
 
-        if ($response === false) {
-            throw new \ErrorException();
+        if (!is_string($response)) {
+            throw new \ErrorException("Curl failed");
         }
 
-        $json = json_decode($response, true);
+        $json = json_decode($response, true, flags: JSON_THROW_ON_ERROR);
+        if (!is_array($json)) {
+            throw new \ErrorException("Unexpected response");
+        }
+
         $token = new TokenResponse();
         if (isset($json['error'])) {
+            /**
+             * @var array{
+             *     error: string,
+             *     error_description: string,
+             *     hint: string,
+             *     message: string
+             * } $json
+             */
             $token->error = $json['error'];
             $token->errorDescription = $json['error_description'];
             $token->hint = $json['hint'];
             $token->message = $json['message'];
         } else {
+            /**
+             * @var array{
+             *     token_type: string,
+             *     expires_in: int,
+             *     access_token: string,
+             *     refresh_token: string
+             * } $json
+             */
             $token->type = $json['token_type'];
             $token->expiresIn = (new \DateTimeImmutable())->setTimestamp(time() + $json['expires_in']);
             $token->accessToken = $json['access_token'];
