@@ -1,0 +1,42 @@
+get:
+  operationId: stats-waitlist-v1
+  tags:
+    - stats
+    - waitlist
+  summary: Waitlist Stats
+  description: |
+    Get Waitlist statistics for a game
+    
+    > Note: stats do not take into consideration users' regions.
+    > If they have set their price limit to be a historical low, stats will be computed
+    > for all users as if they were in the region you specify
+  security:
+    - keySecurity: []
+  parameters:
+    - $ref: "../../docs.yaml#/components/parameters/gid"
+    - $ref: "../../docs.yaml#/components/parameters/country"
+    - name: bucket_price
+      in: query
+      description: Price bucket size
+      schema:
+        type: integer
+        minimum: 0
+        default: 5
+    - name: bucket_cut
+      in: query
+      description: Cut bucket size
+      schema:
+        type: integer
+        minimum: 0
+        default: 5
+  responses:
+    200:
+      description: Success response
+      content:
+        "application/json":
+          schema:
+            $ref: "../../schemas/resp.stats.waitlist.json"
+    400:
+      $ref: "../../defs/error-response.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"

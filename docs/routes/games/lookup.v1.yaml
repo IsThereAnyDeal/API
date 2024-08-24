@@ -1,0 +1,37 @@
+get:
+  operationId: games-lookup-v1
+  tags:
+    - games
+  summary: Game Lookup
+  description: Lookup game based on title or Steam appid
+  security:
+    - keySecurity: []
+  parameters:
+    - name: title
+      in: query
+      description: Find game by it's name
+      schema:
+        type: string
+    - name: appid
+      in: query
+      description: Find game by Steam appid
+      schema:
+        type: number
+  responses:
+    200:
+      description: Lookup response with found game
+      content:
+        "application/json":
+          schema:
+            $ref: "../../schemas/resp.games.lookup.json"
+          examples:
+            found:
+              description: Game found
+              $ref: "../../examples/games/lookup.v1.found.json"
+            not-found:
+              description: Game not found
+              $ref: "../../examples/games/lookup.v1.not-found.json"
+    400:
+      $ref: "../../defs/error-response.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"

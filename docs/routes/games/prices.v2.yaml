@@ -1,0 +1,47 @@
+post:
+  operationId: games-prices-v2
+  tags:
+    - games
+    - deals
+  summary: Prices
+  description: Get games' prices
+  security:
+    - keySecurity: []
+  parameters:
+    - $ref: "../../docs.yaml#/components/parameters/country"
+    - name: nondeals
+      in: query
+      description: Load non-sale prices
+      schema:
+        type: boolean
+    - name: vouchers
+      in: query
+      description: Allow vouchers in prices
+      schema:
+        type: boolean
+    - name: capacity
+      in: query
+      description: How many prices to load per each game, 0 or omit for no limit
+      schema:
+        type: integer
+        minimum: 0
+    - $ref: "../../docs.yaml#/components/parameters/shops"
+      description: List of shop IDs for which you want to load prices
+  requestBody:
+    description: List of Game IDs for which to load prices
+    $ref: "../../docs.yaml#/components/requestBodies/gids-200"
+  responses:
+    200:
+      description: Info response
+      content:
+        "application/json":
+          schema:
+            $ref: "../../schemas/resp.games.prices.json"
+          examples:
+            success:
+              description: "Successful response"
+              $ref: "../../examples/games/prices.v2.success.json"
+    400:
+      $ref: "../../defs/error-response.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"

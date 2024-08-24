@@ -1,0 +1,32 @@
+get:
+  operationId: games-bundles-v2
+  tags:
+    - games
+    - bundles
+  summary: Bundles including Game
+  description: Get all bundles which contain the game
+  security:
+    - keySecurity: []
+  parameters:
+    - $ref: "../../docs.yaml#/components/parameters/gid"
+    - $ref: "../../docs.yaml#/components/parameters/country"
+    - name: expired
+      in: query
+      description: Include expired bundles
+      schema:
+        type: boolean
+  responses:
+    200:
+      description: Success response
+      content:
+        "application/json":
+          schema:
+            $ref: "../../schemas/resp.games.bundles.json"
+          examples:
+            success:
+              description: "Successful response"
+              $ref: "../../examples/games/bundles.v2.success.json"
+    400:
+      $ref: "../../defs/error-response.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"

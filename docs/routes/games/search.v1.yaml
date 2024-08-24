@@ -1,0 +1,38 @@
+get:
+  operationId: games-search-v1
+  tags:
+    - games
+  summary: Game Search
+  description: Search for games by title
+  security:
+    - keySecurity: []
+  parameters:
+    - name: title
+      in: query
+      description: Find games by name
+      required: true
+      schema:
+        type: string
+    - name: results
+      in: query
+      description: Maximum number of results to return
+      schema:
+        type: number
+        minimum: 1
+        maximum: 100
+        default: 20
+  responses:
+    200:
+      description: Search response
+      content:
+        "application/json":
+          schema:
+            $ref: "../../schemas/resp.games.search.json"
+          examples:
+            results:
+              description: "Europa Universalis IV search"
+              $ref: "../../examples/games/search.v1.results.json"
+    400:
+      $ref: "../../defs/error-response.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"

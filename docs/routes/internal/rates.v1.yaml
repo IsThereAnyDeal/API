@@ -1,0 +1,18 @@
+get:
+  operationId: internal-rates-v1
+  tags:
+    - internal
+  summary: Conversion Rates
+  security:
+    - keySecurity: []
+  responses:
+    200:
+      description: Success response
+      content:
+        "application/json":
+          schema:
+            $ref: "../../schemas/resp.internal.rates.yaml"
+    400:
+      $ref: "../../defs/error-response.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"

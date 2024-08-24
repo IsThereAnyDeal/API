@@ -1,0 +1,24 @@
+get:
+  operationId: internal-twitchstream-v1
+  tags:
+    - internal
+  summary: Current stream of Twitch channel
+  security:
+    - keySecurity: [ ]
+  parameters:
+    - name: channel
+      in: query
+      required: true
+      schema:
+        type: string
+  responses:
+    200:
+      description: Success response
+      content:
+        "application/json":
+          schema:
+            $ref: "../../schemas/resp.internal.twitchstream.yaml"
+    400:
+      $ref: "../../defs/error-response.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"

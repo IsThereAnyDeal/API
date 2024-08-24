@@ -1,0 +1,31 @@
+post:
+  operationId: games-storelow-v2
+  tags:
+    - games
+    - history
+  summary: Store Low
+  description: Get historically lowest prices for individual stores
+  security:
+    - keySecurity: []
+  parameters:
+    - $ref: "../../docs.yaml#/components/parameters/country"
+    - $ref: "../../docs.yaml#/components/parameters/shops"
+  requestBody:
+    description: List of Game IDs for which to load store lows
+    $ref: "../../docs.yaml#/components/requestBodies/gids-200"
+
+  responses:
+    200:
+      description: Success response
+      content:
+        "application/json":
+          schema:
+            $ref: "../../schemas/resp.games.storelow.json"
+          examples:
+            success:
+              description: "Successful response"
+              $ref: "../../examples/games/storelow.v2.success.json"
+    400:
+      $ref: "../../defs/error-response.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"

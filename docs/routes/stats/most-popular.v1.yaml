@@ -1,0 +1,34 @@
+get:
+  operationId: stats-most-popular-v1
+  tags:
+    - stats
+  summary: Most Popular
+  description: |
+    Get list of most popular games. Popularity for each game is computed as Waitlisted count + Collected count.
+  security:
+    - keySecurity: []
+  parameters:
+    - name: offset
+      in: query
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    - name: limit
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 500
+        default: 20
+  responses:
+    200:
+      description: Success response
+      content:
+        "application/json":
+          schema:
+            $ref: "../../schemas/resp.stats.ranked-games.json"
+    400:
+      $ref: "../../defs/error-response.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"

@@ -1,0 +1,24 @@
+get:
+  operationId: internal-players-v1
+  tags:
+    - internal
+  summary: Number of Players Statistics
+  security:
+    - keySecurity: []
+  parameters:
+    - name: appid
+      in: query
+      required: true
+      schema:
+        type: number
+  responses:
+    200:
+      description: Success response
+      content:
+        "application/json":
+          schema:
+            $ref: "../../schemas/resp.internal.players.yaml"
+    400:
+      $ref: "../../defs/error-response.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"

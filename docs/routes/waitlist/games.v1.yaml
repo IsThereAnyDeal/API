@@ -1,0 +1,62 @@
+get:
+  operationId: waitlist-games-v1-get
+  tags:
+    - user
+    - waitlist
+  summary: Games in Waitlist
+  description: Get games in user's Waitlist
+  security:
+    - oauthSecurity: [wait_read]
+  responses:
+    200:
+      description: Success response
+      content:
+        "application/json":
+          schema:
+            $ref: "../../schemas/resp.waitlist.games.json"
+          examples:
+            success:
+              description: "Successful response"
+              $ref: "../../examples/games-list.json"
+    400:
+      $ref: "../../defs/error-response.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"
+
+put:
+  operationId: waitlist-games-v1-put
+  tags:
+    - user
+    - waitlist
+  summary: Add to Waitlist
+  description: Add games to user's Waitlist
+  security:
+    - oauthSecurity: [wait_write]
+  requestBody:
+    $ref: "../../docs.yaml#/components/requestBodies/gids"
+  responses:
+    204:
+      description: Successful response
+    400:
+      $ref: "../../defs/error-response.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"
+
+delete:
+  operationId: waitlist-games-v1-delete
+  tags:
+    - user
+    - waitlist
+  summary: Delete from Waitlist
+  description: Delete games from user's Waitlist
+  security:
+    - oauthSecurity: [wait_write]
+  requestBody:
+    $ref: "../../docs.yaml#/components/requestBodies/gids"
+  responses:
+    204:
+      description: Successful response
+    400:
+      $ref: "../../defs/error-response.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"

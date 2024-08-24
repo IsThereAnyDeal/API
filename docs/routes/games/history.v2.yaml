@@ -1,0 +1,36 @@
+get:
+  operationId: games-history-v2
+  tags:
+    - games
+    - history
+  summary: History log
+  description: Get log of historical prices
+  security:
+    - keySecurity: []
+  parameters:
+    - $ref: "../../docs.yaml#/components/parameters/gid"
+    - $ref: "../../docs.yaml#/components/parameters/country"
+    - $ref: "../../docs.yaml#/components/parameters/shops"
+    - name: "since"
+      in: query
+      description: |
+        Load only price changes after this date.            
+        By default, only last 3 months are loaded
+      schema:
+        type: string
+        format: date-time
+  responses:
+    200:
+      description: Success response
+      content:
+        "application/json":
+          schema:
+            $ref: "../../schemas/resp.games.history.json"
+          examples:
+            success:
+              description: "Successful response"
+              $ref: "../../examples/games/history.v2.success.json"
+    400:
+      $ref: "../../defs/error-response.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"

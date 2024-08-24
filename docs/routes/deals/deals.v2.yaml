@@ -1,0 +1,89 @@
+get:
+  operationId: deals-v2
+  tags:
+    - deals
+  summary: Deals List
+  description: |
+    Get current deals. Follows same rules as deals list displayed on the website, which means that
+    you will not get one game more than once in the list.
+    
+    For each game, the best price is displayed, ignoring stores that currently don't have game on sale,
+    even if they currently have a better price.
+  security:
+    - keySecurity: []
+  parameters:
+    - $ref: "../../docs.yaml#/components/parameters/country"
+    - name: offset
+      in: query
+      description: Deals list offset
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    - name: limit
+      in: query
+      description: How many deals to return
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 200
+        default: 20
+    - name: sort
+      in: query
+      description: Sorting values, same as in deals list on the website
+      examples:
+        cut:
+          summary: Highest cut
+          value: "-cut"
+        price:
+          summary: Lowest price
+          value: "price"
+      schema:
+        type: string
+    - name: nondeals
+      in: query
+      description: Load non-sale prices
+      schema:
+        type: boolean
+        default: false
+    - name: mature
+      in: query
+      description: Load deals for mature prices
+      schema:
+        type: boolean
+        default: false
+    - name: shops
+      in: query
+      description: List of shop IDs separated by comma
+      explode: false
+      style: form
+      schema:
+        type: array
+        items:
+          type: number
+          description: Shop ID
+      examples:
+        e1:
+          summary: Only Steam (61) and GOG (35)
+          value: [61, 35]
+    - name: filter
+      in: query
+      description: Filter string
+      schema:
+        type: string
+  responses:
+    200:
+      description: Deals list
+      content:
+        "application/json":
+          schema:
+            $ref: "../../schemas/resp.deals.json"
+          examples:
+            success:
+              summary: Deals list response example
+              $ref: "../../examples/deals/deals.v2.success.json"
+    400:
+      $ref: "../../defs/error-response.yaml"
+
+    default:
+      $ref: "../../defs/error-response.yaml"

@@ -1,0 +1,62 @@
+get:
+  operationId: collection-games-v1-get
+  tags:
+    - user
+    - collection
+  summary: Games in Collection
+  description: Get games in user's Collection
+  security:
+    - oauthSecurity: [coll_read]
+  responses:
+    200:
+      description: Success response
+      content:
+        "application/json":
+          schema:
+            $ref: "../../schemas/resp.collection.games.json"
+          examples:
+            success:
+              description: "Successful response"
+              $ref: "../../examples/games-list.json"
+    400:
+      $ref: "../../defs/error-response.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"
+
+put:
+  operationId: collection-games-v1-put
+  tags:
+    - user
+    - collection
+  summary: Add to Collection
+  description: Add games to user's Collection
+  security:
+    - oauthSecurity: [coll_write]
+  requestBody:
+    $ref: "../../docs.yaml#/components/requestBodies/gids"
+  responses:
+    204:
+      description: Successful response
+    400:
+      $ref: "../../defs/error-response.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"
+
+delete:
+  operationId: collection-games-v1-delete
+  tags:
+    - user
+    - collection
+  summary: Delete from Collection
+  description: Delete games from user's Collection
+  security:
+    - oauthSecurity: [coll_write]
+  requestBody:
+    $ref: "../../docs.yaml#/components/requestBodies/gids"
+  responses:
+    204:
+      description: Successful response
+    400:
+      $ref: "../../defs/error-response.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"

@@ -1,0 +1,25 @@
+get:
+  operationId: service-shops-v1
+  tags:
+    - service
+  summary: Shops
+  description: Return information about shops
+  security: []
+  parameters:
+    - $ref: "../../docs.yaml#/components/parameters/country"
+  responses:
+    200:
+      description: List of shops and their details
+      content:
+        "application/json":
+          schema:
+            $ref: "../../schemas/resp.service.shops.json"
+          examples:
+            success:
+              summary: Short shop list example
+              $ref: "../..//examples/service/shops.v1.success.json"
+    400:
+      $ref: "../../defs/error-response.yaml"
+
+    default:
+      $ref: "../../defs/error-response.yaml"

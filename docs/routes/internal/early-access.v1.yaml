@@ -1,0 +1,21 @@
+get:
+  operationId: internal-earlyaccess-v1
+  tags:
+    - internal
+  summary: Early Access Games
+  description: Returns list of Steam appids, which are currently considered to be early in early access
+  security:
+    - keySecurity: []
+  responses:
+    200:
+      description: Success response
+      content:
+        "application/json":
+          schema:
+            type: array
+            items:
+              type: integer
+    400:
+      $ref: "../../defs/error-response.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"

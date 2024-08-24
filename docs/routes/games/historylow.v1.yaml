@@ -1,0 +1,30 @@
+post:
+  operationId: games-historylow-v1
+  tags:
+    - games
+    - history
+  summary: History Low
+  description: Get historically lowest prices
+  security:
+    - keySecurity: []
+  parameters:
+    - $ref: "../../docs.yaml#/components/parameters/country"
+  requestBody:
+    description: List of Game IDs for which to load historical lows
+    $ref: "../../docs.yaml#/components/requestBodies/gids-200"
+
+  responses:
+    200:
+      description: Success response
+      content:
+        "application/json":
+          schema:
+            $ref: "../../schemas/resp.games.historylow.json"
+          examples:
+            success:
+              description: "Successful response"
+              $ref: "../../examples/games/historylow.v1.success.json"
+    400:
+      $ref: "../../defs/error-response.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"

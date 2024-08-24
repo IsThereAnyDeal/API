@@ -1,0 +1,28 @@
+get:
+  operationId: games-info-v2
+  tags:
+    - games
+  summary: Game Info
+  description: Get basic game information
+  security:
+    - keySecurity: []
+  parameters:
+    - $ref: "../../docs.yaml#/components/parameters/gid"
+  responses:
+    200:
+      description: Info response
+      content:
+        "application/json":
+          schema:
+            $ref: "../../schemas/resp.games.info.yaml"
+          examples:
+            found:
+              description: "Europa Universalis IV info"
+              $ref: "../../examples/games/info.v2.found.json"
+    400:
+      $ref: "../../defs/error-response.yaml"
+    404:
+      $ref: "../../defs/error-response.yaml"
+      description: Game not found
+    default:
+      $ref: "../../defs/error-response.yaml"

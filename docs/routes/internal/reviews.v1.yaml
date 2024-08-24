@@ -1,0 +1,25 @@
+get:
+  operationId: internal-reviews-v1
+  tags:
+    - internal
+  summary: Reviews Score
+  description: Returns Metacritic user reviews overview and OpenCritic overview for a given game
+  security:
+    - keySecurity: []
+  parameters:
+    - name: appid
+      in: query
+      required: true
+      schema:
+        type: number
+  responses:
+    200:
+      description: Success response
+      content:
+        "application/json":
+          schema:
+            $ref: "../../schemas/resp.internal.reviews.yaml"
+    400:
+      $ref: "../../defs/error-response.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"

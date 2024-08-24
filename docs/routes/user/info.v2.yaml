@@ -1,0 +1,19 @@
+get:
+  operationId: user-info-v2
+  tags:
+    - user
+  summary: User Info
+  description: Get user info, currently just a username
+  security:
+    - oauthSecurity: [user_info]
+  responses:
+    200:
+      description: Success response
+      content:
+        "application/json":
+          schema:
+            $ref: "../../schemas/resp.user.info.json"
+    400:
+      $ref: "../../defs/error-response.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"

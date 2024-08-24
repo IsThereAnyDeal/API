@@ -1,0 +1,40 @@
+post:
+  operationId: unstable-idlookup-itad-v2
+  tags:
+    - unstable
+    - games
+  summary: Lookup Game IDs
+  description: Lookup IsThereAnyDeal's game IDs by shop's game IDs
+  security:
+    - {}
+    - keySecurity: []
+  parameters:
+    - name: shopId
+      in: path
+      required: true
+      schema:
+        type: number
+  requestBody:
+    description: List of shop's game IDs
+    content:
+      "application/json":
+        schema:
+          type: array
+          minItems: 1
+          items:
+            type: string
+        example: ["app/220"]
+  responses:
+    200:
+      description: Success response
+      content:
+        "application/json":
+          schema:
+            $ref: "../../../schemas/resp.unstable.idlookup-game.yaml"
+          examples:
+            success:
+              $ref: "../../../examples/unstable/idlookup-game.v2.success.json"
+    400:
+      $ref: "../../../defs/error-response.yaml"
+    default:
+      $ref: "../../../defs/error-response.yaml"
