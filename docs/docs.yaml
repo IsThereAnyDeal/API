@@ -95,6 +95,9 @@ tags:
     x-displayName: Categories
     description: |
       Collection category endpoints. Category and group may be used interchangably. Default category has ID 0.
+  - name: Collection Stats
+    x-displayName: Stats
+    description: ""
   - name: Shops
   - name: Stats
   - name: Internal
@@ -120,6 +123,7 @@ x-tagGroups:
       - Collection Games
       - Collection Copies
       - Collection Groups
+      - Collection Stats
   - name: Shops
     tags:
       - Shops

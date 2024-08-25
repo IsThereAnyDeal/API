@@ -2,7 +2,7 @@ get:
   operationId: stats-most-collected-v1
   tags:
     - Stats
-    - Collection
+    - Collection Stats
   summary: Most Collected
   description: |
     Get list of most Collected games
