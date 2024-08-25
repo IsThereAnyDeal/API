@@ -1,5 +1,5 @@
 post:
-  operationId: unstable-idlookup-shop-v2
+  operationId: lookup-shopid-gid-v1
   tags:
     - Lookup
   summary: Lookup game IDs on shop by ITAD IDs
@@ -29,10 +29,10 @@ post:
       content:
         "application/json":
           schema:
-            $ref: "../../schemas/resp.unstable.idlookup-shop.yaml"
+            $ref: "../../schemas/resp.lookup.shopid-by-gid.yaml"
           examples:
             success:
-              $ref: "../../examples/unstable/idlookup-steam.v2.success.json"
+              $ref: "../../examples/lookup/shopid-by-gid.v1.success.json"
     400:
       $ref: "../../defs/error-response.yaml"
     default:
