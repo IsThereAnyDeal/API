@@ -1,0 +1,35 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: Collection Copy Patch
+type: object
+required: [id]
+properties:
+  id:
+    type: number
+  redeemed:
+    type: boolean
+  shop:
+    oneOf:
+      - type: number
+        description: Shop ID
+      - type: "null"
+  price:
+    oneOf:
+      - type: object
+        required: [amount, currency]
+        properties:
+          amount:
+            type: number
+            format: float
+          currency:
+            type: string
+      - type: "null"
+  note:
+    oneOf:
+      - type: string
+      - type: "null"
+  tags:
+    - oneOf:
+      - type: array
+        items:
+          - type: string
+      - type: "null"

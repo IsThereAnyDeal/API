@@ -1,0 +1,43 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+title: Collection Copy
+type: object
+required:
+  - id
+  - game
+  - shop
+  - redeemed
+  - price
+  - note
+  - tags
+  - added
+properties:
+  id:
+    type: integer
+  game:
+    type: object
+    required: id
+    properties:
+      id:
+        type: string
+        format: uuid
+  shop:
+    oneOf:
+      - $ref: "../../../schemas/obj.shop.json"
+      - type: "null"
+  redeemed:
+    type: boolean
+  price:
+    oneOf:
+      - $ref: "../../../schemas/obj.price.json"
+      - type: "null"
+  note:
+    oneOf:
+      - type: string
+      - type: "null"
+  tags:
+    type: array
+    items:
+      $ref: "../../../schemas/obj.user-tag.yaml"
+  added:
+    type: string
+    format: date-time

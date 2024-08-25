@@ -1,0 +1,42 @@
+value: [
+  {
+    "id": 145742693,
+    "game": {
+      "id": "018d937e-e9ab-70f4-bd05-1db7a138eb39"
+    },
+    "shop": {
+      "id": 61,
+      "name": "Steam"
+    },
+    "redeemed": true,
+    "price": {
+      "amount": 15,
+      "amountInt": 1500,
+      "currency": "EUR"
+    },
+    "note": "My note for this copy",
+    "tags": [
+      {
+        "id": 21,
+        "tag": "tag 1"
+      },
+      {
+        "id": 22,
+        "tag": "tag 2"
+      }
+    ],
+    "added": "2024-02-16T21:16:17+01:00"
+  },
+  {
+    "id": 9128925,
+    "game": {
+      "id": "018d937e-e9ac-7156-83a6-7d27fd9f857a"
+    },
+    "shop": null,
+    "redeemed": true,
+    "price": null,
+    "note": null,
+    "tags": [ ],
+    "added": "2015-10-02T03:00:04+02:00"
+  }
+]

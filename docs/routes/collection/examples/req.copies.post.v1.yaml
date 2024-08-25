@@ -1,0 +1,21 @@
+[
+    {
+        "gameId": "018d937e-e9ab-70f4-bd05-1db7a138eb39",
+        "redeemed": false,
+        "shop": 61,
+        "price": {
+            "amount": 33.33,
+            "currency": "EUR"
+        },
+        "note": "Api note",
+        "tags": ["From Api", "Second tag"]
+    },
+    {
+        "gameId": "018d937e-e9ab-70f4-bd05-1db7a138eb39",
+        "redeemed": false,
+        "shop": 4,
+        "price": null,
+        "note": null,
+        "tags": ["From Api"]
+    }
+]

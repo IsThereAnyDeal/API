@@ -86,7 +86,11 @@ tags:
   - name: Collection Games
     x-displayName: Games
     description: |
-      Collection games endpoint. Basic Collection operations when you only need to track games, without additional details.
+      Basic Collection operations when you only need to track games, without additional details.
+  - name: Collection Copies
+    x-displayName: Copies
+    description: |
+      Operations on Collection copies. These allow more detailed tracking of owned games.
   - name: Collection Groups
     x-displayName: Categories
     description: |
@@ -114,6 +118,7 @@ x-tagGroups:
   - name: Collection
     tags:
       - Collection Games
+      - Collection Copies
       - Collection Groups
   - name: Shops
     tags:
@@ -240,6 +245,8 @@ paths:
 
   /collection/games/v1:
     $ref: "./routes/collection/games.v1.yaml"
+  /collection/copies/v1:
+    $ref: "./routes/collection/copies.v1.yaml"
   /collection/groups/v1:
     $ref: "./routes/collection/groups.v1.yaml"
 

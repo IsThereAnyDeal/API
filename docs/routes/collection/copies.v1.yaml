@@ -1,0 +1,121 @@
+get:
+  operationId: collection-copies-v1-get
+  tags:
+    - Collection Copies
+  summary: List Copies
+  description: |
+    Get all copies user has in their Collection. Copies are returned as a simple list.
+    
+    It is not necessary to have copy for each game in Collection, so you should not rely on this endpoint
+    if you need to know about all games in user's Collection.
+  security:
+    - oauthSecurity: [coll_read]
+  responses:
+    200:
+      description: Success response
+      content:
+        application/json:
+          schema:
+            title: Collection Copies Response
+            type: array
+            items:
+              $ref: "./schemas/obj.collection.copy.yaml"
+          examples:
+            success:
+              description: Successful response
+              $ref: "./examples/resp.copies.get.v1.yaml"
+    400:
+      $ref: "../../defs/error-response.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"
+
+post:
+  operationId: collection-copies-v1-post
+  tags:
+    - Collection Copies
+  summary: Add Copies
+  description: |
+    Add new copies. If the game is not already in a Collection, it will be added. Similarly, new tags will also be created.
+    
+    Same copies may exist multiple times for a single game, ITAD does not check for duplicates.
+    
+    This operation is atomic, either all copies are added or none.
+  security:
+    - oauthSecurity: [coll_write]
+  requestBody:
+    description: Copies to add
+    content:
+      application/json:
+        schema:
+          $ref: "./schemas/obj.collection.copy.new.yaml"
+        example:
+          $ref: "./examples/req.copies.post.v1.yaml"
+  responses:
+    201:
+      description: Successful response
+    400:
+      $ref: "../../defs/resp.error.array-of-objects-validation.yaml"
+    default:
+      $ref: "../../defs/resp.error.array-of-objects-validation.yaml"
+
+patch:
+  operationId: collection-copies-v1-patch
+  tags:
+    - Collection Copies
+  summary: Update Copies
+  description: | 
+    Update one or more copies.
+    
+    You can issue partial updates on copy, only properties that are included for a copy will be updated.
+        
+    This operation is atomic, either all copies are updated or none.
+  security:
+    - oauthSecurity: [coll_write]
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            $ref: "./schemas/obj.collection.copy.patch.yaml"
+          example:
+            $ref: "./examples/req.copies.patch.v1.yaml"
+  responses:
+    200:
+      description: Success response
+    400:
+      $ref: "../../defs/resp.error.array-of-objects-validation.yaml"
+    default:
+      $ref: "../../defs/resp.error.array-of-objects-validation.yaml"
+
+delete:
+  operationId: collection-copies-v1-delete
+  tags:
+    - Collection Copies
+  summary: Delete Copies
+  description: |
+    Delete Collection copies.
+    
+    Copies that do not exist or don't belong to user will be silently ignored.
+    
+    Operation is atomic. Either all copies are deleted or none.
+  security:
+    - oauthSecurity: [coll_write]
+  requestBody:
+    description: List of copy IDs
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            type: integer
+        example: [
+           123, 124, 125
+        ]
+  responses:
+    200:
+      description: Successful response
+    400:
+      $ref: "../../defs/error-response.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"

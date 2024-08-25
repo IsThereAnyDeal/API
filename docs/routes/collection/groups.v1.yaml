@@ -28,7 +28,7 @@ get:
       $ref: "../../defs/error-response.yaml"
 
 post:
-  operationId: collection-groups-v1-put
+  operationId: collection-groups-v1-post
   tags:
     - Collection Groups
   summary: Create new Category
@@ -43,13 +43,7 @@ post:
     content:
       application/json:
         schema:
-          type: object
-          required: [title, public]
-          properties:
-            title:
-              type: string
-            public:
-              type: boolean
+          $ref: "./schemas/obj.collection.group.new.yaml"
         example:
           $ref: "./examples/req.groups.post.v1.yaml"
   responses:
