@@ -1,0 +1,73 @@
+get:
+  operationId: user-notes-v1-get
+  tags:
+    - User Notes
+  summary: Get notes
+  description: |
+    Get user's game notes
+  security:
+    - oauthSecurity: [notes_read]
+  responses:
+    200:
+      description: Success response
+      content:
+        application/json:
+          schema:
+            $ref: "./schemas/resp.notes.get.yaml"
+    400:
+      $ref: "../../defs/error-response.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"
+
+put:
+  operationId: user-notes-v1-put
+  tags:
+    - User Notes
+  summary: Add or edit notes
+  description: |
+    Add or edit game notes. This operation is atomic and idempotent.
+  security:
+    - oauthSecurity: [notes_write]
+  requestBody:
+    required: true
+    description: List of notes
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            $ref: "./schemas/obj.note.yaml"
+  responses:
+    200:
+      description: Success response
+    400:
+      $ref: "../../defs/error-response.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"
+
+delete:
+  operationId: user-notes-v1-delete
+  tags:
+    - User Notes
+  summary: Delete notes
+  description: |
+    Delete game notes. This operation is atomic.
+  security:
+    - oauthSecurity: [ notes_write ]
+  requestBody:
+    required: true
+    description: List of game IDs
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+  responses:
+    200:
+      description: Success response
+    400:
+      $ref: "../../defs/error-response.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"

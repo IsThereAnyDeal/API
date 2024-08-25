@@ -2,7 +2,7 @@ get:
   operationId: stats-waitlist-v1
   tags:
     - Stats
-    - Waitlist
+    - Waitlist Stats
   summary: Waitlist Stats
   description: |
     Get Waitlist statistics for a game

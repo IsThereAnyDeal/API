@@ -81,8 +81,14 @@ tags:
   - name: History
   - name: Bundles
   - name: Deals List
-  - name: User
-  - name: Waitlist
+
+  - name: Waitlist Games
+    x-displayName: Games
+    description: ""
+  - name: Waitlist Stats
+    x-displayName: Stats
+    description: ""
+
   - name: Collection Games
     x-displayName: Games
     description: |
@@ -98,6 +104,13 @@ tags:
   - name: Collection Stats
     x-displayName: Stats
     description: ""
+
+  - name: User
+    description: ""
+  - name: User Notes
+    x-displayName: Notes
+    description: Endpoints for managing notes, that user can create for individual games.
+
   - name: Shops
   - name: Stats
   - name: Internal
@@ -113,17 +126,23 @@ x-tagGroups:
       - History
       - Bundles
       - Deals List
-  - name: User
+  - name: Waitlist
     tags:
-      - User
-      - Waitlist
-      - Stats
+      - Waitlist Games
+      - Waitlist Stats
   - name: Collection
     tags:
       - Collection Games
       - Collection Copies
       - Collection Groups
       - Collection Stats
+  - name: Stats
+    tags:
+      - Stats
+  - name: User
+    tags:
+      - User
+      - User Notes
   - name: Shops
     tags:
       - Shops
@@ -150,6 +169,8 @@ components:
           refreshUrl: https://isthereanydeal.com/oauth/token/
           scopes:
             user_info: Get basic user's info
+            notes_read: Read user's game notes
+            notes_write: Write (add, edit, delete) user's game notes
             wait_read: Read user's Waitlist
             wait_write: Write (add, edit, delete) in user's Waitlist
             coll_read: Read user's Collection
@@ -243,6 +264,8 @@ paths:
 
   /user/info/v2:
     $ref: "./routes/user/info.v2.yaml"
+  /user/notes/v1:
+    $ref: "./routes/user/notes.v1.yaml"
 
   /waitlist/games/v1:
     $ref: "./routes/waitlist/games.v1.yaml"

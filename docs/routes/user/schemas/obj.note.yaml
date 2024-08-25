@@ -1,0 +1,12 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: User game note
+type: object
+required: [gid, note]
+properties:
+  gid:
+    description: Game ID
+    type: string
+    format: uuid
+  note:
+    description: Non-empty string
+    type: string

@@ -12,7 +12,7 @@ get:
       content:
         "application/json":
           schema:
-            $ref: "../../schemas/resp.user.info.json"
+            $ref: "./schemas/resp.user.info.yaml"
     400:
       $ref: "../../defs/error-response.yaml"
     default:
