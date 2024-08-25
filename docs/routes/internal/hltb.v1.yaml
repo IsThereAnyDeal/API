@@ -1,7 +1,7 @@
 get:
   operationId: internal-hltb-v1
   tags:
-    - internal
+    - Internal
   summary: HowLongToBeat Overview
   security:
     - keySecurity: []

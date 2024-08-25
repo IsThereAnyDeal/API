@@ -1,8 +1,8 @@
 get:
   operationId: games-search-v1
   tags:
-    - games
-  summary: Game Search
+    - Game
+  summary: Search
   description: Search for games by title
   security:
     - keySecurity: []

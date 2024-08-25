@@ -1,8 +1,7 @@
 get:
   operationId: waitlist-games-v1-get
   tags:
-    - user
-    - waitlist
+    - Waitlist
   summary: Games in Waitlist
   description: Get games in user's Waitlist
   security:
@@ -26,8 +25,7 @@ get:
 put:
   operationId: waitlist-games-v1-put
   tags:
-    - user
-    - waitlist
+    - Waitlist
   summary: Add to Waitlist
   description: Add games to user's Waitlist
   security:
@@ -45,8 +43,7 @@ put:
 delete:
   operationId: waitlist-games-v1-delete
   tags:
-    - user
-    - waitlist
+    - Waitlist
   summary: Delete from Waitlist
   description: Delete games from user's Waitlist
   security:

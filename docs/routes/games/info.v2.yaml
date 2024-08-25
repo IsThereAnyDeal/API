@@ -1,7 +1,7 @@
 get:
   operationId: games-info-v2
   tags:
-    - games
+    - Game
   summary: Game Info
   description: Get basic game information
   security:

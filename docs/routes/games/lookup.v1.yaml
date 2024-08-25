@@ -1,8 +1,8 @@
 get:
   operationId: games-lookup-v1
   tags:
-    - games
-  summary: Game Lookup
+    - Game
+  summary: Lookup Game
   description: Lookup game based on title or Steam appid
   security:
     - keySecurity: []

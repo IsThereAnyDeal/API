@@ -1,8 +1,7 @@
 post:
   operationId: games-historylow-v1
   tags:
-    - games
-    - history
+    - History
   summary: History Low
   description: Get historically lowest prices
   security:

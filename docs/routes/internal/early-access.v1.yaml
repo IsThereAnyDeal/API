@@ -1,7 +1,7 @@
 get:
   operationId: internal-earlyaccess-v1
   tags:
-    - internal
+    - Internal
   summary: Early Access Games
   description: Returns list of Steam appids, which are currently considered to be early in early access
   security:

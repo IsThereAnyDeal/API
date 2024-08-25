@@ -1,8 +1,7 @@
 post:
   operationId: unstable-idlookup-shop-v2
   tags:
-    - unstable
-    - games
+    - Unstable
   summary: Lookup Shop's Game IDs
   description: Lookup shop's game IDs by IsThereAnyDeal game IDs
   security:

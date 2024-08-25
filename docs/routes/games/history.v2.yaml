@@ -1,8 +1,7 @@
 get:
   operationId: games-history-v2
   tags:
-    - games
-    - history
+    - History
   summary: History log
   description: Get log of historical prices
   security:

@@ -1,7 +1,7 @@
 get:
   operationId: user-info-v2
   tags:
-    - user
+    - User
   summary: User Info
   description: Get user info, currently just a username
   security:

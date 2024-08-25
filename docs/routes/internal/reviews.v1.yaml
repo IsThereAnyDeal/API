@@ -1,7 +1,7 @@
 get:
   operationId: internal-reviews-v1
   tags:
-    - internal
+    - Internal
   summary: Reviews Score
   description: Returns Metacritic user reviews overview and OpenCritic overview for a given game
   security:

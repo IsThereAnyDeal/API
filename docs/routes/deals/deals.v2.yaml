@@ -1,7 +1,7 @@
 get:
   operationId: deals-v2
   tags:
-    - deals
+    - Deals List
   summary: Deals List
   description: |
     Get current deals. Follows same rules as deals list displayed on the website, which means that

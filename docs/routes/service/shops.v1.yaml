@@ -1,8 +1,8 @@
 get:
   operationId: service-shops-v1
   tags:
-    - service
-  summary: Shops
+    - Shops
+  summary: Get Shops
   description: Return information about shops
   security: []
   parameters:

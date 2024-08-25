@@ -1,7 +1,7 @@
 get:
   operationId: internal-players-v1
   tags:
-    - internal
+    - Internal
   summary: Number of Players Statistics
   security:
     - keySecurity: []

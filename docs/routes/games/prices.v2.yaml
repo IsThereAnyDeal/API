@@ -1,8 +1,7 @@
 post:
   operationId: games-prices-v2
   tags:
-    - games
-    - deals
+    - Prices
   summary: Prices
   description: Get games' prices
   security:

@@ -1,7 +1,7 @@
 post:
   operationId: games-overview-v2
   tags:
-    - games
+    - Prices
   summary: Price Overview
   description: |
     Get basic price overview for selected games.

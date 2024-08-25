@@ -1,8 +1,7 @@
 post:
   operationId: games-storelow-v2
   tags:
-    - games
-    - history
+    - History
   summary: Store Low
   description: Get historically lowest prices for individual stores
   security:

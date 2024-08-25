@@ -1,7 +1,7 @@
 get:
   operationId: stats-most-popular-v1
   tags:
-    - stats
+    - Stats
   summary: Most Popular
   description: |
     Get list of most popular games. Popularity for each game is computed as Waitlisted count + Collected count.

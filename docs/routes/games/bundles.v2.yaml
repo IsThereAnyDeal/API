@@ -1,8 +1,7 @@
 get:
   operationId: games-bundles-v2
   tags:
-    - games
-    - bundles
+    - Bundles
   summary: Bundles including Game
   description: Get all bundles which contain the game
   security:

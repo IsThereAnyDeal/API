@@ -65,12 +65,52 @@ info:
     email: api@isthereanydeal.com
 servers:
   - url: https://api.isthereanydeal.com
+
+tags:
+  - name: Game
+  - name: Prices
+  - name: History
+  - name: Bundles
+  - name: Deals List
+  - name: User
+  - name: Waitlist
+  - name: Collection
+  - name: Shops
+  - name: Stats
+  - name: Unstable
+  - name: Internal
+
+x-tagGroups:
+  - name: Games
+    tags:
+      - Game
+      - Prices
+      - History
+      - Bundles
+      - Deals List
+  - name: User
+    tags:
+      - User
+      - Waitlist
+      - Collection
+      - Stats
+  - name: Shops
+    tags:
+      - Shops
+  - name: Unstable
+    tags:
+      - Unstable
+  - name: Internal
+    tags:
+      - Internal
+
 components:
   securitySchemes:
     keySecurity:
       type: apiKey
       in: query
       name: key
+
     oauthSecurity:
       type: oauth2
       flows:
@@ -148,22 +188,22 @@ paths:
   /deals/v2:
     $ref: "./routes/deals/deals.v2.yaml"
 
-  /games/lookup/v1:
-    $ref: "./routes/games/lookup.v1.yaml"
   /games/search/v1:
     $ref: "./routes/games/search.v1.yaml"
+  /games/lookup/v1:
+    $ref: "./routes/games/lookup.v1.yaml"
   /games/info/v2:
     $ref: "./routes/games/info.v2.yaml"
   /games/prices/v2:
     $ref: "./routes/games/prices.v2.yaml"
-  /games/historylow/v1:
-    $ref: "./routes/games/historylow.v1.yaml"
-  /games/storelow/v2:
-    $ref: "./routes/games/storelow.v2.yaml"
   /games/bundles/v2:
     $ref: "./routes/games/bundles.v2.yaml"
   /games/overview/v2:
     $ref: "./routes/games/overview.v2.yaml"
+  /games/historylow/v1:
+    $ref: "./routes/games/historylow.v1.yaml"
+  /games/storelow/v2:
+    $ref: "./routes/games/storelow.v2.yaml"
   /games/history/v2:
     $ref: "./routes/games/history.v2.yaml"
 
