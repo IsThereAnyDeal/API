@@ -59,7 +59,7 @@ info:
     You can find source files for this documentation over at [GitHub](https://github.com/IsThereAnyDeal/API).
     Feel free to help us improve it.
 
-  version: 2.0.0
+  version: 2.5.0
   contact:
     name: General API contact
     email: api@isthereanydeal.com
@@ -67,6 +67,7 @@ servers:
   - url: https://api.isthereanydeal.com
 
 tags:
+  - name: Lookup
   - name: Game
   - name: Prices
   - name: History
@@ -77,10 +78,12 @@ tags:
   - name: Collection
   - name: Shops
   - name: Stats
-  - name: Unstable
   - name: Internal
 
 x-tagGroups:
+  - name: Lookup
+    tags:
+     - Lookup
   - name: Games
     tags:
       - Game
@@ -182,11 +185,10 @@ components:
           example: [ "01849783-6a26-7147-ab32-71804ca47e8e", "01849782-1017-7389-8de4-c97c587fd7e3" ]
 
 paths:
-  /service/shops/v1:
-    $ref: "./routes/service/shops.v1.yaml"
-
-  /deals/v2:
-    $ref: "./routes/deals/deals.v2.yaml"
+  /lookup/id/shop/{shopId}/v1:
+    $ref: "./routes/lookup/gid-by-shopid.v1.yaml"
+  /lookup/shop/{shopId}/id/v1:
+    $ref: "./routes/lookup/shopid-by-gid.v1.yaml"
 
   /games/search/v1:
     $ref: "./routes/games/search.v1.yaml"
@@ -207,6 +209,12 @@ paths:
   /games/history/v2:
     $ref: "./routes/games/history.v2.yaml"
 
+  /deals/v2:
+    $ref: "./routes/deals/deals.v2.yaml"
+
+  /user/info/v2:
+    $ref: "./routes/user/info.v2.yaml"
+
   /waitlist/games/v1:
     $ref: "./routes/waitlist/games.v1.yaml"
 
@@ -222,13 +230,8 @@ paths:
   /stats/most-popular/v1:
     $ref: "./routes/stats/most-popular.v1.yaml"
 
-  /user/info/v2:
-    $ref: "./routes/user/info.v2.yaml"
-
-  /unstable/id-lookup/shop/{shopId}/v2:
-    $ref: "./routes/unstable/id-lookup/shop.v2.yaml"
-  /unstable/id-lookup/itad/{shopId}/v2:
-    $ref: "./routes/unstable/id-lookup/itad.v2.yaml"
+  /service/shops/v1:
+    $ref: "./routes/service/shops.v1.yaml"
 
   /internal/early-access/v1:
     $ref: "./routes/internal/early-access.v1.yaml"

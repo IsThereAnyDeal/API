@@ -1,9 +1,9 @@
 post:
-  operationId: unstable-idlookup-itad-v2
+  operationId: unstable-idlookup-shop-v2
   tags:
-    - Unstable
-  summary: Lookup Game IDs
-  description: Lookup IsThereAnyDeal's game IDs by shop's game IDs
+    - Lookup
+  summary: Lookup game IDs on shop by ITAD IDs
+  description: Lookup shop's game IDs by IsThereAnyDeal game IDs
   security:
     - {}
     - keySecurity: []
@@ -14,7 +14,7 @@ post:
       schema:
         type: number
   requestBody:
-    description: List of shop's game IDs
+    description: List of game IDs
     content:
       "application/json":
         schema:
@@ -22,18 +22,18 @@ post:
           minItems: 1
           items:
             type: string
-        example: ["app/220"]
+            format: uuid
   responses:
     200:
       description: Success response
       content:
         "application/json":
           schema:
-            $ref: "../../../schemas/resp.unstable.idlookup-game.yaml"
+            $ref: "../../schemas/resp.unstable.idlookup-shop.yaml"
           examples:
             success:
-              $ref: "../../../examples/unstable/idlookup-game.v2.success.json"
+              $ref: "../../examples/unstable/idlookup-steam.v2.success.json"
     400:
-      $ref: "../../../defs/error-response.yaml"
+      $ref: "../../defs/error-response.yaml"
     default:
-      $ref: "../../../defs/error-response.yaml"
+      $ref: "../../defs/error-response.yaml"

@@ -2,6 +2,7 @@ get:
   operationId: games-search-v1
   tags:
     - Game
+    - Lookup
   summary: Search
   description: Search for games by title
   security:
