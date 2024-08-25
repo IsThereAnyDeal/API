@@ -3,3 +3,5 @@
   
   The old URLs will work for time being and redirect to new URLs,
   but you should update as soon as possible.
+
+- New lookup endpoint: Lookup ITAD game IDs by title

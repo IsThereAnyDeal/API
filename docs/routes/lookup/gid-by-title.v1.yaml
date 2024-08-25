@@ -1,0 +1,43 @@
+post:
+  operationId: lookup-gid-title-v1
+  tags:
+    - Lookup
+  summary: Lookup ITAD game IDs by title
+  description:
+    Lookup IsThereAnyDeal's game IDs by title
+    
+    This is not a full fledged search. Some title preprocessing will happen, but the lookup will only return IDs for titles,
+    that match precisely.
+  
+    Typos or variations in title may not give you expected result.
+  security:
+    - {}
+    - keySecurity: []
+  requestBody:
+    description: List of titles
+    content:
+      "application/json":
+        schema:
+          type: array
+          minItems: 1
+          items:
+            type: string
+        example: [
+          "Baldurs Gate 3",
+          "Half-Life 2",
+          "Unknown game"
+        ]
+  responses:
+    200:
+      description: Success response
+      content:
+        "application/json":
+          schema:
+            $ref: "../../schemas/resp.lookup.gid-by-title.yaml"
+          examples:
+            success:
+              $ref: "../../examples/lookup/gid-by-title.v1.success.yaml"
+    400:
+      $ref: "../../defs/error-response.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"

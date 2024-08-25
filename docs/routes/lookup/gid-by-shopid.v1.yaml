@@ -2,7 +2,7 @@ post:
   operationId: lookup-gid-shopid-v1
   tags:
     - Lookup
-  summary: Lookup ITAD IDs by IDs on shop
+  summary: Lookup ITAD game IDs by IDs on shop
   description: Lookup IsThereAnyDeal's game IDs by shop's game IDs
   security:
     - {}

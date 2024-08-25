@@ -1,8 +1,8 @@
 $schema: "https://json-schema.org/draft/2020-12/schema"
-title: Game IDs lookup by shop ID response
+title: Game IDs Lookup by Title Response
 type: object
 additionalProperties:
-  x-additionalPropertiesName: shop ID
+  x-additionalPropertiesName: title
   oneOf:
     - type: "null"
     - type: string

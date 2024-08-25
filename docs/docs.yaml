@@ -68,6 +68,14 @@ servers:
 
 tags:
   - name: Lookup
+    description: |
+      Endpoints for looking up things on IsThereAnyDeal.
+      
+      Endpoints in `/lookup/` namespace will follow this URL structure: `/lookup/{lookup-what}/{by-what}/`
+      
+      However, for sake of docs, endpoints from other namespaces that are related to lookup in any way may also be
+      included in this category. 
+
   - name: Game
   - name: Prices
   - name: History
@@ -185,6 +193,8 @@ components:
           example: [ "01849783-6a26-7147-ab32-71804ca47e8e", "01849782-1017-7389-8de4-c97c587fd7e3" ]
 
 paths:
+  /lookup/id/title/v1:
+    $ref: "./routes/lookup/gid-by-title.v1.yaml"
   /lookup/id/shop/{shopId}/v1:
     $ref: "./routes/lookup/gid-by-shopid.v1.yaml"
   /lookup/shop/{shopId}/id/v1:
