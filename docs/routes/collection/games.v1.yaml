@@ -1,7 +1,7 @@
 get:
   operationId: collection-games-v1-get
   tags:
-    - Collection
+    - Collection Games
   summary: Games in Collection
   description: Get games in user's Collection
   security:
@@ -25,7 +25,7 @@ get:
 put:
   operationId: collection-games-v1-put
   tags:
-    - Collection
+    - Collection Games
   summary: Add to Collection
   description: Add games to user's Collection
   security:
@@ -43,7 +43,7 @@ put:
 delete:
   operationId: collection-games-v1-delete
   tags:
-    - Collection
+    - Collection Games
   summary: Delete from Collection
   description: Delete games from user's Collection
   security:

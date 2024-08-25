@@ -1,0 +1,12 @@
+[
+    {
+        "id": 123,
+        "title": "Full update",
+        "public": false,
+        "position": 1"
+    },
+    {
+        "id": 0,
+        "public": false
+    }
+]

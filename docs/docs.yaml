@@ -83,7 +83,14 @@ tags:
   - name: Deals List
   - name: User
   - name: Waitlist
-  - name: Collection
+  - name: Collection Games
+    x-displayName: Games
+    description: |
+      Collection games endpoint. Basic Collection operations when you only need to track games, without additional details.
+  - name: Collection Groups
+    x-displayName: Categories
+    description: |
+      Collection category endpoints. Category and group may be used interchangably. Default category has ID 0.
   - name: Shops
   - name: Stats
   - name: Internal
@@ -103,8 +110,11 @@ x-tagGroups:
     tags:
       - User
       - Waitlist
-      - Collection
       - Stats
+  - name: Collection
+    tags:
+      - Collection Games
+      - Collection Groups
   - name: Shops
     tags:
       - Shops
@@ -230,6 +240,8 @@ paths:
 
   /collection/games/v1:
     $ref: "./routes/collection/games.v1.yaml"
+  /collection/groups/v1:
+    $ref: "./routes/collection/groups.v1.yaml"
 
   /stats/waitlist/v1:
     $ref: "./routes/stats/waitlist.v1.yaml"

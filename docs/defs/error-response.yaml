@@ -4,6 +4,9 @@ content:
     schema:
       title: Error Response
       type: object
+      required:
+        - status_code
+        - reason_phrase
       properties:
         status_code:
           description: HTTP status code
@@ -11,6 +14,5 @@ content:
         reason_phrase:
           description: Error description
           type: string
-      required:
-        - status_code
-        - reason_phrase
+
+

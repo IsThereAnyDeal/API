@@ -1,0 +1,144 @@
+get:
+  operationId: collection-groups-v1-get
+  tags:
+    - Collection Groups
+  summary: Get all Categories
+  description: |
+    Get all Collection categories, both the user created ones and default one.
+    Default category has id 0 and will always be listed last. User set order of categories is respected in the response.
+  security:
+    - oauthSecurity: [coll_read]
+  responses:
+    200:
+      description: Success response
+      content:
+        application/json:
+          schema:
+            title: Collection Categories Response
+            type: array
+            items:
+              $ref: "./schemas/obj.collection.group.yaml"
+          examples:
+            success:
+              description: Successful response
+              $ref: "./examples/resp.groups.get.v1.success.yaml"
+    400:
+      $ref: "../../defs/error-response.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"
+
+post:
+  operationId: collection-groups-v1-put
+  tags:
+    - Collection Groups
+  summary: Create new Category
+  description: |
+    Create Collection category. Categories with same name may exist.
+    
+    Successful response will return the created category.
+  security:
+    - oauthSecurity: [coll_write]
+  requestBody:
+    description: Category to create
+    content:
+      application/json:
+        schema:
+          type: object
+          required: [title, public]
+          properties:
+            title:
+              type: string
+            public:
+              type: boolean
+        example:
+          $ref: "./examples/req.groups.post.v1.yaml"
+  responses:
+    200:
+      description: Created category
+      content:
+        application/json:
+          schema:
+            $ref: "./schemas/obj.collection.group.yaml"
+            title: Newly created category
+          examples:
+            success:
+              $ref: "./examples/resp.groups.post.v1.success.yaml"
+    400:
+      $ref: "../../defs/resp.error.object-validation.yaml"
+    default:
+      $ref: "../../defs/resp.error.object-validation.yaml"
+
+patch:
+  operationId: collection-groups-v1-patch
+  tags:
+    - Collection Groups
+  summary: Update Categories
+  description: | 
+    Update one or more categories.
+    
+    For each category that you are going to update, only `id` is required. Fields that you do not want to update may be
+    set to `null` or omitted fully. Categories that do not exist or user does not own will be ignored.
+    
+    Default category (id: `0`) may have only `public` property updated. Other properties will be ignored.
+    
+    This operation is atomic, either all categories update or none. Successful response is the full category list,
+    including categories that were not updated.
+  security:
+    - oauthSecurity: [coll_write]
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            $ref: "./schemas/obj.collection.group.patch.yaml"
+          example:
+            $ref: "./examples/req.groups.patch.v1.yaml"
+  responses:
+    200:
+      description: Success response
+      content:
+        application/json:
+          schema:
+            title: Collection Categories Response
+            type: array
+            items:
+              $ref: "./schemas/obj.collection.group.yaml"
+          examples:
+            success:
+              description: Successful response
+              $ref: "./examples/resp.groups.get.v1.success.yaml"
+    400:
+      $ref: "../../defs/resp.error.array-of-objects-validation.yaml"
+    default:
+      $ref: "../../defs/resp.error.array-of-objects-validation.yaml"
+
+delete:
+  operationId: collection-groups-v1-delete
+  tags:
+    - Collection Groups
+  summary: Delete Categories
+  description: |
+    Delete Collection categories.
+    
+    Default category or categories that do not exist or user does not own will be silently ignored.
+  security:
+    - oauthSecurity: [coll_write]
+  requestBody:
+    description: List of category IDs
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            type: integer
+        example: [
+           123, 124, 125
+        ]
+  responses:
+    200:
+      description: Successful response
+    400:
+      $ref: "../../defs/error-response.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"

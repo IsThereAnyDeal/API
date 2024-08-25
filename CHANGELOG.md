@@ -5,3 +5,4 @@
   but you should update as soon as possible.
 
 - New lookup endpoint: Lookup ITAD game IDs by title
+- New endpoints for managing Collection categories

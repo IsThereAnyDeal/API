@@ -1,0 +1,22 @@
+value: [
+  {
+    "id": 3857,
+    "title": "Favorites",
+    "public": true
+  },
+  {
+    "id": 5662,
+    "title": "Playing now",
+    "public": true
+  },
+  {
+    "id": 5663,
+    "title": "Not yet played",
+    "public": true
+  },
+  {
+    "id": 0,
+    "title": "Default Category",
+    "public": false
+  }
+]

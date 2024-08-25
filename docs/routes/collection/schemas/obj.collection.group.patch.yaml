@@ -1,0 +1,19 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+title: Collection Category Patch
+type: object
+required: [id]
+properties:
+  id:
+    type: integer
+  title:
+    oneOf:
+      - type: string
+      - type: "null"
+  public:
+    oneOf:
+      - type: boolean
+      - type: "null"
+  position:
+    oneOf:
+      - type: integer
+      - type: "null"

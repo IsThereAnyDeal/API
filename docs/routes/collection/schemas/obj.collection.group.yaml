@@ -1,0 +1,14 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+title: Collection Category
+type: object
+required:
+  - id
+  - title
+  - public
+properties:
+  id:
+    type: integer
+  title:
+    type: string
+  public:
+    type: boolean

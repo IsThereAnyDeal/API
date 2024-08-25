@@ -1,0 +1,31 @@
+description: Data Validation Error Response
+content:
+  "application/json":
+    schema:
+      title: Data Validation Error Response
+      type: object
+      required:
+        - status_code
+        - reason_phrase
+      properties:
+        status_code:
+          description: HTTP status code
+          type: number
+        reason_phrase:
+          description: Error description
+          type: string
+        details:
+          description: |
+            When this endpoint fails during data validation, validation errors will be provided as a map,
+            where key is the property that failed to validate and value is the error itself.
+          type: object
+          properties:
+            additionalProperties:
+              type: string
+    example: {
+      "status_code": 400,
+      "reason_phrase": "Bad Request",
+      "details": {
+        "propety": "Missing data for 'property'"
+      }
+    }
