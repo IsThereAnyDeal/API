@@ -19,9 +19,8 @@ content:
             When this endpoint fails during data validation, validation errors will be provided as a map,
             where key is the property that failed to validate and value is the error itself.
           type: object
-          properties:
-            additionalProperties:
-              type: string
+          additionalProperties:
+            type: string
     example: {
       "status_code": 400,
       "reason_phrase": "Bad Request",

@@ -21,7 +21,9 @@ put:
     content:
       application/json:
         schema:
-          $ref: "./schemas/obj.collection.entry.yaml"
+          type: array
+          items:
+            $ref: "./schemas/obj.collection.entry.yaml"
         example:
           $ref: "./examples/req.sync.collection.put.v1.yaml"
   responses:

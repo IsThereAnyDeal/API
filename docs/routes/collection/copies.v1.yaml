@@ -47,7 +47,9 @@ post:
     content:
       application/json:
         schema:
-          $ref: "./schemas/obj.collection.copy.new.yaml"
+          type: array
+          items:
+            $ref: "./schemas/obj.collection.copy.new.yaml"
         example:
           $ref: "./examples/req.copies.post.v1.yaml"
   responses:

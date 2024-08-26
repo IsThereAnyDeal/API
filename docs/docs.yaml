@@ -52,13 +52,14 @@ info:
     but the API may not be completely finalized yet - either the way the endpoint is called or the response may change
     at any time.
     
-    Internal APIs are available only for our own services. They are documented here for completeness.
+    Internal APIs are available only for our own services. They are documented here for the sake of completeness.
     
     ## Source
 
     You can find source files for this documentation over at [GitHub](https://github.com/IsThereAnyDeal/API).
     Feel free to help us improve it.
 
+  termsOfService: https://github.com/IsThereAnyDeal/API/blob/master/TERMS_OF_SERVICE.md
   version: 2.5.0
   contact:
     name: General API contact
@@ -73,7 +74,7 @@ tags:
       
       Endpoints in `/lookup/` namespace will follow this URL structure: `/lookup/{lookup-what}/{by-what}/`
       
-      However, for sake of docs, endpoints from other namespaces that are related to lookup in any way may also be
+      Endpoints from other namespaces that are related to lookup in any way may also be
       included in this category. 
 
   - name: Game
@@ -84,10 +85,8 @@ tags:
 
   - name: Waitlist Games
     x-displayName: Games
-    description: ""
   - name: Waitlist Stats
     x-displayName: Stats
-    description: ""
 
   - name: Collection Games
     x-displayName: Games
@@ -103,10 +102,8 @@ tags:
       Collection category endpoints. Category and group may be used interchangably. Default category has ID 0.
   - name: Collection Stats
     x-displayName: Stats
-    description: ""
 
   - name: User
-    description: ""
   - name: User Notes
     x-displayName: Notes
     description: Endpoints for managing notes, that user can create for individual games.
@@ -127,8 +124,17 @@ tags:
       deduplication, additions and removals via regular API endpoints.
 
   - name: Shops
+
   - name: Stats
+
+  - name: Unstable
+    description: |
+      Endpoints that are not yet stable. They may be in development, experimental,
+      or we are not sure about their current definition.
+
   - name: Internal
+    description: |
+      Endpoints available for our own services. They are documented here for the sake of completeness.
 
 x-tagGroups:
   - name: Lookup

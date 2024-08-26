@@ -2,7 +2,7 @@ get:
   operationId: stats-most-waitlisted-v1
   tags:
     - Stats
-    - Waitlist
+    - Waitlist Stats
   summary: Most Waitlisted
   description: |
     Get list of most Waitlisted games

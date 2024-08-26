@@ -15,7 +15,7 @@ properties:
     type: integer
   game:
     type: object
-    required: id
+    required: [id]
     properties:
       id:
         type: string

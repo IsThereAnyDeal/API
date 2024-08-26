@@ -21,7 +21,9 @@ put:
     content:
       application/json:
         schema:
-          $ref: "./schemas/obj.waitlist.entry.yaml"
+          type: array
+          items:
+            $ref: "./schemas/obj.waitlist.entry.yaml"
         example:
           $ref: "./examples/req.sync.waitlist.put.v1.yaml"
   responses:

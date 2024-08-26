@@ -4,7 +4,6 @@ type: object
 required: [username]
 properties:
   username:
-    type:
-      oneOf:
-        - type: string
-        - type: "null"
+    oneOf:
+      - type: string
+      - type: "null"
