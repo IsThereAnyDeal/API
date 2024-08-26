@@ -1,0 +1,37 @@
+put:
+  operationId: profiles-sync-collection-v1-put
+  tags:
+    - Sync
+  summary: Sync Collection
+  description: |
+    Sync Collection with IsThereAnyDeal. User can set category for your profile
+    in their [settings](https://isthereanydeal.com/settings/profiles/), same as with natively supported profiles.
+  security:
+    - oauthSecurity: [ profiles ]
+  parameters:
+    - name: ITAD-Profile
+      in: header
+      required: true
+      schema:
+        type: string
+        description: Profile token
+  requestBody:
+    required: true
+    description: Games to sync with IsThereAnyDeal
+    content:
+      application/json:
+        schema:
+          $ref: "./schemas/obj.collection.entry.yaml"
+        example:
+          $ref: "./examples/req.sync.collection.put.v1.yaml"
+  responses:
+    200:
+      description: Success response
+      content:
+        application/json:
+          schema:
+            $ref: "./schemas/resp.sync.collection.yaml"
+    400:
+      $ref: "../../defs/resp.error.array-of-objects-validation.yaml"
+    default:
+      $ref: "../../defs/resp.error.array-of-objects-validation.yaml"

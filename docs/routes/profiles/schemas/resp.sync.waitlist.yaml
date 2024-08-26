@@ -1,0 +1,17 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: Sync Response
+type: object
+required: [total, added, removed]
+properties:
+  total:
+    description: Number of games that were successfully parsed
+    type: number
+    minimum: 0
+  added:
+    description: Number of games that were added to Waitlist
+    type: number
+    minimum: 0
+  removed:
+    description: Number of games that were removed from Waitlist
+    type: number
+    minimum: 0

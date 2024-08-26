@@ -1,0 +1,17 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: Sync Response
+type: object
+required: [total, added, removed]
+properties:
+  total:
+    description: Number of copies that were successfully parsed
+    type: number
+    minimum: 0
+  added:
+    description: Number of copies that were added to Collection
+    type: number
+    minimum: 0
+  removed:
+    description: Number of copies that were removed from Collection
+    type: number
+    minimum: 0

@@ -1,0 +1,31 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: Collection Sync Entry
+type: object
+required: [shop, id, title]
+properties:
+  shop:
+    type: number
+    description: Shop ID
+  id:
+    type: string
+    description: | 
+      ID can be any string that will identify the game. It should be stable and not change in the future.
+      
+      ID can also used to identify the game, if you use same IDs that we use for tracking shops. If a game is not identified
+      with shop and id, we will use title. 
+      
+      For Steam we use full ids, i.e. app/{id}, sub/{id} or bundle/{id}.
+  title:
+    type: string
+    description: |
+      Title of the game.
+  playtime:
+    description: Play time in minutes
+    oneOf:
+      - type: number
+      - type: "null"
+  lastPlayed:
+    oneOf:
+      - type: string
+        format: date-time
+      - type: "null"

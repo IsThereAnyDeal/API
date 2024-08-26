@@ -9,3 +9,4 @@
 - New endpoints for managing Collection copies
 - New notes endpoints
 - New profiles endpoints
+- New sync endpoints

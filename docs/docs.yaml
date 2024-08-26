@@ -116,6 +116,16 @@ tags:
       You can create a link between your app's users' accounts and ITAD, and use that link to sync
       games into Waitlist and Collection in the similar fashion as natively supported profiles on IsThereAnyDeal.
 
+  - name: Sync
+    description: |
+      Sync endpoints provide easier way to add or remove games from Waitlist and Collection.
+      
+      Sync via API works in the same way as natively supported sync of remote profiles, but instead of ITAD pulling data,
+      you will have to push data. Behavior of sync'd games is the same as for natively supported profiles.
+      
+      It is useful when you can create a list of all games for user, and don't want to handle game identification,
+      deduplication, additions and removals via regular API endpoints.
+
   - name: Shops
   - name: Stats
   - name: Internal
@@ -149,6 +159,7 @@ x-tagGroups:
       - User
       - User Notes
       - Profiles
+      - Sync
   - name: Shops
     tags:
       - Shops
@@ -295,6 +306,10 @@ paths:
 
   /profiles/link/v1:
     $ref: "./routes/profiles/link.v1.yaml"
+  /profiles/sync/waitlist/v1:
+    $ref: "./routes/profiles/sync.waitlist.v1.yaml"
+  /profiles/sync/collection/v1:
+    $ref: "./routes/profiles/sync.collection.v1.yaml"
 
   /service/shops/v1:
     $ref: "./routes/service/shops.v1.yaml"

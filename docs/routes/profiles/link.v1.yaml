@@ -1,5 +1,5 @@
 put:
-  operationId: profiles-v1-put
+  operationId: profiles-link-v1-put
   tags:
     - Profiles
   summary: Link profile
@@ -35,7 +35,7 @@ put:
       $ref: "../../defs/error-response.yaml"
 
 delete:
-  operationId: profiles-v1-delete
+  operationId: profiles-link-v1-delete
   tags:
     - Profiles
   summary: Unlink profile
