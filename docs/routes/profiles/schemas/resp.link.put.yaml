@@ -1,0 +1,7 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: Link Profile Response
+type: object
+required: [token]
+properties:
+  token:
+    type: string

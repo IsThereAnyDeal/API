@@ -111,6 +111,11 @@ tags:
     x-displayName: Notes
     description: Endpoints for managing notes, that user can create for individual games.
 
+  - name: Profiles
+    description: |
+      You can create a link between your app's users' accounts and ITAD, and use that link to sync
+      games into Waitlist and Collection in the similar fashion as natively supported profiles on IsThereAnyDeal.
+
   - name: Shops
   - name: Stats
   - name: Internal
@@ -143,6 +148,7 @@ x-tagGroups:
     tags:
       - User
       - User Notes
+      - Profiles
   - name: Shops
     tags:
       - Shops
@@ -171,6 +177,7 @@ components:
             user_info: Get basic user's info
             notes_read: Read user's game notes
             notes_write: Write (add, edit, delete) user's game notes
+            profiles: Link or unlink profiles
             wait_read: Read user's Waitlist
             wait_write: Write (add, edit, delete) in user's Waitlist
             coll_read: Read user's Collection
@@ -262,11 +269,6 @@ paths:
   /deals/v2:
     $ref: "./routes/deals/deals.v2.yaml"
 
-  /user/info/v2:
-    $ref: "./routes/user/info.v2.yaml"
-  /user/notes/v1:
-    $ref: "./routes/user/notes.v1.yaml"
-
   /waitlist/games/v1:
     $ref: "./routes/waitlist/games.v1.yaml"
 
@@ -285,6 +287,14 @@ paths:
     $ref: "./routes/stats/most-collected.v1.yaml"
   /stats/most-popular/v1:
     $ref: "./routes/stats/most-popular.v1.yaml"
+
+  /user/info/v2:
+    $ref: "./routes/user/info.v2.yaml"
+  /user/notes/v1:
+    $ref: "./routes/user/notes.v1.yaml"
+
+  /profiles/link/v1:
+    $ref: "./routes/profiles/link.v1.yaml"
 
   /service/shops/v1:
     $ref: "./routes/service/shops.v1.yaml"

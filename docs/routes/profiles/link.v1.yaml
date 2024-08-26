@@ -1,0 +1,57 @@
+put:
+  operationId: profiles-v1-put
+  tags:
+    - Profiles
+  summary: Link profile
+  description: |
+    Profile is an object identifying remote account. You need linked profile to use sync endpoints.
+    
+    After successful link you will get profile token, which is used in subsequent profile operations,
+    usually as an `ITAD-Profile` header. 
+    
+    Linking is idempotent, if you lose your token, or you need it in different instance of your app,
+    you can link the same profile again.
+  security:
+    - oauthSecurity: [ profiles ]
+  requestBody:
+    required: true
+    description: Profile to link
+    content:
+      application/json:
+        schema:
+          $ref: "./schemas/obj.profile.yaml"
+        example:
+          $ref: "./examples/req.link.put.v1.yaml"
+  responses:
+    200:
+      description: Success response
+      content:
+        application/json:
+          schema:
+            $ref: "./schemas/resp.link.put.yaml"
+    400:
+      $ref: "../../defs/error-response.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"
+
+delete:
+  operationId: profiles-v1-delete
+  tags:
+    - Profiles
+  summary: Unlink profile
+  security:
+    - oauthSecurity: [ profiles ]
+  parameters:
+    - name: ITAD-Profile
+      in: header
+      required: true
+      schema:
+        type: string
+        description: Profile token
+  responses:
+    200:
+      description: Success response
+    400:
+      $ref: "../../defs/error-response.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"

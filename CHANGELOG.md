@@ -8,3 +8,4 @@
 - New endpoints for managing Collection categories
 - New endpoints for managing Collection copies
 - New notes endpoints
+- New profiles endpoints

@@ -1,0 +1,12 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: Profile
+description: Description of the account
+type: object
+required: [accountId, accountName]
+properties:
+  accountId:
+    type: string
+    description: Per-app unique ID. This can be any string, but it needs to uniquely identify the account within your app.
+  accountName:
+    type: string
+    description: Name of the account. Does not need to be unique, it's meant to be a human-friendly name.
