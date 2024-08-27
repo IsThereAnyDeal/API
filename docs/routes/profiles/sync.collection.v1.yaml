@@ -6,6 +6,9 @@ put:
   description: |
     Sync Collection with IsThereAnyDeal. User can set category for your profile
     in their [settings](https://isthereanydeal.com/settings/profiles/), same as with natively supported profiles.
+    
+    Games are synced as redeemed copies. If there already is a redemeed copy with the same shop in user's Collection,
+    new copy will not be added.
   security:
     - oauthSecurity: [ profiles ]
   parameters:
