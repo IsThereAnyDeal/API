@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: IsThereAnyDeal API
   description: |
-    [Changelog for latest released version](https://github.com/IsThereAnyDeal/API/blob/master/CHANGELOG.md)
+    [Changelog](https://github.com/IsThereAnyDeal/API/blob/master/CHANGELOG.md)
     
     IsThereAnyDeal API provides programmatic access to features found at IsThereAnyDeal.  
     

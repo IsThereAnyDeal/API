@@ -2,7 +2,9 @@ openapi: 3.1.0
 info:
   title: IsThereAnyDeal API
   description: |
-    IsThereAnyDeal API provides programmatic access to features found at IsThereAnyDeal.
+    [Changelog](https://github.com/IsThereAnyDeal/API/blob/master/CHANGELOG.md)
+
+    IsThereAnyDeal API provides programmatic access to features found at IsThereAnyDeal.  
 
     ## Terms of Service
 
@@ -52,40 +54,520 @@ info:
     but the API may not be completely finalized yet - either the way the endpoint is called or the response may change
     at any time.
 
-    Internal APIs are available only for our own services. They are documented here for completeness.
+    Internal APIs are available only for our own services. They are documented here for the sake of completeness.
 
     ## Source
 
     You can find source files for this documentation over at [GitHub](https://github.com/IsThereAnyDeal/API).
     Feel free to help us improve it.
-  version: 2.0.0
+  termsOfService: https://github.com/IsThereAnyDeal/API/blob/master/TERMS_OF_SERVICE.md
+  version: 2.5.0
   contact:
     name: General API contact
     email: api@isthereanydeal.com
 servers:
   - url: https://api.isthereanydeal.com
+tags:
+  - name: Lookup
+    description: |
+      Endpoints for looking up things on IsThereAnyDeal.
+
+      Endpoints in `/lookup/` namespace will follow this URL structure: `/lookup/{lookup-what}/{by-what}/`
+
+      Endpoints from other namespaces that are related to lookup in any way may also be
+      included in this category. 
+  - name: Game
+  - name: Prices
+  - name: History
+  - name: Bundles
+  - name: Deals List
+  - name: Waitlist Games
+    x-displayName: Games
+  - name: Waitlist Stats
+    x-displayName: Stats
+  - name: Collection Games
+    x-displayName: Games
+    description: |
+      Basic Collection operations when you only need to track games, without additional details.
+  - name: Collection Copies
+    x-displayName: Copies
+    description: |
+      Operations on Collection copies. These allow more detailed tracking of owned games.
+  - name: Collection Groups
+    x-displayName: Categories
+    description: |
+      Collection category endpoints. Category and group may be used interchangably. Default category has ID 0.
+  - name: Collection Stats
+    x-displayName: Stats
+  - name: User
+  - name: User Notes
+    x-displayName: Notes
+    description: Endpoints for managing notes, that user can create for individual games.
+  - name: Profiles
+    description: |
+      You can create a link between your app's users' accounts and ITAD, and use that link to sync
+      games into Waitlist and Collection in the similar fashion as natively supported profiles on IsThereAnyDeal.
+  - name: Sync
+    description: |
+      Sync endpoints provide easier way to add or remove games from Waitlist and Collection.
+
+      Sync via API works in the same way as natively supported sync of remote profiles, but instead of ITAD pulling data,
+      you will have to push data. Behavior of sync'd games is the same as for natively supported profiles.
+
+      It is useful when you can create a list of all games for user, and don't want to handle game identification,
+      deduplication, additions and removals via regular API endpoints.
+  - name: Shops
+  - name: Stats
+  - name: Unstable
+    description: |
+      Endpoints that are not yet stable. They may be in development, experimental,
+      or we are not sure about their current definition.
+  - name: Internal
+    description: |
+      Endpoints available for our own services. They are documented here for the sake of completeness.
 paths:
-  /service/shops/v1:
-    get:
-      operationId: service-shops-v1
+  /lookup/id/title/v1:
+    post:
+      operationId: lookup-gid-title-v1
       tags:
-        - service
-      summary: Shops
-      description: Return information about shops
-      security: []
-      parameters:
-        - $ref: '#/components/parameters/country'
+        - Lookup
+      summary: Lookup ITAD game IDs by title
+      description: |-
+        Lookup IsThereAnyDeal's game IDs by title
+        This is not a full fledged search. Some title preprocessing will happen, but the lookup will only return IDs for titles, that match precisely.
+        Typos or variations in title may not give you expected result.
+      security:
+        - {}
+        - keySecurity: []
+      requestBody:
+        description: List of titles
+        content:
+          application/json:
+            schema:
+              type: array
+              minItems: 1
+              items:
+                type: string
+            example:
+              - Baldurs Gate 3
+              - Half-Life 2
+              - Unknown game
       responses:
         '200':
-          description: List of shops and their details
+          description: Success response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/resp.service.shops'
+                $ref: '#/components/schemas/resp.lookup.gid-by-title'
               examples:
                 success:
-                  summary: Short shop list example
-                  $ref: '#/components/examples/shops.v1.success'
+                  $ref: '#/components/examples/gid-by-title.v1.success'
+        '400':
+          $ref: '#/components/responses/error-response'
+        default:
+          $ref: '#/components/responses/error-response'
+  /lookup/id/shop/{shopId}/v1:
+    post:
+      operationId: lookup-gid-shopid-v1
+      tags:
+        - Lookup
+      summary: Lookup ITAD game IDs by IDs on shop
+      description: Lookup IsThereAnyDeal's game IDs by shop's game IDs
+      security:
+        - {}
+        - keySecurity: []
+      parameters:
+        - name: shopId
+          in: path
+          required: true
+          schema:
+            type: number
+      requestBody:
+        description: List of shop's game IDs
+        content:
+          application/json:
+            schema:
+              type: array
+              minItems: 1
+              items:
+                type: string
+            example:
+              - app/220
+      responses:
+        '200':
+          description: Success response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resp.lookup.gid-by-shopid'
+              examples:
+                success:
+                  $ref: '#/components/examples/gid-by-shopid.v1.success'
+        '400':
+          $ref: '#/components/responses/error-response'
+        default:
+          $ref: '#/components/responses/error-response'
+  /lookup/shop/{shopId}/id/v1:
+    post:
+      operationId: lookup-shopid-gid-v1
+      tags:
+        - Lookup
+      summary: Lookup game IDs on shop by ITAD game IDs
+      description: Lookup shop's game IDs by IsThereAnyDeal game IDs
+      security:
+        - {}
+        - keySecurity: []
+      parameters:
+        - name: shopId
+          in: path
+          required: true
+          schema:
+            type: number
+      requestBody:
+        description: List of game IDs
+        content:
+          application/json:
+            schema:
+              type: array
+              minItems: 1
+              items:
+                type: string
+                format: uuid
+      responses:
+        '200':
+          description: Success response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resp.lookup.shopid-by-gid'
+              examples:
+                success:
+                  $ref: '#/components/examples/shopid-by-gid.v1.success'
+        '400':
+          $ref: '#/components/responses/error-response'
+        default:
+          $ref: '#/components/responses/error-response'
+  /games/search/v1:
+    get:
+      operationId: games-search-v1
+      tags:
+        - Game
+        - Lookup
+      summary: Search
+      description: Search for games by title
+      security:
+        - keySecurity: []
+      parameters:
+        - name: title
+          in: query
+          description: Find games by name
+          required: true
+          schema:
+            type: string
+        - name: results
+          in: query
+          description: Maximum number of results to return
+          schema:
+            type: number
+            minimum: 1
+            maximum: 100
+            default: 20
+      responses:
+        '200':
+          description: Search response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resp.games.search'
+              examples:
+                results:
+                  description: Europa Universalis IV search
+                  $ref: '#/components/examples/search.v1.results'
+        '400':
+          $ref: '#/components/responses/error-response'
+        default:
+          $ref: '#/components/responses/error-response'
+  /games/lookup/v1:
+    get:
+      operationId: games-lookup-v1
+      tags:
+        - Game
+        - Lookup
+      summary: Lookup Game
+      description: Lookup game based on title or Steam appid
+      security:
+        - keySecurity: []
+      parameters:
+        - name: title
+          in: query
+          description: Find game by it's name
+          schema:
+            type: string
+        - name: appid
+          in: query
+          description: Find game by Steam appid
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Lookup response with found game
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resp.games.lookup'
+              examples:
+                found:
+                  description: Game found
+                  $ref: '#/components/examples/lookup.v1.found'
+                not-found:
+                  description: Game not found
+                  $ref: '#/components/examples/lookup.v1.not-found'
+        '400':
+          $ref: '#/components/responses/error-response'
+        default:
+          $ref: '#/components/responses/error-response'
+  /games/info/v2:
+    get:
+      operationId: games-info-v2
+      tags:
+        - Game
+      summary: Game Info
+      description: Get basic game information
+      security:
+        - keySecurity: []
+      parameters:
+        - $ref: '#/components/parameters/gid'
+      responses:
+        '200':
+          description: Info response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resp.games.info'
+              examples:
+                found:
+                  description: Europa Universalis IV info
+                  $ref: '#/components/examples/info.v2.found'
+        '400':
+          $ref: '#/components/responses/error-response'
+        '404':
+          $ref: '#/components/responses/error-response'
+          description: Game not found
+        default:
+          $ref: '#/components/responses/error-response'
+  /games/prices/v2:
+    post:
+      operationId: games-prices-v2
+      tags:
+        - Prices
+      summary: Prices
+      description: Get games' prices
+      security:
+        - keySecurity: []
+      parameters:
+        - $ref: '#/components/parameters/country'
+        - name: nondeals
+          in: query
+          description: Load non-sale prices
+          schema:
+            type: boolean
+        - name: vouchers
+          in: query
+          description: Allow vouchers in prices
+          schema:
+            type: boolean
+        - name: capacity
+          in: query
+          description: How many prices to load per each game, 0 or omit for no limit
+          schema:
+            type: integer
+            minimum: 0
+        - $ref: '#/components/parameters/shops'
+          description: List of shop IDs for which you want to load prices
+      requestBody:
+        description: List of Game IDs for which to load prices
+        $ref: '#/components/requestBodies/gids-200'
+      responses:
+        '200':
+          description: Info response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resp.games.prices'
+              examples:
+                success:
+                  description: Successful response
+                  $ref: '#/components/examples/prices.v2.success'
+        '400':
+          $ref: '#/components/responses/error-response'
+        default:
+          $ref: '#/components/responses/error-response'
+  /games/bundles/v2:
+    get:
+      operationId: games-bundles-v2
+      tags:
+        - Bundles
+      summary: Bundles including Game
+      description: Get all bundles which contain the game
+      security:
+        - keySecurity: []
+      parameters:
+        - $ref: '#/components/parameters/gid'
+        - $ref: '#/components/parameters/country'
+        - name: expired
+          in: query
+          description: Include expired bundles
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Success response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resp.games.bundles'
+              examples:
+                success:
+                  description: Successful response
+                  $ref: '#/components/examples/bundles.v2.success'
+        '400':
+          $ref: '#/components/responses/error-response'
+        default:
+          $ref: '#/components/responses/error-response'
+  /games/overview/v2:
+    post:
+      operationId: games-overview-v2
+      tags:
+        - Prices
+      summary: Price Overview
+      description: |
+        Get basic price overview for selected games.
+
+        For each game current best price will be loaded (optionally, only from selected shops),
+        historical low price (among all covered shops).
+
+        Furthermore, result will also contain list of currently active bundles,
+        which contain at least one of the queried games.
+      security:
+        - keySecurity: []
+      parameters:
+        - $ref: '#/components/parameters/country'
+        - $ref: '#/components/parameters/shops'
+        - name: vouchers
+          in: query
+          description: Allow vouchers in prices
+          required: false
+          schema:
+            type: boolean
+            default: true
+      requestBody:
+        $ref: '#/components/requestBodies/gids-200'
+      responses:
+        '200':
+          description: Success response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resp.games.overview'
+              examples:
+                success:
+                  description: Successful response
+                  $ref: '#/components/examples/overview.v2.success'
+        '400':
+          $ref: '#/components/responses/error-response'
+        default:
+          $ref: '#/components/responses/error-response'
+  /games/historylow/v1:
+    post:
+      operationId: games-historylow-v1
+      tags:
+        - History
+      summary: History Low
+      description: Get historically lowest prices
+      security:
+        - keySecurity: []
+      parameters:
+        - $ref: '#/components/parameters/country'
+      requestBody:
+        description: List of Game IDs for which to load historical lows
+        $ref: '#/components/requestBodies/gids-200'
+      responses:
+        '200':
+          description: Success response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resp.games.historylow'
+              examples:
+                success:
+                  description: Successful response
+                  $ref: '#/components/examples/historylow.v1.success'
+        '400':
+          $ref: '#/components/responses/error-response'
+        default:
+          $ref: '#/components/responses/error-response'
+  /games/storelow/v2:
+    post:
+      operationId: games-storelow-v2
+      tags:
+        - History
+      summary: Store Low
+      description: Get historically lowest prices for individual stores
+      security:
+        - keySecurity: []
+      parameters:
+        - $ref: '#/components/parameters/country'
+        - $ref: '#/components/parameters/shops'
+      requestBody:
+        description: List of Game IDs for which to load store lows
+        $ref: '#/components/requestBodies/gids-200'
+      responses:
+        '200':
+          description: Success response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resp.games.storelow'
+              examples:
+                success:
+                  description: Successful response
+                  $ref: '#/components/examples/storelow.v2.success'
+        '400':
+          $ref: '#/components/responses/error-response'
+        default:
+          $ref: '#/components/responses/error-response'
+  /games/history/v2:
+    get:
+      operationId: games-history-v2
+      tags:
+        - History
+      summary: History log
+      description: Get log of historical prices
+      security:
+        - keySecurity: []
+      parameters:
+        - $ref: '#/components/parameters/gid'
+        - $ref: '#/components/parameters/country'
+        - $ref: '#/components/parameters/shops'
+        - name: since
+          in: query
+          description: |
+            Load only price changes after this date.            
+            By default, only last 3 months are loaded
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: Success response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resp.games.history'
+              examples:
+                success:
+                  description: Successful response
+                  $ref: '#/components/examples/history.v2.success'
         '400':
           $ref: '#/components/responses/error-response'
         default:
@@ -94,7 +576,7 @@ paths:
     get:
       operationId: deals-v2
       tags:
-        - deals
+        - Deals List
       summary: Deals List
       description: |
         Get current deals. Follows same rules as deals list displayed on the website, which means that
@@ -181,340 +663,11 @@ paths:
           $ref: '#/components/responses/error-response'
         default:
           $ref: '#/components/responses/error-response'
-  /games/lookup/v1:
-    get:
-      operationId: games-lookup-v1
-      tags:
-        - games
-      summary: Game Lookup
-      description: Lookup game based on title or Steam appid
-      security:
-        - keySecurity: []
-      parameters:
-        - name: title
-          in: query
-          description: Find game by it's name
-          schema:
-            type: string
-        - name: appid
-          in: query
-          description: Find game by Steam appid
-          schema:
-            type: number
-      responses:
-        '200':
-          description: Lookup response with found game
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/resp.games.lookup'
-              examples:
-                found:
-                  description: Game found
-                  $ref: '#/components/examples/lookup.v1.found'
-                not-found:
-                  description: Game not found
-                  $ref: '#/components/examples/lookup.v1.not-found'
-        '400':
-          $ref: '#/components/responses/error-response'
-        default:
-          $ref: '#/components/responses/error-response'
-  /games/search/v1:
-    get:
-      operationId: games-search-v1
-      tags:
-        - games
-      summary: Game Search
-      description: Search for games by title
-      security:
-        - keySecurity: []
-      parameters:
-        - name: title
-          in: query
-          description: Find games by name
-          required: true
-          schema:
-            type: string
-        - name: results
-          in: query
-          description: Maximum number of results to return
-          schema:
-            type: number
-            minimum: 1
-            maximum: 100
-            default: 20
-      responses:
-        '200':
-          description: Search response
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/resp.games.search'
-              examples:
-                results:
-                  description: Europa Universalis IV search
-                  $ref: '#/components/examples/search.v1.results'
-        '400':
-          $ref: '#/components/responses/error-response'
-        default:
-          $ref: '#/components/responses/error-response'
-  /games/info/v2:
-    get:
-      operationId: games-info-v2
-      tags:
-        - games
-      summary: Game Info
-      description: Get basic game information
-      security:
-        - keySecurity: []
-      parameters:
-        - $ref: '#/components/parameters/gid'
-      responses:
-        '200':
-          description: Info response
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/resp.games.info'
-              examples:
-                found:
-                  description: Europa Universalis IV info
-                  $ref: '#/components/examples/info.v2.found'
-        '400':
-          $ref: '#/components/responses/error-response'
-        '404':
-          $ref: '#/components/responses/error-response'
-          description: Game not found
-        default:
-          $ref: '#/components/responses/error-response'
-  /games/prices/v2:
-    post:
-      operationId: games-prices-v2
-      tags:
-        - games
-        - deals
-      summary: Prices
-      description: Get games' prices
-      security:
-        - keySecurity: []
-      parameters:
-        - $ref: '#/components/parameters/country'
-        - name: nondeals
-          in: query
-          description: Load non-sale prices
-          schema:
-            type: boolean
-        - name: vouchers
-          in: query
-          description: Allow vouchers in prices
-          schema:
-            type: boolean
-        - name: capacity
-          in: query
-          description: How many prices to load per each game, 0 or omit for no limit
-          schema:
-            type: integer
-            minimum: 0
-        - $ref: '#/components/parameters/shops'
-          description: List of shop IDs for which you want to load prices
-      requestBody:
-        description: List of Game IDs for which to load prices
-        $ref: '#/components/requestBodies/gids-200'
-      responses:
-        '200':
-          description: Info response
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/resp.games.prices'
-              examples:
-                success:
-                  description: Successful response
-                  $ref: '#/components/examples/prices.v2.success'
-        '400':
-          $ref: '#/components/responses/error-response'
-        default:
-          $ref: '#/components/responses/error-response'
-  /games/historylow/v1:
-    post:
-      operationId: games-historylow-v1
-      tags:
-        - games
-        - history
-      summary: History Low
-      description: Get historically lowest prices
-      security:
-        - keySecurity: []
-      parameters:
-        - $ref: '#/components/parameters/country'
-      requestBody:
-        description: List of Game IDs for which to load historical lows
-        $ref: '#/components/requestBodies/gids-200'
-      responses:
-        '200':
-          description: Success response
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/resp.games.historylow'
-              examples:
-                success:
-                  description: Successful response
-                  $ref: '#/components/examples/historylow.v1.success'
-        '400':
-          $ref: '#/components/responses/error-response'
-        default:
-          $ref: '#/components/responses/error-response'
-  /games/storelow/v2:
-    post:
-      operationId: games-storelow-v2
-      tags:
-        - games
-        - history
-      summary: Store Low
-      description: Get historically lowest prices for individual stores
-      security:
-        - keySecurity: []
-      parameters:
-        - $ref: '#/components/parameters/country'
-        - $ref: '#/components/parameters/shops'
-      requestBody:
-        description: List of Game IDs for which to load store lows
-        $ref: '#/components/requestBodies/gids-200'
-      responses:
-        '200':
-          description: Success response
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/resp.games.storelow'
-              examples:
-                success:
-                  description: Successful response
-                  $ref: '#/components/examples/storelow.v2.success'
-        '400':
-          $ref: '#/components/responses/error-response'
-        default:
-          $ref: '#/components/responses/error-response'
-  /games/bundles/v2:
-    get:
-      operationId: games-bundles-v2
-      tags:
-        - games
-        - bundles
-      summary: Bundles including Game
-      description: Get all bundles which contain the game
-      security:
-        - keySecurity: []
-      parameters:
-        - $ref: '#/components/parameters/gid'
-        - $ref: '#/components/parameters/country'
-        - name: expired
-          in: query
-          description: Include expired bundles
-          schema:
-            type: boolean
-      responses:
-        '200':
-          description: Success response
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/resp.games.bundles'
-              examples:
-                success:
-                  description: Successful response
-                  $ref: '#/components/examples/bundles.v2.success'
-        '400':
-          $ref: '#/components/responses/error-response'
-        default:
-          $ref: '#/components/responses/error-response'
-  /games/overview/v2:
-    post:
-      operationId: games-overview-v2
-      tags:
-        - games
-      summary: Price Overview
-      description: |
-        Get basic price overview for selected games.
-
-        For each game current best price will be loaded (optionally, only from selected shops),
-        historical low price (among all covered shops).
-
-        Furthermore, result will also contain list of currently active bundles,
-        which contain at least one of the queried games.
-      security:
-        - keySecurity: []
-      parameters:
-        - $ref: '#/components/parameters/country'
-        - $ref: '#/components/parameters/shops'
-        - name: vouchers
-          in: query
-          description: Allow vouchers in prices
-          required: false
-          schema:
-            type: boolean
-            default: true
-      requestBody:
-        $ref: '#/components/requestBodies/gids-200'
-      responses:
-        '200':
-          description: Success response
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/resp.games.overview'
-              examples:
-                success:
-                  description: Successful response
-                  $ref: '#/components/examples/overview.v2.success'
-        '400':
-          $ref: '#/components/responses/error-response'
-        default:
-          $ref: '#/components/responses/error-response'
-  /games/history/v2:
-    get:
-      operationId: games-history-v2
-      tags:
-        - games
-        - history
-      summary: History log
-      description: Get log of historical prices
-      security:
-        - keySecurity: []
-      parameters:
-        - $ref: '#/components/parameters/gid'
-        - $ref: '#/components/parameters/country'
-        - $ref: '#/components/parameters/shops'
-        - name: since
-          in: query
-          description: |
-            Load only price changes after this date.            
-            By default, only last 3 months are loaded
-          schema:
-            type: string
-            format: date-time
-      responses:
-        '200':
-          description: Success response
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/resp.games.history'
-              examples:
-                success:
-                  description: Successful response
-                  $ref: '#/components/examples/history.v2.success'
-        '400':
-          $ref: '#/components/responses/error-response'
-        default:
-          $ref: '#/components/responses/error-response'
   /waitlist/games/v1:
     get:
       operationId: waitlist-games-v1-get
       tags:
-        - user
-        - waitlist
+        - Waitlist Games
       summary: Games in Waitlist
       description: Get games in user's Waitlist
       security:
@@ -538,8 +691,7 @@ paths:
     put:
       operationId: waitlist-games-v1-put
       tags:
-        - user
-        - waitlist
+        - Waitlist Games
       summary: Add to Waitlist
       description: Add games to user's Waitlist
       security:
@@ -557,8 +709,7 @@ paths:
     delete:
       operationId: waitlist-games-v1-delete
       tags:
-        - user
-        - waitlist
+        - Waitlist Games
       summary: Delete from Waitlist
       description: Delete games from user's Waitlist
       security:
@@ -577,8 +728,7 @@ paths:
     get:
       operationId: collection-games-v1-get
       tags:
-        - user
-        - collection
+        - Collection Games
       summary: Games in Collection
       description: Get games in user's Collection
       security:
@@ -590,11 +740,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/resp.collection.games'
+                title: Collection Games Response
+                type: array
+                items:
+                  $ref: '#/components/schemas/obj.collection.game'
               examples:
                 success:
                   description: Successful response
-                  $ref: '#/components/examples/games-list'
+                  $ref: '#/components/examples/resp.games.get.v1.success'
         '400':
           $ref: '#/components/responses/error-response'
         default:
@@ -602,8 +755,7 @@ paths:
     put:
       operationId: collection-games-v1-put
       tags:
-        - user
-        - collection
+        - Collection Games
       summary: Add to Collection
       description: Add games to user's Collection
       security:
@@ -621,8 +773,7 @@ paths:
     delete:
       operationId: collection-games-v1-delete
       tags:
-        - user
-        - collection
+        - Collection Games
       summary: Delete from Collection
       description: Delete games from user's Collection
       security:
@@ -637,12 +788,305 @@ paths:
           $ref: '#/components/responses/error-response'
         default:
           $ref: '#/components/responses/error-response'
+  /collection/copies/v1:
+    get:
+      operationId: collection-copies-v1-get
+      tags:
+        - Collection Copies
+      summary: List Copies
+      description: |
+        Get all copies user has in their Collection. Copies are returned as a simple list.
+
+        It is not necessary to have copy for each game in Collection, so you should not rely on this endpoint
+        if you need to know about all games in user's Collection.
+      security:
+        - oauthSecurity:
+            - coll_read
+      responses:
+        '200':
+          description: Success response
+          content:
+            application/json:
+              schema:
+                title: Collection Copies Response
+                type: array
+                items:
+                  $ref: '#/components/schemas/obj.collection.copy'
+              examples:
+                success:
+                  description: Successful response
+                  $ref: '#/components/examples/resp.copies.get.v1'
+        '400':
+          $ref: '#/components/responses/error-response'
+        default:
+          $ref: '#/components/responses/error-response'
+    post:
+      operationId: collection-copies-v1-post
+      tags:
+        - Collection Copies
+      summary: Add Copies
+      description: |
+        Add new copies. If the game is not already in a Collection, it will be added. Similarly, new tags will also be created.
+
+        Same copies may exist multiple times for a single game, ITAD does not check for duplicates.
+
+        This operation is atomic, either all copies are added or none.
+      security:
+        - oauthSecurity:
+            - coll_write
+      requestBody:
+        description: Copies to add
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/obj.collection.copy.new'
+            example:
+              - gameId: 018d937e-e9ab-70f4-bd05-1db7a138eb39
+                redeemed: false
+                shop: 61
+                price:
+                  amount: 33.33
+                  currency: EUR
+                note: Api note
+                tags:
+                  - From Api
+                  - Second tag
+              - gameId: 018d937e-e9ab-70f4-bd05-1db7a138eb39
+                redeemed: false
+                shop: 4
+                price: null
+                note: null
+                tags:
+                  - From Api
+      responses:
+        '201':
+          description: Successful response
+        '400':
+          $ref: '#/components/responses/resp.error.array-of-objects-validation'
+        default:
+          $ref: '#/components/responses/resp.error.array-of-objects-validation'
+    patch:
+      operationId: collection-copies-v1-patch
+      tags:
+        - Collection Copies
+      summary: Update Copies
+      description: |
+        Update one or more copies.
+
+        You can issue partial updates on copy, only properties that are included for a copy will be updated.
+            
+        This operation is atomic, either all copies are updated or none.
+      security:
+        - oauthSecurity:
+            - coll_write
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/obj.collection.copy.patch'
+              example:
+                - id: 145742693
+                  shop: 61
+                  price:
+                    amount: 12.34
+                    currency: USD
+      responses:
+        '200':
+          description: Success response
+        '400':
+          $ref: '#/components/responses/resp.error.array-of-objects-validation'
+        default:
+          $ref: '#/components/responses/resp.error.array-of-objects-validation'
+    delete:
+      operationId: collection-copies-v1-delete
+      tags:
+        - Collection Copies
+      summary: Delete Copies
+      description: |
+        Delete Collection copies.
+
+        Copies that do not exist or don't belong to user will be silently ignored.
+
+        Operation is atomic. Either all copies are deleted or none.
+      security:
+        - oauthSecurity:
+            - coll_write
+      requestBody:
+        description: List of copy IDs
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: integer
+            example:
+              - 123
+              - 124
+              - 125
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          $ref: '#/components/responses/error-response'
+        default:
+          $ref: '#/components/responses/error-response'
+  /collection/groups/v1:
+    get:
+      operationId: collection-groups-v1-get
+      tags:
+        - Collection Groups
+      summary: Get all Categories
+      description: |
+        Get all Collection categories, both the user created ones and default one.
+        Default category has id 0 and will always be listed last. User set order of categories is respected in the response.
+      security:
+        - oauthSecurity:
+            - coll_read
+      responses:
+        '200':
+          description: Success response
+          content:
+            application/json:
+              schema:
+                title: Collection Categories Response
+                type: array
+                items:
+                  $ref: '#/components/schemas/obj.collection.group'
+              examples:
+                success:
+                  description: Successful response
+                  $ref: '#/components/examples/resp.groups.get.v1.success'
+        '400':
+          $ref: '#/components/responses/error-response'
+        default:
+          $ref: '#/components/responses/error-response'
+    post:
+      operationId: collection-groups-v1-post
+      tags:
+        - Collection Groups
+      summary: Create new Category
+      description: |
+        Create Collection category. Categories with same name may exist.
+
+        Successful response will return the created category.
+      security:
+        - oauthSecurity:
+            - coll_write
+      requestBody:
+        description: Category to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/obj.collection.group.new'
+            example:
+              title: New Collection Category
+              public: true
+      responses:
+        '200':
+          description: Created category
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/obj.collection.group'
+                title: Newly created category
+              examples:
+                success:
+                  $ref: '#/components/examples/resp.groups.post.v1.success'
+        '400':
+          $ref: '#/components/responses/resp.error.object-validation'
+        default:
+          $ref: '#/components/responses/resp.error.object-validation'
+    patch:
+      operationId: collection-groups-v1-patch
+      tags:
+        - Collection Groups
+      summary: Update Categories
+      description: |
+        Update one or more categories.
+
+        For each category that you are going to update, only `id` is required. Fields that you do not want to update may be
+        set to `null` or omitted fully. Categories that do not exist or user does not own will be ignored.
+
+        Default category (id: `0`) may have only `public` property updated. Other properties will be ignored.
+
+        This operation is atomic, either all categories update or none. Successful response is the full category list,
+        including categories that were not updated.
+      security:
+        - oauthSecurity:
+            - coll_write
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/obj.collection.group.patch'
+              example:
+                - id: 123
+                  title: Full update
+                  public: false
+                  position: 1"
+                - id: 0
+                  public: false
+      responses:
+        '200':
+          description: Success response
+          content:
+            application/json:
+              schema:
+                title: Collection Categories Response
+                type: array
+                items:
+                  $ref: '#/components/schemas/obj.collection.group'
+              examples:
+                success:
+                  description: Successful response
+                  $ref: '#/components/examples/resp.groups.get.v1.success'
+        '400':
+          $ref: '#/components/responses/resp.error.array-of-objects-validation'
+        default:
+          $ref: '#/components/responses/resp.error.array-of-objects-validation'
+    delete:
+      operationId: collection-groups-v1-delete
+      tags:
+        - Collection Groups
+      summary: Delete Categories
+      description: |
+        Delete Collection categories.
+
+        Default category or categories that do not exist or user does not own will be silently ignored.
+      security:
+        - oauthSecurity:
+            - coll_write
+      requestBody:
+        description: List of category IDs
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: integer
+            example:
+              - 123
+              - 124
+              - 125
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          $ref: '#/components/responses/error-response'
+        default:
+          $ref: '#/components/responses/error-response'
   /stats/waitlist/v1:
     get:
       operationId: stats-waitlist-v1
       tags:
-        - stats
-        - waitlist
+        - Stats
+        - Waitlist Stats
       summary: Waitlist Stats
       description: |
         Get Waitlist statistics for a game
@@ -684,8 +1128,8 @@ paths:
     get:
       operationId: stats-most-waitlisted-v1
       tags:
-        - stats
-        - waitlist
+        - Stats
+        - Waitlist Stats
       summary: Most Waitlisted
       description: |
         Get list of most Waitlisted games
@@ -720,8 +1164,8 @@ paths:
     get:
       operationId: stats-most-collected-v1
       tags:
-        - stats
-        - collection
+        - Stats
+        - Collection Stats
       summary: Most Collected
       description: |
         Get list of most Collected games
@@ -756,7 +1200,7 @@ paths:
     get:
       operationId: stats-most-popular-v1
       tags:
-        - stats
+        - Stats
       summary: Most Popular
       description: |
         Get list of most popular games. Popularity for each game is computed as Waitlisted count + Collected count.
@@ -791,7 +1235,7 @@ paths:
     get:
       operationId: user-info-v2
       tags:
-        - user
+        - User
       summary: User Info
       description: Get user info, currently just a username
       security:
@@ -808,85 +1252,259 @@ paths:
           $ref: '#/components/responses/error-response'
         default:
           $ref: '#/components/responses/error-response'
-  /unstable/id-lookup/shop/{shopId}/v2:
-    post:
-      operationId: unstable-idlookup-shop-v2
+  /user/notes/v1:
+    get:
+      operationId: user-notes-v1-get
       tags:
-        - unstable
-        - games
-      summary: Lookup Shop's Game IDs
-      description: Lookup shop's game IDs by IsThereAnyDeal game IDs
+        - User Notes
+      summary: Get notes
+      description: |
+        Get user's game notes
       security:
-        - {}
-        - keySecurity: []
-      parameters:
-        - name: shopId
-          in: path
-          required: true
-          schema:
-            type: number
+        - oauthSecurity:
+            - notes_read
+      responses:
+        '200':
+          description: Success response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resp.notes.get'
+        '400':
+          $ref: '#/components/responses/error-response'
+        default:
+          $ref: '#/components/responses/error-response'
+    put:
+      operationId: user-notes-v1-put
+      tags:
+        - User Notes
+      summary: Add or edit notes
+      description: |
+        Add or edit game notes. This operation is atomic and idempotent.
+      security:
+        - oauthSecurity:
+            - notes_write
       requestBody:
+        required: true
+        description: List of notes
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/obj.note'
+      responses:
+        '200':
+          description: Success response
+        '400':
+          $ref: '#/components/responses/error-response'
+        default:
+          $ref: '#/components/responses/error-response'
+    delete:
+      operationId: user-notes-v1-delete
+      tags:
+        - User Notes
+      summary: Delete notes
+      description: |
+        Delete game notes. This operation is atomic.
+      security:
+        - oauthSecurity:
+            - notes_write
+      requestBody:
+        required: true
         description: List of game IDs
         content:
           application/json:
             schema:
               type: array
-              minItems: 1
               items:
                 type: string
                 format: uuid
       responses:
         '200':
           description: Success response
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/resp.unstable.idlookup-shop'
-              examples:
-                success:
-                  $ref: '#/components/examples/idlookup-steam.v2.success'
         '400':
           $ref: '#/components/responses/error-response'
         default:
           $ref: '#/components/responses/error-response'
-  /unstable/id-lookup/itad/{shopId}/v2:
-    post:
-      operationId: unstable-idlookup-itad-v2
+  /profiles/link/v1:
+    put:
+      operationId: profiles-link-v1-put
       tags:
-        - unstable
-        - games
-      summary: Lookup Game IDs
-      description: Lookup IsThereAnyDeal's game IDs by shop's game IDs
+        - Profiles
+      summary: Link profile
+      description: |
+        Profile is an object identifying remote account. You need linked profile to use sync endpoints.
+
+        After successful link you will get profile token, which is used in subsequent profile operations,
+        usually as an `ITAD-Profile` header. 
+
+        Linking is idempotent, if you lose your token, or you need it in different instance of your app,
+        you can link the same profile again.
       security:
-        - {}
-        - keySecurity: []
-      parameters:
-        - name: shopId
-          in: path
-          required: true
-          schema:
-            type: number
+        - oauthSecurity:
+            - profiles
       requestBody:
-        description: List of shop's game IDs
+        required: true
+        description: Profile to link
         content:
           application/json:
             schema:
-              type: array
-              minItems: 1
-              items:
-                type: string
+              $ref: '#/components/schemas/obj.profile'
             example:
-              - app/220
+              accountId: acc7896132977
+              accountName: My Account
       responses:
         '200':
           description: Success response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/resp.unstable.idlookup-game'
+                $ref: '#/components/schemas/resp.link.put'
+        '400':
+          $ref: '#/components/responses/error-response'
+        default:
+          $ref: '#/components/responses/error-response'
+    delete:
+      operationId: profiles-link-v1-delete
+      tags:
+        - Profiles
+      summary: Unlink profile
+      security:
+        - oauthSecurity:
+            - profiles
+      parameters:
+        - name: ITAD-Profile
+          in: header
+          required: true
+          schema:
+            type: string
+            description: Profile token
+      responses:
+        '200':
+          description: Success response
+        '400':
+          $ref: '#/components/responses/error-response'
+        default:
+          $ref: '#/components/responses/error-response'
+  /profiles/sync/waitlist/v1:
+    put:
+      operationId: profiles-sync-waitlist-v1-put
+      tags:
+        - Sync
+      summary: Sync Waitlist
+      description: |
+        Sync Waitlist with IsThereAnyDeal. User can set category for your profile and default notification rules
+        in their [settings](https://isthereanydeal.com/settings/profiles/), same as with natively supported profiles.
+      security:
+        - oauthSecurity:
+            - profiles
+      parameters:
+        - name: ITAD-Profile
+          in: header
+          required: true
+          schema:
+            type: string
+            description: Profile token
+      requestBody:
+        required: true
+        description: Games to sync with IsThereAnyDeal
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/obj.waitlist.entry'
+            example:
+              - shop: 61
+                id: my-waitlist-id-1
+                title: 'Creatures of Ava: Deluxe Edition'
+              - shop: 4
+                id: my-waitlist-id-3
+                title: '>observer_'
+      responses:
+        '200':
+          description: Success response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resp.sync.waitlist'
+        '400':
+          $ref: '#/components/responses/resp.error.array-of-objects-validation'
+        default:
+          $ref: '#/components/responses/resp.error.array-of-objects-validation'
+  /profiles/sync/collection/v1:
+    put:
+      operationId: profiles-sync-collection-v1-put
+      tags:
+        - Sync
+      summary: Sync Collection
+      description: |
+        Sync Collection with IsThereAnyDeal. User can set category for your profile
+        in their [settings](https://isthereanydeal.com/settings/profiles/), same as with natively supported profiles.
+
+        Games are synced as redeemed copies. If there already is a redemeed copy with the same shop in user's Collection,
+        new copy will not be added.
+      security:
+        - oauthSecurity:
+            - profiles
+      parameters:
+        - name: ITAD-Profile
+          in: header
+          required: true
+          schema:
+            type: string
+            description: Profile token
+      requestBody:
+        required: true
+        description: Games to sync with IsThereAnyDeal
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/obj.collection.entry'
+            example:
+              - shop: 61
+                id: my-tracking-id-2
+                title: 'Creatures of Ava: Deluxe Edition'
+                playtime: 100
+                lastPlayed: '2024-08-26T22:04:08+01:00'
+              - shop: 4
+                id: my-tracking-id-3
+                title: '>observer_'
+      responses:
+        '200':
+          description: Success response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resp.sync.collection'
+        '400':
+          $ref: '#/components/responses/resp.error.array-of-objects-validation'
+        default:
+          $ref: '#/components/responses/resp.error.array-of-objects-validation'
+  /service/shops/v1:
+    get:
+      operationId: service-shops-v1
+      tags:
+        - Shops
+      summary: Get Shops
+      description: Return information about shops
+      security: []
+      parameters:
+        - $ref: '#/components/parameters/country'
+      responses:
+        '200':
+          description: List of shops and their details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resp.service.shops'
               examples:
                 success:
-                  $ref: '#/components/examples/idlookup-game.v2.success'
+                  summary: Short shop list example
+                  $ref: '#/components/examples/shops.v1.success'
         '400':
           $ref: '#/components/responses/error-response'
         default:
@@ -895,7 +1513,7 @@ paths:
     get:
       operationId: internal-earlyaccess-v1
       tags:
-        - internal
+        - Internal
       summary: Early Access Games
       description: Returns list of Steam appids, which are currently considered to be early in early access
       security:
@@ -917,7 +1535,7 @@ paths:
     get:
       operationId: internal-players-v1
       tags:
-        - internal
+        - Internal
       summary: Number of Players Statistics
       security:
         - keySecurity: []
@@ -938,11 +1556,11 @@ paths:
           $ref: '#/components/responses/error-response'
         default:
           $ref: '#/components/responses/error-response'
-  /internal/htlb/v1:
+  /internal/hltb/v1:
     get:
       operationId: internal-hltb-v1
       tags:
-        - internal
+        - Internal
       summary: HowLongToBeat Overview
       security:
         - keySecurity: []
@@ -967,7 +1585,7 @@ paths:
     get:
       operationId: internal-reviews-v1
       tags:
-        - internal
+        - Internal
       summary: Reviews Score
       description: Returns Metacritic user reviews overview and OpenCritic overview for a given game
       security:
@@ -993,7 +1611,7 @@ paths:
     get:
       operationId: internal-rates-v1
       tags:
-        - internal
+        - Internal
       summary: Conversion Rates
       security:
         - keySecurity: []
@@ -1012,7 +1630,7 @@ paths:
     get:
       operationId: internal-twitchstream-v1
       tags:
-        - internal
+        - Internal
       summary: Current stream of Twitch channel
       security:
         - keySecurity: []
@@ -1048,6 +1666,9 @@ components:
           refreshUrl: https://isthereanydeal.com/oauth/token/
           scopes:
             user_info: Get basic user's info
+            notes_read: Read user's game notes
+            notes_write: Write (add, edit, delete) user's game notes
+            profiles: Link or unlink profiles
             wait_read: Read user's Waitlist
             wait_write: Write (add, edit, delete) in user's Waitlist
             coll_read: Read user's Collection
@@ -1119,6 +1740,9 @@ components:
           schema:
             title: Error Response
             type: object
+            required:
+              - status_code
+              - reason_phrase
             properties:
               status_code:
                 description: HTTP status code
@@ -1126,36 +1750,106 @@ components:
               reason_phrase:
                 description: Error description
                 type: string
+    resp.error.array-of-objects-validation:
+      description: Array Validation Error Response
+      content:
+        application/json:
+          schema:
+            title: Array Validation Error Response
+            type: object
             required:
               - status_code
               - reason_phrase
+            properties:
+              status_code:
+                description: HTTP status code
+                type: number
+              reason_phrase:
+                description: Error description
+                type: string
+              details:
+                description: |
+                  When this endpoint fails during data validation, validation errors will be listed
+                  as array of two items.
+
+                  First item is the index of object in request data.
+
+                  Second item is map of errors, with key being the property that failed to validate and value is the error itself.
+                type: array
+                prefixItems:
+                  - type: number
+                    description: Index of object
+                  - type: object
+                    description: Validation errors
+                    additionalProperties:
+                      type: string
+          example:
+            status_code: 400
+            reason_phrase: Bad Request
+            details:
+              - 0
+              - propety: Missing data for 'property'
+    resp.error.object-validation:
+      description: Data Validation Error Response
+      content:
+        application/json:
+          schema:
+            title: Data Validation Error Response
+            type: object
+            required:
+              - status_code
+              - reason_phrase
+            properties:
+              status_code:
+                description: HTTP status code
+                type: number
+              reason_phrase:
+                description: Error description
+                type: string
+              details:
+                description: |
+                  When this endpoint fails during data validation, validation errors will be provided as a map,
+                  where key is the property that failed to validate and value is the error itself.
+                type: object
+                additionalProperties:
+                  type: string
+          example:
+            status_code: 400
+            reason_phrase: Bad Request
+            details:
+              propety: Missing data for 'property'
   schemas:
-    resp.service.shops:
+    resp.lookup.gid-by-title:
       $schema: https://json-schema.org/draft/2020-12/schema
-      title: Shops response
-      type: array
-      items:
-        type: object
-        properties:
-          id:
-            type: number
-          title:
-            type: string
-          deals:
-            type: number
-          games:
-            type: number
-          update:
-            type:
-              - string
-              - 'null'
-            format: date-time
-        required:
-          - id
-          - title
-          - deals
-          - games
-          - update
+      title: Game IDs Lookup by Title Response
+      type: object
+      additionalProperties:
+        x-additionalPropertiesName: title
+        oneOf:
+          - type: 'null'
+          - type: string
+            format: uuid
+    resp.lookup.gid-by-shopid:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: Game IDs lookup by shop ID response
+      type: object
+      additionalProperties:
+        x-additionalPropertiesName: shop ID
+        oneOf:
+          - type: 'null'
+          - type: string
+            format: uuid
+    resp.lookup.shopid-by-gid:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: Shop IDs Lookup Response
+      type: object
+      patternProperties:
+        ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$:
+          oneOf:
+            - type: 'null'
+            - type: array
+              items:
+                type: string
     obj.game-type:
       $schema: https://json-schema.org/draft/2020-12/schema
       title: Game Type
@@ -1166,6 +1860,205 @@ components:
             - dlc
             - package
         - type: 'null'
+    obj.game:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: Game
+      type: object
+      required:
+        - id
+        - slug
+        - title
+        - type
+        - mature
+      properties:
+        id:
+          type: string
+          format: uuid
+        slug:
+          type: string
+        title:
+          type: string
+        type:
+          $ref: '#/components/schemas/obj.game-type'
+        mature:
+          type: boolean
+    resp.games.search:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: Game Search Response
+      type: array
+      items:
+        $ref: '#/components/schemas/obj.game'
+    resp.games.lookup:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: Game Lookup Response
+      type: object
+      required:
+        - found
+      properties:
+        found:
+          type: boolean
+        game:
+          $ref: '#/components/schemas/obj.game'
+    obj.asset-map:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: Asset Map
+      type: object
+      properties:
+        banner145:
+          type: string
+        banner300:
+          type: string
+        banner400:
+          type: string
+        banner600:
+          type: string
+        boxart:
+          type: string
+    obj.company:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: Company
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+    obj.reviews:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: Reviews
+      type: object
+      required:
+        - score
+        - source
+        - count
+        - url
+      properties:
+        score:
+          type:
+            - number
+            - 'null'
+        source:
+          type: string
+        count:
+          type:
+            - number
+            - 'null'
+        url:
+          type: string
+          format: uri
+    resp.games.info:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: Game Info Response
+      type: object
+      required:
+        - id
+        - slug
+        - title
+        - type
+        - mature
+        - assets
+        - earlyAccess
+        - achievements
+        - tradingCards
+        - appid
+        - tags
+        - releaseDate
+        - developers
+        - publishers
+        - reviews
+        - stats
+        - players
+        - urls
+      properties:
+        id:
+          type: string
+          format: uuid
+        slug:
+          type: string
+        title:
+          type: string
+        type:
+          $ref: '#/components/schemas/obj.game-type'
+        mature:
+          type: boolean
+        assets:
+          $ref: '#/components/schemas/obj.asset-map'
+        earlyAccess:
+          type: boolean
+        achievements:
+          type: boolean
+        tradingCards:
+          type: boolean
+        appid:
+          type:
+            - integer
+            - 'null'
+        tags:
+          type: array
+          items:
+            type: string
+        releaseDate:
+          type:
+            - string
+            - 'null'
+          format: date
+        developers:
+          type: array
+          items:
+            $ref: '#/components/schemas/obj.company'
+        publishers:
+          type: array
+          items:
+            $ref: '#/components/schemas/obj.company'
+        reviews:
+          type: array
+          items:
+            $ref: '#/components/schemas/obj.reviews'
+        stats:
+          type: object
+          properties:
+            rank:
+              type: integer
+              minimum: 0
+            waitlisted:
+              type: integer
+              minimum: 0
+            collected:
+              type: integer
+              minimum: 0
+        players:
+          oneOf:
+            - type: object
+              required:
+                - recent
+                - day
+                - week
+                - peak
+              properties:
+                recent:
+                  type: integer
+                  minimum: 0
+                day:
+                  type: integer
+                  minimum: 0
+                week:
+                  type: integer
+                  minimum: 0
+                peak:
+                  type: integer
+                  minimum: 0
+            - type: 'null'
+        urls:
+          type: object
+          required:
+            - game
+          properties:
+            game:
+              type: string
+              format: uri
     obj.shop:
       $schema: https://json-schema.org/draft/2020-12/schema
       title: Shop
@@ -1301,238 +2194,6 @@ components:
         url:
           type: string
           format: uri
-    resp.deals:
-      $schema: https://json-schema.org/draft/2020-12/schema
-      title: Deals Response
-      type: object
-      required:
-        - nextOffset
-        - hasMore
-        - list
-      properties:
-        nextOffset:
-          type: integer
-          format: int32
-          minimum: 0
-        hasMore:
-          type: boolean
-        list:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-                format: uuid
-              slug:
-                type: string
-              title:
-                type: string
-              type:
-                $ref: '#/components/schemas/obj.game-type'
-              deal:
-                $ref: '#/components/schemas/obj.deal'
-            required:
-              - id
-              - slug
-              - title
-              - type
-              - deal
-    obj.game:
-      $schema: https://json-schema.org/draft/2020-12/schema
-      title: Game
-      type: object
-      required:
-        - id
-        - slug
-        - title
-        - type
-        - mature
-      properties:
-        id:
-          type: string
-          format: uuid
-        slug:
-          type: string
-        title:
-          type: string
-        type:
-          $ref: '#/components/schemas/obj.game-type'
-        mature:
-          type: boolean
-    resp.games.lookup:
-      $schema: https://json-schema.org/draft/2020-12/schema
-      title: Game Lookup Response
-      type: object
-      required:
-        - found
-      properties:
-        found:
-          type: boolean
-        game:
-          $ref: '#/components/schemas/obj.game'
-    resp.games.search:
-      $schema: https://json-schema.org/draft/2020-12/schema
-      title: Game Search Response
-      type: array
-      items:
-        $ref: '#/components/schemas/obj.game'
-    obj.company:
-      $schema: https://json-schema.org/draft/2020-12/schema
-      title: Company
-      type: object
-      required:
-        - id
-        - name
-      properties:
-        id:
-          type: number
-        name:
-          type: string
-    obj.reviews:
-      $schema: https://json-schema.org/draft/2020-12/schema
-      title: Reviews
-      type: object
-      required:
-        - score
-        - source
-        - count
-        - url
-      properties:
-        score:
-          type:
-            - number
-            - 'null'
-        source:
-          type: string
-        count:
-          type:
-            - number
-            - 'null'
-        url:
-          type: string
-          format: uri
-    resp.games.info:
-      $schema: https://json-schema.org/draft/2020-12/schema
-      title: Game Info Response
-      type: object
-      required:
-        - id
-        - slug
-        - title
-        - type
-        - mature
-        - assets
-        - earlyAccess
-        - achievements
-        - tradingCards
-        - appid
-        - tags
-        - releaseDate
-        - developers
-        - publishers
-        - reviews
-        - stats
-        - players
-        - urls
-      properties:
-        id:
-          type: string
-          format: uuid
-        slug:
-          type: string
-        title:
-          type: string
-        type:
-          $ref: '#/components/schemas/obj.game-type'
-        mature:
-          type: boolean
-        assets:
-          type: object
-          properties:
-            banner145:
-              type: string
-            banner300:
-              type: string
-            banner400:
-              type: string
-            banner600:
-              type: string
-            boxart:
-              type: string
-        earlyAccess:
-          type: boolean
-        achievements:
-          type: boolean
-        tradingCards:
-          type: boolean
-        appid:
-          type:
-            - integer
-            - 'null'
-        tags:
-          type: array
-          items:
-            type: string
-        releaseDate:
-          type:
-            - string
-            - 'null'
-          format: date
-        developers:
-          type: array
-          items:
-            $ref: '#/components/schemas/obj.company'
-        publishers:
-          type: array
-          items:
-            $ref: '#/components/schemas/obj.company'
-        reviews:
-          type: array
-          items:
-            $ref: '#/components/schemas/obj.reviews'
-        stats:
-          type: object
-          properties:
-            rank:
-              type: integer
-              minimum: 0
-            waitlisted:
-              type: integer
-              minimum: 0
-            collected:
-              type: integer
-              minimum: 0
-        players:
-          oneOf:
-            - type: object
-              required:
-                - recent
-                - day
-                - week
-                - peak
-              properties:
-                recent:
-                  type: integer
-                  minimum: 0
-                day:
-                  type: integer
-                  minimum: 0
-                week:
-                  type: integer
-                  minimum: 0
-                peak:
-                  type: integer
-                  minimum: 0
-            - type: 'null'
-        urls:
-          type: object
-          required:
-            - game
-          properties:
-            game:
-              type: string
-              format: uri
     resp.games.prices:
       $schema: https://json-schema.org/draft/2020-12/schema
       title: Prices Response
@@ -1551,85 +2212,6 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/obj.deal'
-    obj.historylow:
-      $schema: https://json-schema.org/draft/2020-12/schema
-      title: Historical Low
-      type: object
-      required:
-        - shop
-        - price
-        - regular
-        - cut
-        - timestamp
-      properties:
-        shop:
-          $ref: '#/components/schemas/obj.shop'
-        price:
-          $ref: '#/components/schemas/obj.price'
-        regular:
-          $ref: '#/components/schemas/obj.price'
-        cut:
-          type: integer
-          minimum: 0
-          maximum: 100
-        timestamp:
-          type: string
-          format: date-time
-    resp.games.historylow:
-      $schema: https://json-schema.org/draft/2020-12/schema
-      title: Historical Lows Response
-      type: array
-      items:
-        title: Historical Low Record
-        type: object
-        required:
-          - id
-          - low
-        properties:
-          id:
-            type: string
-            format: uuid
-          low:
-            $ref: '#/components/schemas/obj.historylow'
-    resp.games.storelow:
-      $schema: https://json-schema.org/draft/2020-12/schema
-      title: Store Lows Response
-      type: array
-      items:
-        title: Store Lows
-        type: object
-        required:
-          - id
-          - lows
-        properties:
-          id:
-            type: string
-            format: uuid
-          lows:
-            type: array
-            minItems: 1
-            items:
-              type: object
-              required:
-                - shop
-                - price
-                - regular
-                - cut
-                - timestamp
-              properties:
-                shop:
-                  $ref: '#/components/schemas/obj.shop'
-                price:
-                  $ref: '#/components/schemas/obj.price'
-                regular:
-                  $ref: '#/components/schemas/obj.price'
-                cut:
-                  type: integer
-                  minimum: 0
-                  maximum: 100
-                timestamp:
-                  type: string
-                  format: date-time
     obj.bundle:
       $schema: https://json-schema.org/draft/2020-12/schema
       title: Bundle
@@ -1762,6 +2344,30 @@ components:
         url:
           type: string
           format: uri
+    obj.historylow:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: Historical Low
+      type: object
+      required:
+        - shop
+        - price
+        - regular
+        - cut
+        - timestamp
+      properties:
+        shop:
+          $ref: '#/components/schemas/obj.shop'
+        price:
+          $ref: '#/components/schemas/obj.price'
+        regular:
+          $ref: '#/components/schemas/obj.price'
+        cut:
+          type: integer
+          minimum: 0
+          maximum: 100
+        timestamp:
+          type: string
+          format: date-time
     resp.games.overview:
       $schema: https://json-schema.org/draft/2020-12/schema
       title: Games Overview Response
@@ -1807,6 +2413,61 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/obj.bundle'
+    resp.games.historylow:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: Historical Lows Response
+      type: array
+      items:
+        title: Historical Low Record
+        type: object
+        required:
+          - id
+          - low
+        properties:
+          id:
+            type: string
+            format: uuid
+          low:
+            $ref: '#/components/schemas/obj.historylow'
+    resp.games.storelow:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: Store Lows Response
+      type: array
+      items:
+        title: Store Lows
+        type: object
+        required:
+          - id
+          - lows
+        properties:
+          id:
+            type: string
+            format: uuid
+          lows:
+            type: array
+            minItems: 1
+            items:
+              type: object
+              required:
+                - shop
+                - price
+                - regular
+                - cut
+                - timestamp
+              properties:
+                shop:
+                  $ref: '#/components/schemas/obj.shop'
+                price:
+                  $ref: '#/components/schemas/obj.price'
+                regular:
+                  $ref: '#/components/schemas/obj.price'
+                cut:
+                  type: integer
+                  minimum: 0
+                  maximum: 100
+                timestamp:
+                  type: string
+                  format: date-time
     resp.games.history:
       $schema: https://json-schema.org/draft/2020-12/schema
       title: History response
@@ -1840,18 +2501,263 @@ components:
                     minimum: 0
                     maximum: 100
               - type: 'null'
+    resp.deals:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: Deals Response
+      type: object
+      required:
+        - nextOffset
+        - hasMore
+        - list
+      properties:
+        nextOffset:
+          type: integer
+          format: int32
+          minimum: 0
+        hasMore:
+          type: boolean
+        list:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                format: uuid
+              slug:
+                type: string
+              title:
+                type: string
+              type:
+                $ref: '#/components/schemas/obj.game-type'
+              deal:
+                $ref: '#/components/schemas/obj.deal'
+            required:
+              - id
+              - slug
+              - title
+              - type
+              - deal
     resp.waitlist.games:
       $schema: https://json-schema.org/draft/2020-12/schema
       title: Waitlist Games Response
       type: array
       items:
         $ref: '#/components/schemas/obj.game'
-    resp.collection.games:
+    obj.collection.game:
       $schema: https://json-schema.org/draft/2020-12/schema
-      title: Collection Games Response
-      type: array
-      items:
-        $ref: '#/components/schemas/obj.game'
+      title: Collection Game
+      type: object
+      required:
+        - id
+        - slug
+        - title
+        - type
+        - assets
+        - mature
+        - group
+      properties:
+        id:
+          type: string
+          format: uuid
+        slug:
+          type: string
+        title:
+          type: string
+        type:
+          $ref: '#/components/schemas/obj.game-type'
+        assets:
+          $ref: '#/components/schemas/obj.asset-map'
+        mature:
+          type: boolean
+        group:
+          type: number
+          minimum: 0
+    obj.user-tag:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: Tag
+      type: object
+      required:
+        - id
+        - tag
+      properties:
+        id:
+          type: number
+        tag:
+          type: string
+    obj.collection.copy:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: Collection Copy
+      type: object
+      required:
+        - id
+        - game
+        - shop
+        - redeemed
+        - price
+        - note
+        - tags
+        - added
+      properties:
+        id:
+          type: integer
+        game:
+          type: object
+          required:
+            - id
+          properties:
+            id:
+              type: string
+              format: uuid
+        shop:
+          oneOf:
+            - $ref: '#/components/schemas/obj.shop'
+            - type: 'null'
+        redeemed:
+          type: boolean
+        price:
+          oneOf:
+            - $ref: '#/components/schemas/obj.price'
+            - type: 'null'
+        note:
+          oneOf:
+            - type: string
+            - type: 'null'
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/obj.user-tag'
+        added:
+          type: string
+          format: date-time
+    obj.collection.copy.new:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: New Collection Copy
+      type: object
+      required:
+        - gameId
+        - redeemed
+      properties:
+        gameId:
+          type: string
+          format: uuid
+        redeemed:
+          type: boolean
+        shop:
+          oneOf:
+            - type: number
+              description: Shop ID
+            - type: 'null'
+        price:
+          oneOf:
+            - type: object
+              required:
+                - amount
+                - currency
+              properties:
+                amount:
+                  type: number
+                  format: float
+                currency:
+                  type: string
+            - type: 'null'
+        note:
+          oneOf:
+            - type: string
+            - type: 'null'
+        tags:
+          oneOf:
+            - type: array
+              items:
+                type: string
+            - type: 'null'
+    obj.collection.copy.patch:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: Collection Copy Patch
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: number
+        redeemed:
+          type: boolean
+        shop:
+          oneOf:
+            - type: number
+              description: Shop ID
+            - type: 'null'
+        price:
+          oneOf:
+            - type: object
+              required:
+                - amount
+                - currency
+              properties:
+                amount:
+                  type: number
+                  format: float
+                currency:
+                  type: string
+            - type: 'null'
+        note:
+          oneOf:
+            - type: string
+            - type: 'null'
+        tags:
+          oneOf:
+            - type: array
+              items:
+                type: string
+            - type: 'null'
+    obj.collection.group:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: Collection Category
+      type: object
+      required:
+        - id
+        - title
+        - public
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        public:
+          type: boolean
+    obj.collection.group.new:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: New Collection Category
+      type: object
+      required:
+        - title
+        - public
+      properties:
+        title:
+          type: string
+        public:
+          type: boolean
+    obj.collection.group.patch:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: Collection Category Patch
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: integer
+        title:
+          oneOf:
+            - type: string
+            - type: 'null'
+        public:
+          oneOf:
+            - type: boolean
+            - type: 'null'
+        position:
+          oneOf:
+            - type: integer
+            - type: 'null'
     bucket:
       type: object
       required:
@@ -1939,7 +2845,7 @@ components:
               maximum: 100
     obj.game-ranked:
       $schema: https://json-schema.org/draft/2020-12/schema
-      title: Ramled Game
+      title: Ranked Game
       type: object
       required:
         - position
@@ -1981,30 +2887,182 @@ components:
         - username
       properties:
         username:
-          type:
-            - string
-            - 'null'
-    resp.unstable.idlookup-shop:
-      $schema: https://json-schema.org/draft/2020-12/schema
-      title: Shop IDs Lookup Response
-      type: object
-      patternProperties:
-        ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$:
           oneOf:
-            - type: 'null'
-            - type: array
-              items:
-                type: string
-    resp.unstable.idlookup-game:
-      $schema: https://json-schema.org/draft/2020-12/schema
-      title: Game IDs Lookup Response
-      type: object
-      patternProperties:
-        ^.+$:
-          oneOf:
-            - type: 'null'
             - type: string
-              format: uuid
+            - type: 'null'
+    obj.note:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: User game note
+      type: object
+      required:
+        - gid
+        - note
+      properties:
+        gid:
+          description: Game ID
+          type: string
+          format: uuid
+        note:
+          description: Non-empty string
+          type: string
+    resp.notes.get:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: Get Notes Response
+      type: array
+      items:
+        $ref: '#/components/schemas/obj.note'
+    obj.profile:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: Profile
+      description: Description of the account
+      type: object
+      required:
+        - accountId
+        - accountName
+      properties:
+        accountId:
+          type: string
+          description: Per-app unique ID. This can be any string, but it needs to uniquely identify the account within your app.
+        accountName:
+          type: string
+          description: Name of the account. Does not need to be unique, it's meant to be a human-friendly name.
+    resp.link.put:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: Link Profile Response
+      type: object
+      required:
+        - token
+      properties:
+        token:
+          type: string
+    obj.waitlist.entry:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: Waitlist Sync Entry
+      type: object
+      required:
+        - shop
+        - id
+        - title
+      properties:
+        shop:
+          type: number
+          description: Shop ID
+        id:
+          type: string
+          description: |
+            ID can be any string that will identify the game. It should be stable and not change in the future.
+
+            ID can also used to identify the game, if you use same IDs that we use for tracking shops. If a game is not identified
+            with shop and id, we will use title. 
+
+            For Steam we use full ids, i.e. app/{id}, sub/{id} or bundle/{id}.
+        title:
+          type: string
+          description: |
+            Title of the game.
+    resp.sync.waitlist:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: Sync Response
+      type: object
+      required:
+        - total
+        - added
+        - removed
+      properties:
+        total:
+          description: Number of games that were successfully parsed
+          type: number
+          minimum: 0
+        added:
+          description: Number of games that were added to Waitlist
+          type: number
+          minimum: 0
+        removed:
+          description: Number of games that were removed from Waitlist
+          type: number
+          minimum: 0
+    obj.collection.entry:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: Collection Sync Entry
+      type: object
+      required:
+        - shop
+        - id
+        - title
+      properties:
+        shop:
+          type: number
+          description: Shop ID
+        id:
+          type: string
+          description: |
+            ID can be any string that will identify the game. It should be stable and not change in the future.
+
+            ID can also used to identify the game, if you use same IDs that we use for tracking shops. If a game is not identified
+            with shop and id, we will use title. 
+
+            For Steam we use full ids, i.e. app/{id}, sub/{id} or bundle/{id}.
+        title:
+          type: string
+          description: |
+            Title of the game.
+        playtime:
+          description: Play time in minutes
+          oneOf:
+            - type: number
+            - type: 'null'
+        lastPlayed:
+          oneOf:
+            - type: string
+              format: date-time
+            - type: 'null'
+    resp.sync.collection:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: Sync Response
+      type: object
+      required:
+        - total
+        - added
+        - removed
+      properties:
+        total:
+          description: Number of copies that were successfully parsed
+          type: number
+          minimum: 0
+        added:
+          description: Number of copies that were added to Collection
+          type: number
+          minimum: 0
+        removed:
+          description: Number of copies that were removed from Collection
+          type: number
+          minimum: 0
+    resp.service.shops:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: Shops response
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: number
+          title:
+            type: string
+          deals:
+            type: number
+          games:
+            type: number
+          update:
+            type:
+              - string
+              - 'null'
+            format: date-time
+        required:
+          - id
+          - title
+          - deals
+          - games
+          - update
     resp.internal.players:
       $schema: https://json-schema.org/draft/2020-12/schema
       title: Players Statistics Response
@@ -2136,144 +3194,34 @@ components:
               type: string
         - type: 'null'
   examples:
-    shops.v1.success:
+    gid-by-title.v1.success:
       value:
-        - id: 19
-          title: 2game
-          deals: 3170
-          games: 3785
-          update: '2023-06-06T21:51:13+02:00'
-        - id: 2
-          title: AllYouPlay
-          deals: 435
-          games: 4926
-          update: '2023-06-06T22:10:25+02:00'
-        - id: 3
-          title: Amazon
-          deals: 0
-          games: 0
-          update: null
-    deals.v2.success:
+        Baldurs Gate 3: 018d9584-24d6-7010-b82b-df1f0b154cc7
+        Half-Life 2: 018d937f-012f-73b8-ab2c-898516969e6a
+        Unknown game: null
+    gid-by-shopid.v1.success:
       value:
-        nextOffset: 3
-        hasMore: true
-        list:
-          - id: 01846e7e-7e96-71fb-bf16-6979fa211638
-            slug: ghost-master
-            title: Ghost Master®
-            type: game
-            deal:
-              shop:
-                id: 6
-                name: Fanatical
-              price:
-                amount: 3.89
-                amountInt: 389
-                currency: USD
-              regular:
-                amount: 4.99
-                amountInt: 499
-                currency: USD
-              cut: 22
-              voucher: null
-              storeLow:
-                amount: 3.66
-                amountInt: 366
-                currency: USD
-              historyLow:
-                amount: 0.55
-                amountInt: 55
-                currency: USD
-              flag: null
-              drm:
-                - id: 61
-                  name: Steam
-              platforms:
-                - id: 1
-                  name: Windows
-              timestamp: '2023-06-06T21:47:39+02:00'
-              expiry: '2023-06-10T18:00:00+02:00'
-              url: https://isthereanydeal.com/link/0184bc2c-4d32-713b-92eb-a0bc051212c7/
-          - id: 01846e7e-86b7-70b0-94f2-902edb836ef1
-            slug: luxor-3
-            title: Luxor 3
-            type: game
-            deal:
-              shop:
-                id: 6
-                name: Fanatical
-              price:
-                amount: 7.89
-                amountInt: 789
-                currency: USD
-              regular:
-                amount: 9.99
-                amountInt: 999
-                currency: USD
-              cut: 21
-              voucher: null
-              storeLow:
-                amount: 7.89
-                amountInt: 789
-                currency: USD
-              historyLow:
-                amount: 7.89
-                amountInt: 789
-                currency: USD
-              flag: H
-              drm:
-                - id: 61
-                  name: Steam
-              platforms:
-                - id: 1
-                  name: Windows
-              timestamp: '2023-06-06T21:47:38+02:00'
-              expiry: '2023-06-09T18:00:00+02:00'
-              url: https://isthereanydeal.com/link/0184bc2c-5135-71d9-813e-b7e84af11eb3/
-          - id: 01846e7e-87f3-70af-b4f1-b7524f49dab4
-            slug: prince-of-persia-the-two-thrones
-            title: 'Prince of Persia: The Two Thrones™'
-            type: game
-            deal:
-              shop:
-                id: 20
-                name: GameBillet
-              price:
-                amount: 1.75
-                amountInt: 175
-                currency: USD
-              regular:
-                amount: 9.99
-                amountInt: 999
-                currency: USD
-              cut: 82
-              voucher: null
-              storeLow:
-                amount: 1.66
-                amountInt: 166
-                currency: USD
-              historyLow:
-                amount: 1.66
-                amountInt: 166
-                currency: USD
-              flag: null
-              drm: []
-              platforms: []
-              timestamp: '2023-06-06T21:59:42+02:00'
-              expiry: null
-              url: https://isthereanydeal.com/link/0184c0c4-f805-71ee-9394-3a5dd0cf0012/
-    lookup.v1.found:
+        bundle/27508: 018d95bc-fe96-73e6-a9f7-10afc28c0c03
+        bundle/28796: 018d937f-6671-7056-b419-aac8a69a625e
+        sub/467072: 018d937f-42c6-70a5-a29b-9d8c2e0f7b84
+        sub/752476: 018d937f-6128-7151-8d2e-b4a9ad2e1ce8
+        sub/137730: 018d937f-6ee4-73f5-858c-2fde3407462f
+        app/137730: null
+        bundle/33608: 018d937f-7596-706f-b75d-834d76172237
+    shopid-by-gid.v1.success:
       value:
-        found: true
-        game:
-          id: 01847884-d7f0-7392-b701-2103ce5b64eb
-          slug: team-fortress-2
-          title: Team Fortress 2
-          type: null
-          mature: false
-    lookup.v1.not-found:
-      value:
-        found: false
+        018d95bc-fe96-73e6-a9f7-10afc28c0c03:
+          - bundle/27508
+        018d937f-6671-7056-b419-aac8a69a625e:
+          - bundle/32380
+          - bundle/28796
+        018d937f-42c6-70a5-a29b-9d8c2e0f7b84:
+          - app/1336490
+          - sub/467072
+        018d937f-6128-7151-8d2e-b4a9ad2e1ce8:
+          - sub/637996
+          - app/1777620
+          - sub/752476
     search.v1.results:
       value:
         - id: 01849783-6a26-7147-ab32-71804ca47e8e
@@ -2301,6 +3249,18 @@ components:
           title: 'Europa Universalis IV: Cossacks'
           type: dlc
           mature: false
+    lookup.v1.found:
+      value:
+        found: true
+        game:
+          id: 01847884-d7f0-7392-b701-2103ce5b64eb
+          slug: team-fortress-2
+          title: Team Fortress 2
+          type: null
+          mature: false
+    lookup.v1.not-found:
+      value:
+        found: false
     info.v2.found:
       value:
         id: 018d937f-07fc-72ed-8517-d8e24cb1eb22
@@ -2507,96 +3467,6 @@ components:
               timestamp: '2023-05-11T22:05:42+02:00'
               expiry: '2023-05-23T19:00:00+02:00'
               url: https://isthereanydeal.com/link/0184d9c7-79bf-7008-b766-5a2820c8c92b/
-    historylow.v1.success:
-      value:
-        - id: 01849782-1017-7389-8de4-c97c587fd7e3
-          low:
-            shop:
-              id: 47
-              name: MacGameStore
-            price:
-              amount: 3.99
-              amountInt: 399
-              currency: USD
-            regular:
-              amount: 21.99
-              amountInt: 2199
-              currency: USD
-            cut: 82
-            timestamp: '2022-11-27T21:33:36+01:00'
-        - id: 01849783-6a26-7147-ab32-71804ca47e8e
-          low:
-            shop:
-              id: 47
-              name: MacGameStore
-            price:
-              amount: 5.99
-              amountInt: 599
-              currency: USD
-            regular:
-              amount: 39.99
-              amountInt: 3999
-              currency: USD
-            cut: 85
-            timestamp: '2022-12-23T03:22:14+01:00'
-    storelow.v2.success:
-      value:
-        - id: 01849782-1017-7389-8de4-c97c587fd7e3
-          lows:
-            - shop:
-                id: 13
-                name: DLGamer
-              price:
-                amount: 6.6
-                amountInt: 660
-                currency: USD
-              regular:
-                amount: 21.99
-                amountInt: 2199
-                currency: USD
-              cut: 70
-              timestamp: '2022-11-29T02:14:37+01:00'
-            - shop:
-                id: 61
-                name: Steam
-              price:
-                amount: 6.59
-                amountInt: 659
-                currency: USD
-              regular:
-                amount: 21.99
-                amountInt: 2199
-                currency: USD
-              cut: 70
-              timestamp: '2022-12-21T00:29:04+01:00'
-        - id: 01849783-6a26-7147-ab32-71804ca47e8e
-          lows:
-            - shop:
-                id: 13
-                name: DLGamer
-              price:
-                amount: 10
-                amountInt: 1000
-                currency: USD
-              regular:
-                amount: 39.99
-                amountInt: 3999
-                currency: USD
-              cut: 75
-              timestamp: '2022-11-29T02:14:36+01:00'
-            - shop:
-                id: 61
-                name: Steam
-              price:
-                amount: 39.99
-                amountInt: 3999
-                currency: USD
-              regular:
-                amount: 39.99
-                amountInt: 3999
-                currency: USD
-              cut: 0
-              timestamp: '2022-12-14T00:28:40+01:00'
     bundles.v2.success:
       value:
         - id: 19
@@ -2725,6 +3595,96 @@ components:
                     title: RimWorld - Biotech
                     type: dlc
                     mature: false
+    historylow.v1.success:
+      value:
+        - id: 01849782-1017-7389-8de4-c97c587fd7e3
+          low:
+            shop:
+              id: 47
+              name: MacGameStore
+            price:
+              amount: 3.99
+              amountInt: 399
+              currency: USD
+            regular:
+              amount: 21.99
+              amountInt: 2199
+              currency: USD
+            cut: 82
+            timestamp: '2022-11-27T21:33:36+01:00'
+        - id: 01849783-6a26-7147-ab32-71804ca47e8e
+          low:
+            shop:
+              id: 47
+              name: MacGameStore
+            price:
+              amount: 5.99
+              amountInt: 599
+              currency: USD
+            regular:
+              amount: 39.99
+              amountInt: 3999
+              currency: USD
+            cut: 85
+            timestamp: '2022-12-23T03:22:14+01:00'
+    storelow.v2.success:
+      value:
+        - id: 01849782-1017-7389-8de4-c97c587fd7e3
+          lows:
+            - shop:
+                id: 13
+                name: DLGamer
+              price:
+                amount: 6.6
+                amountInt: 660
+                currency: USD
+              regular:
+                amount: 21.99
+                amountInt: 2199
+                currency: USD
+              cut: 70
+              timestamp: '2022-11-29T02:14:37+01:00'
+            - shop:
+                id: 61
+                name: Steam
+              price:
+                amount: 6.59
+                amountInt: 659
+                currency: USD
+              regular:
+                amount: 21.99
+                amountInt: 2199
+                currency: USD
+              cut: 70
+              timestamp: '2022-12-21T00:29:04+01:00'
+        - id: 01849783-6a26-7147-ab32-71804ca47e8e
+          lows:
+            - shop:
+                id: 13
+                name: DLGamer
+              price:
+                amount: 10
+                amountInt: 1000
+                currency: USD
+              regular:
+                amount: 39.99
+                amountInt: 3999
+                currency: USD
+              cut: 75
+              timestamp: '2022-11-29T02:14:36+01:00'
+            - shop:
+                id: 61
+                name: Steam
+              price:
+                amount: 39.99
+                amountInt: 3999
+                currency: USD
+              regular:
+                amount: 39.99
+                amountInt: 3999
+                currency: USD
+              cut: 0
+              timestamp: '2022-12-14T00:28:40+01:00'
     history.v2.success:
       value:
         - timestamp: '2022-12-27T11:21:08+01:00'
@@ -2755,6 +3715,115 @@ components:
               amountInt: 3999
               currency: EUR
             cut: 0
+    deals.v2.success:
+      value:
+        nextOffset: 3
+        hasMore: true
+        list:
+          - id: 01846e7e-7e96-71fb-bf16-6979fa211638
+            slug: ghost-master
+            title: Ghost Master®
+            type: game
+            deal:
+              shop:
+                id: 6
+                name: Fanatical
+              price:
+                amount: 3.89
+                amountInt: 389
+                currency: USD
+              regular:
+                amount: 4.99
+                amountInt: 499
+                currency: USD
+              cut: 22
+              voucher: null
+              storeLow:
+                amount: 3.66
+                amountInt: 366
+                currency: USD
+              historyLow:
+                amount: 0.55
+                amountInt: 55
+                currency: USD
+              flag: null
+              drm:
+                - id: 61
+                  name: Steam
+              platforms:
+                - id: 1
+                  name: Windows
+              timestamp: '2023-06-06T21:47:39+02:00'
+              expiry: '2023-06-10T18:00:00+02:00'
+              url: https://isthereanydeal.com/link/0184bc2c-4d32-713b-92eb-a0bc051212c7/
+          - id: 01846e7e-86b7-70b0-94f2-902edb836ef1
+            slug: luxor-3
+            title: Luxor 3
+            type: game
+            deal:
+              shop:
+                id: 6
+                name: Fanatical
+              price:
+                amount: 7.89
+                amountInt: 789
+                currency: USD
+              regular:
+                amount: 9.99
+                amountInt: 999
+                currency: USD
+              cut: 21
+              voucher: null
+              storeLow:
+                amount: 7.89
+                amountInt: 789
+                currency: USD
+              historyLow:
+                amount: 7.89
+                amountInt: 789
+                currency: USD
+              flag: H
+              drm:
+                - id: 61
+                  name: Steam
+              platforms:
+                - id: 1
+                  name: Windows
+              timestamp: '2023-06-06T21:47:38+02:00'
+              expiry: '2023-06-09T18:00:00+02:00'
+              url: https://isthereanydeal.com/link/0184bc2c-5135-71d9-813e-b7e84af11eb3/
+          - id: 01846e7e-87f3-70af-b4f1-b7524f49dab4
+            slug: prince-of-persia-the-two-thrones
+            title: 'Prince of Persia: The Two Thrones™'
+            type: game
+            deal:
+              shop:
+                id: 20
+                name: GameBillet
+              price:
+                amount: 1.75
+                amountInt: 175
+                currency: USD
+              regular:
+                amount: 9.99
+                amountInt: 999
+                currency: USD
+              cut: 82
+              voucher: null
+              storeLow:
+                amount: 1.66
+                amountInt: 166
+                currency: USD
+              historyLow:
+                amount: 1.66
+                amountInt: 166
+                currency: USD
+              flag: null
+              drm: []
+              platforms: []
+              timestamp: '2023-06-06T21:59:42+02:00'
+              expiry: null
+              url: https://isthereanydeal.com/link/0184c0c4-f805-71ee-9394-3a5dd0cf0012/
     games-list:
       value:
         - id: 01846e7e-7e96-71fb-bf16-6979fa211638
@@ -2772,26 +3841,128 @@ components:
           title: 'The Ship: Single Player'
           type: null
           mature: false
-    idlookup-steam.v2.success:
+    resp.games.get.v1.success:
       value:
-        018d95bc-fe96-73e6-a9f7-10afc28c0c03:
-          - bundle/27508
-        018d937f-6671-7056-b419-aac8a69a625e:
-          - bundle/32380
-          - bundle/28796
-        018d937f-42c6-70a5-a29b-9d8c2e0f7b84:
-          - app/1336490
-          - sub/467072
-        018d937f-6128-7151-8d2e-b4a9ad2e1ce8:
-          - sub/637996
-          - app/1777620
-          - sub/752476
-    idlookup-game.v2.success:
+        - id: 018d937f-20d1-7349-9963-b278a98f2fb0
+          slug: abyss-odyssey
+          title: Abyss Odyssey
+          type: game
+          assets: {}
+          mature: false
+          group: 0
+        - id: 018d937f-11d2-70c4-9b73-0a6cf40fe771
+          slug: abzu
+          title: ABZU
+          type: game
+          assets:
+            boxart: https://cdn.example.com/018d937f-11d2-70c4-9b73-0a6cf40fe771/boxart.jpg
+            banner145: https://cdn.example.com/018d937f-11d2-70c4-9b73-0a6cf40fe771/banner145.jpg
+            banner300: https://cdn.example.com/018d937f-11d2-70c4-9b73-0a6cf40fe771/banner300.jpg
+            banner400: https://cdn.example.com/018d937f-11d2-70c4-9b73-0a6cf40fe771/banner400.jpg
+            banner600: https://cdn.example.com/018d937f-11d2-70c4-9b73-0a6cf40fe771/banner600.jpg
+          mature: false
+          group: 38437
+    resp.copies.get.v1:
       value:
-        bundle/27508: 018d95bc-fe96-73e6-a9f7-10afc28c0c03
-        bundle/28796: 018d937f-6671-7056-b419-aac8a69a625e
-        sub/467072: 018d937f-42c6-70a5-a29b-9d8c2e0f7b84
-        sub/752476: 018d937f-6128-7151-8d2e-b4a9ad2e1ce8
-        sub/137730: 018d937f-6ee4-73f5-858c-2fde3407462f
-        app/137730: null
-        bundle/33608: 018d937f-7596-706f-b75d-834d76172237
+        - id: 145742693
+          game:
+            id: 018d937e-e9ab-70f4-bd05-1db7a138eb39
+          shop:
+            id: 61
+            name: Steam
+          redeemed: true
+          price:
+            amount: 15
+            amountInt: 1500
+            currency: EUR
+          note: My note for this copy
+          tags:
+            - id: 21
+              tag: tag 1
+            - id: 22
+              tag: tag 2
+          added: '2024-02-16T21:16:17+01:00'
+        - id: 9128925
+          game:
+            id: 018d937e-e9ac-7156-83a6-7d27fd9f857a
+          shop: null
+          redeemed: true
+          price: null
+          note: null
+          tags: []
+          added: '2015-10-02T03:00:04+02:00'
+    resp.groups.get.v1.success:
+      value:
+        - id: 3857
+          title: Favorites
+          public: true
+        - id: 5662
+          title: Playing now
+          public: true
+        - id: 5663
+          title: Not yet played
+          public: true
+        - id: 0
+          title: Default Category
+          public: false
+    resp.groups.post.v1.success:
+      value:
+        id: 5669
+        title: New Collection Category
+        public: true
+    shops.v1.success:
+      value:
+        - id: 19
+          title: 2game
+          deals: 3170
+          games: 3785
+          update: '2023-06-06T21:51:13+02:00'
+        - id: 2
+          title: AllYouPlay
+          deals: 435
+          games: 4926
+          update: '2023-06-06T22:10:25+02:00'
+        - id: 3
+          title: Amazon
+          deals: 0
+          games: 0
+          update: null
+x-tagGroups:
+  - name: Lookup
+    tags:
+      - Lookup
+  - name: Games
+    tags:
+      - Game
+      - Prices
+      - History
+      - Bundles
+      - Deals List
+  - name: Waitlist
+    tags:
+      - Waitlist Games
+      - Waitlist Stats
+  - name: Collection
+    tags:
+      - Collection Games
+      - Collection Copies
+      - Collection Groups
+      - Collection Stats
+  - name: Stats
+    tags:
+      - Stats
+  - name: User
+    tags:
+      - User
+      - User Notes
+      - Profiles
+      - Sync
+  - name: Shops
+    tags:
+      - Shops
+  - name: Unstable
+    tags:
+      - Unstable
+  - name: Internal
+    tags:
+      - Internal
