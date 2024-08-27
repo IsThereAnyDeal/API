@@ -10,13 +10,16 @@ get:
     200:
       description: Success response
       content:
-        "application/json":
+        application/json:
           schema:
-            $ref: "../../schemas/resp.collection.games.json"
+            title: Collection Games Response
+            type: array
+            items:
+              $ref: "./schemas/obj.collection.game.yaml"
           examples:
             success:
               description: "Successful response"
-              $ref: "../../examples/games-list.json"
+              $ref: "./examples/resp.games.get.v1.success.yaml"
     400:
       $ref: "../../defs/error-response.yaml"
     default:

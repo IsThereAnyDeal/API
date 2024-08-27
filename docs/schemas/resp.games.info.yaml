@@ -18,18 +18,7 @@ properties:
   mature:
     type: boolean
   assets:
-    type: object
-    properties:
-      banner145:
-        type: string
-      banner300:
-        type: string
-      banner400:
-        type: string
-      banner600:
-        type: string
-      boxart:
-        type: string
+    $ref: "./obj.asset-map.yaml"
   earlyAccess:
     type: boolean
   achievements:

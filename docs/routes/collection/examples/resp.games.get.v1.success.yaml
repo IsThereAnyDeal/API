@@ -1,0 +1,26 @@
+value: [
+  {
+    "id": "018d937f-20d1-7349-9963-b278a98f2fb0",
+    "slug": "abyss-odyssey",
+    "title": "Abyss Odyssey",
+    "type": "game",
+    "assets": {},
+    "mature": false,
+    "group": 0
+  },
+  {
+    "id": "018d937f-11d2-70c4-9b73-0a6cf40fe771",
+    "slug": "abzu",
+    "title": "ABZU",
+    "type": "game",
+    "assets": {
+        "boxart": "https://cdn.example.com/018d937f-11d2-70c4-9b73-0a6cf40fe771/boxart.jpg",
+        "banner145": "https://cdn.example.com/018d937f-11d2-70c4-9b73-0a6cf40fe771/banner145.jpg",
+        "banner300": "https://cdn.example.com/018d937f-11d2-70c4-9b73-0a6cf40fe771/banner300.jpg",
+        "banner400": "https://cdn.example.com/018d937f-11d2-70c4-9b73-0a6cf40fe771/banner400.jpg",
+        "banner600": "https://cdn.example.com/018d937f-11d2-70c4-9b73-0a6cf40fe771/banner600.jpg"
+    },
+    "mature": false,
+    "group": 38437
+  }
+]
