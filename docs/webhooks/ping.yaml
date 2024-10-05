@@ -1,0 +1,23 @@
+post:
+  operationId: webhook-ping-post
+  tags:
+    - Webhooks
+  summary: Ping event
+  description: |
+    Event you can use to test if the webhook is set up correctly.
+    Can be triggered manually from [settings](https://isthereanydeal.com/settings/webhooks/).
+  parameters:
+    - $ref: "./schemas/headers.user-agent.yaml"
+    - $ref: "./schemas/headers.content-type.yaml"
+    - $ref: "./schemas/headers.hook-id.yaml"
+    - $ref: "./schemas/headers.event.yaml"
+      schema:
+        type: string
+        const: "ping"
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: string
+          const: "pong"
+          description: Ping even will always send "pong" string in a body

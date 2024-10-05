@@ -1,0 +1,7 @@
+in: header
+name: ITAD-Hook-ID
+description: ID of the Webhook
+required: true
+schema:
+  type: string
+  format: uuid

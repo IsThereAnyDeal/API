@@ -1,0 +1,6 @@
+in: header
+name: User-Agent
+required: true
+schema:
+  type: string
+  const: "ITAD-Webhooks/1.0 (+https://isthereanydeal.com)"

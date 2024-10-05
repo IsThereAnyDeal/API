@@ -139,6 +139,9 @@ tags:
       Endpoints available for our own services. They are documented here for the sake of completeness.
 
 x-tagGroups:
+  - name: Webhooks
+    tags:
+      - Webhooks
   - name: Lookup
     tags:
      - Lookup
@@ -335,6 +338,9 @@ paths:
   /internal/twitch/stream/v1:
     $ref: "./routes/internal/twitch.stream.v1.yaml"
 
+webhooks:
+  ping:
+    $ref: "./webhooks/ping.yaml"
 
 
 
