@@ -29,10 +29,10 @@ post:
       content:
         "application/json":
           schema:
-            $ref: "../../schemas/resp.lookup.gid-by-shopid.yaml"
+            $ref: "./schemas/resp.lookup.gid-by-shopid.yaml"
           examples:
             success:
-              $ref: "../../examples/lookup/gid-by-shopid.v1.success.json"
+              $ref: "./examples/resp.gid-by-shopid.post.v1.success.yaml"
     400:
       $ref: "../../defs/error-response.yaml"
     default:

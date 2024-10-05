@@ -16,16 +16,16 @@ items:
         all:
           oneOf:
             - type: "null"
-            - $ref: "./obj.price.json"
+            - $ref: "../../../schemas/obj.price.json"
         y1:
           oneOf:
             - type: "null"
-            - $ref: "./obj.price.json"
+            - $ref: "../../../schemas/obj.price.json"
         m3:
           oneOf:
             - type: "null"
-            - $ref: "./obj.price.json"
+            - $ref: "../../../schemas/obj.price.json"
     deals:
       type: array
       items:
-        $ref: "./obj.deal2.json"
+        $ref: "../../../schemas/obj.deal2.json"

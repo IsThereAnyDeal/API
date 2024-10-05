@@ -33,10 +33,10 @@ post:
       content:
         "application/json":
           schema:
-            $ref: "../../schemas/resp.lookup.gid-by-title.yaml"
+            $ref: "./schemas/resp.lookup.gid-by-title.yaml"
           examples:
             success:
-              $ref: "../../examples/lookup/gid-by-title.v1.success.yaml"
+              $ref: "./examples/resp.gid-by-title.post.v1.success.yaml"
     400:
       $ref: "../../defs/error-response.yaml"
     default:

@@ -1,0 +1,172 @@
+value: {
+  "nextOffset": 3,
+  "hasMore": true,
+  "list": [
+    {
+      "id": "01846e7e-7e96-71fb-bf16-6979fa211638",
+      "slug": "ghost-master",
+      "title": "Ghost Master®",
+      "type": "game",
+      "deal": {
+        "shop": {
+          "id": 6,
+          "name": "Fanatical"
+        },
+        "price": {
+          "amount": 3.89,
+          "amountInt": 389,
+          "currency": "USD"
+        },
+        "regular": {
+          "amount": 4.99,
+          "amountInt": 499,
+          "currency": "USD"
+        },
+        "cut": 22,
+        "voucher": null,
+        "storeLow": {
+          "amount": 3.66,
+          "amountInt": 366,
+          "currency": "USD"
+        },
+        "historyLow": {
+          "amount": 0.55,
+          "amountInt": 55,
+          "currency": "USD"
+        },
+        "historyLow_1y": {
+          "amount": 0.99,
+          "amountInt": 99,
+          "currency": "USD"
+        },
+        "historyLow_3m": {
+          "amount": 9.99,
+          "amountInt": 999,
+          "currency": "USD"
+        },
+        "flag": null,
+        "drm": [
+          {
+            "id": 61,
+            "name": "Steam"
+          }
+        ],
+        "platforms": [
+          {
+            "id": 1,
+            "name": "Windows"
+          }
+        ],
+        "timestamp": "2023-06-06T21:47:39+02:00",
+        "expiry": "2023-06-10T18:00:00+02:00",
+        "url": "https:\/\/isthereanydeal.com\/link\/0184bc2c-4d32-713b-92eb-a0bc051212c7\/"
+      }
+    },
+    {
+      "id": "01846e7e-86b7-70b0-94f2-902edb836ef1",
+      "slug": "luxor-3",
+      "title": "Luxor 3",
+      "type": "game",
+      "deal": {
+        "shop": {
+          "id": 6,
+          "name": "Fanatical"
+        },
+        "price": {
+          "amount": 7.89,
+          "amountInt": 789,
+          "currency": "USD"
+        },
+        "regular": {
+          "amount": 9.99,
+          "amountInt": 999,
+          "currency": "USD"
+        },
+        "cut": 21,
+        "voucher": null,
+        "storeLow": {
+          "amount": 7.89,
+          "amountInt": 789,
+          "currency": "USD"
+        },
+        "historyLow": {
+          "amount": 7.89,
+          "amountInt": 789,
+          "currency": "USD"
+        },
+        "historyLow_1y": {
+          "amount": 12.99,
+          "amountInt": 1299,
+          "currency": "USD"
+        },
+        "historyLow_3m": {
+          "amount": 12.99,
+          "amountInt": 1299,
+          "currency": "USD"
+        },
+        "flag": "H",
+        "drm": [
+          {
+            "id": 61,
+            "name": "Steam"
+          }
+        ],
+        "platforms": [
+          {
+            "id": 1,
+            "name": "Windows"
+          }
+        ],
+        "timestamp": "2023-06-06T21:47:38+02:00",
+        "expiry": "2023-06-09T18:00:00+02:00",
+        "url": "https:\/\/isthereanydeal.com\/link\/0184bc2c-5135-71d9-813e-b7e84af11eb3\/"
+      }
+    },
+    {
+      "id": "01846e7e-87f3-70af-b4f1-b7524f49dab4",
+      "slug": "prince-of-persia-the-two-thrones",
+      "title": "Prince of Persia: The Two Thrones™",
+      "type": "game",
+      "deal": {
+        "shop": {
+          "id": 20,
+          "name": "GameBillet"
+        },
+        "price": {
+          "amount": 1.75,
+          "amountInt": 175,
+          "currency": "USD"
+        },
+        "regular": {
+          "amount": 9.99,
+          "amountInt": 999,
+          "currency": "USD"
+        },
+        "cut": 82,
+        "voucher": null,
+        "storeLow": {
+          "amount": 1.66,
+          "amountInt": 166,
+          "currency": "USD"
+        },
+        "historyLow": {
+          "amount": 1.66,
+          "amountInt": 166,
+          "currency": "USD"
+        },
+        "historyLow_1y": {
+          "amount": 2.45,
+          "amountInt": 245,
+          "currency": "USD"
+        },
+        "historyLow_3m": null,
+        "flag": null,
+        "drm": [],
+        "platforms": [],
+        "timestamp": "2023-06-06T21:59:42+02:00",
+        "expiry": null,
+        "url": "https:\/\/isthereanydeal.com\/link\/0184c0c4-f805-71ee-9394-3a5dd0cf0012\/"
+      }
+    }
+  ]
+}

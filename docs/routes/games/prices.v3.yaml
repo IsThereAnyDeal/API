@@ -35,11 +35,11 @@ post:
       content:
         "application/json":
           schema:
-            $ref: "../../schemas/resp.games.prices.yaml"
+            $ref: "./schemas/resp.games.prices.yaml"
           examples:
             success:
               description: "Successful response"
-              $ref: "../../examples/games/prices.v3.success.json"
+              $ref: "./examples/resp.prices.post.v3.success.yaml"
     400:
       $ref: "../../defs/error-response.yaml"
     default:
