@@ -6,7 +6,8 @@ value: [
     "type": "game",
     "assets": {},
     "mature": false,
-    "group": 0
+    "group": 0,
+    "added": "2015-10-02T03:00:04+02:00"
   },
   {
     "id": "018d937f-11d2-70c4-9b73-0a6cf40fe771",
@@ -21,6 +22,7 @@ value: [
         "banner600": "https://cdn.example.com/018d937f-11d2-70c4-9b73-0a6cf40fe771/banner600.jpg"
     },
     "mature": false,
-    "group": 38437
+    "group": 38437,
+    "added": "2015-10-02T03:00:04+02:00"
   }
 ]
