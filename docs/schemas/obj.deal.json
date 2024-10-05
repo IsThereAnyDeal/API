@@ -3,7 +3,7 @@
   "title": "Deal",
   "type": "object",
   "required": [
-    "shop", "price", "regular", "cut", "voucher", "storeLow", "historyLow",
+    "shop", "price", "regular", "cut", "voucher", "storeLow", "historyLow", "historyLow_1y", "historyLow_3m",
     "flag", "drm", "platforms", "timestamp", "expiry", "url"
   ],
   "properties": {
@@ -31,6 +31,18 @@
       ]
     },
     "historyLow": {
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "obj.price.json"}
+      ]
+    },
+    "historyLow_1y": {
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "obj.price.json"}
+      ]
+    },
+    "historyLow_3m": {
       "oneOf": [
         {"type": "null"},
         {"$ref": "obj.price.json"}

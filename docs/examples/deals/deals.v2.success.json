@@ -35,6 +35,16 @@
             "amountInt": 55,
             "currency": "USD"
           },
+          "historyLow_1y": {
+            "amount": 0.99,
+            "amountInt": 99,
+            "currency": "USD"
+          },
+          "historyLow_3m": {
+            "amount": 9.99,
+            "amountInt": 999,
+            "currency": "USD"
+          },
           "flag": null,
           "drm": [
             {
@@ -83,6 +93,16 @@
           "historyLow": {
             "amount": 7.89,
             "amountInt": 789,
+            "currency": "USD"
+          },
+          "historyLow_1y": {
+            "amount": 12.99,
+            "amountInt": 1299,
+            "currency": "USD"
+          },
+          "historyLow_3m": {
+            "amount": 12.99,
+            "amountInt": 1299,
             "currency": "USD"
           },
           "flag": "H",
@@ -135,6 +155,12 @@
             "amountInt": 166,
             "currency": "USD"
           },
+          "historyLow_1y": {
+            "amount": 2.45,
+            "amountInt": 245,
+            "currency": "USD"
+          },
+          "historyLow_3m": null,
           "flag": null,
           "drm": [],
           "platforms": [],

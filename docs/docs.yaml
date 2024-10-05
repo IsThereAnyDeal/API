@@ -272,8 +272,8 @@ paths:
     $ref: "./routes/games/lookup.v1.yaml"
   /games/info/v2:
     $ref: "./routes/games/info.v2.yaml"
-  /games/prices/v2:
-    $ref: "./routes/games/prices.v2.yaml"
+  /games/prices/v3:
+    $ref: "./routes/games/prices.v3.yaml"
   /games/bundles/v2:
     $ref: "./routes/games/bundles.v2.yaml"
   /games/overview/v2:

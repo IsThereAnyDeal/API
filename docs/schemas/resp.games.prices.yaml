@@ -1,0 +1,31 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+title: Prices Response
+type: array
+items:
+  type: object
+  required: [id, historyLow, deals]
+  properties:
+    id:
+      type: string
+      format: uuid
+      description: Game ID
+    historyLow:
+      type: object
+      required: [all, y1, m3]
+      properties:
+        all:
+          oneOf:
+            - type: "null"
+            - $ref: "./obj.price.json"
+        y1:
+          oneOf:
+            - type: "null"
+            - $ref: "./obj.price.json"
+        m3:
+          oneOf:
+            - type: "null"
+            - $ref: "./obj.price.json"
+    deals:
+      type: array
+      items:
+        $ref: "./obj.deal2.json"

@@ -1,5 +1,5 @@
 post:
-  operationId: games-prices-v2
+  operationId: games-prices-v3
   tags:
     - Prices
   summary: Prices
@@ -8,9 +8,9 @@ post:
     - keySecurity: []
   parameters:
     - $ref: "../../docs.yaml#/components/parameters/country"
-    - name: nondeals
+    - name: deals
       in: query
-      description: Load non-sale prices
+      description: Only load deals, omit prices that have no price cut
       schema:
         type: boolean
     - name: vouchers
@@ -35,11 +35,11 @@ post:
       content:
         "application/json":
           schema:
-            $ref: "../../schemas/resp.games.prices.json"
+            $ref: "../../schemas/resp.games.prices.yaml"
           examples:
             success:
               description: "Successful response"
-              $ref: "../../examples/games/prices.v2.success.json"
+              $ref: "../../examples/games/prices.v3.success.json"
     400:
       $ref: "../../defs/error-response.yaml"
     default:

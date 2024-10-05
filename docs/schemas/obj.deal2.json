@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Deal",
+  "type": "object",
+  "required": [
+    "shop", "price", "regular", "cut", "voucher", "storeLow",
+    "flag", "drm", "platforms", "timestamp", "expiry", "url"
+  ],
+  "properties": {
+    "shop": {
+      "$ref": "obj.shop.json"
+    },
+    "price": {
+      "$ref": "obj.price.json"
+    },
+    "regular": {
+      "$ref": "obj.price.json"
+    },
+    "cut": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "voucher": {
+      "type": ["string", "null"]
+    },
+    "storeLow": {
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "obj.price.json"}
+      ]
+    },
+    "flag": {
+      "$ref": "obj.deal-flag.json"
+    },
+    "drm": {
+      "$ref": "obj.drm-list.json"
+    },
+    "platforms": {
+      "$ref": "obj.platform-list.json"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expiry": {
+      "type": ["string", "null"],
+      "format": "date"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri"
+    }
+  }
+}
