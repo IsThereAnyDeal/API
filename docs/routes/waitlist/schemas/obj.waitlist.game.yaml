@@ -1,7 +1,7 @@
 $schema: https://json-schema.org/draft/2020-12/schema
-title: Collection Game
+title: Waitlist Game
 type: object
-required: [id, slug, title, type, assets, mature, group, added]
+required: [id, slug, title, type, assets, mature, added]
 properties:
   id:
     type: string
@@ -16,9 +16,6 @@ properties:
     $ref: "../../../schemas/obj.asset-map.yaml"
   mature:
     type: boolean
-  group:
-    type: number
-    minimum: 0
   added:
     oneOf:
       - type: string

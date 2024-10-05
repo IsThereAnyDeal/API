@@ -12,11 +12,11 @@ get:
       content:
         "application/json":
           schema:
-            $ref: "../../schemas/resp.waitlist.games.json"
+            $ref: "./schemas/resp.waitlist.games.yaml"
           examples:
             success:
               description: "Successful response"
-              $ref: "../../examples/games-list.json"
+              $ref: "./examples/resp.games.get.v1.success.yaml"
     400:
       $ref: "../../defs/error-response.yaml"
     default:
