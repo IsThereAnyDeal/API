@@ -62,7 +62,7 @@ info:
     Feel free to help us improve it.
 
   termsOfService: https://github.com/IsThereAnyDeal/API/blob/master/TERMS_OF_SERVICE.md
-  version: 2.5.0
+  version: 2.6.0
   contact:
     name: General API contact
     email: api@isthereanydeal.com

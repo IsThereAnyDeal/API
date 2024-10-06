@@ -1,3 +1,30 @@
+## 2.6.0
+
+### Deprecations
+- `/games/prices/v2` endpoint has been deprecated, please update to new v3 endpoint
+
+### Changes
+
+- `deals/v2` endpoint now includes 3 month and 1 year historical low
+- `games/overview/v2` now properly respects `shops` parameter for historical lows
+
+### New
+
+- added `/games/prices/v3` endpoint
+  - `nondeals` parameter from v2 has been replaced with `deals` parameter - the behavior is switched.
+    By default you will get all prices, with `deals` parameter you will only get deals.
+    This has been changed because it was often confusing why there are no prices in the response. 
+  - `historyLow` has moved up one level, from individual deals to game, and now also lists 3 month low and 1 year low
+
+- added notification endpoints
+  - `notifications/v1` - list all current user's notifications
+  - `notifications/waitlist/v1` - get detail of Waitlist notification (games and passing deals) 
+  - `notifications/read/v1` - mark single notifaction as read
+  - `notifications/read/all/v1` - mark all notifications are read
+
+- added rudimentary support for Webhooks. Currently we support Waitlist notification event and ping event. 
+ 
+
 ## 2.5.0
 
 ### Breaking changes:
