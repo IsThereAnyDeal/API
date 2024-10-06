@@ -1,0 +1,15 @@
+put:
+  operationId: notifications-read-all-v1-put
+  tags:
+    - Notifications
+  summary: Mark all notifications read
+  description: Mark all notifications as read
+  security:
+    - oauthSecurity: [notifications]
+  responses:
+    204:
+      description: Success response
+    400:
+      $ref: "../../defs/error-response.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"

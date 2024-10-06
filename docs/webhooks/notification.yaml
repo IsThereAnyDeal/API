@@ -1,0 +1,32 @@
+post:
+  operationId: webhook-notification-post
+  tags:
+    - Webhooks
+    - Waitlist Notifications
+  summary: Waitlist notification event
+  description: |
+    This event is trigger on new Waitlist notifications
+    
+    Event's payload is a list of games and their deals that passed user's notification settings,
+    similar to the Waitlist email notification you may receive.
+  security: []
+  parameters:
+    - $ref: "./schemas/headers.user-agent.yaml"
+    - $ref: "./schemas/headers.content-type.yaml"
+    - $ref: "./schemas/headers.hook-id.yaml"
+    - $ref: "./schemas/headers.event.yaml"
+      schema:
+        type: string
+        const: "notification-waitlist"
+  requestBody:
+    content:
+      application/json:
+        schema:
+          title: Waitlist Notification Payload
+          type: array
+          items:
+            $ref: "../routes/notifications/schemas/obj.notification.game.yaml"
+        examples:
+          success:
+            description: Payload
+            $ref: "./examples/event.notification-waitlist.yaml"

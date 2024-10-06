@@ -1,0 +1,26 @@
+get:
+  operationId: notifications-list-v1-get
+  tags:
+    - Notifications
+  summary: List notifications
+  description: Get user's notifications
+  security:
+    - oauthSecurity: [notifications]
+  responses:
+    200:
+      description: Success response
+      content:
+        application/json:
+          schema:
+            title: Notifications Response
+            type: array
+            items:
+              $ref: "./schemas/obj.notification.yaml"
+          examples:
+            success:
+              description: "Successful response"
+              $ref: "./examples/resp.notifications.get.v1.yaml"
+    400:
+      $ref: "../../defs/error-response.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"

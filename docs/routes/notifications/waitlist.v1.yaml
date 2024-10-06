@@ -1,0 +1,33 @@
+get:
+  operationId: notifications-waitlist-v1-get
+  tags:
+    - Notifications
+    - Waitlist Notifications
+  summary: Waitlist notification detail
+  description: Get details of Waitlist notification
+  security:
+    - oauthSecurity: [notifications]
+  parameters:
+    - in: query
+      name: id
+      description: Notification ID
+      required: true
+      schema:
+        type: string
+        format: uuid
+  responses:
+    200:
+      description: Success response
+      content:
+        application/json:
+          schema:
+            title: Waitlist Notification Detail Response
+            $ref: "./schemas/obj.notification.waitlist.yaml"
+          examples:
+            success:
+              description: "Successful response"
+              $ref: "./examples/resp.notifications.waitlist.get.v1.yaml"
+    400:
+      $ref: "../../defs/error-response.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"

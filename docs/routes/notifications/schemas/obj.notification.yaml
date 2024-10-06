@@ -1,0 +1,21 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: Notification
+type: object
+required: [id, type, title, timestamp, read]
+properties:
+  id:
+    type: string
+    format: uuid
+  type:
+    type: string
+    enum: ["waitlist"]
+  title:
+    type: string
+  timestamp:
+    type: string
+    format: date-time
+  read:
+    oneOf:
+      - type: string
+        format: date-time
+      - type: "null"

@@ -1,0 +1,21 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: Waitlist Notification
+type: object
+required: [id, timestamp, read, games]
+properties:
+  id:
+    type: string
+    format: uuid
+  timestamp:
+    type: string
+    format: date-time
+  read:
+    oneOf:
+      - type: string
+        format: date-time
+      - type: "null"
+
+  games:
+    type: array
+    items:
+      $ref: "./obj.notification.game.yaml"

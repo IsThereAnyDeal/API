@@ -1,0 +1,73 @@
+value: {
+  "id": "01921bab-b582-73bc-8473-9f125837107b",
+  "timestamp": "2024-09-24T02:43:04+02:00",
+  "read": "2024-10-06T16:06:47+02:00",
+  "games": [
+    {
+      "id": "018d937e-f835-710c-b95b-928e277b187e",
+      "slug": "stardew-valley",
+      "title": "Stardew Valley",
+      "type": "game",
+      "mature": false,
+      "historyLow": {
+        "amount": 6.99,
+        "amountInt": 699,
+        "currency": "EUR"
+      },
+      "lastPrice": {
+        "amount": 13.99,
+        "amountInt": 1399,
+        "currency": "EUR"
+      },
+      "deals": [
+        {
+          "shop": {
+            "id": 35,
+            "name": "GOG"
+          },
+          "price": {
+            "amount": 13.99,
+            "amountInt": 1399,
+            "currency": "EUR"
+          },
+          "regular": {
+            "amount": 13.99,
+            "amountInt": 1399,
+            "currency": "EUR"
+          },
+          "cut": 0,
+          "voucher": null,
+          "storeLow": {
+            "amount": 7,
+            "amountInt": 700,
+            "currency": "EUR"
+          },
+          "flag": null,
+          "drm": [
+            {
+              "id": 1000,
+              "name": "Drm Free"
+            }
+          ],
+          "platforms": [
+            {
+              "id": 1,
+              "name": "Windows"
+            },
+            {
+              "id": 2,
+              "name": "Mac"
+            },
+            {
+              "id": 3,
+              "name": "Linux"
+            }
+          ],
+          "timestamp": "2024-02-11T01:20:50+01:00",
+          "expiry": null,
+          "url": "https://itad.link/018d9386-d141-7169-a0af-3349dedb00d2/"
+        }
+      ]
+    }
+  ]
+}

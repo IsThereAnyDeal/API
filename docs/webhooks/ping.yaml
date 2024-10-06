@@ -6,6 +6,7 @@ post:
   description: |
     Event you can use to test if the webhook is set up correctly.
     Can be triggered manually from [settings](https://isthereanydeal.com/settings/webhooks/).
+  security: []
   parameters:
     - $ref: "./schemas/headers.user-agent.yaml"
     - $ref: "./schemas/headers.content-type.yaml"

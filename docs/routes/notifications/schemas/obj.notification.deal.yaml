@@ -1,0 +1,38 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: Waitlist Notification Deal
+type: object
+required: [shop, price, regular, cut, voucher, storeLow, flag, drm, platforms, timestamp, expiry, url]
+properties:
+  shop:
+    $ref: "../../../schemas/obj.shop.json"
+  price:
+    $ref: "../../../schemas/obj.price.json"
+  regular:
+    $ref: "../../../schemas/obj.price.json"
+  cut:
+    type: integer
+    minimum: 0
+    maximum: 100
+  voucher:
+    oneOf:
+      - type: string
+      - type: "null"
+  storeLow:
+    $ref: "../../../schemas/obj.price-nullable.yaml"
+  flag:
+    $ref: "../../../schemas/obj.deal-flag.json"
+  drm:
+    $ref: "../../../schemas/obj.drm-list.json"
+  platforms:
+    $ref: "../../../schemas/obj.platform-list.json"
+  timestamp:
+    type: string
+    format: date-time
+  expiry:
+    oneOf:
+      - type: string
+        format: date-time
+      - type: "null"
+  url:
+    type: string
+    format: uri

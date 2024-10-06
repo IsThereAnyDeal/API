@@ -89,6 +89,8 @@ tags:
     x-displayName: Games
   - name: Waitlist Stats
     x-displayName: Stats
+  - name: Waitlist Notifications
+    x-displayName: Notifications
 
   - name: Collection Games
     x-displayName: Games
@@ -125,8 +127,8 @@ tags:
       It is useful when you can create a list of all games for user, and don't want to handle game identification,
       deduplication, additions and removals via regular API endpoints.
 
+  - name: Notifications
   - name: Shops
-
   - name: Stats
 
   - name: Unstable
@@ -137,6 +139,17 @@ tags:
   - name: Internal
     description: |
       Endpoints available for our own services. They are documented here for the sake of completeness.
+
+  - name: Webhooks
+    description: |
+      Webhooks provide a simpler wait to get data from IsThereAnyDeal, if you don't required full API access.
+      
+      User can [register a webhook in their settings](https://isthereanydeal.com/settings/webhooks/)
+      and choose which events they wish to listen to. Once the event is triggered on IsThereAnyDeal,
+      a request will be sent to registered webhook.
+      
+      Each request will include `ITAD-Hook-ID` header with a unique ID of a registered webhook
+      and `ITAD-Event-ID` headers which identify the event.
 
 x-tagGroups:
   - name: Webhooks
@@ -156,6 +169,7 @@ x-tagGroups:
     tags:
       - Waitlist Games
       - Waitlist Stats
+      - Waitlist Notifications
   - name: Collection
     tags:
       - Collection Games
@@ -171,6 +185,9 @@ x-tagGroups:
       - User Notes
       - Profiles
       - Sync
+  - name: Notifications
+    tags:
+      - Notifications
   - name: Shops
     tags:
       - Shops
@@ -322,6 +339,15 @@ paths:
   /profiles/sync/collection/v1:
     $ref: "./routes/profiles/sync.collection.v1.yaml"
 
+  /notifications/v1:
+    $ref: "./routes/notifications/list.v1.yaml"
+  /notifications/waitlist/v1:
+    $ref: "./routes/notifications/waitlist.v1.yaml"
+  /notifications/read/v1:
+    $ref: "./routes/notifications/read.v1.yaml"
+  /notifications/read/all/v1:
+    $ref: "./routes/notifications/read-all.v1.yaml"
+
   /service/shops/v1:
     $ref: "./routes/service/shops.v1.yaml"
 
@@ -341,6 +367,8 @@ paths:
 webhooks:
   ping:
     $ref: "./webhooks/ping.yaml"
+  notification:
+    $ref: "./webhooks/notification.yaml"
 
 
 

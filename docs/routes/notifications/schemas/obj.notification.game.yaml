@@ -1,0 +1,24 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: Waitlist Notification Game
+type: object
+required: [id, slug, title, type, mature, historyLow, lastPrice, deals]
+properties:
+  id:
+    type: string
+    format: uuid
+  slug:
+    type: string
+  title:
+    type: string
+  type:
+    $ref: "../../../schemas/obj.game-type.json"
+  mature:
+    type: boolean
+  historyLow:
+    $ref: "../../../schemas/obj.price-nullable.yaml"
+  lastPrice:
+    $ref: "../../../schemas/obj.price-nullable.yaml"
+  deals:
+    type: array
+    items:
+      $ref: "./obj.notification.deal.yaml"

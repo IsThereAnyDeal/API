@@ -1,0 +1,23 @@
+put:
+  operationId: notifications-read-v1-put
+  tags:
+    - Notifications
+  summary: Mark notification read
+  description: Mark single notification as read
+  security:
+    - oauthSecurity: [notifications]
+  parameters:
+    - in: query
+      name: id
+      description: Notification ID
+      required: true
+      schema:
+        type: string
+        format: uuid
+  responses:
+    204:
+      description: Success response
+    400:
+      $ref: "../../defs/error-response.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"
