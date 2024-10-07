@@ -4,7 +4,7 @@
     "title": "IsThereAnyDeal API",
     "description": "[Changelog](https://github.com/IsThereAnyDeal/API/blob/master/CHANGELOG.md)\n\nIsThereAnyDeal API provides programmatic access to features found at IsThereAnyDeal.  \n\n## Terms of Service\n\nAPI is provided in good faith. We trust you won't misuse the API to damage IsThereAnyDeal, its users or its reputation.\n\n- You MAY use this API for commercial purposes **IF** the resulting app is available to public. If you want to use this API privately contact us.\n- You SHOULD provide a link to IsThereAnyDeal.com or mention IsThereAnyDeal API.\n- You MUST NOT make an impression that you are affiliated with IsThereAnyDeal, unless agreed otherwise.\n  If you are interested in making an official app, please contact us.\n- You MUST NOT change provided data in any way. This means that you can't remove affiliate tags from the URLs, change prices and so on.\n  You MAY use only part of data provided and enrich them from your own sources.  \n- You MUST NOT make an app that could be considered a competition to IsThereAnyDeal or IsThereAnyDeal projects.\n- You MUST NOT use this API to directly or indirectly help the competition of IsThereAnyDeal.\n\nAll data are provided _as-is_. We reserve the right to deny you access to the API at any point without notice.\nIf you are not sure about any of the points, please contact us.\n\n## Access\n\nMost of the endpoints will be restricted by either API key or OAuth.\nIn order to get neccessary keys, you have to [register your app](https://isthereanydeal.com/apps/my/).\nUpon registration, api keys and OAuth credentials will be generated for you.\n\nFor some endpoints you might need explicit approval for use. In such cases, contact us.\n\n### OAuth\n\nWe support [authorization code](https://www.oauth.com/oauth2-servers/access-tokens/authorization-code-request/) flow with [PKCE extension](https://oauth.net/2/pkce/).\n\n> You can find PKCE step-through tutorial at [OAuth 2.0 PKCE Flow](https://www.oauth.com/playground/authorization-code-with-pkce.html)\n\nDo not set hard limits for token lengths. Server will return access token as JWT of variable length.\nTo authorize your endpoint access use Authorization header.\n\n> At the moment implicit flow is also enabled, but its usage is discouraged and support may be removed in the future\n\n## Rate Limiting\n\nAccess to API is rate limited and subject to change. You should get rate-limit info in appropriate headers.\nFurther limits and restrictions may be added if we detect misuse. \n\nIf you have questions about limits, contact us.\n\n# Unstable and Internal Endpoints\n\nSome endpoints are marked as unstable or internal. Unstable endpoints are publicly available,\nbut the API may not be completely finalized yet - either the way the endpoint is called or the response may change\nat any time.\n\nInternal APIs are available only for our own services. They are documented here for the sake of completeness.\n\n## Source\n\nYou can find source files for this documentation over at [GitHub](https://github.com/IsThereAnyDeal/API).\nFeel free to help us improve it.\n",
     "termsOfService": "https://github.com/IsThereAnyDeal/API/blob/master/TERMS_OF_SERVICE.md",
-    "version": "2.5.0",
+    "version": "2.6.0",
     "contact": {
       "name": "General API contact",
       "email": "api@isthereanydeal.com"
@@ -44,6 +44,10 @@
       "x-displayName": "Stats"
     },
     {
+      "name": "Waitlist Notifications",
+      "x-displayName": "Notifications"
+    },
+    {
       "name": "Collection Games",
       "x-displayName": "Games",
       "description": "Basic Collection operations when you only need to track games, without additional details.\n"
@@ -79,6 +83,9 @@
       "description": "Sync endpoints provide easier way to add or remove games from Waitlist and Collection.\n\nSync via API works in the same way as natively supported sync of remote profiles, but instead of ITAD pulling data,\nyou will have to push data. Behavior of sync'd games is the same as for natively supported profiles.\n\nIt is useful when you can create a list of all games for user, and don't want to handle game identification,\ndeduplication, additions and removals via regular API endpoints.\n"
     },
     {
+      "name": "Notifications"
+    },
+    {
       "name": "Shops"
     },
     {
@@ -91,6 +98,10 @@
     {
       "name": "Internal",
       "description": "Endpoints available for our own services. They are documented here for the sake of completeness.\n"
+    },
+    {
+      "name": "Webhooks",
+      "description": "Webhooks provide a simpler wait to get data from IsThereAnyDeal, if you don't required full API access.\n\nUser can [register a webhook in their settings](https://isthereanydeal.com/settings/webhooks/)\nand choose which events they wish to listen to. Once the event is triggered on IsThereAnyDeal,\na request will be sent to registered webhook.\n\nEach request will include `ITAD-Hook-ID` header with a unique ID of a registered webhook\nand `ITAD-Event-ID` headers which identify the event.\n"
     }
   ],
   "paths": {
@@ -137,7 +148,7 @@
                 },
                 "examples": {
                   "success": {
-                    "$ref": "#/components/examples/gid-by-title.v1.success"
+                    "$ref": "#/components/examples/resp.gid-by-title.post.v1.success"
                   }
                 }
               }
@@ -203,7 +214,7 @@
                 },
                 "examples": {
                   "success": {
-                    "$ref": "#/components/examples/gid-by-shopid.v1.success"
+                    "$ref": "#/components/examples/resp.gid-by-shopid.post.v1.success"
                   }
                 }
               }
@@ -267,7 +278,7 @@
                 },
                 "examples": {
                   "success": {
-                    "$ref": "#/components/examples/shopid-by-gid.v1.success"
+                    "$ref": "#/components/examples/resp.shopid-by-gid.post.v1.success"
                   }
                 }
               }
@@ -454,9 +465,9 @@
         }
       }
     },
-    "/games/prices/v2": {
+    "/games/prices/v3": {
       "post": {
-        "operationId": "games-prices-v2",
+        "operationId": "games-prices-v3",
         "tags": [
           "Prices"
         ],
@@ -472,9 +483,9 @@
             "$ref": "#/components/parameters/country"
           },
           {
-            "name": "nondeals",
+            "name": "deals",
             "in": "query",
-            "description": "Load non-sale prices",
+            "description": "Only load deals, omit prices that have no price cut",
             "schema": {
               "type": "boolean"
             }
@@ -516,7 +527,7 @@
                 "examples": {
                   "success": {
                     "description": "Successful response",
-                    "$ref": "#/components/examples/prices.v2.success"
+                    "$ref": "#/components/examples/resp.prices.post.v3.success"
                   }
                 }
               }
@@ -921,7 +932,7 @@
                 "examples": {
                   "success": {
                     "summary": "Deals list response example",
-                    "$ref": "#/components/examples/deals.v2.success"
+                    "$ref": "#/components/examples/resp.deals.get.v2.success"
                   }
                 }
               }
@@ -962,7 +973,7 @@
                 "examples": {
                   "success": {
                     "description": "Successful response",
-                    "$ref": "#/components/examples/games-list"
+                    "$ref": "#/components/examples/resp.games.get.v1.success"
                   }
                 }
               }
@@ -1065,7 +1076,7 @@
                 "examples": {
                   "success": {
                     "description": "Successful response",
-                    "$ref": "#/components/examples/resp.games.get.v1.success"
+                    "$ref": "#/components/examples/resp.games.get.v1.success-2"
                   }
                 }
               }
@@ -2158,6 +2169,174 @@
         }
       }
     },
+    "/notifications/v1": {
+      "get": {
+        "operationId": "notifications-list-v1-get",
+        "tags": [
+          "Notifications"
+        ],
+        "summary": "List notifications",
+        "description": "Get user's notifications",
+        "security": [
+          {
+            "oauthSecurity": [
+              "notifications"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Notifications Response",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/obj.notification"
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "description": "Successful response",
+                    "$ref": "#/components/examples/resp.notifications.get.v1"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error-response"
+          },
+          "default": {
+            "$ref": "#/components/responses/error-response"
+          }
+        }
+      }
+    },
+    "/notifications/waitlist/v1": {
+      "get": {
+        "operationId": "notifications-waitlist-v1-get",
+        "tags": [
+          "Notifications",
+          "Waitlist Notifications"
+        ],
+        "summary": "Waitlist notification detail",
+        "description": "Get details of Waitlist notification",
+        "security": [
+          {
+            "oauthSecurity": [
+              "notifications"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "description": "Notification ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Waitlist Notification Detail Response",
+                  "$ref": "#/components/schemas/obj.notification.waitlist"
+                },
+                "examples": {
+                  "success": {
+                    "description": "Successful response",
+                    "$ref": "#/components/examples/resp.notifications.waitlist.get.v1"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error-response"
+          },
+          "default": {
+            "$ref": "#/components/responses/error-response"
+          }
+        }
+      }
+    },
+    "/notifications/read/v1": {
+      "put": {
+        "operationId": "notifications-read-v1-put",
+        "tags": [
+          "Notifications"
+        ],
+        "summary": "Mark notification read",
+        "description": "Mark single notification as read",
+        "security": [
+          {
+            "oauthSecurity": [
+              "notifications"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "description": "Notification ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success response"
+          },
+          "400": {
+            "$ref": "#/components/responses/error-response"
+          },
+          "default": {
+            "$ref": "#/components/responses/error-response"
+          }
+        }
+      }
+    },
+    "/notifications/read/all/v1": {
+      "put": {
+        "operationId": "notifications-read-all-v1-put",
+        "tags": [
+          "Notifications"
+        ],
+        "summary": "Mark all notifications read",
+        "description": "Mark all notifications as read",
+        "security": [
+          {
+            "oauthSecurity": [
+              "notifications"
+            ]
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success response"
+          },
+          "400": {
+            "$ref": "#/components/responses/error-response"
+          },
+          "default": {
+            "$ref": "#/components/responses/error-response"
+          }
+        }
+      }
+    },
     "/service/shops/v1": {
       "get": {
         "operationId": "service-shops-v1",
@@ -2436,6 +2615,97 @@
       }
     }
   },
+  "webhooks": {
+    "ping": {
+      "post": {
+        "operationId": "webhook-ping-post",
+        "tags": [
+          "Webhooks"
+        ],
+        "summary": "Ping event",
+        "description": "Event you can use to test if the webhook is set up correctly.\nCan be triggered manually from [settings](https://isthereanydeal.com/settings/webhooks/).\n",
+        "security": [],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/headers.user-agent"
+          },
+          {
+            "$ref": "#/components/parameters/headers.content-type"
+          },
+          {
+            "$ref": "#/components/parameters/headers.hook-id"
+          },
+          {
+            "$ref": "#/components/parameters/headers.event",
+            "schema": {
+              "type": "string",
+              "const": "ping"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string",
+                "const": "pong",
+                "description": "Ping even will always send \"pong\" string in a body"
+              }
+            }
+          }
+        }
+      }
+    },
+    "notification": {
+      "post": {
+        "operationId": "webhook-notification-post",
+        "tags": [
+          "Webhooks",
+          "Waitlist Notifications"
+        ],
+        "summary": "Waitlist notification event",
+        "description": "This event is trigger on new Waitlist notifications\n\nEvent's payload is a list of games and their deals that passed user's notification settings,\nsimilar to the Waitlist email notification you may receive.\n",
+        "security": [],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/headers.user-agent"
+          },
+          {
+            "$ref": "#/components/parameters/headers.content-type"
+          },
+          {
+            "$ref": "#/components/parameters/headers.hook-id"
+          },
+          {
+            "$ref": "#/components/parameters/headers.event",
+            "schema": {
+              "type": "string",
+              "const": "notification-waitlist"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "title": "Waitlist Notification Payload",
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/obj.notification.game"
+                }
+              },
+              "examples": {
+                "success": {
+                  "description": "Payload",
+                  "$ref": "#/components/examples/event.notification-waitlist"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
   "components": {
     "securitySchemes": {
       "keySecurity": {
@@ -2501,6 +2771,43 @@
             65,
             35
           ]
+        }
+      },
+      "headers.user-agent": {
+        "in": "header",
+        "name": "User-Agent",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "const": "ITAD-Webhooks/1.0 (+https://isthereanydeal.com)"
+        }
+      },
+      "headers.content-type": {
+        "in": "header",
+        "name": "Content-Type",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "const": "application/json"
+        }
+      },
+      "headers.hook-id": {
+        "in": "header",
+        "name": "ITAD-Hook-ID",
+        "description": "ID of the Webhook",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "headers.event": {
+        "in": "header",
+        "name": "ITAD-Event",
+        "description": "Event that generated the request",
+        "required": true,
+        "schema": {
+          "type": "string"
         }
       }
     },
@@ -3015,6 +3322,30 @@
           }
         }
       },
+      "obj.price": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "Price",
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number",
+            "minimum": 0
+          },
+          "amountInt": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "currency": {
+            "type": "string",
+            "pattern": "[A-Z]{3}"
+          }
+        },
+        "required": [
+          "amount",
+          "amountInt",
+          "currency"
+        ]
+      },
       "obj.shop": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "title": "Shop",
@@ -3030,27 +3361,6 @@
         "required": [
           "id",
           "name"
-        ]
-      },
-      "obj.price": {
-        "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "title": "Price",
-        "type": "object",
-        "properties": {
-          "amount": {
-            "type": "number"
-          },
-          "amountInt": {
-            "type": "number"
-          },
-          "currency": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "amount",
-          "amountInt",
-          "currency"
         ]
       },
       "obj.deal-flag": {
@@ -3121,7 +3431,7 @@
           "$ref": "#/components/schemas/obj.platform"
         }
       },
-      "obj.deal": {
+      "obj.deal2": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "title": "Deal",
         "type": "object",
@@ -3132,7 +3442,6 @@
           "cut",
           "voucher",
           "storeLow",
-          "historyLow",
           "flag",
           "drm",
           "platforms",
@@ -3162,16 +3471,6 @@
             ]
           },
           "storeLow": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "$ref": "#/components/schemas/obj.price"
-              }
-            ]
-          },
-          "historyLow": {
             "oneOf": [
               {
                 "type": "null"
@@ -3215,6 +3514,7 @@
           "type": "object",
           "required": [
             "id",
+            "historyLow",
             "deals"
           ],
           "properties": {
@@ -3223,10 +3523,50 @@
               "format": "uuid",
               "description": "Game ID"
             },
+            "historyLow": {
+              "type": "object",
+              "required": [
+                "all",
+                "y1",
+                "m3"
+              ],
+              "properties": {
+                "all": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "$ref": "#/components/schemas/obj.price"
+                    }
+                  ]
+                },
+                "y1": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "$ref": "#/components/schemas/obj.price"
+                    }
+                  ]
+                },
+                "m3": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "$ref": "#/components/schemas/obj.price"
+                    }
+                  ]
+                }
+              }
+            },
             "deals": {
               "type": "array",
               "items": {
-                "$ref": "#/components/schemas/obj.deal"
+                "$ref": "#/components/schemas/obj.deal2"
               }
             }
           }
@@ -3650,6 +3990,114 @@
           }
         }
       },
+      "obj.deal": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "Deal",
+        "type": "object",
+        "required": [
+          "shop",
+          "price",
+          "regular",
+          "cut",
+          "voucher",
+          "storeLow",
+          "historyLow",
+          "historyLow_1y",
+          "historyLow_3m",
+          "flag",
+          "drm",
+          "platforms",
+          "timestamp",
+          "expiry",
+          "url"
+        ],
+        "properties": {
+          "shop": {
+            "$ref": "#/components/schemas/obj.shop"
+          },
+          "price": {
+            "$ref": "#/components/schemas/obj.price"
+          },
+          "regular": {
+            "$ref": "#/components/schemas/obj.price"
+          },
+          "cut": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "voucher": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "storeLow": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/obj.price"
+              }
+            ]
+          },
+          "historyLow": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/obj.price"
+              }
+            ]
+          },
+          "historyLow_1y": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/obj.price"
+              }
+            ]
+          },
+          "historyLow_3m": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/obj.price"
+              }
+            ]
+          },
+          "flag": {
+            "$ref": "#/components/schemas/obj.deal-flag"
+          },
+          "drm": {
+            "$ref": "#/components/schemas/obj.drm-list"
+          },
+          "platforms": {
+            "$ref": "#/components/schemas/obj.platform-list"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "expiry": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      },
       "resp.deals": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "title": "Deals Response",
@@ -3701,12 +4149,58 @@
           }
         }
       },
+      "obj.waitlist.game": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "Waitlist Game",
+        "type": "object",
+        "required": [
+          "id",
+          "slug",
+          "title",
+          "type",
+          "assets",
+          "mature",
+          "added"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "type": {
+            "$ref": "#/components/schemas/obj.game-type"
+          },
+          "assets": {
+            "$ref": "#/components/schemas/obj.asset-map"
+          },
+          "mature": {
+            "type": "boolean"
+          },
+          "added": {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
       "resp.waitlist.games": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "title": "Waitlist Games Response",
         "type": "array",
         "items": {
-          "$ref": "#/components/schemas/obj.game"
+          "$ref": "#/components/schemas/obj.waitlist.game"
         }
       },
       "obj.collection.game": {
@@ -3720,7 +4214,8 @@
           "type",
           "assets",
           "mature",
-          "group"
+          "group",
+          "added"
         ],
         "properties": {
           "id": {
@@ -3745,6 +4240,17 @@
           "group": {
             "type": "number",
             "minimum": 0
+          },
+          "added": {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         }
       },
@@ -4438,6 +4944,219 @@
           }
         }
       },
+      "obj.notification": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "Notification",
+        "type": "object",
+        "required": [
+          "id",
+          "type",
+          "title",
+          "timestamp",
+          "read"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "waitlist"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "read": {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "obj.price-nullable": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "Price",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/obj.price"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "obj.notification.deal": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "Waitlist Notification Deal",
+        "type": "object",
+        "required": [
+          "shop",
+          "price",
+          "regular",
+          "cut",
+          "voucher",
+          "storeLow",
+          "flag",
+          "drm",
+          "platforms",
+          "timestamp",
+          "expiry",
+          "url"
+        ],
+        "properties": {
+          "shop": {
+            "$ref": "#/components/schemas/obj.shop"
+          },
+          "price": {
+            "$ref": "#/components/schemas/obj.price"
+          },
+          "regular": {
+            "$ref": "#/components/schemas/obj.price"
+          },
+          "cut": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "voucher": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "storeLow": {
+            "$ref": "#/components/schemas/obj.price-nullable"
+          },
+          "flag": {
+            "$ref": "#/components/schemas/obj.deal-flag"
+          },
+          "drm": {
+            "$ref": "#/components/schemas/obj.drm-list"
+          },
+          "platforms": {
+            "$ref": "#/components/schemas/obj.platform-list"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "expiry": {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      },
+      "obj.notification.game": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "Waitlist Notification Game",
+        "type": "object",
+        "required": [
+          "id",
+          "slug",
+          "title",
+          "type",
+          "mature",
+          "historyLow",
+          "lastPrice",
+          "deals"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "type": {
+            "$ref": "#/components/schemas/obj.game-type"
+          },
+          "mature": {
+            "type": "boolean"
+          },
+          "historyLow": {
+            "$ref": "#/components/schemas/obj.price-nullable"
+          },
+          "lastPrice": {
+            "$ref": "#/components/schemas/obj.price-nullable"
+          },
+          "deals": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/obj.notification.deal"
+            }
+          }
+        }
+      },
+      "obj.notification.waitlist": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "Waitlist Notification",
+        "type": "object",
+        "required": [
+          "id",
+          "timestamp",
+          "read",
+          "games"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "read": {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "games": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/obj.notification.game"
+            }
+          }
+        }
+      },
       "resp.service.shops": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "title": "Shops response",
@@ -4681,14 +5400,14 @@
       }
     },
     "examples": {
-      "gid-by-title.v1.success": {
+      "resp.gid-by-title.post.v1.success": {
         "value": {
           "Baldurs Gate 3": "018d9584-24d6-7010-b82b-df1f0b154cc7",
           "Half-Life 2": "018d937f-012f-73b8-ab2c-898516969e6a",
           "Unknown game": null
         }
       },
-      "gid-by-shopid.v1.success": {
+      "resp.gid-by-shopid.post.v1.success": {
         "value": {
           "bundle/27508": "018d95bc-fe96-73e6-a9f7-10afc28c0c03",
           "bundle/28796": "018d937f-6671-7056-b419-aac8a69a625e",
@@ -4699,7 +5418,7 @@
           "bundle/33608": "018d937f-7596-706f-b75d-834d76172237"
         }
       },
-      "shopid-by-gid.v1.success": {
+      "resp.shopid-by-gid.post.v1.success": {
         "value": {
           "018d95bc-fe96-73e6-a9f7-10afc28c0c03": [
             "bundle/27508"
@@ -4869,87 +5588,51 @@
           }
         }
       },
-      "prices.v2.success": {
+      "resp.prices.post.v3.success": {
         "value": [
           {
-            "id": "01849782-1017-7389-8de4-c97c587fd7e3",
-            "deals": [
-              {
-                "shop": {
-                  "id": 24,
-                  "name": "GamersGate"
-                },
-                "price": {
-                  "amount": 5.93,
-                  "amountInt": 593,
-                  "currency": "USD"
-                },
-                "regular": {
-                  "amount": 21.99,
-                  "amountInt": 2199,
-                  "currency": "USD"
-                },
-                "cut": 73,
-                "voucher": null,
-                "storeLow": {
-                  "amount": 5.93,
-                  "amountInt": 593,
-                  "currency": "USD"
-                },
-                "historyLow": {
-                  "amount": 3.99,
-                  "amountInt": 399,
-                  "currency": "USD"
-                },
-                "flag": "S",
-                "drm": [
-                  {
-                    "id": 61,
-                    "name": "Steam"
-                  }
-                ],
-                "platforms": [
-                  {
-                    "id": 1,
-                    "name": "Windows"
-                  },
-                  {
-                    "id": 2,
-                    "name": "Mac"
-                  }
-                ],
-                "timestamp": "2023-06-06T21:54:09+02:00",
-                "expiry": "2023-06-07T23:59:59+02:00",
-                "url": "https://isthereanydeal.com/link/0184d081-61ab-7036-994c-6e17f1348fe7/"
+            "id": "018d937f-012f-73b8-ab2c-898516969e6a",
+            "historyLow": {
+              "all": {
+                "amount": 0.99,
+                "amountInt": 99,
+                "currency": "USD"
               },
+              "y1": {
+                "amount": 0.99,
+                "amountInt": 99,
+                "currency": "USD"
+              },
+              "m3": {
+                "amount": 9.99,
+                "amountInt": 999,
+                "currency": "USD"
+              }
+            },
+            "deals": [
               {
                 "shop": {
                   "id": 61,
                   "name": "Steam"
                 },
                 "price": {
-                  "amount": 6.59,
-                  "amountInt": 659,
+                  "amount": 9.99,
+                  "amountInt": 999,
                   "currency": "USD"
                 },
                 "regular": {
-                  "amount": 21.99,
-                  "amountInt": 2199,
+                  "amount": 9.99,
+                  "amountInt": 999,
                   "currency": "USD"
                 },
-                "cut": 70,
+                "cut": 0,
                 "voucher": null,
                 "storeLow": {
-                  "amount": 6.59,
-                  "amountInt": 659,
+                  "amount": 0.99,
+                  "amountInt": 99,
                   "currency": "USD"
                 },
-                "historyLow": {
-                  "amount": 3.99,
-                  "amountInt": 399,
-                  "currency": "USD"
-                },
-                "flag": "S",
+                "flag": null,
                 "drm": [],
                 "platforms": [
                   {
@@ -4965,118 +5648,9 @@
                     "name": "Linux"
                   }
                 ],
-                "timestamp": "2022-12-21T00:29:04+01:00",
+                "timestamp": "2024-02-11T01:47:46+01:00",
                 "expiry": null,
-                "url": "https://isthereanydeal.com/link/018531a3-cec4-700a-8534-79c6e498959f/"
-              }
-            ]
-          },
-          {
-            "id": "01849783-6a26-7147-ab32-71804ca47e8e",
-            "deals": [
-              {
-                "shop": {
-                  "id": 35,
-                  "name": "GOG"
-                },
-                "price": {
-                  "amount": 7.99,
-                  "amountInt": 799,
-                  "currency": "USD"
-                },
-                "regular": {
-                  "amount": 39.99,
-                  "amountInt": 3999,
-                  "currency": "USD"
-                },
-                "cut": 80,
-                "voucher": null,
-                "storeLow": {
-                  "amount": 7.99,
-                  "amountInt": 799,
-                  "currency": "USD"
-                },
-                "historyLow": {
-                  "amount": 5.99,
-                  "amountInt": 599,
-                  "currency": "USD"
-                },
-                "flag": "S",
-                "drm": [
-                  {
-                    "id": 1000,
-                    "name": "Drm Free"
-                  }
-                ],
-                "platforms": [
-                  {
-                    "id": 1,
-                    "name": "Windows"
-                  },
-                  {
-                    "id": 2,
-                    "name": "Mac"
-                  },
-                  {
-                    "id": 3,
-                    "name": "Linux"
-                  }
-                ],
-                "timestamp": "2023-05-13T01:43:45+02:00",
-                "expiry": null,
-                "url": "https://isthereanydeal.com/link/0184d8a2-6f10-7284-811a-450d3df4feb1/"
-              },
-              {
-                "shop": {
-                  "id": 37,
-                  "name": "Humble Store"
-                },
-                "price": {
-                  "amount": 9.99,
-                  "amountInt": 999,
-                  "currency": "USD"
-                },
-                "regular": {
-                  "amount": 39.99,
-                  "amountInt": 3999,
-                  "currency": "USD"
-                },
-                "cut": 75,
-                "voucher": null,
-                "storeLow": {
-                  "amount": 9.99,
-                  "amountInt": 999,
-                  "currency": "USD"
-                },
-                "historyLow": {
-                  "amount": 5.99,
-                  "amountInt": 599,
-                  "currency": "USD"
-                },
-                "flag": "S",
-                "drm": [
-                  {
-                    "id": 61,
-                    "name": "Steam"
-                  }
-                ],
-                "platforms": [
-                  {
-                    "id": 1,
-                    "name": "Windows"
-                  },
-                  {
-                    "id": 2,
-                    "name": "Mac"
-                  },
-                  {
-                    "id": 3,
-                    "name": "Linux"
-                  }
-                ],
-                "timestamp": "2023-05-11T22:05:42+02:00",
-                "expiry": "2023-05-23T19:00:00+02:00",
-                "url": "https://isthereanydeal.com/link/0184d9c7-79bf-7008-b766-5a2820c8c92b/"
+                "url": "https://next.isthereanydeal.com/link/018d9386-7132-719b-89e1-e11b8c591ee7/"
               }
             ]
           }
@@ -5444,7 +6018,7 @@
           }
         ]
       },
-      "deals.v2.success": {
+      "resp.deals.get.v2.success": {
         "value": {
           "nextOffset": 3,
           "hasMore": true,
@@ -5479,6 +6053,16 @@
                 "historyLow": {
                   "amount": 0.55,
                   "amountInt": 55,
+                  "currency": "USD"
+                },
+                "historyLow_1y": {
+                  "amount": 0.99,
+                  "amountInt": 99,
+                  "currency": "USD"
+                },
+                "historyLow_3m": {
+                  "amount": 9.99,
+                  "amountInt": 999,
                   "currency": "USD"
                 },
                 "flag": null,
@@ -5531,6 +6115,16 @@
                   "amountInt": 789,
                   "currency": "USD"
                 },
+                "historyLow_1y": {
+                  "amount": 12.99,
+                  "amountInt": 1299,
+                  "currency": "USD"
+                },
+                "historyLow_3m": {
+                  "amount": 12.99,
+                  "amountInt": 1299,
+                  "currency": "USD"
+                },
                 "flag": "H",
                 "drm": [
                   {
@@ -5581,6 +6175,12 @@
                   "amountInt": 166,
                   "currency": "USD"
                 },
+                "historyLow_1y": {
+                  "amount": 2.45,
+                  "amountInt": 245,
+                  "currency": "USD"
+                },
+                "historyLow_3m": null,
                 "flag": null,
                 "drm": [],
                 "platforms": [],
@@ -5592,32 +6192,65 @@
           ]
         }
       },
-      "games-list": {
+      "resp.games.get.v1.success": {
         "value": [
           {
-            "id": "01846e7e-7e96-71fb-bf16-6979fa211638",
-            "slug": "ghost-master",
-            "title": "Ghost Master®",
+            "id": "018d937e-e9e5-72fa-a1dc-e7e090b64d2f",
+            "slug": "dwarven-skykeep",
+            "title": "Dwarven Skykeep",
             "type": "game",
-            "mature": false
+            "assets": {
+              "boxart": "https://cdn.example.com//018d937e-e9e5-72fa-a1dc-e7e090b64d2f/boxart.jpg",
+              "banner145": "https://cdn.example.com//018d937e-e9e5-72fa-a1dc-e7e090b64d2f/banner145.jpg",
+              "banner300": "https://cdn.example.com//018d937e-e9e5-72fa-a1dc-e7e090b64d2f/banner300.jpg",
+              "banner400": "https://cdn.example.com//018d937e-e9e5-72fa-a1dc-e7e090b64d2f/banner400.jpg",
+              "banner600": "https://cdn.example.com//018d937e-e9e5-72fa-a1dc-e7e090b64d2f/banner600.jpg"
+            },
+            "mature": false,
+            "added": "2023-02-01T21:04:21+01:00"
           },
           {
-            "id": "01846e7e-816f-7226-bb91-17ba0a50f081",
-            "slug": "geometry-wars-retro-evolved",
-            "title": "Geometry Wars: Retro Evolved",
-            "type": null,
-            "mature": false
+            "id": "018d937e-e9f4-71bb-9413-3b25175df416",
+            "slug": "orcish-inn",
+            "title": "Orcish Inn",
+            "type": "game",
+            "assets": {
+              "boxart": "https://cdn.example.com//018d937e-e9f4-71bb-9413-3b25175df416/boxart.jpg",
+              "banner145": "https://cdn.example.com//018d937e-e9f4-71bb-9413-3b25175df416/banner145.jpg",
+              "banner300": "https://cdn.example.com//018d937e-e9f4-71bb-9413-3b25175df416/banner300.jpg",
+              "banner400": "https://cdn.example.com//018d937e-e9f4-71bb-9413-3b25175df416/banner400.jpg",
+              "banner600": "https://cdn.example.com//018d937e-e9f4-71bb-9413-3b25175df416/banner600.jpg"
+            },
+            "mature": false,
+            "added": "2023-02-01T21:04:21+01:00"
           },
           {
-            "id": "01846e7e-84f8-7314-94eb-6bff48d886f8",
-            "slug": "the-ship-single-player",
-            "title": "The Ship: Single Player",
-            "type": null,
-            "mature": false
+            "id": "018d937e-e9f9-734c-8413-5a447e993a8c",
+            "slug": "take-on-mars",
+            "title": "Take On Mars",
+            "type": "game",
+            "assets": {},
+            "mature": false,
+            "added": "2019-01-13T02:41:06+01:00"
+          },
+          {
+            "id": "018d937e-ea40-7125-bab3-feb2fba446a1",
+            "slug": "surviving-mars",
+            "title": "Surviving Mars",
+            "type": "game",
+            "assets": {
+              "boxart": "https://cdn.example.com//018d937e-ea40-7125-bab3-feb2fba446a1/boxart.jpg",
+              "banner145": "https://cdn.example.com//018d937e-ea40-7125-bab3-feb2fba446a1/banner145.jpg",
+              "banner300": "https://cdn.example.com//018d937e-ea40-7125-bab3-feb2fba446a1/banner300.jpg",
+              "banner400": "https://cdn.example.com//018d937e-ea40-7125-bab3-feb2fba446a1/banner400.jpg",
+              "banner600": "https://cdn.example.com//018d937e-ea40-7125-bab3-feb2fba446a1/banner600.jpg"
+            },
+            "mature": false,
+            "added": "2019-01-13T02:41:06+01:00"
           }
         ]
       },
-      "resp.games.get.v1.success": {
+      "resp.games.get.v1.success-2": {
         "value": [
           {
             "id": "018d937f-20d1-7349-9963-b278a98f2fb0",
@@ -5626,7 +6259,8 @@
             "type": "game",
             "assets": {},
             "mature": false,
-            "group": 0
+            "group": 0,
+            "added": "2015-10-02T03:00:04+02:00"
           },
           {
             "id": "018d937f-11d2-70c4-9b73-0a6cf40fe771",
@@ -5641,7 +6275,8 @@
               "banner600": "https://cdn.example.com/018d937f-11d2-70c4-9b73-0a6cf40fe771/banner600.jpg"
             },
             "mature": false,
-            "group": 38437
+            "group": 38437,
+            "added": "2015-10-02T03:00:04+02:00"
           }
         ]
       },
@@ -5720,6 +6355,106 @@
           "public": true
         }
       },
+      "resp.notifications.get.v1": {
+        "value": [
+          {
+            "id": "01921bab-b582-73bc-8473-9f125837107b",
+            "type": "waitlist",
+            "title": "Stardew Valley and 3 more games",
+            "timestamp": "2024-09-24T02:43:04+02:00",
+            "read": "2024-10-06T16:06:47+02:00"
+          },
+          {
+            "id": "019216c1-0c76-7373-98f0-a1790c6e65f7",
+            "type": "waitlist",
+            "title": "Potion Permit and 42 more games",
+            "timestamp": "2024-09-24T02:43:04+02:00",
+            "read": "2024-10-06T16:06:47+02:00"
+          },
+          {
+            "id": "019216c1-0c74-704e-b590-cce7a5fc8ec6",
+            "type": "waitlist",
+            "title": "Dwarven Skykeep and 74 more games",
+            "timestamp": "2024-09-24T02:43:04+02:00",
+            "read": "2024-10-06T16:06:47+02:00"
+          }
+        ]
+      },
+      "resp.notifications.waitlist.get.v1": {
+        "value": {
+          "id": "01921bab-b582-73bc-8473-9f125837107b",
+          "timestamp": "2024-09-24T02:43:04+02:00",
+          "read": "2024-10-06T16:06:47+02:00",
+          "games": [
+            {
+              "id": "018d937e-f835-710c-b95b-928e277b187e",
+              "slug": "stardew-valley",
+              "title": "Stardew Valley",
+              "type": "game",
+              "mature": false,
+              "historyLow": {
+                "amount": 6.99,
+                "amountInt": 699,
+                "currency": "EUR"
+              },
+              "lastPrice": {
+                "amount": 13.99,
+                "amountInt": 1399,
+                "currency": "EUR"
+              },
+              "deals": [
+                {
+                  "shop": {
+                    "id": 35,
+                    "name": "GOG"
+                  },
+                  "price": {
+                    "amount": 13.99,
+                    "amountInt": 1399,
+                    "currency": "EUR"
+                  },
+                  "regular": {
+                    "amount": 13.99,
+                    "amountInt": 1399,
+                    "currency": "EUR"
+                  },
+                  "cut": 0,
+                  "voucher": null,
+                  "storeLow": {
+                    "amount": 7,
+                    "amountInt": 700,
+                    "currency": "EUR"
+                  },
+                  "flag": null,
+                  "drm": [
+                    {
+                      "id": 1000,
+                      "name": "Drm Free"
+                    }
+                  ],
+                  "platforms": [
+                    {
+                      "id": 1,
+                      "name": "Windows"
+                    },
+                    {
+                      "id": 2,
+                      "name": "Mac"
+                    },
+                    {
+                      "id": 3,
+                      "name": "Linux"
+                    }
+                  ],
+                  "timestamp": "2024-02-11T01:20:50+01:00",
+                  "expiry": null,
+                  "url": "https://itad.link/018d9386-d141-7169-a0af-3349dedb00d2/"
+                }
+              ]
+            }
+          ]
+        }
+      },
       "shops.v1.success": {
         "value": [
           {
@@ -5744,10 +6479,86 @@
             "update": null
           }
         ]
+      },
+      "event.notification-waitlist": {
+        "value": [
+          {
+            "id": "018d937e-f835-710c-b95b-928e277b187e",
+            "slug": "stardew-valley",
+            "title": "Stardew Valley",
+            "type": "game",
+            "mature": false,
+            "historyLow": {
+              "amount": 6.99,
+              "amountInt": 699,
+              "currency": "EUR"
+            },
+            "lastPrice": {
+              "amount": 13.99,
+              "amountInt": 1399,
+              "currency": "EUR"
+            },
+            "deals": [
+              {
+                "shop": {
+                  "id": 35,
+                  "name": "GOG"
+                },
+                "price": {
+                  "amount": 13.99,
+                  "amountInt": 1399,
+                  "currency": "EUR"
+                },
+                "regular": {
+                  "amount": 13.99,
+                  "amountInt": 1399,
+                  "currency": "EUR"
+                },
+                "cut": 0,
+                "voucher": null,
+                "storeLow": {
+                  "amount": 7,
+                  "amountInt": 700,
+                  "currency": "EUR"
+                },
+                "flag": null,
+                "drm": [
+                  {
+                    "id": 1000,
+                    "name": "Drm Free"
+                  }
+                ],
+                "platforms": [
+                  {
+                    "id": 1,
+                    "name": "Windows"
+                  },
+                  {
+                    "id": 2,
+                    "name": "Mac"
+                  },
+                  {
+                    "id": 3,
+                    "name": "Linux"
+                  }
+                ],
+                "timestamp": "2024-02-11T01:20:50+01:00",
+                "expiry": null,
+                "url": "https://itad.link/018d9386-d141-7169-a0af-3349dedb00d2/"
+              }
+            ]
+          }
+        ]
       }
     }
   },
   "x-tagGroups": [
+    {
+      "name": "Webhooks",
+      "tags": [
+        "Webhooks"
+      ]
+    },
     {
       "name": "Lookup",
       "tags": [
@@ -5768,7 +6579,8 @@
       "name": "Waitlist",
       "tags": [
         "Waitlist Games",
-        "Waitlist Stats"
+        "Waitlist Stats",
+        "Waitlist Notifications"
       ]
     },
     {
@@ -5793,6 +6605,12 @@
         "User Notes",
         "Profiles",
         "Sync"
+      ]
+    },
+    {
+      "name": "Notifications",
+      "tags": [
+        "Notifications"
       ]
     },
     {
