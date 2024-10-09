@@ -1,3 +1,8 @@
+## 2.6.1.
+
+- Fixed `expiry` field format for deal objects
+- Added response information to webhooks
+
 ## 2.6.0
 
 ### Deprecations

@@ -45,7 +45,7 @@
     },
     "expiry": {
       "type": ["string", "null"],
-      "format": "date"
+      "format": "date-time"
     },
     "url": {
       "type": "string",

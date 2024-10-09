@@ -22,3 +22,5 @@ post:
           type: string
           const: "pong"
           description: Ping even will always send "pong" string in a body
+  responses:
+    $ref: "./schemas/resp.default.yaml"

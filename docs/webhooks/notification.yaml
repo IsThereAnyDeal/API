@@ -30,3 +30,5 @@ post:
           success:
             description: Payload
             $ref: "./examples/event.notification-waitlist.yaml"
+  responses:
+    $ref: "./schemas/resp.default.yaml"

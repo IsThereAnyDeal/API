@@ -1,0 +1,5 @@
+200:
+  description: Return 200 to indicate webhook request was received successfuly
+default:
+  description: |
+    Frequent or prolonged error responses (other than in 200 range) may in some cases cause webhook to be disabled
