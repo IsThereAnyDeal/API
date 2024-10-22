@@ -1,0 +1,6 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: Excluded from Family Sharing Response
+type: object
+additionalProperties:
+  x-additionalPropertiesName: appid
+  type: boolean

@@ -1,0 +1,27 @@
+get:
+  operationId: internal-exfgls-v1
+  tags:
+    - Internal
+  summary: Excluded from Family Sharing
+  security:
+    - keySecurity: []
+  requestBody:
+    description: List of appids
+    required: true
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            type: integer
+  responses:
+    200:
+      description: Success response
+      content:
+        application/json:
+          schema:
+            $ref: "./schemas/resp.internal.exfgls.yaml"
+    400:
+      $ref: "../../defs/error-response.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"

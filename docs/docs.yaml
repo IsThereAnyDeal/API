@@ -361,6 +361,8 @@ paths:
     $ref: "./routes/internal/reviews.v1.yaml"
   /internal/rates/v1:
     $ref: "./routes/internal/rates.v1.yaml"
+  /internal/exfgls/v1:
+    $ref: "./routes/internal/exfgls.v1.yaml"
   /internal/twitch/stream/v1:
     $ref: "./routes/internal/twitch.stream.v1.yaml"
 
