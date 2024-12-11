@@ -23,6 +23,10 @@ properties:
           type: string
         type:
           $ref: "../../../schemas/obj.game-type.json"
+        mature:
+          type: boolean
+        assets:
+          $ref: "../../../schemas/obj.asset-map.yaml"
         deal:
           $ref: "../../../schemas/obj.deal.json"
       required: [id, slug, title, type, deal]
