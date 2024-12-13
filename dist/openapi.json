@@ -4,7 +4,7 @@
     "title": "IsThereAnyDeal API",
     "description": "[Changelog](https://github.com/IsThereAnyDeal/API/blob/master/CHANGELOG.md)\n\nIsThereAnyDeal API provides programmatic access to features found at IsThereAnyDeal.  \n\n## Terms of Service\n\nAPI is provided in good faith. We trust you won't misuse the API to damage IsThereAnyDeal, its users or its reputation.\n\n- You MAY use this API for commercial purposes **IF** the resulting app is available to public. If you want to use this API privately contact us.\n- You SHOULD provide a link to IsThereAnyDeal.com or mention IsThereAnyDeal API.\n- You MUST NOT make an impression that you are affiliated with IsThereAnyDeal, unless agreed otherwise.\n  If you are interested in making an official app, please contact us.\n- You MUST NOT change provided data in any way. This means that you can't remove affiliate tags from the URLs, change prices and so on.\n  You MAY use only part of data provided and enrich them from your own sources.  \n- You MUST NOT make an app that could be considered a competition to IsThereAnyDeal or IsThereAnyDeal projects.\n- You MUST NOT use this API to directly or indirectly help the competition of IsThereAnyDeal.\n\nAll data are provided _as-is_. We reserve the right to deny you access to the API at any point without notice.\nIf you are not sure about any of the points, please contact us.\n\n## Access\n\nMost of the endpoints will be restricted by either API key or OAuth.\nIn order to get neccessary keys, you have to [register your app](https://isthereanydeal.com/apps/my/).\nUpon registration, api keys and OAuth credentials will be generated for you.\n\nFor some endpoints you might need explicit approval for use. In such cases, contact us.\n\n### OAuth\n\nWe support [authorization code](https://www.oauth.com/oauth2-servers/access-tokens/authorization-code-request/) flow with [PKCE extension](https://oauth.net/2/pkce/).\n\n> You can find PKCE step-through tutorial at [OAuth 2.0 PKCE Flow](https://www.oauth.com/playground/authorization-code-with-pkce.html)\n\nDo not set hard limits for token lengths. Server will return access token as JWT of variable length.\nTo authorize your endpoint access use Authorization header.\n\n> At the moment implicit flow is also enabled, but its usage is discouraged and support may be removed in the future\n\n## Rate Limiting\n\nAccess to API is rate limited and subject to change. You should get rate-limit info in appropriate headers.\nFurther limits and restrictions may be added if we detect misuse. \n\nIf you have questions about limits, contact us.\n\n# Unstable and Internal Endpoints\n\nSome endpoints are marked as unstable or internal. Unstable endpoints are publicly available,\nbut the API may not be completely finalized yet - either the way the endpoint is called or the response may change\nat any time.\n\nInternal APIs are available only for our own services. They are documented here for the sake of completeness.\n\n## Source\n\nYou can find source files for this documentation over at [GitHub](https://github.com/IsThereAnyDeal/API).\nFeel free to help us improve it.\n",
     "termsOfService": "https://github.com/IsThereAnyDeal/API/blob/master/TERMS_OF_SERVICE.md",
-    "version": "2.6.1",
+    "version": "2.6.2",
     "contact": {
       "name": "General API contact",
       "email": "api@isthereanydeal.com"
@@ -2572,6 +2572,52 @@
         }
       }
     },
+    "/internal/exfgls/v1": {
+      "get": {
+        "operationId": "internal-exfgls-v1",
+        "tags": [
+          "Internal"
+        ],
+        "summary": "Excluded from Family Sharing",
+        "security": [
+          {
+            "keySecurity": []
+          }
+        ],
+        "requestBody": {
+          "description": "List of appids",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/resp.internal.exfgls"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error-response"
+          },
+          "default": {
+            "$ref": "#/components/responses/error-response"
+          }
+        }
+      }
+    },
     "/internal/twitch/stream/v1": {
       "get": {
         "operationId": "internal-twitchstream-v1",
@@ -4150,6 +4196,12 @@
                 "type": {
                   "$ref": "#/components/schemas/obj.game-type"
                 },
+                "mature": {
+                  "type": "boolean"
+                },
+                "assets": {
+                  "$ref": "#/components/schemas/obj.asset-map"
+                },
                 "deal": {
                   "$ref": "#/components/schemas/obj.deal"
                 }
@@ -5377,6 +5429,15 @@
           }
         }
       },
+      "resp.internal.exfgls": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "Excluded from Family Sharing Response",
+        "type": "object",
+        "additionalProperties": {
+          "x-additionalPropertiesName": "appid",
+          "type": "boolean"
+        }
+      },
       "resp.internal.twitchstream": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "oneOf": [
@@ -6040,106 +6101,54 @@
           "hasMore": true,
           "list": [
             {
-              "id": "01846e7e-7e96-71fb-bf16-6979fa211638",
-              "slug": "ghost-master",
-              "title": "Ghost Master®",
-              "type": "game",
+              "id": "018d937e-e9ce-718b-9715-111f50820ed4",
+              "slug": "lego-marvels-avengers-season-pass",
+              "title": "LEGO Marvel's Avengers Season Pass",
+              "type": "dlc",
+              "mature": false,
+              "assets": {
+                "boxart": "https://assets.isthereanydeal.com/018d937e-e9ce-718b-9715-111f50820ed4/boxart.jpg?t=1732868120",
+                "banner145": "https://assets.isthereanydeal.com/018d937e-e9ce-718b-9715-111f50820ed4/banner145.jpg?t=1732868120",
+                "banner300": "https://assets.isthereanydeal.com/018d937e-e9ce-718b-9715-111f50820ed4/banner300.jpg?t=1732868120",
+                "banner400": "https://assets.isthereanydeal.com/018d937e-e9ce-718b-9715-111f50820ed4/banner400.jpg?t=1732868120",
+                "banner600": "https://assets.isthereanydeal.com/018d937e-e9ce-718b-9715-111f50820ed4/banner600.jpg?t=1732868121"
+              },
               "deal": {
                 "shop": {
-                  "id": 6,
-                  "name": "Fanatical"
+                  "id": 50,
+                  "name": "Nuuvem"
                 },
                 "price": {
-                  "amount": 3.89,
-                  "amountInt": 389,
-                  "currency": "USD"
+                  "amount": 1.49,
+                  "amountInt": 149,
+                  "currency": "BRL"
                 },
                 "regular": {
-                  "amount": 4.99,
-                  "amountInt": 499,
-                  "currency": "USD"
+                  "amount": 29.9,
+                  "amountInt": 2990,
+                  "currency": "BRL"
                 },
-                "cut": 22,
+                "cut": 95,
                 "voucher": null,
                 "storeLow": {
-                  "amount": 3.66,
-                  "amountInt": 366,
-                  "currency": "USD"
+                  "amount": 1.49,
+                  "amountInt": 149,
+                  "currency": "BRL"
                 },
                 "historyLow": {
-                  "amount": 0.55,
-                  "amountInt": 55,
-                  "currency": "USD"
+                  "amount": 1.49,
+                  "amountInt": 149,
+                  "currency": "BRL"
                 },
                 "historyLow_1y": {
-                  "amount": 0.99,
-                  "amountInt": 99,
-                  "currency": "USD"
+                  "amount": 1.49,
+                  "amountInt": 149,
+                  "currency": "BRL"
                 },
                 "historyLow_3m": {
-                  "amount": 9.99,
-                  "amountInt": 999,
-                  "currency": "USD"
-                },
-                "flag": null,
-                "drm": [
-                  {
-                    "id": 61,
-                    "name": "Steam"
-                  }
-                ],
-                "platforms": [
-                  {
-                    "id": 1,
-                    "name": "Windows"
-                  }
-                ],
-                "timestamp": "2023-06-06T21:47:39+02:00",
-                "expiry": "2023-06-10T18:00:00+02:00",
-                "url": "https://isthereanydeal.com/link/0184bc2c-4d32-713b-92eb-a0bc051212c7/"
-              }
-            },
-            {
-              "id": "01846e7e-86b7-70b0-94f2-902edb836ef1",
-              "slug": "luxor-3",
-              "title": "Luxor 3",
-              "type": "game",
-              "deal": {
-                "shop": {
-                  "id": 6,
-                  "name": "Fanatical"
-                },
-                "price": {
-                  "amount": 7.89,
-                  "amountInt": 789,
-                  "currency": "USD"
-                },
-                "regular": {
-                  "amount": 9.99,
-                  "amountInt": 999,
-                  "currency": "USD"
-                },
-                "cut": 21,
-                "voucher": null,
-                "storeLow": {
-                  "amount": 7.89,
-                  "amountInt": 789,
-                  "currency": "USD"
-                },
-                "historyLow": {
-                  "amount": 7.89,
-                  "amountInt": 789,
-                  "currency": "USD"
-                },
-                "historyLow_1y": {
-                  "amount": 12.99,
-                  "amountInt": 1299,
-                  "currency": "USD"
-                },
-                "historyLow_3m": {
-                  "amount": 12.99,
-                  "amountInt": 1299,
-                  "currency": "USD"
+                  "amount": 1.49,
+                  "amountInt": 149,
+                  "currency": "BRL"
                 },
                 "flag": "H",
                 "drm": [
@@ -6154,55 +6163,144 @@
                     "name": "Windows"
                   }
                 ],
-                "timestamp": "2023-06-06T21:47:38+02:00",
-                "expiry": "2023-06-09T18:00:00+02:00",
-                "url": "https://isthereanydeal.com/link/0184bc2c-5135-71d9-813e-b7e84af11eb3/"
+                "timestamp": "2024-10-01T15:25:52+02:00",
+                "expiry": "2024-11-01T03:59:59+01:00",
+                "url": "https://itad.link/018d9386-8be1-7319-8ecc-ab31d44c64d8/"
               }
             },
             {
-              "id": "01846e7e-87f3-70af-b4f1-b7524f49dab4",
-              "slug": "prince-of-persia-the-two-thrones",
-              "title": "Prince of Persia: The Two Thrones™",
+              "id": "018d937e-e9ec-7103-97a0-732d4301eb72",
+              "slug": "shift-quantum",
+              "title": "Shift Quantum",
               "type": "game",
+              "mature": false,
+              "assets": {
+                "boxart": "https://assets.isthereanydeal.com/018d937e-e9ec-7103-97a0-732d4301eb72/boxart.jpg",
+                "banner145": "https://assets.isthereanydeal.com/018d937e-e9ec-7103-97a0-732d4301eb72/banner145.jpg",
+                "banner300": "https://assets.isthereanydeal.com/018d937e-e9ec-7103-97a0-732d4301eb72/banner300.jpg",
+                "banner400": "https://assets.isthereanydeal.com/018d937e-e9ec-7103-97a0-732d4301eb72/banner400.jpg",
+                "banner600": "https://assets.isthereanydeal.com/018d937e-e9ec-7103-97a0-732d4301eb72/banner600.jpg"
+              },
               "deal": {
                 "shop": {
-                  "id": 20,
-                  "name": "GameBillet"
+                  "id": 50,
+                  "name": "Nuuvem"
                 },
                 "price": {
-                  "amount": 1.75,
-                  "amountInt": 175,
-                  "currency": "USD"
+                  "amount": 11.4,
+                  "amountInt": 1140,
+                  "currency": "BRL"
                 },
                 "regular": {
-                  "amount": 9.99,
-                  "amountInt": 999,
-                  "currency": "USD"
+                  "amount": 37.99,
+                  "amountInt": 3799,
+                  "currency": "BRL"
                 },
-                "cut": 82,
+                "cut": 70,
                 "voucher": null,
                 "storeLow": {
-                  "amount": 1.66,
-                  "amountInt": 166,
-                  "currency": "USD"
+                  "amount": 9.49,
+                  "amountInt": 949,
+                  "currency": "BRL"
                 },
                 "historyLow": {
-                  "amount": 1.66,
-                  "amountInt": 166,
-                  "currency": "USD"
+                  "amount": 7.59,
+                  "amountInt": 759,
+                  "currency": "BRL"
                 },
                 "historyLow_1y": {
-                  "amount": 2.45,
-                  "amountInt": 245,
-                  "currency": "USD"
+                  "amount": 9.49,
+                  "amountInt": 949,
+                  "currency": "BRL"
                 },
-                "historyLow_3m": null,
+                "historyLow_3m": {
+                  "amount": 9.49,
+                  "amountInt": 949,
+                  "currency": "BRL"
+                },
                 "flag": null,
-                "drm": [],
-                "platforms": [],
-                "timestamp": "2023-06-06T21:59:42+02:00",
-                "expiry": null,
-                "url": "https://isthereanydeal.com/link/0184c0c4-f805-71ee-9394-3a5dd0cf0012/"
+                "drm": [
+                  {
+                    "id": 61,
+                    "name": "Steam"
+                  }
+                ],
+                "platforms": [
+                  {
+                    "id": 1,
+                    "name": "Windows"
+                  }
+                ],
+                "timestamp": "2024-12-05T04:26:01+01:00",
+                "expiry": "2024-12-19T03:59:59+01:00",
+                "url": "https://itad.link/018d9386-c580-739b-bac6-06f2a7eb5d61/"
+              }
+            },
+            {
+              "id": "018d937e-f7f5-70ea-a1dd-e1901a199f3d",
+              "slug": "grand-theft-auto-v-cesp-and-great-white-shark-card-bundle",
+              "title": "Grand Theft Auto V - CESP + Great White Shark Card Bundle",
+              "type": null,
+              "mature": false,
+              "assets": {
+                "boxart": "https://assets.isthereanydeal.com/018d937e-f7f5-70ea-a1dd-e1901a199f3d/boxart.jpg",
+                "banner145": "https://assets.isthereanydeal.com/018d937e-f7f5-70ea-a1dd-e1901a199f3d/banner145.jpg",
+                "banner300": "https://assets.isthereanydeal.com/018d937e-f7f5-70ea-a1dd-e1901a199f3d/banner300.jpg",
+                "banner400": "https://assets.isthereanydeal.com/018d937e-f7f5-70ea-a1dd-e1901a199f3d/banner400.jpg"
+              },
+              "deal": {
+                "shop": {
+                  "id": 50,
+                  "name": "Nuuvem"
+                },
+                "price": {
+                  "amount": 49.23,
+                  "amountInt": 4923,
+                  "currency": "BRL"
+                },
+                "regular": {
+                  "amount": 109.41,
+                  "amountInt": 10941,
+                  "currency": "BRL"
+                },
+                "cut": 55,
+                "voucher": null,
+                "storeLow": {
+                  "amount": 38.39,
+                  "amountInt": 3839,
+                  "currency": "BRL"
+                },
+                "historyLow": {
+                  "amount": 38.39,
+                  "amountInt": 3839,
+                  "currency": "BRL"
+                },
+                "historyLow_1y": {
+                  "amount": 49.23,
+                  "amountInt": 4923,
+                  "currency": "BRL"
+                },
+                "historyLow_3m": {
+                  "amount": 49.23,
+                  "amountInt": 4923,
+                  "currency": "BRL"
+                },
+                "flag": null,
+                "drm": [
+                  {
+                    "id": 61,
+                    "name": "Steam"
+                  }
+                ],
+                "platforms": [
+                  {
+                    "id": 1,
+                    "name": "Windows"
+                  }
+                ],
+                "timestamp": "2024-12-10T05:15:41+01:00",
+                "expiry": "2024-12-14T03:29:00+01:00",
+                "url": "https://itad.link/018d9386-6e38-705c-9b92-958ee5e10f77/"
               }
             }
           ]
