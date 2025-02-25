@@ -1,0 +1,17 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: Game Subscription
+type: object
+required: [id, name, leaving]
+properties:
+  id:
+    title: Subscription ID
+    type: integer
+    minimum: 1
+  name:
+    title: Subscription name
+    type: string
+  leaving:
+    oneOf:
+      - type: string
+        format: date-time
+      - type: "null"

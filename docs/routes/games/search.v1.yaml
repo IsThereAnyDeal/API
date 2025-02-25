@@ -28,11 +28,11 @@ get:
       content:
         "application/json":
           schema:
-            $ref: "../../schemas/resp.games.search.json"
+            $ref: "./schemas/resp.games.search.yaml"
           examples:
             results:
               description: "Europa Universalis IV search"
-              $ref: "../../examples/games/search.v1.results.json"
+              $ref: "./examples/search.v1.results.yaml"
     400:
       $ref: "../../defs/error-response.yaml"
     default:

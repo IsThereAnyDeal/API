@@ -1,28 +1,27 @@
 post:
-  operationId: games-historylow-v1
+  operationId: games-subscriptions-v1
   tags:
-    - History
-  summary: History Low
-  description: Get historically lowest prices
+    - Subscriptions
+  summary: Game Subscriptions
+  description: |
+    Get list of subscriptions the game is listed in.
   security:
     - keySecurity: []
   parameters:
     - $ref: "../../docs.yaml#/components/parameters/country"
   requestBody:
-    description: List of Game IDs for which to load historical lows
     $ref: "../../docs.yaml#/components/requestBodies/gids-200"
-
   responses:
     200:
       description: Success response
       content:
         "application/json":
           schema:
-            $ref: "./schemas/resp.games.historylow.yaml"
+            $ref: "./schemas/resp.games.subscriptions.yaml"
           examples:
             success:
               description: "Successful response"
-              $ref: "../../examples/games/historylow.v1.success.json"
+              $ref: "./examples/resp.games.subs.v1.success.yaml"
     400:
       $ref: "../../defs/error-response.yaml"
     default:

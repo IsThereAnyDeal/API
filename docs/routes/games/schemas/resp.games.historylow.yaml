@@ -1,0 +1,13 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: Historical Lows Response
+type: array
+items:
+  title: Historical Low Record
+  type: object
+  required: [id, low]
+  properties:
+    id:
+      type: string
+      format: uuid
+    low:
+      $ref: "../../../schemas/obj.historylow.json"

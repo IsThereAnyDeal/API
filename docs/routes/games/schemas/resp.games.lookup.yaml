@@ -1,0 +1,9 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: Game Lookup Response
+type: object
+required: [found]
+properties:
+  found:
+    type: boolean
+  game:
+    $ref: "../../../schemas/obj.game.yaml"

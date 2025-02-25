@@ -84,6 +84,7 @@ tags:
   - name: History
   - name: Bundles
   - name: Deals List
+  - name: Subscriptions
 
   - name: Waitlist Games
     x-displayName: Games
@@ -165,6 +166,7 @@ x-tagGroups:
       - History
       - Bundles
       - Deals List
+      - Subscriptions
   - name: Waitlist
     tags:
       - Waitlist Games
@@ -304,6 +306,8 @@ paths:
     $ref: "./routes/games/storelow.v2.yaml"
   /games/history/v2:
     $ref: "./routes/games/history.v2.yaml"
+  /games/subs/v1:
+    $ref: "./routes/games/subscriptions.v1.yaml"
 
   /deals/v2:
     $ref: "./routes/deals/deals.v2.yaml"

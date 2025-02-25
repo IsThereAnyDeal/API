@@ -1,0 +1,16 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: Games Subscriptions Response
+type: array
+items:
+  title: Game Subscriptions
+  type: object
+  required: [id, subs]
+  properties:
+    id:
+      title: Game ID
+      type: string
+      format: uuid
+    subs:
+      type: array
+      items:
+        $ref: "./obj.game.subscription.yaml"

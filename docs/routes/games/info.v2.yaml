@@ -14,7 +14,7 @@ get:
       content:
         "application/json":
           schema:
-            $ref: "../../schemas/resp.games.info.yaml"
+            $ref: "./schemas/resp.games.info.yaml"
           examples:
             found:
               description: "Europa Universalis IV info"

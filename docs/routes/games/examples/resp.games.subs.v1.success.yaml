@@ -1,0 +1,22 @@
+value: [
+  {
+    "id": "018d937f-24b7-731c-a789-8307ae059efa",
+    "subs": [
+      {
+        "id": 1,
+        "name": "Prime Gaming",
+        "expiry": "2025-02-26T18:00:00+00:00"
+      }
+    ]
+  },
+  {
+    "id": "018d937f-700e-7161-9c8d-5423af1b7c99",
+    "subs": [
+      {
+        "id": 6,
+        "name": "Game Pass",
+        "expiry": null
+      }
+    ]
+  }
+]

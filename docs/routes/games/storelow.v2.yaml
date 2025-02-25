@@ -19,7 +19,7 @@ post:
       content:
         "application/json":
           schema:
-            $ref: "../../schemas/resp.games.storelow.json"
+            $ref: "./schemas/resp.games.storelow.yaml"
           examples:
             success:
               description: "Successful response"

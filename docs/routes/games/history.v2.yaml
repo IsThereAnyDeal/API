@@ -24,7 +24,7 @@ get:
       content:
         "application/json":
           schema:
-            $ref: "../../schemas/resp.games.history.json"
+            $ref: "./schemas/resp.games.history.yaml"
           examples:
             success:
               description: "Successful response"

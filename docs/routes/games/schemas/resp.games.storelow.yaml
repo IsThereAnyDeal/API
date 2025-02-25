@@ -1,0 +1,31 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: Store Lows Response
+type: array
+items:
+  title: Store Lows
+  type: object
+  required: [id, lows]
+  properties:
+    id:
+      type: string
+      format: uuid
+    lows:
+      type: array
+      minItems: 1
+      items:
+        type: object
+        required: [shop, price, regular, cut, timestamp]
+        properties:
+          shop:
+            $ref: "../../../schemas/obj.shop.json"
+          price:
+            $ref: "../../../schemas/obj.price.json"
+          regular:
+            $ref: "../../../schemas/obj.price.json"
+          cut:
+            type: integer
+            minimum: 0
+            maximum: 100
+          timestamp:
+            type: string
+            format: date-time

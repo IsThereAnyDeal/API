@@ -56,4 +56,4 @@ properties:
         games:
           type: array
           items:
-            $ref: "../../../schemas/obj.game.json"
+            $ref: "../../../schemas/obj.game.yaml"

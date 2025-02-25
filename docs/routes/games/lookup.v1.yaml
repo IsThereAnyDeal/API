@@ -24,14 +24,14 @@ get:
       content:
         "application/json":
           schema:
-            $ref: "../../schemas/resp.games.lookup.json"
+            $ref: "./schemas/resp.games.lookup.yaml"
           examples:
             found:
               description: Game found
-              $ref: "../../examples/games/lookup.v1.found.json"
+              $ref: "./examples/lookup.v1.found.yaml"
             not-found:
               description: Game not found
-              $ref: "../../examples/games/lookup.v1.not-found.json"
+              $ref: "./examples/lookup.v1.not-found.yaml"
     400:
       $ref: "../../defs/error-response.yaml"
     default:

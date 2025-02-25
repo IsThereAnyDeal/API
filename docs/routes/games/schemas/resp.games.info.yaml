@@ -14,11 +14,11 @@ properties:
   title:
     type: string
   type:
-    $ref: "./obj.game-type.json"
+    $ref: "../../../schemas/obj.game-type.json"
   mature:
     type: boolean
   assets:
-    $ref: "./obj.asset-map.yaml"
+    $ref: "../../../schemas/obj.asset-map.yaml"
   earlyAccess:
     type: boolean
   achievements:
@@ -37,15 +37,15 @@ properties:
   developers:
     type: array
     items:
-      $ref: "./obj.company.json"
+      $ref: "../../../schemas/obj.company.json"
   publishers:
     type: array
     items:
-      $ref: "./obj.company.json"
+      $ref: "../../../schemas/obj.company.json"
   reviews:
     type: array
     items:
-      $ref: "./obj.reviews.json"
+      $ref: "../../../schemas/obj.reviews.json"
   stats:
     type: object
     properties:
