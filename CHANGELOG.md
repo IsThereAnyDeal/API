@@ -1,3 +1,12 @@
+## 2.7.0
+
+- Added `/games/subs/v1` endpoint for listing all subscriptions the game is current in
+- Added assets to multiple endpoints: search, lookup, bundled games in overview and game bundle endpoints.
+  
+  Affected urls:`/games/search/v1`, `/games/lookup/v1`, `/games/overview/v2`, `/games/bundles/v2`
+
+
+
 ## 2.6.1.
 
 - Fixed `expiry` field format for deal objects
