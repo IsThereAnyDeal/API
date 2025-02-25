@@ -61,7 +61,7 @@ info:
     You can find source files for this documentation over at [GitHub](https://github.com/IsThereAnyDeal/API).
     Feel free to help us improve it.
   termsOfService: https://github.com/IsThereAnyDeal/API/blob/master/TERMS_OF_SERVICE.md
-  version: 2.6.2
+  version: 2.7.0
   contact:
     name: General API contact
     email: api@isthereanydeal.com
@@ -81,6 +81,7 @@ tags:
   - name: History
   - name: Bundles
   - name: Deals List
+  - name: Subscriptions
   - name: Waitlist Games
     x-displayName: Games
   - name: Waitlist Stats
@@ -295,7 +296,7 @@ paths:
               examples:
                 results:
                   description: Europa Universalis IV search
-                  $ref: '#/components/examples/search.v1.results'
+                  $ref: '#/components/examples/resp.search.v1.results'
         '400':
           $ref: '#/components/responses/error-response'
         default:
@@ -331,10 +332,10 @@ paths:
               examples:
                 found:
                   description: Game found
-                  $ref: '#/components/examples/lookup.v1.found'
+                  $ref: '#/components/examples/resp.lookup.v1.found'
                 not-found:
                   description: Game not found
-                  $ref: '#/components/examples/lookup.v1.not-found'
+                  $ref: '#/components/examples/resp.lookup.v1.not-found'
         '400':
           $ref: '#/components/responses/error-response'
         default:
@@ -442,7 +443,7 @@ paths:
               examples:
                 success:
                   description: Successful response
-                  $ref: '#/components/examples/bundles.v2.success'
+                  $ref: '#/components/examples/resp.bundles.v2.success'
         '400':
           $ref: '#/components/responses/error-response'
         default:
@@ -485,7 +486,7 @@ paths:
               examples:
                 success:
                   description: Successful response
-                  $ref: '#/components/examples/overview.v2.success'
+                  $ref: '#/components/examples/resp.overview.v2.success'
         '400':
           $ref: '#/components/responses/error-response'
         default:
@@ -581,6 +582,35 @@ paths:
                 success:
                   description: Successful response
                   $ref: '#/components/examples/history.v2.success'
+        '400':
+          $ref: '#/components/responses/error-response'
+        default:
+          $ref: '#/components/responses/error-response'
+  /games/subs/v1:
+    post:
+      operationId: games-subscriptions-v1
+      tags:
+        - Subscriptions
+      summary: Game Subscriptions
+      description: |
+        Get list of subscriptions the game is listed in.
+      security:
+        - keySecurity: []
+      parameters:
+        - $ref: '#/components/parameters/country'
+      requestBody:
+        $ref: '#/components/requestBodies/gids-200'
+      responses:
+        '200':
+          description: Success response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resp.games.subscriptions'
+              examples:
+                success:
+                  description: Successful response
+                  $ref: '#/components/examples/resp.games.subs.v1.success'
         '400':
           $ref: '#/components/responses/error-response'
         default:
@@ -2106,6 +2136,21 @@ components:
             - dlc
             - package
         - type: 'null'
+    obj.asset-map:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: Asset Map
+      type: object
+      properties:
+        banner145:
+          type: string
+        banner300:
+          type: string
+        banner400:
+          type: string
+        banner600:
+          type: string
+        boxart:
+          type: string
     obj.game:
       $schema: https://json-schema.org/draft/2020-12/schema
       title: Game
@@ -2116,6 +2161,7 @@ components:
         - title
         - type
         - mature
+        - assets
       properties:
         id:
           type: string
@@ -2128,6 +2174,8 @@ components:
           $ref: '#/components/schemas/obj.game-type'
         mature:
           type: boolean
+        assets:
+          $ref: '#/components/schemas/obj.asset-map'
     resp.games.search:
       $schema: https://json-schema.org/draft/2020-12/schema
       title: Game Search Response
@@ -2145,21 +2193,6 @@ components:
           type: boolean
         game:
           $ref: '#/components/schemas/obj.game'
-    obj.asset-map:
-      $schema: https://json-schema.org/draft/2020-12/schema
-      title: Asset Map
-      type: object
-      properties:
-        banner145:
-          type: string
-        banner300:
-          type: string
-        banner400:
-          type: string
-        banner600:
-          type: string
-        boxart:
-          type: string
     obj.company:
       $schema: https://json-schema.org/draft/2020-12/schema
       title: Company
@@ -2765,6 +2798,46 @@ components:
                     minimum: 0
                     maximum: 100
               - type: 'null'
+    obj.game.subscription:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: Game Subscription
+      type: object
+      required:
+        - id
+        - name
+        - leaving
+      properties:
+        id:
+          title: Subscription ID
+          type: integer
+          minimum: 1
+        name:
+          title: Subscription name
+          type: string
+        leaving:
+          oneOf:
+            - type: string
+              format: date-time
+            - type: 'null'
+    resp.games.subscriptions:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: Games Subscriptions Response
+      type: array
+      items:
+        title: Game Subscriptions
+        type: object
+        required:
+          - id
+          - subs
+        properties:
+          id:
+            title: Game ID
+            type: string
+            format: uuid
+          subs:
+            type: array
+            items:
+              $ref: '#/components/schemas/obj.game.subscription'
     obj.deal:
       $schema: https://json-schema.org/draft/2020-12/schema
       title: Deal
@@ -3745,43 +3818,78 @@ components:
           - sub/637996
           - app/1777620
           - sub/752476
-    search.v1.results:
+    resp.search.v1.results:
       value:
-        - id: 01849783-6a26-7147-ab32-71804ca47e8e
+        - id: 018d937f-07fc-72ed-8517-d8e24cb1eb22
           slug: europa-universalis-iv
           title: Europa Universalis IV
           type: game
           mature: false
-        - id: 01849783-6740-7240-bf0a-194b4678243b
-          slug: europa-universalis-iv-dharma
-          title: 'Europa Universalis IV: Dharma'
+          assets:
+            banner145: https://assets.isthereanydeal.com/018d937f-07fc-72ed-8517-d8e24cb1eb22/banner145.jpg?t=1738002003
+            banner300: https://assets.isthereanydeal.com/018d937f-07fc-72ed-8517-d8e24cb1eb22/banner300.jpg?t=1738002003
+            banner400: https://assets.isthereanydeal.com/018d937f-07fc-72ed-8517-d8e24cb1eb22/banner400.jpg?t=1738002003
+            banner600: https://assets.isthereanydeal.com/018d937f-07fc-72ed-8517-d8e24cb1eb22/banner600.jpg?t=1738002003
+            boxart: https://assets.isthereanydeal.com/018d937f-07fc-72ed-8517-d8e24cb1eb22/boxart.jpg?t=1738002003
+        - id: 018d937e-f083-72b5-bfdf-5459a8948636
+          slug: europa-universalis-iv-american-dream
+          title: 'Europa Universalis IV: American Dream'
           type: dlc
           mature: false
-        - id: 01849782-b769-715a-a0bb-9467eb5a6fa4
-          slug: europa-universalis-iv-emperor
-          title: 'Europa Universalis IV: Emperor'
+          assets:
+            banner145: https://assets.isthereanydeal.com/018d937e-f083-72b5-bfdf-5459a8948636/banner145.jpg?t=1733619419
+            banner300: https://assets.isthereanydeal.com/018d937e-f083-72b5-bfdf-5459a8948636/banner300.jpg?t=1733619419
+            banner400: https://assets.isthereanydeal.com/018d937e-f083-72b5-bfdf-5459a8948636/banner400.jpg?t=1733619419
+            boxart: https://assets.isthereanydeal.com/018d937e-f083-72b5-bfdf-5459a8948636/boxart.jpg?t=1733619418
+        - id: 018d937e-f4e0-71ad-add5-c2642abc7a55
+          slug: europa-universalis-iv-rights-of-man
+          title: 'Europa Universalis IV: Rights of Man'
           type: dlc
           mature: false
-        - id: 0184c0c4-7e9a-7143-a2a2-460027fabf76
-          slug: europa-universalis-iv-origins
-          title: 'Europa Universalis IV: Origins'
+          assets:
+            banner145: https://assets.isthereanydeal.com/018d937e-f4e0-71ad-add5-c2642abc7a55/banner145.jpg?t=1732741281
+            banner300: https://assets.isthereanydeal.com/018d937e-f4e0-71ad-add5-c2642abc7a55/banner300.jpg?t=1732741281
+            banner400: https://assets.isthereanydeal.com/018d937e-f4e0-71ad-add5-c2642abc7a55/banner400.jpg?t=1732741281
+            banner600: https://assets.isthereanydeal.com/018d937e-f4e0-71ad-add5-c2642abc7a55/banner600.jpg?t=1732741281
+            boxart: https://assets.isthereanydeal.com/018d937e-f4e0-71ad-add5-c2642abc7a55/boxart.jpg?t=1732741281
+        - id: 018d937e-f999-71c8-b0a0-932f481087f9
+          slug: expansion-europa-universalis-iv-res-publica
+          title: 'Expansion - Europa Universalis IV: Res Publica'
           type: dlc
           mature: false
-        - id: 01849783-74ad-7125-8c6c-f7f14f3cc5b3
-          slug: europa-universalis-iv-cossacks
-          title: 'Europa Universalis IV: Cossacks'
+          assets:
+            banner145: https://assets.isthereanydeal.com/018d937e-f999-71c8-b0a0-932f481087f9/banner145.jpg?t=1732801577
+            banner300: https://assets.isthereanydeal.com/018d937e-f999-71c8-b0a0-932f481087f9/banner300.jpg?t=1732801577
+            banner400: https://assets.isthereanydeal.com/018d937e-f999-71c8-b0a0-932f481087f9/banner400.jpg?t=1732801577
+            banner600: https://assets.isthereanydeal.com/018d937e-f999-71c8-b0a0-932f481087f9/banner600.jpg?t=1732801578
+            boxart: https://assets.isthereanydeal.com/018d937e-f999-71c8-b0a0-932f481087f9/boxart.jpg?t=1732801577
+        - id: 018d937f-27ec-71c5-a8a4-21b0b76b3e77
+          slug: europa-universalis-iv-songs-of-yuletide
+          title: 'Europa Universalis IV: Songs of Yuletide'
           type: dlc
           mature: false
-    lookup.v1.found:
+          assets:
+            banner145: https://assets.isthereanydeal.com/018d937f-27ec-71c5-a8a4-21b0b76b3e77/banner145.jpg
+            banner300: https://assets.isthereanydeal.com/018d937f-27ec-71c5-a8a4-21b0b76b3e77/banner300.jpg
+            banner400: https://assets.isthereanydeal.com/018d937f-27ec-71c5-a8a4-21b0b76b3e77/banner400.jpg
+            banner600: https://assets.isthereanydeal.com/018d937f-27ec-71c5-a8a4-21b0b76b3e77/banner600.png
+            boxart: https://assets.isthereanydeal.com/018d937f-27ec-71c5-a8a4-21b0b76b3e77/boxart.jpg
+    resp.lookup.v1.found:
       value:
         found: true
         game:
-          id: 01847884-d7f0-7392-b701-2103ce5b64eb
-          slug: team-fortress-2
-          title: Team Fortress 2
-          type: null
+          id: 018d937f-07fc-72ed-8517-d8e24cb1eb22
+          slug: europa-universalis-iv
+          title: Europa Universalis IV
+          type: game
           mature: false
-    lookup.v1.not-found:
+          assets:
+            boxart: https://assets.isthereanydeal.com/018d937f-07fc-72ed-8517-d8e24cb1eb22/boxart.jpg?t=1738002003
+            banner145: https://assets.isthereanydeal.com/018d937f-07fc-72ed-8517-d8e24cb1eb22/banner145.jpg?t=1738002003
+            banner300: https://assets.isthereanydeal.com/018d937f-07fc-72ed-8517-d8e24cb1eb22/banner300.jpg?t=1738002003
+            banner400: https://assets.isthereanydeal.com/018d937f-07fc-72ed-8517-d8e24cb1eb22/banner400.jpg?t=1738002003
+            banner600: https://assets.isthereanydeal.com/018d937f-07fc-72ed-8517-d8e24cb1eb22/banner600.jpg?t=1738002003
+    resp.lookup.v1.not-found:
       value:
         found: false
     info.v2.found:
@@ -3894,47 +4002,73 @@ components:
               timestamp: '2024-02-11T01:47:46+01:00'
               expiry: null
               url: https://next.isthereanydeal.com/link/018d9386-7132-719b-89e1-e11b8c591ee7/
-    bundles.v2.success:
+    resp.bundles.v2.success:
       value:
-        - id: 19
+        - id: 11631
           title: Rimworld with all Expansions Bundle
           page:
             id: 8
             name: Fanatical
-          url: http://www.jdoqocy.com/click-6305441-13212017?URL=https%3A%2F%2Fwww.fanatical.com%2Fen%2Fbundle%2Frimworld-with-all-expansions
+            shopId: 6
+          url: https://www.dpbolvw.net/click-6305441-13212017?url=https%3A%2F%2Fwww.fanatical.com%2Fen%2Fbundle%2Frimworld-with-all-expansions
+          details: https://isthereanydeal.com/bundles/11631/
           isMature: false
-          publish: '2023-07-23T00:36:18+02:00'
-          expiry: '2023-07-26T09:00:00+02:00'
+          publish: '2024-03-04T19:00:00+01:00'
+          expiry: '2024-03-22T00:59:46+01:00'
           counts:
             games: 4
-            media: 0
+            media: 1
           tiers:
             - price:
-                amount: 79.04
-                amountInt: 7904
-                currency: EUR
+                amount: 87.96
+                amountInt: 8796
+                currency: USD
               games:
-                - id: 0184bb93-24e6-703e-8ada-7edfc6d71b54
-                  slug: rimworld-biotech
-                  title: RimWorld - Biotech
-                  type: dlc
-                  mature: false
-                - id: 0184bb93-26bf-724e-8e4e-6d0316662a01
+                - id: 018d937f-12e9-71ca-a5d5-f31985870694
                   slug: rimworld
                   title: RimWorld
                   type: game
                   mature: false
-                - id: 0184bb93-525b-70e7-a50d-50ca8706fef6
-                  slug: rimworld-ideology
-                  title: RimWorld - Ideology
-                  type: dlc
-                  mature: false
-                - id: 0184bb93-57e8-7147-aebf-88778eb3e5b0
+                  assets:
+                    boxart: https://assets.isthereanydeal.com/018d937f-12e9-71ca-a5d5-f31985870694/boxart.jpg?t=1734155400
+                    banner145: https://assets.isthereanydeal.com/018d937f-12e9-71ca-a5d5-f31985870694/banner145.jpg?t=1734155400
+                    banner300: https://assets.isthereanydeal.com/018d937f-12e9-71ca-a5d5-f31985870694/banner300.jpg?t=1734155400
+                    banner400: https://assets.isthereanydeal.com/018d937f-12e9-71ca-a5d5-f31985870694/banner400.jpg?t=1734155400
+                    banner600: https://assets.isthereanydeal.com/018d937f-12e9-71ca-a5d5-f31985870694/banner600.jpg?t=1734155400
+                - id: 018d937f-3e88-718b-b99d-9a45bb69be55
                   slug: rimworld-royalty
                   title: RimWorld - Royalty
                   type: dlc
                   mature: false
-    overview.v2.success:
+                  assets:
+                    boxart: https://assets.isthereanydeal.com/018d937f-3e88-718b-b99d-9a45bb69be55/boxart.jpg?t=1732764965
+                    banner145: https://assets.isthereanydeal.com/018d937f-3e88-718b-b99d-9a45bb69be55/banner145.jpg?t=1732764965
+                    banner300: https://assets.isthereanydeal.com/018d937f-3e88-718b-b99d-9a45bb69be55/banner300.jpg?t=1732764965
+                    banner400: https://assets.isthereanydeal.com/018d937f-3e88-718b-b99d-9a45bb69be55/banner400.jpg?t=1732764965
+                    banner600: https://assets.isthereanydeal.com/018d937f-3e88-718b-b99d-9a45bb69be55/banner600.jpg?t=1732764966
+                - id: 018d937f-5256-73e1-bba6-66fd3f4d9cd7
+                  slug: rimworld-ideology
+                  title: RimWorld - Ideology
+                  type: dlc
+                  mature: false
+                  assets:
+                    boxart: https://assets.isthereanydeal.com/018d937f-5256-73e1-bba6-66fd3f4d9cd7/boxart.jpg?t=1732782945
+                    banner145: https://assets.isthereanydeal.com/018d937f-5256-73e1-bba6-66fd3f4d9cd7/banner145.jpg?t=1732782945
+                    banner300: https://assets.isthereanydeal.com/018d937f-5256-73e1-bba6-66fd3f4d9cd7/banner300.jpg?t=1732782945
+                    banner400: https://assets.isthereanydeal.com/018d937f-5256-73e1-bba6-66fd3f4d9cd7/banner400.jpg?t=1732782945
+                    banner600: https://assets.isthereanydeal.com/018d937f-5256-73e1-bba6-66fd3f4d9cd7/banner600.jpg?t=1732782945
+                - id: 018d937f-65f0-70d3-83fe-71fac1505a13
+                  slug: rimworld-biotech
+                  title: RimWorld - Biotech
+                  type: dlc
+                  mature: false
+                  assets:
+                    boxart: https://assets.isthereanydeal.com/018d937f-65f0-70d3-83fe-71fac1505a13/boxart.jpg?t=1732751175
+                    banner145: https://assets.isthereanydeal.com/018d937f-65f0-70d3-83fe-71fac1505a13/banner145.jpg?t=1732751175
+                    banner300: https://assets.isthereanydeal.com/018d937f-65f0-70d3-83fe-71fac1505a13/banner300.jpg?t=1732751175
+                    banner400: https://assets.isthereanydeal.com/018d937f-65f0-70d3-83fe-71fac1505a13/banner400.jpg?t=1732751175
+                    banner600: https://assets.isthereanydeal.com/018d937f-65f0-70d3-83fe-71fac1505a13/banner600.jpg?t=1732751176
+    resp.overview.v2.success:
       value:
         prices:
           - id: 018d937f-12e9-71ca-a5d5-f31985870694
@@ -3961,7 +4095,7 @@ components:
                   name: Mac
                 - id: 3
                   name: Linux
-              timestamp: '2024-02-11T02:07:53+01:00'
+              timestamp: '2025-02-06T19:21:30+01:00'
               expiry: null
               url: https://itad.link/018d9386-b9c8-71ea-8724-47f829db21bd/
             lowest:
@@ -3969,18 +4103,58 @@ components:
                 id: 6
                 name: Fanatical
               price:
-                amount: 22.39
-                amountInt: 2239
+                amount: 22.07
+                amountInt: 2207
                 currency: EUR
               regular:
                 amount: 31.99
                 amountInt: 3199
                 currency: EUR
-              cut: 30
-              timestamp: '2023-03-08T17:35:17+01:00'
+              cut: 31
+              timestamp: '2024-07-01T17:15:49+02:00'
             bundled: 1
             urls:
               game: https://isthereanydeal.com/game/id:018d937f-12e9-71ca-a5d5-f31985870694/
+          - id: 018d937f-6ee4-73f5-858c-2fde3407462f
+            current:
+              shop:
+                id: 67
+                name: eTail.Market
+              price:
+                amount: 34.19
+                amountInt: 3419
+                currency: EUR
+              regular:
+                amount: 39.99
+                amountInt: 3999
+                currency: EUR
+              cut: 15
+              voucher: null
+              flag: null
+              drm:
+                - id: 61
+                  name: Steam
+              platforms: []
+              timestamp: '2025-02-24T05:11:43+01:00'
+              expiry: null
+              url: https://itad.link/018dbf61-5f64-7073-a201-d4d25151bfb0/
+            lowest:
+              shop:
+                id: 67
+                name: eTail.Market
+              price:
+                amount: 26.48
+                amountInt: 2648
+                currency: EUR
+              regular:
+                amount: 39.99
+                amountInt: 3999
+                currency: EUR
+              cut: 34
+              timestamp: '2024-12-13T12:31:59+01:00'
+            bundled: 0
+            urls:
+              game: https://isthereanydeal.com/game/id:018d937f-6ee4-73f5-858c-2fde3407462f/
         bundles:
           - id: 11631
             title: Rimworld with all Expansions Bundle
@@ -3988,7 +4162,7 @@ components:
               id: 8
               name: Fanatical
               shopId: 6
-            url: https://www.jdoqocy.com/click-6305441-13212017?URL=https%3A%2F%2Fwww.fanatical.com%2Fen%2Fbundle%2Frimworld-with-all-expansions
+            url: https://www.dpbolvw.net/click-6305441-13212017?url=https%3A%2F%2Fwww.fanatical.com%2Fen%2Fbundle%2Frimworld-with-all-expansions
             details: https://isthereanydeal.com/bundles/11631/
             isMature: false
             publish: '2024-03-04T19:00:00+01:00'
@@ -4007,21 +4181,45 @@ components:
                     title: RimWorld
                     type: game
                     mature: false
+                    assets:
+                      boxart: https://assets.isthereanydeal.com/018d937f-12e9-71ca-a5d5-f31985870694/boxart.jpg?t=1734155400
+                      banner145: https://assets.isthereanydeal.com/018d937f-12e9-71ca-a5d5-f31985870694/banner145.jpg?t=1734155400
+                      banner300: https://assets.isthereanydeal.com/018d937f-12e9-71ca-a5d5-f31985870694/banner300.jpg?t=1734155400
+                      banner400: https://assets.isthereanydeal.com/018d937f-12e9-71ca-a5d5-f31985870694/banner400.jpg?t=1734155400
+                      banner600: https://assets.isthereanydeal.com/018d937f-12e9-71ca-a5d5-f31985870694/banner600.jpg?t=1734155400
                   - id: 018d937f-3e88-718b-b99d-9a45bb69be55
                     slug: rimworld-royalty
                     title: RimWorld - Royalty
                     type: dlc
                     mature: false
+                    assets:
+                      boxart: https://assets.isthereanydeal.com/018d937f-3e88-718b-b99d-9a45bb69be55/boxart.jpg?t=1732764965
+                      banner145: https://assets.isthereanydeal.com/018d937f-3e88-718b-b99d-9a45bb69be55/banner145.jpg?t=1732764965
+                      banner300: https://assets.isthereanydeal.com/018d937f-3e88-718b-b99d-9a45bb69be55/banner300.jpg?t=1732764965
+                      banner400: https://assets.isthereanydeal.com/018d937f-3e88-718b-b99d-9a45bb69be55/banner400.jpg?t=1732764965
+                      banner600: https://assets.isthereanydeal.com/018d937f-3e88-718b-b99d-9a45bb69be55/banner600.jpg?t=1732764966
                   - id: 018d937f-5256-73e1-bba6-66fd3f4d9cd7
                     slug: rimworld-ideology
                     title: RimWorld - Ideology
                     type: dlc
                     mature: false
+                    assets:
+                      boxart: https://assets.isthereanydeal.com/018d937f-5256-73e1-bba6-66fd3f4d9cd7/boxart.jpg?t=1732782945
+                      banner145: https://assets.isthereanydeal.com/018d937f-5256-73e1-bba6-66fd3f4d9cd7/banner145.jpg?t=1732782945
+                      banner300: https://assets.isthereanydeal.com/018d937f-5256-73e1-bba6-66fd3f4d9cd7/banner300.jpg?t=1732782945
+                      banner400: https://assets.isthereanydeal.com/018d937f-5256-73e1-bba6-66fd3f4d9cd7/banner400.jpg?t=1732782945
+                      banner600: https://assets.isthereanydeal.com/018d937f-5256-73e1-bba6-66fd3f4d9cd7/banner600.jpg?t=1732782945
                   - id: 018d937f-65f0-70d3-83fe-71fac1505a13
                     slug: rimworld-biotech
                     title: RimWorld - Biotech
                     type: dlc
                     mature: false
+                    assets:
+                      boxart: https://assets.isthereanydeal.com/018d937f-65f0-70d3-83fe-71fac1505a13/boxart.jpg?t=1732751175
+                      banner145: https://assets.isthereanydeal.com/018d937f-65f0-70d3-83fe-71fac1505a13/banner145.jpg?t=1732751175
+                      banner300: https://assets.isthereanydeal.com/018d937f-65f0-70d3-83fe-71fac1505a13/banner300.jpg?t=1732751175
+                      banner400: https://assets.isthereanydeal.com/018d937f-65f0-70d3-83fe-71fac1505a13/banner400.jpg?t=1732751175
+                      banner600: https://assets.isthereanydeal.com/018d937f-65f0-70d3-83fe-71fac1505a13/banner600.jpg?t=1732751176
     historylow.v1.success:
       value:
         - id: 01849782-1017-7389-8de4-c97c587fd7e3
@@ -4142,6 +4340,18 @@ components:
               amountInt: 3999
               currency: EUR
             cut: 0
+    resp.games.subs.v1.success:
+      value:
+        - id: 018d937f-24b7-731c-a789-8307ae059efa
+          subs:
+            - id: 1
+              name: Prime Gaming
+              leaving: '2025-02-26T18:00:00+00:00'
+        - id: 018d937f-700e-7161-9c8d-5423af1b7c99
+          subs:
+            - id: 6
+              name: Game Pass
+              leaving: null
     resp.deals.get.v2.success:
       value:
         nextOffset: 3
@@ -4561,6 +4771,7 @@ x-tagGroups:
       - History
       - Bundles
       - Deals List
+      - Subscriptions
   - name: Waitlist
     tags:
       - Waitlist Games
