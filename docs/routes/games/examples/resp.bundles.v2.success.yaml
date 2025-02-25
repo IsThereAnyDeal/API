@@ -1,0 +1,87 @@
+value: [
+    {
+        "id": 11631,
+        "title": "Rimworld with all Expansions Bundle",
+        "page": {
+            "id": 8,
+            "name": "Fanatical",
+            "shopId": 6
+        },
+        "url": "https://www.dpbolvw.net/click-6305441-13212017?url=https%3A%2F%2Fwww.fanatical.com%2Fen%2Fbundle%2Frimworld-with-all-expansions",
+        "details": "https://isthereanydeal.com/bundles/11631/",
+        "isMature": false,
+        "publish": "2024-03-04T19:00:00+01:00",
+        "expiry": "2024-03-22T00:59:46+01:00",
+        "counts": {
+            "games": 4,
+            "media": 1
+        },
+        "tiers": [
+            {
+                "price": {
+                    "amount": 87.96,
+                    "amountInt": 8796,
+                    "currency": "USD"
+                },
+                "games": [
+                    {
+                        "id": "018d937f-12e9-71ca-a5d5-f31985870694",
+                        "slug": "rimworld",
+                        "title": "RimWorld",
+                        "type": "game",
+                        "mature": false,
+                        "assets": {
+                            "boxart": "https://assets.isthereanydeal.com/018d937f-12e9-71ca-a5d5-f31985870694/boxart.jpg?t=1734155400",
+                            "banner145": "https://assets.isthereanydeal.com/018d937f-12e9-71ca-a5d5-f31985870694/banner145.jpg?t=1734155400",
+                            "banner300": "https://assets.isthereanydeal.com/018d937f-12e9-71ca-a5d5-f31985870694/banner300.jpg?t=1734155400",
+                            "banner400": "https://assets.isthereanydeal.com/018d937f-12e9-71ca-a5d5-f31985870694/banner400.jpg?t=1734155400",
+                            "banner600": "https://assets.isthereanydeal.com/018d937f-12e9-71ca-a5d5-f31985870694/banner600.jpg?t=1734155400"
+                        }
+                    },
+                    {
+                        "id": "018d937f-3e88-718b-b99d-9a45bb69be55",
+                        "slug": "rimworld-royalty",
+                        "title": "RimWorld - Royalty",
+                        "type": "dlc",
+                        "mature": false,
+                        "assets": {
+                            "boxart": "https://assets.isthereanydeal.com/018d937f-3e88-718b-b99d-9a45bb69be55/boxart.jpg?t=1732764965",
+                            "banner145": "https://assets.isthereanydeal.com/018d937f-3e88-718b-b99d-9a45bb69be55/banner145.jpg?t=1732764965",
+                            "banner300": "https://assets.isthereanydeal.com/018d937f-3e88-718b-b99d-9a45bb69be55/banner300.jpg?t=1732764965",
+                            "banner400": "https://assets.isthereanydeal.com/018d937f-3e88-718b-b99d-9a45bb69be55/banner400.jpg?t=1732764965",
+                            "banner600": "https://assets.isthereanydeal.com/018d937f-3e88-718b-b99d-9a45bb69be55/banner600.jpg?t=1732764966"
+                        }
+                    },
+                    {
+                        "id": "018d937f-5256-73e1-bba6-66fd3f4d9cd7",
+                        "slug": "rimworld-ideology",
+                        "title": "RimWorld - Ideology",
+                        "type": "dlc",
+                        "mature": false,
+                        "assets": {
+                            "boxart": "https://assets.isthereanydeal.com/018d937f-5256-73e1-bba6-66fd3f4d9cd7/boxart.jpg?t=1732782945",
+                            "banner145": "https://assets.isthereanydeal.com/018d937f-5256-73e1-bba6-66fd3f4d9cd7/banner145.jpg?t=1732782945",
+                            "banner300": "https://assets.isthereanydeal.com/018d937f-5256-73e1-bba6-66fd3f4d9cd7/banner300.jpg?t=1732782945",
+                            "banner400": "https://assets.isthereanydeal.com/018d937f-5256-73e1-bba6-66fd3f4d9cd7/banner400.jpg?t=1732782945",
+                            "banner600": "https://assets.isthereanydeal.com/018d937f-5256-73e1-bba6-66fd3f4d9cd7/banner600.jpg?t=1732782945"
+                        }
+                    },
+                    {
+                        "id": "018d937f-65f0-70d3-83fe-71fac1505a13",
+                        "slug": "rimworld-biotech",
+                        "title": "RimWorld - Biotech",
+                        "type": "dlc",
+                        "mature": false,
+                        "assets": {
+                            "boxart": "https://assets.isthereanydeal.com/018d937f-65f0-70d3-83fe-71fac1505a13/boxart.jpg?t=1732751175",
+                            "banner145": "https://assets.isthereanydeal.com/018d937f-65f0-70d3-83fe-71fac1505a13/banner145.jpg?t=1732751175",
+                            "banner300": "https://assets.isthereanydeal.com/018d937f-65f0-70d3-83fe-71fac1505a13/banner300.jpg?t=1732751175",
+                            "banner400": "https://assets.isthereanydeal.com/018d937f-65f0-70d3-83fe-71fac1505a13/banner400.jpg?t=1732751175",
+                            "banner600": "https://assets.isthereanydeal.com/018d937f-65f0-70d3-83fe-71fac1505a13/banner600.jpg?t=1732751176"
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+]

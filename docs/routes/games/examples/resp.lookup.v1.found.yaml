@@ -1,0 +1,17 @@
+value: {
+  "found": true,
+  "game": {
+    "id": "018d937f-07fc-72ed-8517-d8e24cb1eb22",
+    "slug": "europa-universalis-iv",
+    "title": "Europa Universalis IV",
+    "type": "game",
+    "mature": false,
+    "assets": {
+      "boxart": "https://assets.isthereanydeal.com/018d937f-07fc-72ed-8517-d8e24cb1eb22/boxart.jpg?t=1738002003",
+      "banner145": "https://assets.isthereanydeal.com/018d937f-07fc-72ed-8517-d8e24cb1eb22/banner145.jpg?t=1738002003",
+      "banner300": "https://assets.isthereanydeal.com/018d937f-07fc-72ed-8517-d8e24cb1eb22/banner300.jpg?t=1738002003",
+      "banner400": "https://assets.isthereanydeal.com/018d937f-07fc-72ed-8517-d8e24cb1eb22/banner400.jpg?t=1738002003",
+      "banner600": "https://assets.isthereanydeal.com/018d937f-07fc-72ed-8517-d8e24cb1eb22/banner600.jpg?t=1738002003"
+    }
+  }
+}

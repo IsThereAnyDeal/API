@@ -5,7 +5,7 @@ value: [
       {
         "id": 1,
         "name": "Prime Gaming",
-        "expiry": "2025-02-26T18:00:00+00:00"
+        "leaving": "2025-02-26T18:00:00+00:00"
       }
     ]
   },
@@ -15,7 +15,7 @@ value: [
       {
         "id": 6,
         "name": "Game Pass",
-        "expiry": null
+        "leaving": null
       }
     ]
   }

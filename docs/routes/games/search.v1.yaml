@@ -32,7 +32,7 @@ get:
           examples:
             results:
               description: "Europa Universalis IV search"
-              $ref: "./examples/search.v1.results.yaml"
+              $ref: "./examples/resp.search.v1.results.yaml"
     400:
       $ref: "../../defs/error-response.yaml"
     default:

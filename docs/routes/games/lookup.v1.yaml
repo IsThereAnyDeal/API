@@ -28,10 +28,10 @@ get:
           examples:
             found:
               description: Game found
-              $ref: "./examples/lookup.v1.found.yaml"
+              $ref: "./examples/resp.lookup.v1.found.yaml"
             not-found:
               description: Game not found
-              $ref: "./examples/lookup.v1.not-found.yaml"
+              $ref: "./examples/resp.lookup.v1.not-found.yaml"
     400:
       $ref: "../../defs/error-response.yaml"
     default:

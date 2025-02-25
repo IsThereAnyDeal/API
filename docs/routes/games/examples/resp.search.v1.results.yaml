@@ -1,0 +1,71 @@
+value: [
+  {
+    "id": "018d937f-07fc-72ed-8517-d8e24cb1eb22",
+    "slug": "europa-universalis-iv",
+    "title": "Europa Universalis IV",
+    "type": "game",
+    "mature": false,
+    "assets": {
+      "banner145": "https://assets.isthereanydeal.com/018d937f-07fc-72ed-8517-d8e24cb1eb22/banner145.jpg?t=1738002003",
+      "banner300": "https://assets.isthereanydeal.com/018d937f-07fc-72ed-8517-d8e24cb1eb22/banner300.jpg?t=1738002003",
+      "banner400": "https://assets.isthereanydeal.com/018d937f-07fc-72ed-8517-d8e24cb1eb22/banner400.jpg?t=1738002003",
+      "banner600": "https://assets.isthereanydeal.com/018d937f-07fc-72ed-8517-d8e24cb1eb22/banner600.jpg?t=1738002003",
+      "boxart": "https://assets.isthereanydeal.com/018d937f-07fc-72ed-8517-d8e24cb1eb22/boxart.jpg?t=1738002003"
+    }
+  },
+  {
+    "id": "018d937e-f083-72b5-bfdf-5459a8948636",
+    "slug": "europa-universalis-iv-american-dream",
+    "title": "Europa Universalis IV: American Dream",
+    "type": "dlc",
+    "mature": false,
+    "assets": {
+      "banner145": "https://assets.isthereanydeal.com/018d937e-f083-72b5-bfdf-5459a8948636/banner145.jpg?t=1733619419",
+      "banner300": "https://assets.isthereanydeal.com/018d937e-f083-72b5-bfdf-5459a8948636/banner300.jpg?t=1733619419",
+      "banner400": "https://assets.isthereanydeal.com/018d937e-f083-72b5-bfdf-5459a8948636/banner400.jpg?t=1733619419",
+      "boxart": "https://assets.isthereanydeal.com/018d937e-f083-72b5-bfdf-5459a8948636/boxart.jpg?t=1733619418"
+    }
+  },
+  {
+    "id": "018d937e-f4e0-71ad-add5-c2642abc7a55",
+    "slug": "europa-universalis-iv-rights-of-man",
+    "title": "Europa Universalis IV: Rights of Man",
+    "type": "dlc",
+    "mature": false,
+    "assets": {
+      "banner145": "https://assets.isthereanydeal.com/018d937e-f4e0-71ad-add5-c2642abc7a55/banner145.jpg?t=1732741281",
+      "banner300": "https://assets.isthereanydeal.com/018d937e-f4e0-71ad-add5-c2642abc7a55/banner300.jpg?t=1732741281",
+      "banner400": "https://assets.isthereanydeal.com/018d937e-f4e0-71ad-add5-c2642abc7a55/banner400.jpg?t=1732741281",
+      "banner600": "https://assets.isthereanydeal.com/018d937e-f4e0-71ad-add5-c2642abc7a55/banner600.jpg?t=1732741281",
+      "boxart": "https://assets.isthereanydeal.com/018d937e-f4e0-71ad-add5-c2642abc7a55/boxart.jpg?t=1732741281"
+    }
+  },
+  {
+    "id": "018d937e-f999-71c8-b0a0-932f481087f9",
+    "slug": "expansion-europa-universalis-iv-res-publica",
+    "title": "Expansion - Europa Universalis IV: Res Publica",
+    "type": "dlc",
+    "mature": false,
+    "assets": {
+      "banner145": "https://assets.isthereanydeal.com/018d937e-f999-71c8-b0a0-932f481087f9/banner145.jpg?t=1732801577",
+      "banner300": "https://assets.isthereanydeal.com/018d937e-f999-71c8-b0a0-932f481087f9/banner300.jpg?t=1732801577",
+      "banner400": "https://assets.isthereanydeal.com/018d937e-f999-71c8-b0a0-932f481087f9/banner400.jpg?t=1732801577",
+      "banner600": "https://assets.isthereanydeal.com/018d937e-f999-71c8-b0a0-932f481087f9/banner600.jpg?t=1732801578",
+      "boxart": "https://assets.isthereanydeal.com/018d937e-f999-71c8-b0a0-932f481087f9/boxart.jpg?t=1732801577"
+    }
+  },
+  {
+    "id": "018d937f-27ec-71c5-a8a4-21b0b76b3e77",
+    "slug": "europa-universalis-iv-songs-of-yuletide",
+    "title": "Europa Universalis IV: Songs of Yuletide",
+    "type": "dlc",
+    "mature": false,
+    "assets": {
+      "banner145": "https://assets.isthereanydeal.com/018d937f-27ec-71c5-a8a4-21b0b76b3e77/banner145.jpg",
+      "banner300": "https://assets.isthereanydeal.com/018d937f-27ec-71c5-a8a4-21b0b76b3e77/banner300.jpg",
+      "banner400": "https://assets.isthereanydeal.com/018d937f-27ec-71c5-a8a4-21b0b76b3e77/banner400.jpg",
+      "banner600": "https://assets.isthereanydeal.com/018d937f-27ec-71c5-a8a4-21b0b76b3e77/banner600.png",
+      "boxart": "https://assets.isthereanydeal.com/018d937f-27ec-71c5-a8a4-21b0b76b3e77/boxart.jpg"
+    }
+  }
+]
