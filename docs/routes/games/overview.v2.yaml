@@ -31,11 +31,11 @@ post:
       content:
         "application/json":
           schema:
-            $ref: "../../schemas/resp.games.overview.json"
+            $ref: "./schemas/resp.games.overview.yaml"
           examples:
             success:
               description: "Successful response"
-              $ref: "../../examples/games/overview.v2.success.json"
+              $ref: "./examples/resp.overview.v2.success.yaml"
     400:
       $ref: "../../defs/error-response.yaml"
     default:

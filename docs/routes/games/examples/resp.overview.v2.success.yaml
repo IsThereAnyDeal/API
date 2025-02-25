@@ -1,0 +1,125 @@
+value: {
+  "prices": [
+    {
+      "id": "018d937f-12e9-71ca-a5d5-f31985870694",
+      "current": {
+        "shop": {
+          "id": 61,
+          "name": "Steam"
+        },
+        "price": {
+          "amount": 31.99,
+          "amountInt": 3199,
+          "currency": "EUR"
+        },
+        "regular": {
+          "amount": 31.99,
+          "amountInt": 3199,
+          "currency": "EUR"
+        },
+        "cut": 0,
+        "voucher": null,
+        "flag": null,
+        "drm": [],
+        "platforms": [
+          {
+            "id": 1,
+            "name": "Windows"
+          },
+          {
+            "id": 2,
+            "name": "Mac"
+          },
+          {
+            "id": 3,
+            "name": "Linux"
+          }
+        ],
+        "timestamp": "2024-02-11T02:07:53+01:00",
+        "expiry": null,
+        "url": "https:\/\/itad.link\/018d9386-b9c8-71ea-8724-47f829db21bd\/"
+      },
+      "lowest": {
+        "shop": {
+          "id": 6,
+          "name": "Fanatical"
+        },
+        "price": {
+          "amount": 22.39,
+          "amountInt": 2239,
+          "currency": "EUR"
+        },
+        "regular": {
+          "amount": 31.99,
+          "amountInt": 3199,
+          "currency": "EUR"
+        },
+        "cut": 30,
+        "timestamp": "2023-03-08T17:35:17+01:00"
+      },
+      "bundled": 1,
+      "urls": {
+        "game": "https:\/\/isthereanydeal.com\/game\/id:018d937f-12e9-71ca-a5d5-f31985870694\/"
+      }
+    }
+  ],
+  "bundles": [
+    {
+      "id": 11631,
+      "title": "Rimworld with all Expansions Bundle",
+      "page": {
+        "id": 8,
+        "name": "Fanatical",
+        "shopId": 6
+      },
+      "url": "https:\/\/www.jdoqocy.com\/click-6305441-13212017?URL=https%3A%2F%2Fwww.fanatical.com%2Fen%2Fbundle%2Frimworld-with-all-expansions",
+      "details": "https:\/\/isthereanydeal.com\/bundles\/11631\/",
+      "isMature": false,
+      "publish": "2024-03-04T19:00:00+01:00",
+      "expiry": "2024-03-22T00:59:46+01:00",
+      "counts": {
+        "games": 4,
+        "media": 1
+      },
+      "tiers": [
+        {
+          "price": {
+            "amount": 87.96,
+            "amountInt": 8796,
+            "currency": "USD"
+          },
+          "games": [
+            {
+              "id": "018d937f-12e9-71ca-a5d5-f31985870694",
+              "slug": "rimworld",
+              "title": "RimWorld",
+              "type": "game",
+              "mature": false
+            },
+            {
+              "id": "018d937f-3e88-718b-b99d-9a45bb69be55",
+              "slug": "rimworld-royalty",
+              "title": "RimWorld - Royalty",
+              "type": "dlc",
+              "mature": false
+            },
+            {
+              "id": "018d937f-5256-73e1-bba6-66fd3f4d9cd7",
+              "slug": "rimworld-ideology",
+              "title": "RimWorld - Ideology",
+              "type": "dlc",
+              "mature": false
+            },
+            {
+              "id": "018d937f-65f0-70d3-83fe-71fac1505a13",
+              "slug": "rimworld-biotech",
+              "title": "RimWorld - Biotech",
+              "type": "dlc",
+              "mature": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

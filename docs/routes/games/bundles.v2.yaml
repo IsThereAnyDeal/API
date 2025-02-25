@@ -20,7 +20,7 @@ get:
       content:
         "application/json":
           schema:
-            $ref: "../../schemas/resp.games.bundles.json"
+            $ref: "./schemas/resp.games.bundles.yaml"
           examples:
             success:
               description: "Successful response"
