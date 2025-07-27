@@ -1,0 +1,20 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: WSGF Overview Response
+type: object
+required: [url, wide, ultrawide, multi_monitor, 4k]
+properties:
+  url:
+    type: string
+    format: url
+  wide:
+    type: string
+    enum: [ "A", "B", "C", "Incomplete", "Unsupported" ]
+  ultrawide:
+    type: string
+    enum: [ "A", "B", "C", "Incomplete", "Unsupported" ]
+  multi_monitor:
+    type: string
+    enum: [ "A", "B", "C", "Incomplete", "Unsupported" ]
+  4k:
+    type: string
+    enum: [ "A", "B", "C", "Incomplete", "Unsupported" ]

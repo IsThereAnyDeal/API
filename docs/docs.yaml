@@ -62,7 +62,7 @@ info:
     Feel free to help us improve it.
 
   termsOfService: https://github.com/IsThereAnyDeal/API/blob/master/TERMS_OF_SERVICE.md
-  version: 2.7.0
+  version: 2.8.0
   contact:
     name: General API contact
     email: api@isthereanydeal.com
@@ -361,6 +361,8 @@ paths:
     $ref: "./routes/internal/players.v1.yaml"
   /internal/hltb/v1:
     $ref: "./routes/internal/hltb.v1.yaml"
+  /internal/wsgf/v1:
+    $ref: "./routes/internal/wsgf.v1.yaml"
   /internal/reviews/v1:
     $ref: "./routes/internal/reviews.v1.yaml"
   /internal/rates/v1:
