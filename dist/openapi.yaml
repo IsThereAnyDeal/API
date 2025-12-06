@@ -56,12 +56,16 @@ info:
 
     Internal APIs are available only for our own services. They are documented here for the sake of completeness.
 
-    ## Source
+    # Unofficial SDKs
+    - [isthereanydeal-nodejs](https://www.npmjs.com/package/isthereanydeal-nodejs) \
+      An unofficial Node.js library for the IsThereAnyDeal API written in TypeScript.
+
+    # Source
 
     You can find source files for this documentation over at [GitHub](https://github.com/IsThereAnyDeal/API).
     Feel free to help us improve it.
   termsOfService: https://github.com/IsThereAnyDeal/API/blob/master/TERMS_OF_SERVICE.md
-  version: 2.7.0
+  version: 2.8.0
   contact:
     name: General API contact
     email: api@isthereanydeal.com
@@ -1725,6 +1729,31 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/resp.internal.hltb'
+        '400':
+          $ref: '#/components/responses/error-response'
+        default:
+          $ref: '#/components/responses/error-response'
+  /internal/wsgf/v1:
+    get:
+      operationId: internal-wsgf-v1
+      tags:
+        - Internal
+      summary: WSGF Overview
+      security:
+        - keySecurity: []
+      parameters:
+        - name: appid
+          in: query
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Success response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resp.internal.wsgf'
         '400':
           $ref: '#/components/responses/error-response'
         default:
@@ -3698,6 +3727,52 @@ components:
             - type: 'null'
             - type: number
               minimum: 0
+    resp.internal.wsgf:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: WSGF Overview Response
+      type: object
+      required:
+        - url
+        - wide
+        - ultrawide
+        - multi_monitor
+        - 4k
+      properties:
+        url:
+          type: string
+          format: url
+        wide:
+          type: string
+          enum:
+            - A
+            - B
+            - C
+            - Incomplete
+            - Unsupported
+        ultrawide:
+          type: string
+          enum:
+            - A
+            - B
+            - C
+            - Incomplete
+            - Unsupported
+        multi_monitor:
+          type: string
+          enum:
+            - A
+            - B
+            - C
+            - Incomplete
+            - Unsupported
+        4k:
+          type: string
+          enum:
+            - A
+            - B
+            - C
+            - Incomplete
+            - Unsupported
     resp.internal.reviews:
       $schema: https://json-schema.org/draft/2020-12/schema
       title: Reviews Overview Response

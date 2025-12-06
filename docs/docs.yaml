@@ -60,7 +60,7 @@ info:
     - [isthereanydeal-nodejs](https://www.npmjs.com/package/isthereanydeal-nodejs) \
       An unofficial Node.js library for the IsThereAnyDeal API written in TypeScript.
     
-    ## Source
+    # Source
 
     You can find source files for this documentation over at [GitHub](https://github.com/IsThereAnyDeal/API).
     Feel free to help us improve it.
