@@ -12,6 +12,7 @@ value: [
         "isMature": false,
         "publish": "2024-03-04T19:00:00+01:00",
         "expiry": "2024-03-22T00:59:46+01:00",
+        "note": "* Bundle being relaunched...again and again.",
         "counts": {
             "games": 4,
             "media": 1

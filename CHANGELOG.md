@@ -1,3 +1,7 @@
+## 2.8.1
+
+- Added `note` field to bundle object in `/games/bundles/v2/` and `/games/overview/v2` endpoints
+
 ## 2.8.0
 
 - Added `/internal/wsgf/v1` endpoint

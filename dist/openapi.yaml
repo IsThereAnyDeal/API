@@ -65,7 +65,7 @@ info:
     You can find source files for this documentation over at [GitHub](https://github.com/IsThereAnyDeal/API).
     Feel free to help us improve it.
   termsOfService: https://github.com/IsThereAnyDeal/API/blob/master/TERMS_OF_SERVICE.md
-  version: 2.8.0
+  version: 2.8.1
   contact:
     name: General API contact
     email: api@isthereanydeal.com
@@ -2550,6 +2550,7 @@ components:
         - isMature
         - publish
         - expiry
+        - note
         - counts
         - tiers
       properties:
@@ -2587,6 +2588,10 @@ components:
             - string
             - 'null'
           format: date-time
+        note:
+          type:
+            - string
+            - 'null'
         counts:
           type: object
           required:
@@ -4090,6 +4095,7 @@ components:
           isMature: false
           publish: '2024-03-04T19:00:00+01:00'
           expiry: '2024-03-22T00:59:46+01:00'
+          note: '* Bundle being relaunched...again and again.'
           counts:
             games: 4
             media: 1
@@ -4242,6 +4248,7 @@ components:
             isMature: false
             publish: '2024-03-04T19:00:00+01:00'
             expiry: '2024-03-22T00:59:46+01:00'
+            note: null
             counts:
               games: 4
               media: 1
