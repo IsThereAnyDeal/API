@@ -1,0 +1,25 @@
+get:
+  operationId: service-shops-map-v1
+  tags:
+    - Shops
+  summary: Shop Map
+  description:
+    Get list of all shops that were ever covered by IsThereAnyDeal, including inactive shops.
+    Only id and title of the shop is included in the response, since the shop details may differ by region.
+  security: []
+  responses:
+    200:
+      description: Shop map
+      content:
+        application/json:
+          schema:
+            $ref: "./schemas/resp.service.shops.map.yaml"
+          examples:
+            success:
+              summary: Short shop map example
+              $ref: "./examples/shops.map.v1.success.yaml"
+    400:
+      $ref: "../../defs/error-response.yaml"
+
+    default:
+      $ref: "../../defs/error-response.yaml"

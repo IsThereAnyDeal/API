@@ -1,14 +1,16 @@
-## 2.8.1
+## 2.9.0
+- Added `/service/shops/map/v1` endpoint
 
-- Added `note` field to bundle object in `/games/bundles/v2/` and `/games/overview/v2` endpoints
+
+## 2.8.1
+- Added `note` field to bundle object in `/games/bundles/v2` and `/games/overview/v2` endpoints
+
 
 ## 2.8.0
-
 - Added `/internal/wsgf/v1` endpoint
 
 
 ## 2.7.0
-
 - Added `/games/subs/v1` endpoint for listing all subscriptions the game is current in
 - Added assets to multiple endpoints: search, lookup, bundled games in overview and game bundle endpoints.
   
@@ -16,22 +18,19 @@
 
 
 ## 2.6.1.
-
 - Fixed `expiry` field format for deal objects
 - Added response information to webhooks
 
-## 2.6.0
 
+## 2.6.0
 ### Deprecations
 - `/games/prices/v2` endpoint has been deprecated, please update to new v3 endpoint
 
 ### Changes
-
 - `deals/v2` endpoint now includes 3 month and 1 year historical low
 - `games/overview/v2` now properly respects `shops` parameter for historical lows
 
 ### New
-
 - added `/games/prices/v3` endpoint
   - `nondeals` parameter from v2 has been replaced with `deals` parameter - the behavior is switched.
     By default you will get all prices, with `deals` parameter you will only get deals.
@@ -48,7 +47,6 @@
  
 
 ## 2.5.0
-
 ### Breaking changes:
 - Undocummented legacy APIs have been removed
 - Unstable endpoints have been promoted to stable, see more in Lookup section below

@@ -358,6 +358,8 @@ paths:
 
   /service/shops/v1:
     $ref: "./routes/service/shops.v1.yaml"
+  /service/shops/map/v1:
+    $ref: "./routes/service/shops.map.v1.yaml"
 
   /internal/early-access/v1:
     $ref: "./routes/internal/early-access.v1.yaml"

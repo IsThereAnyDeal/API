@@ -2,8 +2,10 @@ get:
   operationId: service-shops-v1
   tags:
     - Shops
-  summary: Get Shops
-  description: Return information about shops
+  summary: Active shops
+  description:
+    Return active shops for specified country, with basic information about
+    number of games and shop's last update.
   security: []
   parameters:
     - $ref: "../../docs.yaml#/components/parameters/country"
@@ -11,13 +13,13 @@ get:
     200:
       description: List of shops and their details
       content:
-        "application/json":
+        application/json:
           schema:
-            $ref: "../../schemas/resp.service.shops.json"
+            $ref: "./schemas/resp.service.shops.yaml"
           examples:
             success:
               summary: Short shop list example
-              $ref: "../..//examples/service/shops.v1.success.json"
+              $ref: "./examples/shops.v1.success.yaml"
     400:
       $ref: "../../defs/error-response.yaml"
 
