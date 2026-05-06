@@ -8,6 +8,7 @@ get:
     Get list of most Waitlisted games
   security:
     - keySecurity: []
+    - keyHeaderSecurity: []
   parameters:
     - name: offset
       in: query

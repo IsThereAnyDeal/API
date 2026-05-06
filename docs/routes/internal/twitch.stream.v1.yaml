@@ -4,7 +4,8 @@ get:
     - Internal
   summary: Current stream of Twitch channel
   security:
-    - keySecurity: [ ]
+    - keySecurity: []
+    - keyHeaderSecurity: []
   parameters:
     - name: channel
       in: query

@@ -11,6 +11,7 @@ get:
     even if they currently have a better price.
   security:
     - keySecurity: []
+    - keyHeaderSecurity: []
   parameters:
     - $ref: "../../docs.yaml#/components/parameters/country"
     - name: offset

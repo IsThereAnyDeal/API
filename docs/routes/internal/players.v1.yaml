@@ -5,6 +5,7 @@ get:
   summary: Number of Players Statistics
   security:
     - keySecurity: []
+    - keyHeaderSecurity: []
   parameters:
     - name: appid
       in: query

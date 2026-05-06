@@ -5,6 +5,7 @@ get:
   summary: WSGF Overview
   security:
     - keySecurity: []
+    - keyHeaderSecurity: []
   parameters:
     - name: appid
       in: query

@@ -5,6 +5,7 @@ get:
   summary: Excluded from Family Sharing
   security:
     - keySecurity: []
+    - keyHeaderSecurity: []
   requestBody:
     description: List of appids
     required: true

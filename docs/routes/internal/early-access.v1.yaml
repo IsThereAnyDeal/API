@@ -6,6 +6,7 @@ get:
   description: Returns list of Steam appids, which are currently considered to be early in early access
   security:
     - keySecurity: []
+    - keyHeaderSecurity: []
   responses:
     200:
       description: Success response

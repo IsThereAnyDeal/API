@@ -5,6 +5,7 @@ get:
   summary: Conversion Rates
   security:
     - keySecurity: []
+    - keyHeaderSecurity: []
   responses:
     200:
       description: Success response

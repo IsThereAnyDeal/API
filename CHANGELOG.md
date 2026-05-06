@@ -1,6 +1,7 @@
 ## 2.9.0
-- Added `/service/shops/map/v1` endpoint
-
+- Added `/service/shops/map/v1` endpoint that will list all shops we have ever covered, whether they are currently active or not
+- Added `/webhooks/v1` endpoints to allow adding or removing webhooks
+- Add support for providing api key via header `ITAD-API-Key` instead of query param `key`
 
 ## 2.8.1
 - Added `note` field to bundle object in `/games/bundles/v2` and `/games/overview/v2` endpoints

@@ -6,6 +6,7 @@ get:
   description: Get all bundles which contain the game
   security:
     - keySecurity: []
+    - keyHeaderSecurity: []
   parameters:
     - $ref: "../../docs.yaml#/components/parameters/gid"
     - $ref: "../../docs.yaml#/components/parameters/country"

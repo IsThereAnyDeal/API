@@ -7,6 +7,7 @@ get:
   description: Lookup game based on title or Steam appid
   security:
     - keySecurity: []
+    - keyHeaderSecurity: []
   parameters:
     - name: title
       in: query

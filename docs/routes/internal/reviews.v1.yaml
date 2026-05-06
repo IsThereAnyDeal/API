@@ -6,6 +6,7 @@ get:
   description: Returns Metacritic user reviews overview and OpenCritic overview for a given game
   security:
     - keySecurity: []
+    - keyHeaderSecurity: []
   parameters:
     - name: appid
       in: query

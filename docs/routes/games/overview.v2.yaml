@@ -13,6 +13,7 @@ post:
     which contain at least one of the queried games.
   security:
     - keySecurity: []
+    - keyHeaderSecurity: []
   parameters:
     - $ref: "../../docs.yaml#/components/parameters/country"
     - $ref: "../../docs.yaml#/components/parameters/shops"

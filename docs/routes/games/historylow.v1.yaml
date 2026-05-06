@@ -6,6 +6,7 @@ post:
   description: Get historically lowest prices
   security:
     - keySecurity: []
+    - keyHeaderSecurity: []
   parameters:
     - $ref: "../../docs.yaml#/components/parameters/country"
   requestBody:

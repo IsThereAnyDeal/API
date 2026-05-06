@@ -211,6 +211,11 @@ components:
       in: query
       name: key
 
+    keyHeaderSecurity:
+      type: apiKey
+      in: header
+      name: ITAD-API-Key
+
     oauthSecurity:
       type: oauth2
       flows:
