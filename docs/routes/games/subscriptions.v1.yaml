@@ -6,8 +6,8 @@ post:
   description: |
     Get list of subscriptions the game is listed in.
   security:
-    - keySecurity: []
-    - keyHeaderSecurity: []
+    - ApiKeyParamAuth: []
+    - ApiKeyHeaderAuth: []
   parameters:
     - $ref: "../../docs.yaml#/components/parameters/country"
   requestBody:

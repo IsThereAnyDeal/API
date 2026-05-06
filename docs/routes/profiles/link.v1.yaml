@@ -12,7 +12,7 @@ put:
     Linking is idempotent, if you lose your token, or you need it in different instance of your app,
     you can link the same profile again.
   security:
-    - oauthSecurity: [ profiles ]
+    - OAuth2: [ profiles ]
   requestBody:
     required: true
     description: Profile to link
@@ -40,7 +40,7 @@ delete:
     - Profiles
   summary: Unlink profile
   security:
-    - oauthSecurity: [ profiles ]
+    - OAuth2: [ profiles ]
   parameters:
     - name: ITAD-Profile
       in: header

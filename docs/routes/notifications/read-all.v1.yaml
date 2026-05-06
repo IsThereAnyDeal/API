@@ -5,7 +5,7 @@ put:
   summary: Mark all notifications read
   description: Mark all notifications as read
   security:
-    - oauthSecurity: [notifications]
+    - OAuth2: [notifications]
   responses:
     204:
       description: Success response

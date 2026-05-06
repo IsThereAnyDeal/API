@@ -4,8 +4,8 @@ get:
     - Internal
   summary: Number of Players Statistics
   security:
-    - keySecurity: []
-    - keyHeaderSecurity: []
+    - ApiKeyParamAuth: []
+    - ApiKeyHeaderAuth: []
   parameters:
     - name: appid
       in: query

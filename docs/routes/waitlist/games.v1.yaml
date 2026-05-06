@@ -5,7 +5,7 @@ get:
   summary: Games in Waitlist
   description: Get games in user's Waitlist
   security:
-    - oauthSecurity: [wait_read]
+    - OAuth2: [wait_read]
   responses:
     200:
       description: Success response
@@ -29,7 +29,7 @@ put:
   summary: Add to Waitlist
   description: Add games to user's Waitlist
   security:
-    - oauthSecurity: [wait_write]
+    - OAuth2: [wait_write]
   requestBody:
     $ref: "../../docs.yaml#/components/requestBodies/gids"
   responses:
@@ -47,7 +47,7 @@ delete:
   summary: Delete from Waitlist
   description: Delete games from user's Waitlist
   security:
-    - oauthSecurity: [wait_write]
+    - OAuth2: [wait_write]
   requestBody:
     $ref: "../../docs.yaml#/components/requestBodies/gids"
   responses:

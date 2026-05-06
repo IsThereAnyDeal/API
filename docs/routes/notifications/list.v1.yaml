@@ -5,7 +5,7 @@ get:
   summary: List notifications
   description: Get user's notifications
   security:
-    - oauthSecurity: [notifications]
+    - OAuth2: [notifications]
   responses:
     200:
       description: Success response

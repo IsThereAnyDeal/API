@@ -5,8 +5,8 @@ get:
   summary: Reviews Score
   description: Returns Metacritic user reviews overview and OpenCritic overview for a given game
   security:
-    - keySecurity: []
-    - keyHeaderSecurity: []
+    - ApiKeyParamAuth: []
+    - ApiKeyHeaderAuth: []
   parameters:
     - name: appid
       in: query

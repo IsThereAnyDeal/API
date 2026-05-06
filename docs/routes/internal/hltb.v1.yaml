@@ -4,8 +4,8 @@ get:
     - Internal
   summary: HowLongToBeat Overview
   security:
-    - keySecurity: []
-    - keyHeaderSecurity: []
+    - ApiKeyParamAuth: []
+    - ApiKeyHeaderAuth: []
   parameters:
     - name: appid
       in: query

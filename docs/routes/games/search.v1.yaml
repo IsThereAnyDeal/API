@@ -6,8 +6,8 @@ get:
   summary: Search
   description: Search for games by title
   security:
-    - keySecurity: []
-    - keyHeaderSecurity: []
+    - ApiKeyParamAuth: []
+    - ApiKeyHeaderAuth: []
   parameters:
     - name: title
       in: query

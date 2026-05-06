@@ -7,8 +7,8 @@ get:
   description: |
     Get list of most Waitlisted games
   security:
-    - keySecurity: []
-    - keyHeaderSecurity: []
+    - ApiKeyParamAuth: []
+    - ApiKeyHeaderAuth: []
   parameters:
     - name: offset
       in: query

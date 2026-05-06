@@ -5,7 +5,7 @@ put:
   summary: Mark notification read
   description: Mark single notification as read
   security:
-    - oauthSecurity: [notifications]
+    - OAuth2: [notifications]
   parameters:
     - in: query
       name: id

@@ -7,7 +7,7 @@ put:
     Sync Waitlist with IsThereAnyDeal. User can set category for your profile and default notification rules
     in their [settings](https://isthereanydeal.com/settings/profiles/), same as with natively supported profiles.
   security:
-    - oauthSecurity: [ profiles ]
+    - OAuth2: [ profiles ]
   parameters:
     - name: ITAD-Profile
       in: header

@@ -6,8 +6,8 @@ get:
   description: |
     Get list of most popular games. Popularity for each game is computed as Waitlisted count + Collected count.
   security:
-    - keySecurity: []
-    - keyHeaderSecurity: []
+    - ApiKeyParamAuth: []
+    - ApiKeyHeaderAuth: []
   parameters:
     - name: offset
       in: query

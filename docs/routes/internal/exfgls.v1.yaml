@@ -4,8 +4,8 @@ get:
     - Internal
   summary: Excluded from Family Sharing
   security:
-    - keySecurity: []
-    - keyHeaderSecurity: []
+    - ApiKeyParamAuth: []
+    - ApiKeyHeaderAuth: []
   requestBody:
     description: List of appids
     required: true

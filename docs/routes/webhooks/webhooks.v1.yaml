@@ -9,7 +9,7 @@ put:
   
     Upon successful registration, the response will include webhook's ID that can be used to remove the webhook.
   security:
-    - oauthSecurity: [webhooks]
+    - OAuth2: [webhooks]
   requestBody:
     content:
       application/json:
@@ -36,7 +36,7 @@ delete:
   description:
     Remove previously registered webhook
   security:
-    - oauthSecurity: [webhooks]
+    - OAuth2: [webhooks]
   requestBody:
     content:
       application/json:

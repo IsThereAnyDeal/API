@@ -6,8 +6,8 @@ post:
   description: Lookup IsThereAnyDeal's game IDs by shop's game IDs
   security:
     - {}
-    - keySecurity: []
-    - keyHeaderSecurity: []
+    - ApiKeyParamAuth: []
+    - ApiKeyHeaderAuth: []
   parameters:
     - name: shopId
       in: path

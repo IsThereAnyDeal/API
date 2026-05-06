@@ -9,7 +9,7 @@ get:
     It is not necessary to have copy for each game in Collection, so you should not rely on this endpoint
     if you need to know about all games in user's Collection.
   security:
-    - oauthSecurity: [coll_read]
+    - OAuth2: [coll_read]
   responses:
     200:
       description: Success response
@@ -41,7 +41,7 @@ post:
     
     This operation is atomic, either all copies are added or none.
   security:
-    - oauthSecurity: [coll_write]
+    - OAuth2: [coll_write]
   requestBody:
     description: Copies to add
     content:
@@ -72,7 +72,7 @@ patch:
         
     This operation is atomic, either all copies are updated or none.
   security:
-    - oauthSecurity: [coll_write]
+    - OAuth2: [coll_write]
   requestBody:
     content:
       application/json:
@@ -102,7 +102,7 @@ delete:
     
     Operation is atomic. Either all copies are deleted or none.
   security:
-    - oauthSecurity: [coll_write]
+    - OAuth2: [coll_write]
   requestBody:
     description: List of copy IDs
     content:

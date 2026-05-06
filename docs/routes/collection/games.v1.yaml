@@ -5,7 +5,7 @@ get:
   summary: Games in Collection
   description: Get games in user's Collection
   security:
-    - oauthSecurity: [coll_read]
+    - OAuth2: [coll_read]
   responses:
     200:
       description: Success response
@@ -32,7 +32,7 @@ put:
   summary: Add to Collection
   description: Add games to user's Collection
   security:
-    - oauthSecurity: [coll_write]
+    - OAuth2: [coll_write]
   requestBody:
     $ref: "../../docs.yaml#/components/requestBodies/gids"
   responses:
@@ -50,7 +50,7 @@ delete:
   summary: Delete from Collection
   description: Delete games from user's Collection
   security:
-    - oauthSecurity: [coll_write]
+    - OAuth2: [coll_write]
   requestBody:
     $ref: "../../docs.yaml#/components/requestBodies/gids"
   responses:

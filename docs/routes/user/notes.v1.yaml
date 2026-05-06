@@ -6,7 +6,7 @@ get:
   description: |
     Get user's game notes
   security:
-    - oauthSecurity: [notes_read]
+    - OAuth2: [notes_read]
   responses:
     200:
       description: Success response
@@ -27,7 +27,7 @@ put:
   description: |
     Add or edit game notes. This operation is atomic and idempotent.
   security:
-    - oauthSecurity: [notes_write]
+    - OAuth2: [notes_write]
   requestBody:
     required: true
     description: List of notes
@@ -53,7 +53,7 @@ delete:
   description: |
     Delete game notes. This operation is atomic.
   security:
-    - oauthSecurity: [ notes_write ]
+    - OAuth2: [ notes_write ]
   requestBody:
     required: true
     description: List of game IDs

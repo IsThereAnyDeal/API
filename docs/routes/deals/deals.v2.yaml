@@ -10,8 +10,8 @@ get:
     For each game, the best price is displayed, ignoring stores that currently don't have game on sale,
     even if they currently have a better price.
   security:
-    - keySecurity: []
-    - keyHeaderSecurity: []
+    - ApiKeyParamAuth: []
+    - ApiKeyHeaderAuth: []
   parameters:
     - $ref: "../../docs.yaml#/components/parameters/country"
     - name: offset

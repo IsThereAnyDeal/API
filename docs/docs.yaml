@@ -206,17 +206,17 @@ x-tagGroups:
 
 components:
   securitySchemes:
-    keySecurity:
+    ApiKeyParamAuth:
       type: apiKey
       in: query
       name: key
 
-    keyHeaderSecurity:
+    ApiKeyHeaderAuth:
       type: apiKey
       in: header
       name: ITAD-API-Key
 
-    oauthSecurity:
+    OAuth2:
       type: oauth2
       flows:
         authorizationCode:

@@ -10,7 +10,7 @@ put:
     Games are synced as redeemed copies. If there already is a redemeed copy with the same shop in user's Collection,
     new copy will not be added.
   security:
-    - oauthSecurity: [ profiles ]
+    - OAuth2: [ profiles ]
   parameters:
     - name: ITAD-Profile
       in: header

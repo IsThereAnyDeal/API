@@ -4,8 +4,8 @@ get:
     - Internal
   summary: Conversion Rates
   security:
-    - keySecurity: []
-    - keyHeaderSecurity: []
+    - ApiKeyParamAuth: []
+    - ApiKeyHeaderAuth: []
   responses:
     200:
       description: Success response

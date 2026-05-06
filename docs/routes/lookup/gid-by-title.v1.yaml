@@ -12,8 +12,8 @@ post:
     Typos or variations in title may not give you expected result.
   security:
     - {}
-    - keySecurity: []
-    - keyHeaderSecurity: []
+    - ApiKeyParamAuth: []
+    - ApiKeyHeaderAuth: []
   requestBody:
     description: List of titles
     content:

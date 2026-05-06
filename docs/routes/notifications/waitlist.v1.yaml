@@ -6,7 +6,7 @@ get:
   summary: Waitlist notification detail
   description: Get details of Waitlist notification
   security:
-    - oauthSecurity: [notifications]
+    - OAuth2: [notifications]
   parameters:
     - in: query
       name: id

@@ -5,7 +5,7 @@ get:
   summary: User Info
   description: Get user info, currently just a username
   security:
-    - oauthSecurity: [user_info]
+    - OAuth2: [user_info]
   responses:
     200:
       description: Success response

@@ -7,7 +7,7 @@ get:
     Get all Collection categories, both the user created ones and default one.
     Default category has id 0 and will always be listed last. User set order of categories is respected in the response.
   security:
-    - oauthSecurity: [coll_read]
+    - OAuth2: [coll_read]
   responses:
     200:
       description: Success response
@@ -37,7 +37,7 @@ post:
     
     Successful response will return the created category.
   security:
-    - oauthSecurity: [coll_write]
+    - OAuth2: [coll_write]
   requestBody:
     description: Category to create
     content:
@@ -78,7 +78,7 @@ patch:
     This operation is atomic, either all categories update or none. Successful response is the full category list,
     including categories that were not updated.
   security:
-    - oauthSecurity: [coll_write]
+    - OAuth2: [coll_write]
   requestBody:
     content:
       application/json:
@@ -117,7 +117,7 @@ delete:
     
     Default category or categories that do not exist or user does not own will be silently ignored.
   security:
-    - oauthSecurity: [coll_write]
+    - OAuth2: [coll_write]
   requestBody:
     description: List of category IDs
     content:
