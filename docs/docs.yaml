@@ -227,6 +227,7 @@ components:
             wait_write: Write (add, edit, delete) in user's Waitlist
             coll_read: Read user's Collection
             coll_write: Write (add, edit, delete) in user's Collection
+            webhooks: Add or remove webhooks on user's behalf
 
   parameters:
     country:
@@ -361,6 +362,9 @@ paths:
   /service/shops/map/v1:
     $ref: "./routes/service/shops.map.v1.yaml"
 
+  /webhooks/v1:
+    $ref: "./routes/webhooks/webhooks.v1.yaml"
+
   /internal/early-access/v1:
     $ref: "./routes/internal/early-access.v1.yaml"
   /internal/players/v1:
@@ -383,6 +387,4 @@ webhooks:
     $ref: "./webhooks/ping.yaml"
   notification:
     $ref: "./webhooks/notification.yaml"
-
-
 

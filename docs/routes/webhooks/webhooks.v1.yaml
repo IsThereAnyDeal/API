@@ -1,0 +1,56 @@
+put:
+  operationId: webhooks-add-v1
+  tags:
+    - Webhooks
+  summary: Add webhook
+  description:
+    Register a webhook for the user. All webhooks should implicitly support ping event.
+    You don't have to specify ping event in the list of supported ones, it will be added automatically.
+  
+    Upon successful registration, the response will include webhook's ID that can be used to remove the webhook.
+  security:
+    - oauthSecurity: [webhooks]
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: "./schemas/obj.webhook.yaml"
+  responses:
+    200:
+      description: Successful webhook registration
+      content:
+        application/json:
+          schema:
+            $ref: "./schemas/resp.webhook.add.yaml"
+    400:
+      $ref: "../../defs/resp.error.object-validation.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"
+
+
+delete:
+  operationId: webhooks-delete-v1
+  tags:
+    - Webhooks
+  summary: Remove webhook
+  description:
+    Remove previously registered webhook
+  security:
+    - oauthSecurity: [webhooks]
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          required: [id]
+          properties:
+            id:
+              type: string
+              format: uuid
+  responses:
+    204:
+      description: Successful response
+    400:
+      $ref: "../../defs/error-response.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"
