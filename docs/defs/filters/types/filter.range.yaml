@@ -1,0 +1,13 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+description: Range filter
+type: object
+required: [min, max]
+properties:
+  min:
+    oneOf:
+      - type: "null"
+      - type: number
+  max:
+    oneOf:
+      - type: "null"
+      - type: number

@@ -1,0 +1,17 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+description: Bounded Range filter
+type: object
+required: [min, max]
+properties:
+  min:
+    oneOf:
+      - type: number
+        minimum: 0
+        maximum: 100
+      - type: "null"
+  max:
+    oneOf:
+      - type: number
+        minimum: 0
+        maximum: 100
+      - type: "null"

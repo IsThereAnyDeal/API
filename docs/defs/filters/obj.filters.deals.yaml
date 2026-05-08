@@ -1,0 +1,23 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+description: Deal Filters
+type: object
+required: []
+properties:
+  price:
+    $ref: "./types/filter.range.yaml"
+  regular:
+    $ref: "./types/filter.range.yaml"
+  cut:
+    $ref: "./types/filter.range.bounded.yaml"
+  flag:
+    description: Deal flag, N for new historical low, H for historical low, S for shop low
+    oneOf:
+      - type: string
+        enum: ["N", "H", "S"]
+      - type: "null"
+  hlprice:
+    description: Within `<price (number)>` of historical low
+    type: number
+  hlperc:
+    description: Within `<percent (number)>` of historical low
+    type: number

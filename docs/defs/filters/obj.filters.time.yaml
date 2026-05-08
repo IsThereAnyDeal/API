@@ -1,0 +1,48 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+description: Time Filters
+type: object
+required: []
+properties:
+  added:
+    description: Deal found in last `<value>` hours
+    type: number
+    minimum: 0
+  expiry:
+    description: Deal expires in next `<value>` hours
+    type: number
+    minimum: 0
+  releaseDays:
+    description: Game was released in last `<value>` days
+    type: number
+  releaseYear:
+    description: Game was released between `<min year>` and `<max year>`
+    type: object
+    required: [min, max]
+    properties:
+      min:
+        oneOf:
+          - type: number
+            minimum: 0
+            maximum: 100
+          - type: "null"
+      max:
+        oneOf:
+          - type: number
+            minimum: 0
+            maximum: 100
+          - type: "null"
+  releaseDate:
+    description: Game was released between `<min YYYY-mm-dd>` and `<max YYYY-mm-dd>`
+    type: object
+    required: [min, max]
+    properties:
+      min:
+        oneOf:
+          - type: string
+            format: date
+          - type: "null"
+      max:
+        oneOf:
+          - type: string
+            format: date
+          - type: "null"

@@ -1,0 +1,10 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+description: Shops Filters
+type: object
+required: []
+properties:
+  shops:
+    description: List of shop IDs
+    type: array
+    items:
+      type: number

@@ -1,0 +1,45 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+title: Deals Request
+type: object
+properties:
+  country:
+    description: Two letter country code (ISO 3166-1 alpha-2)
+    type: string
+    minLength: 2
+    maxLength: 2
+    default: "US"
+  offset:
+    description: Deals list offset
+    type: integer
+    minimum: 0
+    default: 0
+  limit:
+    description: How many deals to return
+    type: integer
+    minimum: 1
+    maximum: 200
+    default: 20
+  sort:
+    description: Sorting values, same as in deals list on the website
+    type: string
+  nondeals:
+    description: Load non-sale prices
+    type: boolean
+    default: false
+  mature:
+    description: Load games marked as mature
+    type: boolean
+    default: false
+  shops:
+    description: List of shop IDs
+    type: array
+    items:
+      type: number
+      description: Shop ID
+  filter:
+    allOf:
+      - $ref: "../../../defs/filters/obj.filters.deals.yaml"
+      - $ref: "../../../defs/filters/obj.filters.game.yaml"
+      - $ref: "../../../defs/filters/obj.filters.reviews.yaml"
+      - $ref: "../../../defs/filters/obj.filters.shops.yaml"
+      - $ref: "../../../defs/filters/obj.filters.time.yaml"

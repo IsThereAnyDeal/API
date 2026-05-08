@@ -1,0 +1,66 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+description: Game Filters
+type: object
+required: []
+properties:
+  drm:
+    description: |
+      `1000` for DRM Free or `shopId`
+    type: array
+    items:
+      type: number
+  platform:
+    description: |
+      `1` Windows, `2` Mac, `3` Linux, `5` HTC Vive, `6` Oculus, `7` Windows Mixed Reality
+    type: array
+    items:
+      type: number
+  type:
+    description: |
+      "Is a" filter \
+      Possible values: `1` Game, `2` DLC, `3` Package, `7` Software, `9` Hardware
+    type: array
+    items:
+      type: number
+  typeNot:
+    description: |
+      "Is not a" filter \
+      See `type` for possible values
+  tradingCards:
+    $ref: "./types/filter.boolean.yaml"
+  achievements:
+    $ref: "./types/filter.boolean.yaml"
+  mature:
+    $ref: "./types/filter.boolean.yaml"
+  earlyAccess:
+    $ref: "./types/filter.boolean.yaml"
+  preOrder:
+    $ref: "./types/filter.boolean.yaml"
+  notPreOrder:
+    $ref: "./types/filter.boolean.yaml"
+  bundled:
+    $ref: "./types/filter.boolean.yaml"
+  wasBundled:
+    $ref: "./types/filter.boolean.yaml"
+  neverBundled:
+    $ref: "./types/filter.boolean.yaml"
+  inCollection:
+    $ref: "./types/filter.boolean.yaml"
+  notInCollection:
+    $ref: "./types/filter.boolean.yaml"
+  inWaitlist:
+    $ref: "./types/filter.boolean.yaml"
+  notInWaitlist:
+    $ref: "./types/filter.boolean.yaml"
+  userDlcs:
+    description: DLCs for user's games
+    $ref: "./types/filter.boolean.yaml"
+  tags:
+    type: array
+    items:
+      type: string
+  # userTags
+  inSpothlight:
+    $ref: "./types/filter.boolean.yaml"
+  wasSpotlight:
+    $ref: "./types/filter.boolean.yaml"

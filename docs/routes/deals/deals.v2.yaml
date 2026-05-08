@@ -4,14 +4,22 @@ get:
     - Deals List
   summary: Deals List
   description: |
-    Get current deals. Follows same rules as deals list displayed on the website, which means that
+    Get current deals. Follows the same rules as deals list displayed on the website, which means that
     you will not get one game more than once in the list.
     
     For each game, the best price is displayed, ignoring stores that currently don't have game on sale,
-    even if they currently have a better price.
+    even if they currently have a better price. If you want to included non-sale prices, use `nondeals` parameter.
+    
+    You can define parameters either in a query part of a URL, or you can sent them in a request body.
+    Since the specification for GET requests with body is unclear, we also provide more standard POST endpoint
+    as a fallback.
+    
+    You can authorize with either api key, or OAuth. If you use OAuth, the user data filters will work,
+    e.g. in Waitlist filter.
   security:
     - ApiKeyParamAuth: []
     - ApiKeyHeaderAuth: []
+    - OAuth2: [wait_read, coll_read]
   parameters:
     - $ref: "../../docs.yaml#/components/parameters/country"
     - name: offset
@@ -69,9 +77,30 @@ get:
           value: [61, 35]
     - name: filter
       in: query
-      description: Filter string
+      description: |
+        There are two ways how you can supply filters.
+        
+        - A base64 encoded lz compressed filter json - this is what ITAD uses, you can copy and paste filters from the URL
+        - Filter JSON (see request body for specification). Examples are omitting URL encoding for clarity, 
+        but make sure to URL encode these.
+      examples:
+        encoded:
+          summary: At least 50% off, base64 lz string
+          value: N4IgxgrgLiBcoFsCWA7OBWADAGhAghgB5wCMmmAvhUA=
+        json:
+          summary: At least 50% off, json
+          value: |
+            {"cut":{"min":50,"max":null}}
       schema:
         type: string
+  requestBody:
+    description: |
+      You can use either request body or query parameters, but not both at the same time.
+      If you use request body, you must include `Content-Type: application/json` header in your request.
+    content:
+      application/json:
+        schema:
+          $ref: "./schemas/req.deals.yaml"
   responses:
     200:
       description: Deals list
@@ -88,3 +117,41 @@ get:
 
     default:
       $ref: "../../defs/error-response.yaml"
+
+
+post:
+  operationId: deals-post-v2
+  tags:
+    - Deals List
+  summary: Deals List
+  description: |
+    Get current deals. Fallback method if you want to use request body to provide parameters and for whatever reason
+    you can't use GET request. See [GET request documentation](#tag/Deals-List/operation/deals-v2) for more details.
+    
+    This endpoint does not support query parameters.
+  security:
+    - ApiKeyParamAuth: []
+    - ApiKeyHeaderAuth: []
+    - OAuth2: [wait_read, coll_read]
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: "./schemas/req.deals.yaml"
+  responses:
+    200:
+      description: Deals list
+      content:
+        "application/json":
+          schema:
+            $ref: "./schemas/resp.deals.yaml"
+          examples:
+            success:
+              summary: Deals list response example
+              $ref: "./examples/resp.deals.get.v2.success.yaml"
+    400:
+      $ref: "../../defs/error-response.yaml"
+
+    default:
+      $ref: "../../defs/error-response.yaml"
+

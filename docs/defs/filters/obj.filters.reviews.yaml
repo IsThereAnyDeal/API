@@ -1,0 +1,20 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+description: Reviews Filters
+type: object
+required: []
+properties:
+  steamPerc:
+    description: Steam score
+    $ref: "./types/filter.range.bounded.yaml"
+  steamCount:
+    description: Steam review count
+    $ref: "./types/filter.range.yaml"
+  metaCritic:
+    description: OpenCritic critics score
+    $ref: "./types/filter.range.bounded.yaml"
+  metauser:
+    description: MetaCritic users score
+    $ref: "./types/filter.range.bounded.yaml"
+  openCritic:
+    description: OpenCritic score
+    $ref: "./types/filter.range.bounded.yaml"
