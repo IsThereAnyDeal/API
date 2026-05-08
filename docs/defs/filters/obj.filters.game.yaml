@@ -59,8 +59,12 @@ properties:
     type: array
     items:
       type: string
+  tagsUnion:
+    type: array
+    items:
+      type: string
   # userTags
-  inSpothlight:
+  inSpotlight:
     $ref: "./types/filter.boolean.yaml"
   wasSpotlight:
     $ref: "./types/filter.boolean.yaml"
