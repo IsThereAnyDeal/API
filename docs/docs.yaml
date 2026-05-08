@@ -28,6 +28,9 @@ info:
     In order to get neccessary keys, you have to [register your app](https://isthereanydeal.com/apps/my/).
     Upon registration, api keys and OAuth credentials will be generated for you.
     
+    > For endpoints protected with api key, you can either add key as the query parameter `key`, or as `ITAD-API-Key` header˙.
+    > Refer to endpoint's Authorizations section.
+    
     For some endpoints you might need explicit approval for use. In such cases, contact us.
     
     ### OAuth
