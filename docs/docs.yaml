@@ -298,6 +298,9 @@ paths:
   /lookup/shop/{shopId}/id/v1:
     $ref: "./routes/lookup/shopid-by-gid.v1.yaml"
 
+  /bundles/v1:
+    $ref: "./routes/bundles/bundles.v1.yaml"
+
   /games/search/v1:
     $ref: "./routes/games/search.v1.yaml"
   /games/lookup/v1:

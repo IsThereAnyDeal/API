@@ -1,0 +1,56 @@
+get:
+  operationId: bundles-v1
+  tags:
+    - Bundles
+  summary: Bundle List
+  description: Get bundles
+  security:
+    - ApiKeyParamAuth: []
+    - ApiKeyHeaderAuth: []
+  parameters:
+    - $ref: "../../docs.yaml#/components/parameters/country"
+    - name: offset
+      in: query
+      schema:
+        type: number
+        minimum: 0
+        default: 0
+    - name: limit
+      in: query
+      schema:
+        type: number
+        minimum: 1
+        maximum: 50
+        default: 20
+    - name: mature
+      in: query
+      description: Include bundles marked as mature
+      schema:
+        type: boolean
+        default: false
+    - name: expired
+      in: query
+      description: Include expired bundles
+      schema:
+        type: boolean
+        default: false
+    - name: sort
+      in: query
+      description: Sort value, same as on website
+      schema:
+        type: string
+        default: "-publish"
+  responses:
+    200:
+      description: Success response
+      content:
+        application/json:
+          schema:
+            $ref: "./schemas/resp.bundles.yaml"
+          examples:
+            success:
+              $ref: "./examples/resp.bundles.v1.success.yaml"
+    400:
+      $ref: "../../defs/error-response.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"

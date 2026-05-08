@@ -2,7 +2,7 @@ get:
   operationId: games-bundles-v2
   tags:
     - Bundles
-  summary: Bundles including Game
+  summary: Bundles with Game
   description: Get all bundles which contain the game
   security:
     - ApiKeyParamAuth: []

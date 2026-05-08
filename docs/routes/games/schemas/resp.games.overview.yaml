@@ -33,4 +33,4 @@ properties:
   bundles:
     type: array
     items:
-      $ref: "./obj.bundle.yaml"
+      $ref: "../../bundles/schemas/obj.bundle.yaml"
