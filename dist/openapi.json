@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "IsThereAnyDeal API",
-    "description": "[Changelog](https://github.com/IsThereAnyDeal/API/blob/master/CHANGELOG.md)\n\nIsThereAnyDeal API provides programmatic access to features found at IsThereAnyDeal.  \n\n## Terms of Service\n\nAPI is provided in good faith. We trust you won't misuse the API to damage IsThereAnyDeal, its users or its reputation.\n\n- You MAY use this API for commercial purposes **IF** the resulting app is available to public. If you want to use this API privately contact us.\n- You SHOULD provide a link to IsThereAnyDeal.com or mention IsThereAnyDeal API.\n- You MUST NOT make an impression that you are affiliated with IsThereAnyDeal, unless agreed otherwise.\n  If you are interested in making an official app, please contact us.\n- You MUST NOT change provided data in any way. This means that you can't remove affiliate tags from the URLs, change prices and so on.\n  You MAY use only part of data provided and enrich them from your own sources.  \n- You MUST NOT make an app that could be considered a competition to IsThereAnyDeal or IsThereAnyDeal projects.\n- You MUST NOT use this API to directly or indirectly help the competition of IsThereAnyDeal.\n\nAll data are provided _as-is_. We reserve the right to deny you access to the API at any point without notice.\nIf you are not sure about any of the points, please contact us.\n\n## Access\n\nMost of the endpoints will be restricted by either API key or OAuth.\nIn order to get neccessary keys, you have to [register your app](https://isthereanydeal.com/apps/my/).\nUpon registration, api keys and OAuth credentials will be generated for you.\n\nFor some endpoints you might need explicit approval for use. In such cases, contact us.\n\n### OAuth\n\nWe support [authorization code](https://www.oauth.com/oauth2-servers/access-tokens/authorization-code-request/) flow with [PKCE extension](https://oauth.net/2/pkce/).\n\n> You can find PKCE step-through tutorial at [OAuth 2.0 PKCE Flow](https://www.oauth.com/playground/authorization-code-with-pkce.html)\n\nDo not set hard limits for token lengths. Server will return access token as JWT of variable length.\nTo authorize your endpoint access use Authorization header.\n\n> At the moment implicit flow is also enabled, but its usage is discouraged and support may be removed in the future\n\n## Rate Limiting\n\nAccess to API is rate limited and subject to change. You should get rate-limit info in appropriate headers.\nFurther limits and restrictions may be added if we detect misuse. \n\nIf you have questions about limits, contact us.\n\n# Unstable and Internal Endpoints\n\nSome endpoints are marked as unstable or internal. Unstable endpoints are publicly available,\nbut the API may not be completely finalized yet - either the way the endpoint is called or the response may change\nat any time.\n\nInternal APIs are available only for our own services. They are documented here for the sake of completeness.\n\n# Unofficial SDKs\n- [isthereanydeal-nodejs](https://www.npmjs.com/package/isthereanydeal-nodejs) \\\n  An unofficial Node.js library for the IsThereAnyDeal API written in TypeScript.\n\n# Source\n\nYou can find source files for this documentation over at [GitHub](https://github.com/IsThereAnyDeal/API).\nFeel free to help us improve it.\n",
+    "description": "[Changelog](https://github.com/IsThereAnyDeal/API/blob/master/CHANGELOG.md)\n\nIsThereAnyDeal API provides programmatic access to features found at IsThereAnyDeal.  \n\n## Terms of Service\n\nAPI is provided in good faith. We trust you won't misuse the API to damage IsThereAnyDeal, its users or its reputation.\n\n- You MAY use this API for commercial purposes **IF** the resulting app is available to public. If you want to use this API privately contact us.\n- You SHOULD provide a link to IsThereAnyDeal.com or mention IsThereAnyDeal API.\n- You MUST NOT make an impression that you are affiliated with IsThereAnyDeal, unless agreed otherwise.\n  If you are interested in making an official app, please contact us.\n- You MUST NOT change provided data in any way. This means that you can't remove affiliate tags from the URLs, change prices and so on.\n  You MAY use only part of data provided and enrich them from your own sources.  \n- You MUST NOT make an app that could be considered a competition to IsThereAnyDeal or IsThereAnyDeal projects.\n- You MUST NOT use this API to directly or indirectly help the competition of IsThereAnyDeal.\n\nAll data are provided _as-is_. We reserve the right to deny you access to the API at any point without notice.\nIf you are not sure about any of the points, please contact us.\n\n## Access\n\nMost of the endpoints will be restricted by either API key or OAuth.\nIn order to get neccessary keys, you have to [register your app](https://isthereanydeal.com/apps/my/).\nUpon registration, api keys and OAuth credentials will be generated for you.\n\n> For endpoints protected with api key, you can either add key as the query parameter `key`, or as `ITAD-API-Key` header˙.\n> Refer to endpoint's Authorizations section.\n\nFor some endpoints you might need explicit approval for use. In such cases, contact us.\n\n### OAuth\n\nWe support [authorization code](https://www.oauth.com/oauth2-servers/access-tokens/authorization-code-request/) flow with [PKCE extension](https://oauth.net/2/pkce/).\n\n> You can find PKCE step-through tutorial at [OAuth 2.0 PKCE Flow](https://www.oauth.com/playground/authorization-code-with-pkce.html)\n\nDo not set hard limits for token lengths. Server will return access token as JWT of variable length.\nTo authorize your endpoint access use Authorization header.\n\n> At the moment implicit flow is also enabled, but its usage is discouraged and support may be removed in the future\n\n## Rate Limiting\n\nAccess to API is rate limited and subject to change. You should get rate-limit info in appropriate headers.\nFurther limits and restrictions may be added if we detect misuse. \n\nIf you have questions about limits, contact us.\n\n# Unstable and Internal Endpoints\n\nSome endpoints are marked as unstable or internal. Unstable endpoints are publicly available,\nbut the API may not be completely finalized yet - either the way the endpoint is called or the response may change\nat any time.\n\nInternal APIs are available only for our own services. They are documented here for the sake of completeness.\n\n# Unofficial SDKs\n- [isthereanydeal-nodejs](https://www.npmjs.com/package/isthereanydeal-nodejs) \\\n  An unofficial Node.js library for the IsThereAnyDeal API written in TypeScript.\n\n# Source\n\nYou can find source files for this documentation over at [GitHub](https://github.com/IsThereAnyDeal/API).\nFeel free to help us improve it.\n",
     "termsOfService": "https://github.com/IsThereAnyDeal/API/blob/master/TERMS_OF_SERVICE.md",
     "version": "2.8.1",
     "contact": {
@@ -119,7 +119,10 @@
         "security": [
           {},
           {
-            "keySecurity": []
+            "ApiKeyParamAuth": []
+          },
+          {
+            "ApiKeyHeaderAuth": []
           }
         ],
         "requestBody": {
@@ -177,7 +180,10 @@
         "security": [
           {},
           {
-            "keySecurity": []
+            "ApiKeyParamAuth": []
+          },
+          {
+            "ApiKeyHeaderAuth": []
           }
         ],
         "parameters": [
@@ -243,7 +249,10 @@
         "security": [
           {},
           {
-            "keySecurity": []
+            "ApiKeyParamAuth": []
+          },
+          {
+            "ApiKeyHeaderAuth": []
           }
         ],
         "parameters": [
@@ -296,6 +305,98 @@
         }
       }
     },
+    "/bundles/v1": {
+      "get": {
+        "operationId": "bundles-v1",
+        "tags": [
+          "Bundles"
+        ],
+        "summary": "Bundle List",
+        "description": "Get bundles",
+        "security": [
+          {
+            "ApiKeyParamAuth": []
+          },
+          {
+            "ApiKeyHeaderAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/country"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "default": 0
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "minimum": 1,
+              "maximum": 50,
+              "default": 20
+            }
+          },
+          {
+            "name": "mature",
+            "in": "query",
+            "description": "Include bundles marked as mature",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "expired",
+            "in": "query",
+            "description": "Include expired bundles",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sort value, same as on website",
+            "schema": {
+              "type": "string",
+              "default": "-publish"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/resp.bundles"
+                },
+                "examples": {
+                  "success": {
+                    "$ref": "#/components/examples/resp.bundles.v1.success"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error-response"
+          },
+          "default": {
+            "$ref": "#/components/responses/error-response"
+          }
+        }
+      }
+    },
     "/games/search/v1": {
       "get": {
         "operationId": "games-search-v1",
@@ -307,7 +408,10 @@
         "description": "Search for games by title",
         "security": [
           {
-            "keySecurity": []
+            "ApiKeyParamAuth": []
+          },
+          {
+            "ApiKeyHeaderAuth": []
           }
         ],
         "parameters": [
@@ -369,7 +473,10 @@
         "description": "Lookup game based on title or Steam appid",
         "security": [
           {
-            "keySecurity": []
+            "ApiKeyParamAuth": []
+          },
+          {
+            "ApiKeyHeaderAuth": []
           }
         ],
         "parameters": [
@@ -430,7 +537,10 @@
         "description": "Get basic game information",
         "security": [
           {
-            "keySecurity": []
+            "ApiKeyParamAuth": []
+          },
+          {
+            "ApiKeyHeaderAuth": []
           }
         ],
         "parameters": [
@@ -478,7 +588,10 @@
         "description": "Get games' prices",
         "security": [
           {
-            "keySecurity": []
+            "ApiKeyParamAuth": []
+          },
+          {
+            "ApiKeyHeaderAuth": []
           }
         ],
         "parameters": [
@@ -551,11 +664,14 @@
         "tags": [
           "Bundles"
         ],
-        "summary": "Bundles including Game",
+        "summary": "Bundles with Game",
         "description": "Get all bundles which contain the game",
         "security": [
           {
-            "keySecurity": []
+            "ApiKeyParamAuth": []
+          },
+          {
+            "ApiKeyHeaderAuth": []
           }
         ],
         "parameters": [
@@ -610,7 +726,10 @@
         "description": "Get basic price overview for selected games.\n\nFor each game current best price will be loaded (optionally, only from selected shops),\nhistorical low price (among all covered shops).\n\nFurthermore, result will also contain list of currently active bundles,\nwhich contain at least one of the queried games.\n",
         "security": [
           {
-            "keySecurity": []
+            "ApiKeyParamAuth": []
+          },
+          {
+            "ApiKeyHeaderAuth": []
           }
         ],
         "parameters": [
@@ -670,7 +789,10 @@
         "description": "Get historically lowest prices",
         "security": [
           {
-            "keySecurity": []
+            "ApiKeyParamAuth": []
+          },
+          {
+            "ApiKeyHeaderAuth": []
           }
         ],
         "parameters": [
@@ -718,7 +840,10 @@
         "description": "Get historically lowest prices for individual stores",
         "security": [
           {
-            "keySecurity": []
+            "ApiKeyParamAuth": []
+          },
+          {
+            "ApiKeyHeaderAuth": []
           }
         ],
         "parameters": [
@@ -769,7 +894,10 @@
         "description": "Get log of historical prices",
         "security": [
           {
-            "keySecurity": []
+            "ApiKeyParamAuth": []
+          },
+          {
+            "ApiKeyHeaderAuth": []
           }
         ],
         "parameters": [
@@ -828,7 +956,10 @@
         "description": "Get list of subscriptions the game is listed in.\n",
         "security": [
           {
-            "keySecurity": []
+            "ApiKeyParamAuth": []
+          },
+          {
+            "ApiKeyHeaderAuth": []
           }
         ],
         "parameters": [
@@ -872,10 +1003,19 @@
           "Deals List"
         ],
         "summary": "Deals List",
-        "description": "Get current deals. Follows same rules as deals list displayed on the website, which means that\nyou will not get one game more than once in the list.\n\nFor each game, the best price is displayed, ignoring stores that currently don't have game on sale,\neven if they currently have a better price.\n",
+        "description": "Get current deals. Follows the same rules as deals list displayed on the website, which means that\nyou will not get one game more than once in the list.\n\nFor each game, the best price is displayed, ignoring stores that currently don't have game on sale,\neven if they currently have a better price. If you want to included non-sale prices, use `nondeals` parameter.\n\nYou can define parameters either in a query part of a URL, or you can sent them in a request body.\nSince the specification for GET requests with body is unclear, we also provide more standard POST endpoint\nas a fallback.\n\nYou can authorize with either api key, or OAuth. If you use OAuth, the user data filters will work,\ne.g. in Waitlist filter.\n",
         "security": [
           {
-            "keySecurity": []
+            "ApiKeyParamAuth": []
+          },
+          {
+            "ApiKeyHeaderAuth": []
+          },
+          {
+            "OAuth2": [
+              "wait_read",
+              "coll_read"
+            ]
           }
         ],
         "parameters": [
@@ -965,12 +1105,87 @@
           {
             "name": "filter",
             "in": "query",
-            "description": "Filter string",
+            "description": "There are two ways how you can supply filters.\n\n- A base64 encoded lz compressed filter json - this is what ITAD uses, you can copy and paste filters from the URL\n- Filter JSON (see request body for specification). Examples are omitting URL encoding for clarity, \nbut make sure to URL encode these.\n",
+            "examples": {
+              "encoded": {
+                "summary": "At least 50% off, base64 lz string",
+                "value": "N4IgxgrgLiBcoFsCWA7OBWADAGhAghgB5wCMmmAvhUA="
+              },
+              "json": {
+                "summary": "At least 50% off, json",
+                "value": "{\"cut\":{\"min\":50,\"max\":null}}\n"
+              }
+            },
             "schema": {
               "type": "string"
             }
           }
         ],
+        "requestBody": {
+          "description": "You can use either request body or query parameters, but not both at the same time.\nIf you use request body, you must include `Content-Type: application/json` header in your request.\n",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/req.deals"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Deals list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/resp.deals"
+                },
+                "examples": {
+                  "success": {
+                    "summary": "Deals list response example",
+                    "$ref": "#/components/examples/resp.deals.get.v2.success"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error-response"
+          },
+          "default": {
+            "$ref": "#/components/responses/error-response"
+          }
+        }
+      },
+      "post": {
+        "operationId": "deals-post-v2",
+        "tags": [
+          "Deals List"
+        ],
+        "summary": "Deals List",
+        "description": "Get current deals. Fallback method if you want to use request body to provide parameters and for whatever reason\nyou can't use GET request. See [GET request documentation](#tag/Deals-List/operation/deals-v2) for more details.\n\nThis endpoint does not support query parameters.\n",
+        "security": [
+          {
+            "ApiKeyParamAuth": []
+          },
+          {
+            "ApiKeyHeaderAuth": []
+          },
+          {
+            "OAuth2": [
+              "wait_read",
+              "coll_read"
+            ]
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/req.deals"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Deals list",
@@ -1007,7 +1222,7 @@
         "description": "Get games in user's Waitlist",
         "security": [
           {
-            "oauthSecurity": [
+            "OAuth2": [
               "wait_read"
             ]
           }
@@ -1046,7 +1261,7 @@
         "description": "Add games to user's Waitlist",
         "security": [
           {
-            "oauthSecurity": [
+            "OAuth2": [
               "wait_write"
             ]
           }
@@ -1075,7 +1290,7 @@
         "description": "Delete games from user's Waitlist",
         "security": [
           {
-            "oauthSecurity": [
+            "OAuth2": [
               "wait_write"
             ]
           }
@@ -1106,7 +1321,7 @@
         "description": "Get games in user's Collection",
         "security": [
           {
-            "oauthSecurity": [
+            "OAuth2": [
               "coll_read"
             ]
           }
@@ -1149,7 +1364,7 @@
         "description": "Add games to user's Collection",
         "security": [
           {
-            "oauthSecurity": [
+            "OAuth2": [
               "coll_write"
             ]
           }
@@ -1178,7 +1393,7 @@
         "description": "Delete games from user's Collection",
         "security": [
           {
-            "oauthSecurity": [
+            "OAuth2": [
               "coll_write"
             ]
           }
@@ -1209,7 +1424,7 @@
         "description": "Get all copies user has in their Collection. Copies are returned as a simple list.\n\nIt is not necessary to have copy for each game in Collection, so you should not rely on this endpoint\nif you need to know about all games in user's Collection.\n",
         "security": [
           {
-            "oauthSecurity": [
+            "OAuth2": [
               "coll_read"
             ]
           }
@@ -1252,7 +1467,7 @@
         "description": "Add new copies. If the game is not already in a Collection, it will be added. Similarly, new tags will also be created.\n\nSame copies may exist multiple times for a single game, ITAD does not check for duplicates.\n\nThis operation is atomic, either all copies are added or none.\n",
         "security": [
           {
-            "oauthSecurity": [
+            "OAuth2": [
               "coll_write"
             ]
           }
@@ -1317,7 +1532,7 @@
         "description": "Update one or more copies.\n\nYou can issue partial updates on copy, only properties that are included for a copy will be updated.\n    \nThis operation is atomic, either all copies are updated or none.\n",
         "security": [
           {
-            "oauthSecurity": [
+            "OAuth2": [
               "coll_write"
             ]
           }
@@ -1365,7 +1580,7 @@
         "description": "Delete Collection copies.\n\nCopies that do not exist or don't belong to user will be silently ignored.\n\nOperation is atomic. Either all copies are deleted or none.\n",
         "security": [
           {
-            "oauthSecurity": [
+            "OAuth2": [
               "coll_write"
             ]
           }
@@ -1411,7 +1626,7 @@
         "description": "Get all Collection categories, both the user created ones and default one.\nDefault category has id 0 and will always be listed last. User set order of categories is respected in the response.\n",
         "security": [
           {
-            "oauthSecurity": [
+            "OAuth2": [
               "coll_read"
             ]
           }
@@ -1454,7 +1669,7 @@
         "description": "Create Collection category. Categories with same name may exist.\n\nSuccessful response will return the created category.\n",
         "security": [
           {
-            "oauthSecurity": [
+            "OAuth2": [
               "coll_write"
             ]
           }
@@ -1507,7 +1722,7 @@
         "description": "Update one or more categories.\n\nFor each category that you are going to update, only `id` is required. Fields that you do not want to update may be\nset to `null` or omitted fully. Categories that do not exist or user does not own will be ignored.\n\nDefault category (id: `0`) may have only `public` property updated. Other properties will be ignored.\n\nThis operation is atomic, either all categories update or none. Successful response is the full category list,\nincluding categories that were not updated.\n",
         "security": [
           {
-            "oauthSecurity": [
+            "OAuth2": [
               "coll_write"
             ]
           }
@@ -1574,7 +1789,7 @@
         "description": "Delete Collection categories.\n\nDefault category or categories that do not exist or user does not own will be silently ignored.\n",
         "security": [
           {
-            "oauthSecurity": [
+            "OAuth2": [
               "coll_write"
             ]
           }
@@ -1621,7 +1836,10 @@
         "description": "Get Waitlist statistics for a game\n\n> Note: stats do not take into consideration users' regions.\n> If they have set their price limit to be a historical low, stats will be computed\n> for all users as if they were in the region you specify\n",
         "security": [
           {
-            "keySecurity": []
+            "ApiKeyParamAuth": []
+          },
+          {
+            "ApiKeyHeaderAuth": []
           }
         ],
         "parameters": [
@@ -1683,7 +1901,10 @@
         "description": "Get list of most Waitlisted games\n",
         "security": [
           {
-            "keySecurity": []
+            "ApiKeyParamAuth": []
+          },
+          {
+            "ApiKeyHeaderAuth": []
           }
         ],
         "parameters": [
@@ -1738,7 +1959,10 @@
         "description": "Get list of most Collected games\n",
         "security": [
           {
-            "keySecurity": []
+            "ApiKeyParamAuth": []
+          },
+          {
+            "ApiKeyHeaderAuth": []
           }
         ],
         "parameters": [
@@ -1792,7 +2016,10 @@
         "description": "Get list of most popular games. Popularity for each game is computed as Waitlisted count + Collected count.\n",
         "security": [
           {
-            "keySecurity": []
+            "ApiKeyParamAuth": []
+          },
+          {
+            "ApiKeyHeaderAuth": []
           }
         ],
         "parameters": [
@@ -1846,7 +2073,7 @@
         "description": "Get user info, currently just a username",
         "security": [
           {
-            "oauthSecurity": [
+            "OAuth2": [
               "user_info"
             ]
           }
@@ -1881,7 +2108,7 @@
         "description": "Get user's game notes\n",
         "security": [
           {
-            "oauthSecurity": [
+            "OAuth2": [
               "notes_read"
             ]
           }
@@ -1914,7 +2141,7 @@
         "description": "Add or edit game notes. This operation is atomic and idempotent.\n",
         "security": [
           {
-            "oauthSecurity": [
+            "OAuth2": [
               "notes_write"
             ]
           }
@@ -1954,7 +2181,7 @@
         "description": "Delete game notes. This operation is atomic.\n",
         "security": [
           {
-            "oauthSecurity": [
+            "OAuth2": [
               "notes_write"
             ]
           }
@@ -1997,7 +2224,7 @@
         "description": "Profile is an object identifying remote account. You need linked profile to use sync endpoints.\n\nAfter successful link you will get profile token, which is used in subsequent profile operations,\nusually as an `ITAD-Profile` header. \n\nLinking is idempotent, if you lose your token, or you need it in different instance of your app,\nyou can link the same profile again.\n",
         "security": [
           {
-            "oauthSecurity": [
+            "OAuth2": [
               "profiles"
             ]
           }
@@ -2044,7 +2271,7 @@
         "summary": "Unlink profile",
         "security": [
           {
-            "oauthSecurity": [
+            "OAuth2": [
               "profiles"
             ]
           }
@@ -2083,7 +2310,7 @@
         "description": "Sync Waitlist with IsThereAnyDeal. User can set category for your profile and default notification rules\nin their [settings](https://isthereanydeal.com/settings/profiles/), same as with natively supported profiles.\n",
         "security": [
           {
-            "oauthSecurity": [
+            "OAuth2": [
               "profiles"
             ]
           }
@@ -2155,7 +2382,7 @@
         "description": "Sync Collection with IsThereAnyDeal. User can set category for your profile\nin their [settings](https://isthereanydeal.com/settings/profiles/), same as with natively supported profiles.\n\nGames are synced as redeemed copies. If there already is a redemeed copy with the same shop in user's Collection,\nnew copy will not be added.\n",
         "security": [
           {
-            "oauthSecurity": [
+            "OAuth2": [
               "profiles"
             ]
           }
@@ -2229,7 +2456,7 @@
         "description": "Get user's notifications",
         "security": [
           {
-            "oauthSecurity": [
+            "OAuth2": [
               "notifications"
             ]
           }
@@ -2275,7 +2502,7 @@
         "description": "Get details of Waitlist notification",
         "security": [
           {
-            "oauthSecurity": [
+            "OAuth2": [
               "notifications"
             ]
           }
@@ -2329,7 +2556,7 @@
         "description": "Mark single notification as read",
         "security": [
           {
-            "oauthSecurity": [
+            "OAuth2": [
               "notifications"
             ]
           }
@@ -2369,7 +2596,7 @@
         "description": "Mark all notifications as read",
         "security": [
           {
-            "oauthSecurity": [
+            "OAuth2": [
               "notifications"
             ]
           }
@@ -2393,8 +2620,8 @@
         "tags": [
           "Shops"
         ],
-        "summary": "Get Shops",
-        "description": "Return information about shops",
+        "summary": "Active shops",
+        "description": "Return active shops for specified country, with basic information about number of games and shop's last update.",
         "security": [],
         "parameters": [
           {
@@ -2427,6 +2654,243 @@
         }
       }
     },
+    "/service/shops/map/v1": {
+      "get": {
+        "operationId": "service-shops-map-v1",
+        "tags": [
+          "Shops"
+        ],
+        "summary": "Shop Map",
+        "description": "Get list of all shops that were ever covered by IsThereAnyDeal, including inactive shops. Only id and title of the shop is included in the response, since the shop details may differ by region.",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Shop map",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/resp.service.shops.map"
+                },
+                "examples": {
+                  "success": {
+                    "summary": "Short shop map example",
+                    "$ref": "#/components/examples/shops.map.v1.success"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error-response"
+          },
+          "default": {
+            "$ref": "#/components/responses/error-response"
+          }
+        }
+      }
+    },
+    "/webhooks/v1": {
+      "put": {
+        "operationId": "webhooks-add-v1",
+        "tags": [
+          "Webhooks"
+        ],
+        "summary": "Add webhook",
+        "description": "Register a webhook for the user. All webhooks should implicitly support ping event. You don't have to specify ping event in the list of supported ones, it will be added automatically.\nUpon successful registration, the response will include webhook's ID that can be used to remove the webhook.",
+        "security": [
+          {
+            "OAuth2": [
+              "webhooks"
+            ]
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/obj.webhook"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful webhook registration",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/resp.webhook.add"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/resp.error.object-validation"
+          },
+          "default": {
+            "$ref": "#/components/responses/error-response"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "webhooks-delete-v1",
+        "tags": [
+          "Webhooks"
+        ],
+        "summary": "Remove webhook",
+        "description": "Remove previously registered webhook",
+        "security": [
+          {
+            "OAuth2": [
+              "webhooks"
+            ]
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Successful response"
+          },
+          "400": {
+            "$ref": "#/components/responses/error-response"
+          },
+          "default": {
+            "$ref": "#/components/responses/error-response"
+          }
+        }
+      }
+    },
+    "/unstable/games/list/v1": {
+      "get": {
+        "operationId": "unstable-games-list-v1",
+        "tags": [
+          "Unstable"
+        ],
+        "summary": "Game List",
+        "description": "> We are looking for a feedback for this endpoint. Please let us know whether you find this useful or not,\n> or suggest changes. If we won't hear any feedback, we will assume this endpoint\n> is useless and will be removed in the future.\n\nGet list of currently recognized active games.\n\nOne of the biggest hurdles to communicate with the ITAD API is to get game IDs that are needed by our endpoints.\nUsually, you will get these IDs by doing a lookup or search when you are trying to get to specific game,\nor they will be a part of the response of other endpoints, e.g. Deals list.\n\nWith this endpoint we are experimenting with returning a list of all currently active games, which could be used to\nbootstrap your application.\n\nHowever, this is not a load once and forget solution. Each game on IsThereAnyDeal has associated products,\nwhich are basically entries from shops that we cover. Think about \"game\" on ITAD as a _container_,\nthat includes products and has some other associated information or metadata.\n\nOnce a game loses its products, it will become inactive. This can happen for example if the game is renamed.\nIn such cases, new game entry will be created, and products will be reassigned to the new game.\nThis can happen automatically by a system, or manually.\n\nThe automatic product to game assignment is not perfect, and sometimes needs to be fixed manually.\nThis may happen because of various sitations, for example:\n- developer changes the game's name, but some of the shops don't reflect the change and keep using the old name\n- shop lists a game in a slightly different way that our system can't manage automatically \n- remaster of the game is released with the same name as the old entry\n- a different game with the same name exists and products needs to be split to correct entries\n\n> To make things even more complicated, the shop may change their product ID,\n> or may use different product IDs for different regions, based on their internal structure.\n> To get a better understanding of this, you can check any game on ITAD for its products. As an example,\n> here's [Red Dead Redemption 2](https://isthereanydeal.com/game/red-dead-redemption-2/products/). \n\nThe game IDs are ensured to be ascending. You can check for new entries by using your last known game ID\nto get only new entries. However, there may be a case, where an old inactive game becomes active again\n- it stopped being sold, but has since returned and is being sold again.\n\nWe are looking for a feedback about this endpoint. You can currently use it to bootstrap your application,\nbut it should not be relied upon for 100% coverage all the time. At the very least, if you end up relying on this map\nand omit doing lookups, you should check for new entries, and periodically (e.g. once a week) recheck the entire list.\n\nThere is a possiblity to return all known game entries, including the inactive ones, but this would include\na lot of dead entries that will never be used again, like when a shop listed a game with typo and such.\n\nThe maximum number of games you will get is 10000. Use `last` parameter to get more entries.\n\n> This endpoint is supposed to be used in concert with [Game Changes endpoint](#tag/Unstable/operation/unstable-games-dots-v1).\n",
+        "security": [
+          {
+            "ApiKeyParamAuth": []
+          },
+          {
+            "ApiKeyHeaderAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "last",
+            "in": "query",
+            "required": false,
+            "description": "Last known game ID, use to get newer entries",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Info response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/resp.games.list"
+                },
+                "examples": {
+                  "list": {
+                    "$ref": "#/components/examples/resp.games.list.v1.success"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error-response"
+          },
+          "default": {
+            "$ref": "#/components/responses/error-response"
+          }
+        }
+      }
+    },
+    "/unstable/games/dots/v1": {
+      "get": {
+        "operationId": "unstable-games-dots-v1",
+        "tags": [
+          "Unstable"
+        ],
+        "summary": "Game Changes",
+        "description": "> We are looking for a feedback for this endpoint. Please let us know whether you find this useful or not,\n> or suggest changes. If we won't hear any feedback, we will assume this endpoint\n> is useless and will be removed in the future.\n\nGet list of product assignment changes.\n\nAs explained in the [Games List endpoint](#tag/Unstable/operation/unstable-games-list-v1), game on IsThereAnyDeal\nis a container that has products assigned, and products may move between game entries.\n\nThis endpoint will return these products changes. The intention is that if you use Games List endpoint\nto get the game map, you will also use this endpoint in concert, and recheck games that had their products reassigned.\n\nNumber of entries returned is limited to 1000. You can use `last` parameter to get newer entries since your last known id,\nor `since` parameter to get newer entries since supplied unix timestamp.\nIf none are used, you will get the newest 1000 entries.\n\n> This endpoint is supposed to be used in concert with [Game List endpoint](#tag/Unstable/operation/unstable-games-list-v1).\n",
+        "security": [
+          {
+            "ApiKeyParamAuth": []
+          },
+          {
+            "ApiKeyHeaderAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "last",
+            "in": "query",
+            "required": false,
+            "description": "Last known change ID, use to get newer entries",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "since",
+            "in": "query",
+            "required": false,
+            "description": "Unix timestamp, to return newer entries than supplied timestamp",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/resp.games.dots"
+                },
+                "examples": {
+                  "changes": {
+                    "$ref": "#/components/examples/resp.games.dots.v1.success"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error-response"
+          },
+          "default": {
+            "$ref": "#/components/responses/error-response"
+          }
+        }
+      }
+    },
     "/internal/early-access/v1": {
       "get": {
         "operationId": "internal-earlyaccess-v1",
@@ -2437,7 +2901,10 @@
         "description": "Returns list of Steam appids, which are currently considered to be early in early access",
         "security": [
           {
-            "keySecurity": []
+            "ApiKeyParamAuth": []
+          },
+          {
+            "ApiKeyHeaderAuth": []
           }
         ],
         "responses": {
@@ -2472,7 +2939,10 @@
         "summary": "Number of Players Statistics",
         "security": [
           {
-            "keySecurity": []
+            "ApiKeyParamAuth": []
+          },
+          {
+            "ApiKeyHeaderAuth": []
           }
         ],
         "parameters": [
@@ -2514,7 +2984,10 @@
         "summary": "HowLongToBeat Overview",
         "security": [
           {
-            "keySecurity": []
+            "ApiKeyParamAuth": []
+          },
+          {
+            "ApiKeyHeaderAuth": []
           }
         ],
         "parameters": [
@@ -2556,7 +3029,10 @@
         "summary": "WSGF Overview",
         "security": [
           {
-            "keySecurity": []
+            "ApiKeyParamAuth": []
+          },
+          {
+            "ApiKeyHeaderAuth": []
           }
         ],
         "parameters": [
@@ -2599,7 +3075,10 @@
         "description": "Returns Metacritic user reviews overview and OpenCritic overview for a given game",
         "security": [
           {
-            "keySecurity": []
+            "ApiKeyParamAuth": []
+          },
+          {
+            "ApiKeyHeaderAuth": []
           }
         ],
         "parameters": [
@@ -2641,7 +3120,10 @@
         "summary": "Conversion Rates",
         "security": [
           {
-            "keySecurity": []
+            "ApiKeyParamAuth": []
+          },
+          {
+            "ApiKeyHeaderAuth": []
           }
         ],
         "responses": {
@@ -2673,7 +3155,10 @@
         "summary": "Excluded from Family Sharing",
         "security": [
           {
-            "keySecurity": []
+            "ApiKeyParamAuth": []
+          },
+          {
+            "ApiKeyHeaderAuth": []
           }
         ],
         "requestBody": {
@@ -2719,7 +3204,10 @@
         "summary": "Current stream of Twitch channel",
         "security": [
           {
-            "keySecurity": []
+            "ApiKeyParamAuth": []
+          },
+          {
+            "ApiKeyHeaderAuth": []
           }
         ],
         "parameters": [
@@ -2862,12 +3350,17 @@
   },
   "components": {
     "securitySchemes": {
-      "keySecurity": {
+      "ApiKeyParamAuth": {
         "type": "apiKey",
         "in": "query",
         "name": "key"
       },
-      "oauthSecurity": {
+      "ApiKeyHeaderAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "ITAD-API-Key"
+      },
+      "OAuth2": {
         "type": "oauth2",
         "flows": {
           "authorizationCode": {
@@ -2882,7 +3375,8 @@
               "wait_read": "Read user's Waitlist",
               "wait_write": "Write (add, edit, delete) in user's Waitlist",
               "coll_read": "Read user's Collection",
-              "coll_write": "Write (add, edit, delete) in user's Collection"
+              "coll_write": "Write (add, edit, delete) in user's Collection",
+              "webhooks": "Add or remove webhooks on user's behalf"
             }
           }
         }
@@ -3179,6 +3673,30 @@
           }
         }
       },
+      "obj.price": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "Price",
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number",
+            "minimum": 0
+          },
+          "amountInt": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "currency": {
+            "type": "string",
+            "pattern": "[A-Z]{3}"
+          }
+        },
+        "required": [
+          "amount",
+          "amountInt",
+          "currency"
+        ]
+      },
       "obj.game-type": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "title": "Game Type",
@@ -3250,6 +3768,136 @@
           "assets": {
             "$ref": "#/components/schemas/obj.asset-map"
           }
+        }
+      },
+      "obj.bundle": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "Bundle",
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "page",
+          "url",
+          "isMature",
+          "publish",
+          "expiry",
+          "note",
+          "counts",
+          "tiers"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "page": {
+            "type": "object",
+            "required": [
+              "id",
+              "name"
+            ],
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "shopId": {
+                "oneOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            }
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "details": {
+            "type": "string",
+            "format": "uri"
+          },
+          "isMature": {
+            "type": "boolean"
+          },
+          "publish": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "expiry": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "note": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "counts": {
+            "type": "object",
+            "required": [
+              "games",
+              "media"
+            ],
+            "properties": {
+              "games": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "media": {
+                "type": "integer",
+                "minimum": 0
+              }
+            }
+          },
+          "tiers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "price",
+                "games"
+              ],
+              "properties": {
+                "price": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/obj.price"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "games": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/obj.game"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "resp.bundles": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/obj.bundle"
         }
       },
       "resp.games.search": {
@@ -3480,30 +4128,6 @@
           }
         }
       },
-      "obj.price": {
-        "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "title": "Price",
-        "type": "object",
-        "properties": {
-          "amount": {
-            "type": "number",
-            "minimum": 0
-          },
-          "amountInt": {
-            "type": "integer",
-            "minimum": 0
-          },
-          "currency": {
-            "type": "string",
-            "pattern": "[A-Z]{3}"
-          }
-        },
-        "required": [
-          "amount",
-          "amountInt",
-          "currency"
-        ]
-      },
       "obj.shop": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "title": "Shop",
@@ -3725,129 +4349,6 @@
               "type": "array",
               "items": {
                 "$ref": "#/components/schemas/obj.deal2"
-              }
-            }
-          }
-        }
-      },
-      "obj.bundle": {
-        "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "title": "Bundle",
-        "type": "object",
-        "required": [
-          "id",
-          "title",
-          "page",
-          "url",
-          "isMature",
-          "publish",
-          "expiry",
-          "note",
-          "counts",
-          "tiers"
-        ],
-        "properties": {
-          "id": {
-            "type": "integer"
-          },
-          "title": {
-            "type": "string"
-          },
-          "page": {
-            "type": "object",
-            "required": [
-              "id",
-              "name"
-            ],
-            "properties": {
-              "id": {
-                "type": "number"
-              },
-              "name": {
-                "type": "string"
-              },
-              "shopId": {
-                "oneOf": [
-                  {
-                    "type": "number"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              }
-            }
-          },
-          "url": {
-            "type": "string",
-            "format": "uri"
-          },
-          "details": {
-            "type": "string",
-            "format": "uri"
-          },
-          "isMature": {
-            "type": "boolean"
-          },
-          "publish": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "expiry": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "format": "date-time"
-          },
-          "note": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "counts": {
-            "type": "object",
-            "required": [
-              "games",
-              "media"
-            ],
-            "properties": {
-              "games": {
-                "type": "integer",
-                "minimum": 0
-              },
-              "media": {
-                "type": "integer",
-                "minimum": 0
-              }
-            }
-          },
-          "tiers": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "required": [
-                "price",
-                "games"
-              ],
-              "properties": {
-                "price": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/obj.price"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "games": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/obj.game"
-                  }
-                }
               }
             }
           }
@@ -4210,6 +4711,412 @@
                 "$ref": "#/components/schemas/obj.game.subscription"
               }
             }
+          }
+        }
+      },
+      "filter.range": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "description": "Range filter",
+        "type": "object",
+        "required": [
+          "min",
+          "max"
+        ],
+        "properties": {
+          "min": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "max": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          }
+        }
+      },
+      "filter.range.bounded": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "description": "Bounded Range filter",
+        "type": "object",
+        "required": [
+          "min",
+          "max"
+        ],
+        "properties": {
+          "min": {
+            "oneOf": [
+              {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 100
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "max": {
+            "oneOf": [
+              {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 100
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "obj.filters.deals": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "description": "Deal Filters",
+        "type": "object",
+        "required": [],
+        "properties": {
+          "price": {
+            "$ref": "#/components/schemas/filter.range"
+          },
+          "regular": {
+            "$ref": "#/components/schemas/filter.range"
+          },
+          "cut": {
+            "$ref": "#/components/schemas/filter.range.bounded"
+          },
+          "flag": {
+            "description": "Deal flag, N for new historical low, H for historical low, S for shop low",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "N",
+                  "H",
+                  "S"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "hlprice": {
+            "description": "Within `<price (number)>` of historical low",
+            "type": "number"
+          },
+          "hlperc": {
+            "description": "Within `<percent (number)>` of historical low",
+            "type": "number"
+          }
+        }
+      },
+      "filter.boolean": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "boolean",
+        "enum": [
+          true
+        ]
+      },
+      "obj.filters.game": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "description": "Game Filters",
+        "type": "object",
+        "required": [],
+        "properties": {
+          "drm": {
+            "description": "`1000` for DRM Free or `shopId`\n",
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          "platform": {
+            "description": "`1` Windows, `2` Mac, `3` Linux, `5` HTC Vive, `6` Oculus, `7` Windows Mixed Reality\n",
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          "type": {
+            "description": "\"Is a\" filter \\\nPossible values: `1` Game, `2` DLC, `3` Package, `7` Software, `9` Hardware\n",
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          "typeNot": {
+            "description": "\"Is not a\" filter \\\nSee `type` for possible values\n"
+          },
+          "tradingCards": {
+            "$ref": "#/components/schemas/filter.boolean"
+          },
+          "achievements": {
+            "$ref": "#/components/schemas/filter.boolean"
+          },
+          "mature": {
+            "$ref": "#/components/schemas/filter.boolean"
+          },
+          "earlyAccess": {
+            "$ref": "#/components/schemas/filter.boolean"
+          },
+          "preOrder": {
+            "$ref": "#/components/schemas/filter.boolean"
+          },
+          "notPreOrder": {
+            "$ref": "#/components/schemas/filter.boolean"
+          },
+          "bundled": {
+            "$ref": "#/components/schemas/filter.boolean"
+          },
+          "wasBundled": {
+            "$ref": "#/components/schemas/filter.boolean"
+          },
+          "neverBundled": {
+            "$ref": "#/components/schemas/filter.boolean"
+          },
+          "inCollection": {
+            "$ref": "#/components/schemas/filter.boolean"
+          },
+          "notInCollection": {
+            "$ref": "#/components/schemas/filter.boolean"
+          },
+          "inWaitlist": {
+            "$ref": "#/components/schemas/filter.boolean"
+          },
+          "notInWaitlist": {
+            "$ref": "#/components/schemas/filter.boolean"
+          },
+          "userDlcs": {
+            "description": "DLCs for user's games",
+            "$ref": "#/components/schemas/filter.boolean"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "tagsUnion": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "inSpotlight": {
+            "$ref": "#/components/schemas/filter.boolean"
+          },
+          "wasSpotlight": {
+            "$ref": "#/components/schemas/filter.boolean"
+          }
+        }
+      },
+      "obj.filters.reviews": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "description": "Reviews Filters",
+        "type": "object",
+        "required": [],
+        "properties": {
+          "steamPerc": {
+            "description": "Steam score",
+            "$ref": "#/components/schemas/filter.range.bounded"
+          },
+          "steamCount": {
+            "description": "Steam review count",
+            "$ref": "#/components/schemas/filter.range"
+          },
+          "metaCritic": {
+            "description": "OpenCritic critics score",
+            "$ref": "#/components/schemas/filter.range.bounded"
+          },
+          "metauser": {
+            "description": "MetaCritic users score",
+            "$ref": "#/components/schemas/filter.range.bounded"
+          },
+          "openCritic": {
+            "description": "OpenCritic score",
+            "$ref": "#/components/schemas/filter.range.bounded"
+          }
+        }
+      },
+      "obj.filters.shops": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "description": "Shops Filters",
+        "type": "object",
+        "required": [],
+        "properties": {
+          "shops": {
+            "description": "List of shop IDs",
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          }
+        }
+      },
+      "obj.filters.time": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "description": "Time Filters",
+        "type": "object",
+        "required": [],
+        "properties": {
+          "added": {
+            "description": "Deal found in last `<value>` hours",
+            "type": "number",
+            "minimum": 0
+          },
+          "expiry": {
+            "description": "Deal expires in next `<value>` hours",
+            "type": "number",
+            "minimum": 0
+          },
+          "releaseDays": {
+            "description": "Game was released in last `<value>` days",
+            "type": "number"
+          },
+          "releaseYear": {
+            "description": "Game was released between `<min year>` and `<max year>`",
+            "type": "object",
+            "required": [
+              "min",
+              "max"
+            ],
+            "properties": {
+              "min": {
+                "oneOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 100
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "max": {
+                "oneOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 100
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            }
+          },
+          "releaseDate": {
+            "description": "Game was released between `<min YYYY-mm-dd>` and `<max YYYY-mm-dd>`",
+            "type": "object",
+            "required": [
+              "min",
+              "max"
+            ],
+            "properties": {
+              "min": {
+                "oneOf": [
+                  {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "max": {
+                "oneOf": [
+                  {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "req.deals": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "Deals Request",
+        "type": "object",
+        "properties": {
+          "country": {
+            "description": "Two letter country code (ISO 3166-1 alpha-2)",
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 2,
+            "default": "US"
+          },
+          "offset": {
+            "description": "Deals list offset",
+            "type": "integer",
+            "minimum": 0,
+            "default": 0
+          },
+          "limit": {
+            "description": "How many deals to return",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 200,
+            "default": 20
+          },
+          "sort": {
+            "description": "Sorting values, same as in deals list on the website",
+            "type": "string"
+          },
+          "nondeals": {
+            "description": "Load non-sale prices",
+            "type": "boolean",
+            "default": false
+          },
+          "mature": {
+            "description": "Load games marked as mature",
+            "type": "boolean",
+            "default": false
+          },
+          "shops": {
+            "description": "List of shop IDs",
+            "type": "array",
+            "items": {
+              "type": "number",
+              "description": "Shop ID"
+            }
+          },
+          "filter": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/obj.filters.deals"
+              },
+              {
+                "$ref": "#/components/schemas/obj.filters.game"
+              },
+              {
+                "$ref": "#/components/schemas/obj.filters.reviews"
+              },
+              {
+                "$ref": "#/components/schemas/obj.filters.shops"
+              },
+              {
+                "$ref": "#/components/schemas/obj.filters.time"
+              }
+            ]
           }
         }
       },
@@ -5422,6 +6329,141 @@
           ]
         }
       },
+      "resp.service.shops.map": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "Shops response",
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number"
+            },
+            "title": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "title"
+          ]
+        }
+      },
+      "obj.webhook": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "required": [
+          "url",
+          "events"
+        ],
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "events": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "enum": [
+                "notification-waitlist"
+              ]
+            }
+          }
+        }
+      },
+      "resp.webhook.add": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "resp.games.list": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "id",
+            "title",
+            "appid"
+          ],
+          "properties": {
+            "id": {
+              "title": "Game Id",
+              "type": "string",
+              "format": "uuid"
+            },
+            "title": {
+              "title": "Game title",
+              "type": "string"
+            },
+            "appid": {
+              "oneOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "resp.games.dots": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "id",
+            "product_id",
+            "old_game_id",
+            "new_game_id",
+            "timestamp",
+            "date"
+          ],
+          "properties": {
+            "id": {
+              "title": "Change ID",
+              "type": "integer"
+            },
+            "product_id": {
+              "title": "Product ID",
+              "type": "string",
+              "format": "uuid"
+            },
+            "old_game_id": {
+              "title": "Old game ID",
+              "type": "string",
+              "format": "uuid"
+            },
+            "new_game_id": {
+              "title": "New game ID",
+              "type": "string",
+              "format": "uuid"
+            },
+            "timestamp": {
+              "title": "Unix timestamp of the change",
+              "type": "integer"
+            },
+            "date": {
+              "title": "Datetime of the change",
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
       "resp.internal.players": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "title": "Players Statistics Response",
@@ -5733,6 +6775,96 @@
             "sub/752476"
           ]
         }
+      },
+      "resp.bundles.v1.success": {
+        "value": [
+          {
+            "id": 11631,
+            "title": "Rimworld with all Expansions Bundle",
+            "page": {
+              "id": 8,
+              "name": "Fanatical",
+              "shopId": 6
+            },
+            "url": "https://www.dpbolvw.net/click-6305441-13212017?url=https%3A%2F%2Fwww.fanatical.com%2Fen%2Fbundle%2Frimworld-with-all-expansions",
+            "details": "https://isthereanydeal.com/bundles/11631/",
+            "isMature": false,
+            "publish": "2024-03-04T19:00:00+01:00",
+            "expiry": "2024-03-22T00:59:46+01:00",
+            "note": "* Bundle being relaunched...again and again.",
+            "counts": {
+              "games": 4,
+              "media": 1
+            },
+            "tiers": [
+              {
+                "price": {
+                  "amount": 87.96,
+                  "amountInt": 8796,
+                  "currency": "USD"
+                },
+                "games": [
+                  {
+                    "id": "018d937f-12e9-71ca-a5d5-f31985870694",
+                    "slug": "rimworld",
+                    "title": "RimWorld",
+                    "type": "game",
+                    "mature": false,
+                    "assets": {
+                      "boxart": "https://assets.isthereanydeal.com/018d937f-12e9-71ca-a5d5-f31985870694/boxart.jpg?t=1734155400",
+                      "banner145": "https://assets.isthereanydeal.com/018d937f-12e9-71ca-a5d5-f31985870694/banner145.jpg?t=1734155400",
+                      "banner300": "https://assets.isthereanydeal.com/018d937f-12e9-71ca-a5d5-f31985870694/banner300.jpg?t=1734155400",
+                      "banner400": "https://assets.isthereanydeal.com/018d937f-12e9-71ca-a5d5-f31985870694/banner400.jpg?t=1734155400",
+                      "banner600": "https://assets.isthereanydeal.com/018d937f-12e9-71ca-a5d5-f31985870694/banner600.jpg?t=1734155400"
+                    }
+                  },
+                  {
+                    "id": "018d937f-3e88-718b-b99d-9a45bb69be55",
+                    "slug": "rimworld-royalty",
+                    "title": "RimWorld - Royalty",
+                    "type": "dlc",
+                    "mature": false,
+                    "assets": {
+                      "boxart": "https://assets.isthereanydeal.com/018d937f-3e88-718b-b99d-9a45bb69be55/boxart.jpg?t=1732764965",
+                      "banner145": "https://assets.isthereanydeal.com/018d937f-3e88-718b-b99d-9a45bb69be55/banner145.jpg?t=1732764965",
+                      "banner300": "https://assets.isthereanydeal.com/018d937f-3e88-718b-b99d-9a45bb69be55/banner300.jpg?t=1732764965",
+                      "banner400": "https://assets.isthereanydeal.com/018d937f-3e88-718b-b99d-9a45bb69be55/banner400.jpg?t=1732764965",
+                      "banner600": "https://assets.isthereanydeal.com/018d937f-3e88-718b-b99d-9a45bb69be55/banner600.jpg?t=1732764966"
+                    }
+                  },
+                  {
+                    "id": "018d937f-5256-73e1-bba6-66fd3f4d9cd7",
+                    "slug": "rimworld-ideology",
+                    "title": "RimWorld - Ideology",
+                    "type": "dlc",
+                    "mature": false,
+                    "assets": {
+                      "boxart": "https://assets.isthereanydeal.com/018d937f-5256-73e1-bba6-66fd3f4d9cd7/boxart.jpg?t=1732782945",
+                      "banner145": "https://assets.isthereanydeal.com/018d937f-5256-73e1-bba6-66fd3f4d9cd7/banner145.jpg?t=1732782945",
+                      "banner300": "https://assets.isthereanydeal.com/018d937f-5256-73e1-bba6-66fd3f4d9cd7/banner300.jpg?t=1732782945",
+                      "banner400": "https://assets.isthereanydeal.com/018d937f-5256-73e1-bba6-66fd3f4d9cd7/banner400.jpg?t=1732782945",
+                      "banner600": "https://assets.isthereanydeal.com/018d937f-5256-73e1-bba6-66fd3f4d9cd7/banner600.jpg?t=1732782945"
+                    }
+                  },
+                  {
+                    "id": "018d937f-65f0-70d3-83fe-71fac1505a13",
+                    "slug": "rimworld-biotech",
+                    "title": "RimWorld - Biotech",
+                    "type": "dlc",
+                    "mature": false,
+                    "assets": {
+                      "boxart": "https://assets.isthereanydeal.com/018d937f-65f0-70d3-83fe-71fac1505a13/boxart.jpg?t=1732751175",
+                      "banner145": "https://assets.isthereanydeal.com/018d937f-65f0-70d3-83fe-71fac1505a13/banner145.jpg?t=1732751175",
+                      "banner300": "https://assets.isthereanydeal.com/018d937f-65f0-70d3-83fe-71fac1505a13/banner300.jpg?t=1732751175",
+                      "banner400": "https://assets.isthereanydeal.com/018d937f-65f0-70d3-83fe-71fac1505a13/banner400.jpg?t=1732751175",
+                      "banner600": "https://assets.isthereanydeal.com/018d937f-65f0-70d3-83fe-71fac1505a13/banner600.jpg?t=1732751176"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       },
       "resp.search.v1.results": {
         "value": [
@@ -6989,6 +8121,56 @@
             "deals": 0,
             "games": 0,
             "update": null
+          }
+        ]
+      },
+      "shops.map.v1.success": {
+        "value": [
+          {
+            "id": 19,
+            "title": "2game"
+          },
+          {
+            "id": 2,
+            "title": "AllYouPlay"
+          },
+          {
+            "id": 3,
+            "title": "Amazon"
+          }
+        ]
+      },
+      "resp.games.list.v1.success": {
+        "value": [
+          {
+            "id": "018d937f-0680-71f6-a2c0-30660ed59d79",
+            "title": "Eternal Lore",
+            "appid": 601790
+          },
+          {
+            "id": "018d937f-0681-7345-8d53-d0b6170cf842",
+            "title": "Zooloretto",
+            "appid": null
+          }
+        ]
+      },
+      "resp.games.dots.v1.success": {
+        "value": [
+          {
+            "id": 7574,
+            "product_id": "018dbf3c-8009-7199-b27d-eca502aa0192",
+            "old_game_id": "018dbf3c-80f9-73d2-aa30-b39b52a6c7f7",
+            "new_game_id": "018d937f-51cf-71a2-8359-bde441247ae1",
+            "timestamp": 1777055407,
+            "date": "Fri, 24 Apr 2026 18:30:07 +0000"
+          },
+          {
+            "id": 7573,
+            "product_id": "018d9578-ed32-7201-b1eb-586ccf9d3de6",
+            "old_game_id": "018d937f-7466-727c-8331-8f9c8e239e9e",
+            "new_game_id": "018d937f-15f9-7056-8edf-2e8fa4b8f357",
+            "timestamp": 1777055393,
+            "date": "Fri, 24 Apr 2026 18:29:53 +0000"
           }
         ]
       },
