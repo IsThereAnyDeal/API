@@ -1,0 +1,78 @@
+get:
+  operationId: unstable-games-list-v1
+  tags:
+    - Unstable
+  summary: Game List
+  description: |
+    > We are looking for a feedback for this endpoint. Please let us know whether you find this useful or not,
+    > or suggest changes. If we won't hear any feedback, we will assume this endpoint
+    > is useless and will be removed in the future.
+    
+    Get list of currently recognized active games.
+    
+    One of the biggest hurdles to communicate with the ITAD API is to get game IDs that are needed by our endpoints.
+    Usually, you will get these IDs by doing a lookup or search when you are trying to get to specific game,
+    or they will be a part of the response of other endpoints, e.g. Deals list.
+    
+    With this endpoint we are experimenting with returning a list of all currently active games, which could be used to
+    bootstrap your application.
+    
+    However, this is not a load once and forget solution. Each game on IsThereAnyDeal has associated products,
+    which are basically entries from shops that we cover. Think about "game" on ITAD as a _container_,
+    that includes products and has some other associated information or metadata.
+    
+    Once a game loses its products, it will become inactive. This can happen for example if the game is renamed.
+    In such cases, new game entry will be created, and products will be reassigned to the new game.
+    This can happen automatically by a system, or manually.
+    
+    The automatic product to game assignment is not perfect, and sometimes needs to be fixed manually.
+    This may happen because of various sitations, for example:
+    - developer changes the game's name, but some of the shops don't reflect the change and keep using the old name
+    - shop lists a game in a slightly different way that our system can't manage automatically 
+    - remaster of the game is released with the same name as the old entry
+    - a different game with the same name exists and products needs to be split to correct entries
+    
+    > To make things even more complicated, the shop may change their product ID,
+    > or may use different product IDs for different regions, based on their internal structure.
+    > To get a better understanding of this, you can check any game on ITAD for its products. As an example,
+    > here's [Red Dead Redemption 2](https://isthereanydeal.com/game/red-dead-redemption-2/products/). 
+    
+    The game IDs are ensured to be ascending. You can check for new entries by using your last known game ID
+    to get only new entries. However, there may be a case, where an old inactive game becomes active again
+    - it stopped being sold, but has since returned and is being sold again.
+    
+    We are looking for a feedback about this endpoint. You can currently use it to bootstrap your application,
+    but it should not be relied upon for 100% coverage all the time. At the very least, if you end up relying on this map
+    and omit doing lookups, you should check for new entries, and periodically (e.g. once a week) recheck the entire list.
+    
+    There is a possiblity to return all known game entries, including the inactive ones, but this would include
+    a lot of dead entries that will never be used again, like when a shop listed a game with typo and such.
+    
+    The maximum number of games you will get is 10000. Use `last` parameter to get more entries.
+    
+    > This endpoint is supposed to be used in concert with [Game Changes endpoint](#tag/Unstable/operation/unstable-games-dots-v1).
+  security:
+    - ApiKeyParamAuth: []
+    - ApiKeyHeaderAuth: []
+  parameters:
+    - name: last
+      in: query
+      required: false
+      description: Last known game ID, use to get newer entries
+      schema:
+        type: string
+        format: uuid
+  responses:
+    200:
+      description: Info response
+      content:
+        application/json:
+          schema:
+            $ref: "./schemas/resp.games.list.yaml"
+          examples:
+            list:
+              $ref: "./examples/resp.games.list.v1.success.yaml"
+    400:
+      $ref: "../../defs/error-response.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"

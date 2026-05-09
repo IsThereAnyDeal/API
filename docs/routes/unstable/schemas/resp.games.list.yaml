@@ -1,0 +1,17 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+type: array
+items:
+  type: object
+  required: [id, title, appid]
+  properties:
+    id:
+      title: Game Id
+      type: string
+      format: uuid
+    title:
+      title: Game title
+      type: string
+    appid:
+      oneOf:
+        - type: number
+        - type: "null"

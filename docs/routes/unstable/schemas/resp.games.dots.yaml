@@ -1,0 +1,28 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+type: array
+items:
+  type: object
+  required: [id, product_id, old_game_id, new_game_id, timestamp, date]
+  properties:
+    id:
+      title: Change ID
+      type: integer
+    product_id:
+      title: Product ID
+      type: string
+      format: uuid
+    old_game_id:
+      title: Old game ID
+      type: string
+      format: uuid
+    new_game_id:
+      title: New game ID
+      type: string
+      format: uuid
+    timestamp:
+      title: Unix timestamp of the change
+      type: integer
+    date:
+      title: Datetime of the change
+      type: string
+      format: datetime

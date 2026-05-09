@@ -1,0 +1,52 @@
+get:
+  operationId: unstable-games-dots-v1
+  tags:
+    - Unstable
+  summary: Game Changes
+  description: |
+    > We are looking for a feedback for this endpoint. Please let us know whether you find this useful or not,
+    > or suggest changes. If we won't hear any feedback, we will assume this endpoint
+    > is useless and will be removed in the future.
+    
+    Get list of product assignment changes.
+    
+    As explained in the [Games List endpoint](#tag/Unstable/operation/unstable-games-list-v1), game on IsThereAnyDeal
+    is a container that has products assigned, and products may move between game entries.
+    
+    This endpoint will return these products changes. The intention is that if you use Games List endpoint
+    to get the game map, you will also use this endpoint in concert, and recheck games that had their products reassigned.
+    
+    Number of entries returned is limited to 1000. You can use `last` parameter to get newer entries since your last known id,
+    or `since` parameter to get newer entries since supplied unix timestamp.
+    If none are used, you will get the newest 1000 entries.
+    
+    > This endpoint is supposed to be used in concert with [Game List endpoint](#tag/Unstable/operation/unstable-games-list-v1).
+  security:
+    - ApiKeyParamAuth: []
+    - ApiKeyHeaderAuth: []
+  parameters:
+    - name: last
+      in: query
+      required: false
+      description: Last known change ID, use to get newer entries
+      schema:
+        type: number
+    - name: since
+      in: query
+      required: false
+      description: Unix timestamp, to return newer entries than supplied timestamp
+      schema:
+        type: integer
+  responses:
+    200:
+      content:
+        application/json:
+          schema:
+            $ref: "./schemas/resp.games.dots.yaml"
+          examples:
+            changes:
+              $ref: "./examples/resp.games.dots.v1.success.yaml"
+    400:
+      $ref: "../../defs/error-response.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"

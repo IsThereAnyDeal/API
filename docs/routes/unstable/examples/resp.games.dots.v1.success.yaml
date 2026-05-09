@@ -1,0 +1,19 @@
+value:
+  [
+    {
+      "id": 7574,
+      "product_id": "018dbf3c-8009-7199-b27d-eca502aa0192",
+      "old_game_id": "018dbf3c-80f9-73d2-aa30-b39b52a6c7f7",
+      "new_game_id": "018d937f-51cf-71a2-8359-bde441247ae1",
+      "timestamp": 1777055407,
+      "date": "Fri, 24 Apr 2026 18:30:07 +0000"
+    },
+    {
+      "id": 7573,
+      "product_id": "018d9578-ed32-7201-b1eb-586ccf9d3de6",
+      "old_game_id": "018d937f-7466-727c-8331-8f9c8e239e9e",
+      "new_game_id": "018d937f-15f9-7056-8edf-2e8fa4b8f357",
+      "timestamp": 1777055393,
+      "date": "Fri, 24 Apr 2026 18:29:53 +0000"
+    }
+  ]

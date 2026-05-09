@@ -376,6 +376,11 @@ paths:
   /webhooks/v1:
     $ref: "./routes/webhooks/webhooks.v1.yaml"
 
+  /unstable/games/list/v1:
+    $ref: "./routes/unstable/games.list.v1.yaml"
+  /unstable/games/dots/v1:
+    $ref: "./routes/unstable/games.dots.v1.yaml"
+
   /internal/early-access/v1:
     $ref: "./routes/internal/early-access.v1.yaml"
   /internal/players/v1:
