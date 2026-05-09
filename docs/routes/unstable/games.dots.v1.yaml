@@ -39,6 +39,7 @@ get:
         type: integer
   responses:
     200:
+      description: Successful response
       content:
         application/json:
           schema:
