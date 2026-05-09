@@ -1,7 +1,15 @@
 ## 2.9.0
+- Added support for providing api key via `ITAD-API-Key` header instead of query param `key`
+- Added filters documentation for `/deals/v2` endpoint, allowed filters to be supplied as JSON instead of an encoded string,
+  allowed parameters to be sent in a request body instead of in query, and added support for POST method for improved support  
+- Added "tags union" filter for Deals list (games will pass the filter if they have at least one of the tags, not all)
+- Added `/bundles/v1` endpoint
 - Added `/service/shops/map/v1` endpoint that will list all shops we have ever covered, whether they are currently active or not
-- Added `/webhooks/v1` endpoints to allow adding or removing webhooks
-- Add support for providing api key via header `ITAD-API-Key` instead of query param `key`
+- Added `/webhooks/v1` endpoints to allow adding and removing webhooks
+- Added two unstable endpoints for games list and games changes - please read docs, I'm looking for feedback
+- Endpoints will now allow trailing slash in URLs
+- Fixed OAuth2 authorization when user needs to log in via Steam before authorizing app
+
 
 ## 2.8.1
 - Added `note` field to bundle object in `/games/bundles/v2` and `/games/overview/v2` endpoints
