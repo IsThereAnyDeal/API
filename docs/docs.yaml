@@ -46,10 +46,23 @@ info:
     
     ## Rate Limiting
     
-    Access to API is rate limited and subject to change. You should get rate-limit info in appropriate headers.
-    Further limits and restrictions may be added if we detect misuse. 
+    Access to API is rate limited. We implement a window-based throttling. By default, if your account has verified email,
+    you can make 1000 requests in a 5 minute window. You will see your current limits and usage in the app setup page.
     
-    If you have questions about limits, contact us.
+    > We are about to lower the limits for accounts without verified email, but for a transitional period the limits
+    > are kept the same.
+    > Even though for now the limits are the same, you will still get
+    > a warning in the app setup that you can increase your limits by verifying your email.
+
+    The limits are meant to give you some leeway and allow you to handle short bursts of higher activity.
+    You should not be constantly maxing out your usage, implement proper caching.
+    
+    If you get rate-limited, you will get a `429 Too Many Requests` response with a `Retry-After` header.
+    
+    If you need higher limits, reach out to us with your use case.
+    
+    Limits may change in the future. Attempts to work around the limits will cause ban.
+    Further limits and restrictions may be added if we detect misuse.
     
     # Unstable and Internal Endpoints
     
@@ -69,7 +82,7 @@ info:
     Feel free to help us improve it.
 
   termsOfService: https://github.com/IsThereAnyDeal/API/blob/master/TERMS_OF_SERVICE.md
-  version: 2.8.1
+  version: 2.9.0
   contact:
     name: General API contact
     email: api@isthereanydeal.com

@@ -1,14 +1,28 @@
 ## 2.9.0
+### Authorization
 - Added support for providing api key via `ITAD-API-Key` header instead of query param `key`
-- Added filters documentation for `/deals/v2` endpoint, allowed filters to be supplied as JSON instead of an encoded string,
-  allowed parameters to be sent in a request body instead of in query, and added support for POST method for improved support  
-- Added "tags union" filter for Deals list (games will pass the filter if they have at least one of the tags, not all)
+- Fixed OAuth2 authorization when user needs to log in via Steam before authorizing app
+
+### Endpoints
+- Multiple changes for `/deals/v2` endpoint:
+  - Added filters documentation
+  - Filters can now be sent as JSON instead of as an encoded string
+  - Parameters can now be sent in a request body instead of in query
+  - Added support for POST method for improved compatibility in case you can't make a GET request with body
+  - OAuth authorization can be used instead of apikey; with OAuth it's possible to use user filters such as "in Waitlist"
+  - Added `tagsUnion` filter for Deals list (games will pass the filter if they have at least one of the tags, not all)
 - Added `/bundles/v1` endpoint
 - Added `/service/shops/map/v1` endpoint that will list all shops we have ever covered, whether they are currently active or not
 - Added `/webhooks/v1` endpoints to allow adding and removing webhooks
 - Added two unstable endpoints for games list and games changes - please read docs, I'm looking for feedback
-- Endpoints will now allow trailing slash in URLs
-- Fixed OAuth2 authorization when user needs to log in via Steam before authorizing app
+- Endpoints will now work with URLs with trailing slash
+
+### Docs and App Management
+- Implemented support for tiered rate-limiting based on whether you have verified your account or not;
+  for a transitional period, the limits are kept the same, but they will be lowered for unverified accounts in the near future 
+- Rate Limiting section of docs has been rewritten to be less vague
+- App setup page will now show you your current usage limits and average usage over past 3 days
+- Fixed last usage of API key not being recorded
 
 
 ## 2.8.1
