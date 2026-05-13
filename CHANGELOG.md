@@ -10,7 +10,8 @@
   - Parameters can now be sent in a request body instead of in query
   - Added support for POST method for improved compatibility in case you can't make a GET request with body
   - OAuth authorization can be used instead of apikey; with OAuth it's possible to use user filters such as "in Waitlist"
-  - Added `tagsUnion` filter for Deals list (games will pass the filter if they have at least one of the tags, not all)
+  - Added `tagsUnion` filter - games will pass the filter if they have at least one of the tags, not all
+  - Added `inBundle` filter - games will pass the filter if they are included in bundle `<id>`
 - Added `/bundles/v1` endpoint
 - Added `/service/shops/map/v1` endpoint that will list all shops we have ever covered, whether they are currently active or not
 - Added `/webhooks/v1` endpoints to allow adding and removing webhooks

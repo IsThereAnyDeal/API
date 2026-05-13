@@ -68,3 +68,6 @@ properties:
     $ref: "./types/filter.boolean.yaml"
   wasSpotlight:
     $ref: "./types/filter.boolean.yaml"
+  inBundle:
+    description: Game is included in bundle ID `<number>`
+    type: number
