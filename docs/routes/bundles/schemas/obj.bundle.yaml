@@ -49,12 +49,14 @@ properties:
     type: array
     items:
       type: object
-      required: [price, games]
+      required: [price, addon, games]
       properties:
         price:
           oneOf:
             - $ref: "../../../schemas/obj.price.json"
             - type: "null"
+        addon:
+          type: boolean
         games:
           type: array
           items:

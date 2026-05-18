@@ -2677,12 +2677,15 @@ components:
             type: object
             required:
               - price
+              - addon
               - games
             properties:
               price:
                 oneOf:
                   - $ref: '#/components/schemas/obj.price'
                   - type: 'null'
+              addon:
+                type: boolean
               games:
                 type: array
                 items:
@@ -3397,6 +3400,9 @@ components:
           $ref: '#/components/schemas/filter.boolean'
         wasSpotlight:
           $ref: '#/components/schemas/filter.boolean'
+        inBundle:
+          description: Game is included in bundle ID `<number>`
+          type: number
     obj.filters.reviews:
       $schema: https://json-schema.org/draft/2020-12/schema
       description: Reviews Filters
@@ -4672,6 +4678,7 @@ components:
                 amount: 87.96
                 amountInt: 8796
                 currency: USD
+              addon: false
               games:
                 - id: 018d937f-12e9-71ca-a5d5-f31985870694
                   slug: rimworld
@@ -4923,6 +4930,7 @@ components:
                 amount: 87.96
                 amountInt: 8796
                 currency: USD
+              addon: false
               games:
                 - id: 018d937f-12e9-71ca-a5d5-f31985870694
                   slug: rimworld
@@ -5076,6 +5084,7 @@ components:
                   amount: 87.96
                   amountInt: 8796
                   currency: USD
+                addon: false
                 games:
                   - id: 018d937f-12e9-71ca-a5d5-f31985870694
                     slug: rimworld

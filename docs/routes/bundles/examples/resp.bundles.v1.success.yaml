@@ -24,6 +24,7 @@ value: [
                     "amountInt": 8796,
                     "currency": "USD"
                 },
+                "addon": false,
                 "games": [
                     {
                         "id": "018d937f-12e9-71ca-a5d5-f31985870694",

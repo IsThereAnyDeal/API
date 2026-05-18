@@ -3869,6 +3869,7 @@
               "type": "object",
               "required": [
                 "price",
+                "addon",
                 "games"
               ],
               "properties": {
@@ -3881,6 +3882,9 @@
                       "type": "null"
                     }
                   ]
+                },
+                "addon": {
+                  "type": "boolean"
                 },
                 "games": {
                   "type": "array",
@@ -4918,6 +4922,10 @@
           },
           "wasSpotlight": {
             "$ref": "#/components/schemas/filter.boolean"
+          },
+          "inBundle": {
+            "description": "Game is included in bundle ID `<number>`",
+            "type": "number"
           }
         }
       },
@@ -6803,6 +6811,7 @@
                   "amountInt": 8796,
                   "currency": "USD"
                 },
+                "addon": false,
                 "games": [
                   {
                     "id": "018d937f-12e9-71ca-a5d5-f31985870694",
@@ -7152,6 +7161,7 @@
                   "amountInt": 8796,
                   "currency": "USD"
                 },
+                "addon": false,
                 "games": [
                   {
                     "id": "018d937f-12e9-71ca-a5d5-f31985870694",
@@ -7361,6 +7371,7 @@
                     "amountInt": 8796,
                     "currency": "USD"
                   },
+                  "addon": false,
                   "games": [
                     {
                       "id": "018d937f-12e9-71ca-a5d5-f31985870694",
