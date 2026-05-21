@@ -1,0 +1,56 @@
+value: [
+  {
+    "id": "018d937e-e9e5-72fa-a1dc-e7e090b64d2f",
+    "slug": "dwarven-skykeep",
+    "title": "Dwarven Skykeep",
+    "type": "game",
+    "assets": {
+      "boxart": "https://cdn.example.com//018d937e-e9e5-72fa-a1dc-e7e090b64d2f/boxart.jpg",
+      "banner145": "https://cdn.example.com//018d937e-e9e5-72fa-a1dc-e7e090b64d2f/banner145.jpg",
+      "banner300": "https://cdn.example.com//018d937e-e9e5-72fa-a1dc-e7e090b64d2f/banner300.jpg",
+      "banner400": "https://cdn.example.com//018d937e-e9e5-72fa-a1dc-e7e090b64d2f/banner400.jpg",
+      "banner600": "https://cdn.example.com//018d937e-e9e5-72fa-a1dc-e7e090b64d2f/banner600.jpg"
+    },
+    "mature": false,
+    "added": "2023-02-01T21:04:21+01:00"
+  },
+  {
+    "id": "018d937e-e9f4-71bb-9413-3b25175df416",
+    "slug": "orcish-inn",
+    "title": "Orcish Inn",
+    "type": "game",
+    "assets": {
+      "boxart": "https://cdn.example.com//018d937e-e9f4-71bb-9413-3b25175df416/boxart.jpg",
+      "banner145": "https://cdn.example.com//018d937e-e9f4-71bb-9413-3b25175df416/banner145.jpg",
+      "banner300": "https://cdn.example.com//018d937e-e9f4-71bb-9413-3b25175df416/banner300.jpg",
+      "banner400": "https://cdn.example.com//018d937e-e9f4-71bb-9413-3b25175df416/banner400.jpg",
+      "banner600": "https://cdn.example.com//018d937e-e9f4-71bb-9413-3b25175df416/banner600.jpg"
+    },
+    "mature": false,
+    "added": "2023-02-01T21:04:21+01:00"
+  },
+  {
+    "id": "018d937e-e9f9-734c-8413-5a447e993a8c",
+    "slug": "take-on-mars",
+    "title": "Take On Mars",
+    "type": "game",
+    "assets": {},
+    "mature": false,
+    "added": "2019-01-13T02:41:06+01:00"
+  },
+  {
+    "id": "018d937e-ea40-7125-bab3-feb2fba446a1",
+    "slug": "surviving-mars",
+    "title": "Surviving Mars",
+    "type": "game",
+    "assets": {
+      "boxart": "https://cdn.example.com//018d937e-ea40-7125-bab3-feb2fba446a1/boxart.jpg",
+      "banner145": "https://cdn.example.com//018d937e-ea40-7125-bab3-feb2fba446a1/banner145.jpg",
+      "banner300": "https://cdn.example.com//018d937e-ea40-7125-bab3-feb2fba446a1/banner300.jpg",
+      "banner400": "https://cdn.example.com//018d937e-ea40-7125-bab3-feb2fba446a1/banner400.jpg",
+      "banner600": "https://cdn.example.com//018d937e-ea40-7125-bab3-feb2fba446a1/banner600.jpg"
+    },
+    "mature": false,
+    "added": "2019-01-13T02:41:06+01:00"
+  }
+]

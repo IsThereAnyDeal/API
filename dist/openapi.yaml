@@ -81,7 +81,7 @@ info:
     You can find source files for this documentation over at [GitHub](https://github.com/IsThereAnyDeal/API).
     Feel free to help us improve it.
   termsOfService: https://github.com/IsThereAnyDeal/API/blob/master/TERMS_OF_SERVICE.md
-  version: 2.9.0
+  version: 2.10.0
   contact:
     name: General API contact
     email: api@isthereanydeal.com
@@ -122,6 +122,8 @@ tags:
       Collection category endpoints. Category and group may be used interchangably. Default category has ID 0.
   - name: Collection Stats
     x-displayName: Stats
+  - name: Ignored Games
+    x-displayName: Games
   - name: User
   - name: User Notes
     x-displayName: Notes
@@ -1282,6 +1284,67 @@ paths:
           $ref: '#/components/responses/error-response'
         default:
           $ref: '#/components/responses/error-response'
+  /ignored/games/v1:
+    get:
+      operationId: ignored-games-v1-get
+      tags:
+        - Ignored Games
+      summary: Games in Ignore List
+      description: Get games in user's Ignore List
+      security:
+        - OAuth2:
+            - ignored_read
+      responses:
+        '200':
+          description: Success response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resp.ignored.games'
+              examples:
+                success:
+                  description: Successful response
+                  $ref: '#/components/examples/resp.games.get.v1.success'
+        '400':
+          $ref: '#/components/responses/error-response'
+        default:
+          $ref: '#/components/responses/error-response'
+    put:
+      operationId: ignored-games-v1-put
+      tags:
+        - Ignored Games
+      summary: Add to Ignore List
+      description: Add games to user's Ignore List
+      security:
+        - OAuth2:
+            - ignored_write
+      requestBody:
+        $ref: '#/components/requestBodies/gids'
+      responses:
+        '204':
+          description: Successful response
+        '400':
+          $ref: '#/components/responses/error-response'
+        default:
+          $ref: '#/components/responses/error-response'
+    delete:
+      operationId: ignored-games-v1-delete
+      tags:
+        - Ignored Games
+      summary: Delete from Ignore List
+      description: Delete games from user's Ignore List
+      security:
+        - OAuth2:
+            - ignored_write
+      requestBody:
+        $ref: '#/components/requestBodies/gids'
+      responses:
+        '204':
+          description: Successful response
+        '400':
+          $ref: '#/components/responses/error-response'
+        default:
+          $ref: '#/components/responses/error-response'
   /stats/waitlist/v1:
     get:
       operationId: stats-waitlist-v1
@@ -2330,6 +2393,8 @@ components:
             wait_write: Write (add, edit, delete) in user's Waitlist
             coll_read: Read user's Collection
             coll_write: Write (add, edit, delete) in user's Collection
+            ignored_read: Read user's Ignore list
+            ignored_write: Write (add, delete) in user's Ignore list
             webhooks: Add or remove webhooks on user's behalf
   parameters:
     country:
@@ -3900,6 +3965,41 @@ components:
           oneOf:
             - type: integer
             - type: 'null'
+    obj.ignored.game:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: Ignored Game
+      type: object
+      required:
+        - id
+        - slug
+        - title
+        - type
+        - assets
+        - mature
+        - added
+      properties:
+        id:
+          type: string
+          format: uuid
+        slug:
+          type: string
+        title:
+          type: string
+        type:
+          $ref: '#/components/schemas/obj.game-type'
+        assets:
+          $ref: '#/components/schemas/obj.asset-map'
+        mature:
+          type: boolean
+        added:
+          type: string
+          format: date-time
+    resp.ignored.games:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: Ignore List Games Response
+      type: array
+      items:
+        $ref: '#/components/schemas/obj.ignored.game'
     bucket:
       type: object
       required:
@@ -5723,6 +5823,9 @@ x-tagGroups:
       - Collection Copies
       - Collection Groups
       - Collection Stats
+  - name: Ignore List
+    tags:
+      - Ignored Games
   - name: Stats
     tags:
       - Stats

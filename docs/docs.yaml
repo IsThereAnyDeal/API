@@ -82,7 +82,7 @@ info:
     Feel free to help us improve it.
 
   termsOfService: https://github.com/IsThereAnyDeal/API/blob/master/TERMS_OF_SERVICE.md
-  version: 2.9.0
+  version: 2.10.0
   contact:
     name: General API contact
     email: api@isthereanydeal.com
@@ -127,6 +127,9 @@ tags:
       Collection category endpoints. Category and group may be used interchangably. Default category has ID 0.
   - name: Collection Stats
     x-displayName: Stats
+
+  - name: Ignored Games
+    x-displayName: Games
 
   - name: User
   - name: User Notes
@@ -198,6 +201,9 @@ x-tagGroups:
       - Collection Copies
       - Collection Groups
       - Collection Stats
+  - name: Ignore List
+    tags:
+      - Ignored Games
   - name: Stats
     tags:
       - Stats
@@ -248,6 +254,8 @@ components:
             wait_write: Write (add, edit, delete) in user's Waitlist
             coll_read: Read user's Collection
             coll_write: Write (add, edit, delete) in user's Collection
+            ignored_read: Read user's Ignore list
+            ignored_write: Write (add, delete) in user's Ignore list
             webhooks: Add or remove webhooks on user's behalf
 
   parameters:
@@ -350,6 +358,10 @@ paths:
     $ref: "./routes/collection/copies.v1.yaml"
   /collection/groups/v1:
     $ref: "./routes/collection/groups.v1.yaml"
+
+  /ignored/games/v1:
+    $ref: "./routes/ignored/games.v1.yaml"
+
 
   /stats/waitlist/v1:
     $ref: "./routes/stats/waitlist.v1.yaml"

@@ -1,0 +1,59 @@
+get:
+  operationId: ignored-games-v1-get
+  tags:
+    - Ignored Games
+  summary: Games in Ignore List
+  description: Get games in user's Ignore List
+  security:
+    - OAuth2: [ignored_read]
+  responses:
+    200:
+      description: Success response
+      content:
+        application/json:
+          schema:
+            $ref: "./schemas/resp.ignored.games.yaml"
+          examples:
+            success:
+              description: "Successful response"
+              $ref: "./examples/resp.games.get.v1.success.yaml"
+    400:
+      $ref: "../../defs/error-response.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"
+
+put:
+  operationId: ignored-games-v1-put
+  tags:
+    - Ignored Games
+  summary: Add to Ignore List
+  description: Add games to user's Ignore List
+  security:
+    - OAuth2: [ignored_write]
+  requestBody:
+    $ref: "../../docs.yaml#/components/requestBodies/gids"
+  responses:
+    204:
+      description: Successful response
+    400:
+      $ref: "../../defs/error-response.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"
+
+delete:
+  operationId: ignored-games-v1-delete
+  tags:
+    - Ignored Games
+  summary: Delete from Ignore List
+  description: Delete games from user's Ignore List
+  security:
+    - OAuth2: [ignored_write]
+  requestBody:
+    $ref: "../../docs.yaml#/components/requestBodies/gids"
+  responses:
+    204:
+      description: Successful response
+    400:
+      $ref: "../../defs/error-response.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"

@@ -1,0 +1,21 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+title: Ignored Game
+type: object
+required: [id, slug, title, type, assets, mature, added]
+properties:
+  id:
+    type: string
+    format: uuid
+  slug:
+    type: string
+  title:
+    type: string
+  type:
+    $ref: "../../../schemas/obj.game-type.json"
+  assets:
+    $ref: "../../../schemas/obj.asset-map.yaml"
+  mature:
+    type: boolean
+  added:
+    type: string
+    format: date-time

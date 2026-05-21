@@ -1,3 +1,6 @@
+## 2.10.0
+- Added Ignore List endpoints 
+
 ## 2.9.0
 ### Authorization
 - Added support for providing api key via `ITAD-API-Key` header instead of query param `key`
