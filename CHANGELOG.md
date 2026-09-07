@@ -1,3 +1,6 @@
+## 2.11.0
+- Added Giveaways endpoints 
+
 ## 2.10.0
 - Added Ignore List endpoints 
 

@@ -1,0 +1,55 @@
+get:
+  operationId: giveaways-v1
+  tags:
+    - Giveaways
+  summary: Giveaways List
+  description: Get giveaways
+  security:
+    - ApiKeyParamAuth: []
+    - ApiKeyHeaderAuth: []
+  parameters:
+    - name: offset
+      in: query
+      schema:
+        type: number
+        minimum: 0
+        default: 0
+    - name: limit
+      in: query
+      schema:
+        type: number
+        minimum: 1
+        maximum: 50
+        default: 20
+    - name: mature
+      in: query
+      description: Include bundles marked as mature
+      schema:
+        type: boolean
+        default: false
+    - name: expired
+      in: query
+      description: Include expired bundles
+      schema:
+        type: boolean
+        default: false
+    - name: sort
+      in: query
+      description: Sort value, same as on website
+      schema:
+        type: string
+        default: "-publish"
+  responses:
+    200:
+      description: Success response
+      content:
+        application/json:
+          schema:
+            $ref: "./schemas/resp.giveaways.yaml"
+          examples:
+            success:
+              $ref: "./examples/resp.giveaways.v1.success.yaml"
+    400:
+      $ref: "../../defs/error-response.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"

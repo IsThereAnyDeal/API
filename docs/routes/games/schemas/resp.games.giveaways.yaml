@@ -1,0 +1,5 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: Giveaways with Game Response
+type: array
+items:
+  $ref: "../../giveaways/schemas/obj.giveaway.yaml"

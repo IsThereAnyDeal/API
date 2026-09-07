@@ -83,7 +83,7 @@ info:
     Feel free to help us improve it.
 
   termsOfService: https://github.com/IsThereAnyDeal/API/blob/master/TERMS_OF_SERVICE.md
-  version: 2.10.0
+  version: 2.11.0
   contact:
     name: General API contact
     email: api@isthereanydeal.com
@@ -189,6 +189,7 @@ x-tagGroups:
       - Prices
       - History
       - Bundles
+      - Giveaways
       - Deals List
       - Subscriptions
   - name: Waitlist
@@ -326,6 +327,9 @@ paths:
   /bundles/v1:
     $ref: "./routes/bundles/bundles.v1.yaml"
 
+  /giveaways/v1:
+    $ref: "./routes/giveaways/giveaways.v1.yaml"
+
   /games/search/v1:
     $ref: "./routes/games/search.v1.yaml"
   /games/lookup/v1:
@@ -336,6 +340,8 @@ paths:
     $ref: "./routes/games/prices.v3.yaml"
   /games/bundles/v2:
     $ref: "./routes/games/bundles.v2.yaml"
+  /games/giveaways/v1:
+    $ref: "./routes/games/giveaways.v1.yaml"
   /games/overview/v2:
     $ref: "./routes/games/overview.v2.yaml"
   /games/historylow/v1:

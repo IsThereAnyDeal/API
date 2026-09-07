@@ -344,6 +344,62 @@ paths:
           $ref: '#/components/responses/error-response'
         default:
           $ref: '#/components/responses/error-response'
+  /giveaways/v1:
+    get:
+      operationId: giveaways-v1
+      tags:
+        - Giveaways
+      summary: Giveaways List
+      description: Get giveaways
+      security:
+        - ApiKeyParamAuth: []
+        - ApiKeyHeaderAuth: []
+      parameters:
+        - name: offset
+          in: query
+          schema:
+            type: number
+            minimum: 0
+            default: 0
+        - name: limit
+          in: query
+          schema:
+            type: number
+            minimum: 1
+            maximum: 50
+            default: 20
+        - name: mature
+          in: query
+          description: Include bundles marked as mature
+          schema:
+            type: boolean
+            default: false
+        - name: expired
+          in: query
+          description: Include expired bundles
+          schema:
+            type: boolean
+            default: false
+        - name: sort
+          in: query
+          description: Sort value, same as on website
+          schema:
+            type: string
+            default: '-publish'
+      responses:
+        '200':
+          description: Success response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resp.giveaways'
+              examples:
+                success:
+                  $ref: '#/components/examples/resp.giveaways.v1.success'
+        '400':
+          $ref: '#/components/responses/error-response'
+        default:
+          $ref: '#/components/responses/error-response'
   /games/search/v1:
     get:
       operationId: games-search-v1
@@ -532,6 +588,39 @@ paths:
                 success:
                   description: Successful response
                   $ref: '#/components/examples/resp.bundles.v2.success'
+        '400':
+          $ref: '#/components/responses/error-response'
+        default:
+          $ref: '#/components/responses/error-response'
+  /games/giveaways/v1:
+    get:
+      operationId: games-giveaways-v1
+      tags:
+        - Giveaways
+      summary: Giveaways with Game
+      description: Get all giveaways which contain the game
+      security:
+        - ApiKeyParamAuth: []
+        - ApiKeyHeaderAuth: []
+      parameters:
+        - $ref: '#/components/parameters/gid'
+        - name: expired
+          in: query
+          description: Include expired giveaways
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: Success response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resp.games.giveaways'
+              examples:
+                success:
+                  description: Successful response
+                  $ref: '#/components/examples/resp.giveaways.v1.success'
         '400':
           $ref: '#/components/responses/error-response'
         default:
@@ -2761,6 +2850,122 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/obj.bundle'
+    obj.shop:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: Shop
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+    obj.platform:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: Platform
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+    obj.platform-list:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: Platform List
+      type: array
+      items:
+        $ref: '#/components/schemas/obj.platform'
+    obj.giveaway:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: Giveaway
+      type: object
+      required:
+        - id
+        - title
+        - shop
+        - url
+        - details
+        - isMature
+        - publish
+        - expiry
+        - note
+        - games
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        shop:
+          oneOf:
+            - $ref: '#/components/schemas/obj.shop'
+            - type: 'null'
+        url:
+          type: string
+          format: uri
+        details:
+          type: string
+          format: uri
+        isMature:
+          type: boolean
+        publish:
+          type: string
+          format: date-time
+        expiry:
+          type:
+            - string
+            - 'null'
+          format: date-time
+        note:
+          type:
+            - string
+            - 'null'
+        games:
+          type: array
+          items:
+            title: Giveaway Game
+            type: object
+            required:
+              - id
+              - slug
+              - title
+              - type
+              - mature
+              - assets
+              - drmFree
+              - keys
+              - platforms
+            properties:
+              id:
+                type: string
+                format: uuid
+              slug:
+                type: string
+              title:
+                type: string
+              type:
+                $ref: '#/components/schemas/obj.game-type'
+              mature:
+                type: boolean
+              assets:
+                $ref: '#/components/schemas/obj.asset-map'
+              drmFree:
+                type: boolean
+              keys:
+                type: array
+                items:
+                  $ref: '#/components/schemas/obj.shop'
+              platforms:
+                $ref: '#/components/schemas/obj.platform-list'
+    resp.giveaways:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      type: array
+      items:
+        $ref: '#/components/schemas/obj.giveaway'
     resp.games.search:
       $schema: https://json-schema.org/draft/2020-12/schema
       title: Game Search Response
@@ -2923,18 +3128,6 @@ components:
             game:
               type: string
               format: uri
-    obj.shop:
-      $schema: https://json-schema.org/draft/2020-12/schema
-      title: Shop
-      type: object
-      properties:
-        id:
-          type: number
-        name:
-          type: string
-      required:
-        - id
-        - name
     obj.deal-flag:
       $schema: https://json-schema.org/draft/2020-12/schema
       title: Deal Flag
@@ -2967,24 +3160,6 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/obj.drm'
-    obj.platform:
-      $schema: https://json-schema.org/draft/2020-12/schema
-      title: Platform
-      type: object
-      properties:
-        id:
-          type: number
-        name:
-          type: string
-      required:
-        - id
-        - name
-    obj.platform-list:
-      $schema: https://json-schema.org/draft/2020-12/schema
-      title: Platform List
-      type: array
-      items:
-        $ref: '#/components/schemas/obj.platform'
     obj.deal2:
       $schema: https://json-schema.org/draft/2020-12/schema
       title: Deal
@@ -3082,6 +3257,12 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/obj.bundle'
+    resp.games.giveaways:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      title: Giveaways with Game Response
+      type: array
+      items:
+        $ref: '#/components/schemas/obj.giveaway'
     obj.deal-overview:
       $schema: https://json-schema.org/draft/2020-12/schema
       title: Overview Deal
@@ -4825,6 +5006,42 @@ components:
                     banner300: https://assets.isthereanydeal.com/018d937f-65f0-70d3-83fe-71fac1505a13/banner300.jpg?t=1732751175
                     banner400: https://assets.isthereanydeal.com/018d937f-65f0-70d3-83fe-71fac1505a13/banner400.jpg?t=1732751175
                     banner600: https://assets.isthereanydeal.com/018d937f-65f0-70d3-83fe-71fac1505a13/banner600.jpg?t=1732751176
+    resp.giveaways.v1.success:
+      value:
+        - id: 16541
+          title: State of Mind - Free on GOG
+          shop:
+            id: 35
+            name: GOG
+          url: https://www.dpbolvw.net/click-6305441-15456889?url=https%3A%2F%2Fwww.gog.com%2Fen%2Fgame%2Fstate_of_mind
+          details: https://isthereanydeal.com/giveaways/16541/
+          isMature: false
+          publish: '2026-09-07T19:04:40+02:00'
+          expiry: '2026-09-10T15:00:44+02:00'
+          note: null
+          games:
+            - id: 018d937f-3807-7238-b56e-d219b2c2da64
+              slug: state-of-mind
+              title: State of Mind
+              type: game
+              mature: false
+              assets:
+                boxart: https://assets.isthereanydeal.com/018d937f-3807-7238-b56e-d219b2c2da64/boxart.jpg?t=1786392990
+                banner145: https://assets.isthereanydeal.com/018d937f-3807-7238-b56e-d219b2c2da64/banner145.jpg?t=1786392990
+                banner300: https://assets.isthereanydeal.com/018d937f-3807-7238-b56e-d219b2c2da64/banner300.jpg?t=1786392990
+                banner400: https://assets.isthereanydeal.com/018d937f-3807-7238-b56e-d219b2c2da64/banner400.jpg?t=1786392990
+                banner600: https://assets.isthereanydeal.com/018d937f-3807-7238-b56e-d219b2c2da64/banner600.jpg?t=1786392991
+              drmFree: false
+              keys:
+                - id: 35
+                  name: GOG
+              platforms:
+                - id: 1
+                  name: Windows
+                - id: 2
+                  name: Mac
+                - id: 3
+                  name: Linux
     resp.search.v1.results:
       value:
         - id: 018d937f-07fc-72ed-8517-d8e24cb1eb22
@@ -5811,6 +6028,7 @@ x-tagGroups:
       - Prices
       - History
       - Bundles
+      - Giveaways
       - Deals List
       - Subscriptions
   - name: Waitlist

@@ -1,0 +1,58 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: Giveaway
+type: object
+required: [id, title, shop, url, details, isMature, publish, expiry, note, games]
+properties:
+  id:
+    type: integer
+  title:
+    type: string
+  shop:
+    oneOf:
+      - $ref: "../../../schemas/obj.shop.yaml"
+      - type: "null"
+  url:
+    type: string
+    format: uri
+  details:
+    type: string
+    format: uri
+  isMature:
+    type: boolean
+  publish:
+    type: string
+    format: date-time
+  expiry:
+    type: [string, "null"]
+    format: "date-time"
+  note:
+    type: [string, "null"]
+  games:
+    type: array
+    items:
+      title: Giveaway Game
+      type: object
+      required: [ id, slug, title, type, mature, assets, drmFree, keys, platforms ]
+      properties:
+        id:
+          type: string
+          format: uuid
+        slug:
+          type: string
+        title:
+          type: string
+        type:
+          $ref: "../../../schemas/obj.game-type.json"
+        mature:
+          type: boolean
+        assets:
+          $ref: "../../../schemas/obj.asset-map.yaml"
+        drmFree:
+          type: boolean
+        keys:
+          type: array
+          items:
+            $ref: "../../../schemas/obj.shop.yaml"
+        platforms:
+          $ref: "../../../schemas/obj.platform-list.yaml"
+

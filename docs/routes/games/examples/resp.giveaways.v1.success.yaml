@@ -1,0 +1,53 @@
+value: [
+  {
+    "id": 16541,
+    "title": "State of Mind - Free on GOG",
+    "shop": {
+      "id": 35,
+      "name": "GOG"
+    },
+    "url": "https://www.dpbolvw.net/click-6305441-15456889?url=https%3A%2F%2Fwww.gog.com%2Fen%2Fgame%2Fstate_of_mind",
+    "details": "https://isthereanydeal.com/giveaways/16541/",
+    "isMature": false,
+    "publish": "2026-09-07T19:04:40+02:00",
+    "expiry": "2026-09-10T15:00:44+02:00",
+    "note": null,
+    "games": [
+      {
+        "id": "018d937f-3807-7238-b56e-d219b2c2da64",
+        "slug": "state-of-mind",
+        "title": "State of Mind",
+        "type": "game",
+        "mature": false,
+        "assets": {
+          "boxart": "https://assets.isthereanydeal.com/018d937f-3807-7238-b56e-d219b2c2da64/boxart.jpg?t=1786392990",
+          "banner145": "https://assets.isthereanydeal.com/018d937f-3807-7238-b56e-d219b2c2da64/banner145.jpg?t=1786392990",
+          "banner300": "https://assets.isthereanydeal.com/018d937f-3807-7238-b56e-d219b2c2da64/banner300.jpg?t=1786392990",
+          "banner400": "https://assets.isthereanydeal.com/018d937f-3807-7238-b56e-d219b2c2da64/banner400.jpg?t=1786392990",
+          "banner600": "https://assets.isthereanydeal.com/018d937f-3807-7238-b56e-d219b2c2da64/banner600.jpg?t=1786392991"
+        },
+        "drmFree": false,
+        "keys": [
+          {
+            "id": 35,
+            "name": "GOG"
+          }
+        ],
+        "platforms": [
+          {
+            "id": 1,
+            "name": "Windows"
+          },
+          {
+            "id": 2,
+            "name": "Mac"
+          },
+          {
+            "id": 3,
+            "name": "Linux"
+          }
+        ]
+      }
+    ]
+  }
+]

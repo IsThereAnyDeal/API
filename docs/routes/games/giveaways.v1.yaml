@@ -1,0 +1,32 @@
+get:
+  operationId: games-giveaways-v1
+  tags:
+    - Giveaways
+  summary: Giveaways with Game
+  description: Get all giveaways which contain the game
+  security:
+    - ApiKeyParamAuth: []
+    - ApiKeyHeaderAuth: []
+  parameters:
+    - $ref: "../../docs.yaml#/components/parameters/gid"
+    - name: expired
+      in: query
+      description: Include expired giveaways
+      schema:
+        type: boolean
+        default: false
+  responses:
+    200:
+      description: Success response
+      content:
+        application/json:
+          schema:
+            $ref: "./schemas/resp.games.giveaways.yaml"
+          examples:
+            success:
+              description: "Successful response"
+              $ref: "./examples/resp.giveaways.v1.success.yaml"
+    400:
+      $ref: "../../defs/error-response.yaml"
+    default:
+      $ref: "../../defs/error-response.yaml"
