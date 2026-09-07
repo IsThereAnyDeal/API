@@ -82,7 +82,7 @@ info:
     You can find source files for this documentation over at [GitHub](https://github.com/IsThereAnyDeal/API).
     Feel free to help us improve it.
   termsOfService: https://github.com/IsThereAnyDeal/API/blob/master/TERMS_OF_SERVICE.md
-  version: 2.10.0
+  version: 2.11.0
   contact:
     name: General API contact
     email: api@isthereanydeal.com
@@ -101,6 +101,7 @@ tags:
   - name: Prices
   - name: History
   - name: Bundles
+  - name: Giveaways
   - name: Deals List
   - name: Subscriptions
   - name: Waitlist Games
