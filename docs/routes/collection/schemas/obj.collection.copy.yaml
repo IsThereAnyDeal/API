@@ -22,7 +22,7 @@ properties:
         format: uuid
   shop:
     oneOf:
-      - $ref: "../../../schemas/obj.shop.json"
+      - $ref: "../../../schemas/obj.shop.yaml"
       - type: "null"
   redeemed:
     type: boolean

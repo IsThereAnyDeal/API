@@ -5,7 +5,7 @@
   "required": ["shop", "price", "regular", "cut", "timestamp"],
   "properties": {
     "shop": {
-      "$ref": "obj.shop.json"
+      "$ref": "obj.shop.yaml"
     },
     "price": {
       "$ref": "obj.price.json"

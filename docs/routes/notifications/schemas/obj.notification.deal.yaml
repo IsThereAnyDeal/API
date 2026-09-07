@@ -4,7 +4,7 @@ type: object
 required: [shop, price, regular, cut, voucher, storeLow, flag, drm, platforms, timestamp, expiry, url]
 properties:
   shop:
-    $ref: "../../../schemas/obj.shop.json"
+    $ref: "../../../schemas/obj.shop.yaml"
   price:
     $ref: "../../../schemas/obj.price.json"
   regular:
@@ -24,7 +24,7 @@ properties:
   drm:
     $ref: "../../../schemas/obj.drm-list.json"
   platforms:
-    $ref: "../../../schemas/obj.platform-list.json"
+    $ref: "../../../schemas/obj.platform-list.yaml"
   timestamp:
     type: string
     format: date-time

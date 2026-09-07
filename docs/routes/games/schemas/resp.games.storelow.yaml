@@ -17,7 +17,7 @@ items:
         required: [shop, price, regular, cut, timestamp]
         properties:
           shop:
-            $ref: "../../../schemas/obj.shop.json"
+            $ref: "../../../schemas/obj.shop.yaml"
           price:
             $ref: "../../../schemas/obj.price.json"
           regular:

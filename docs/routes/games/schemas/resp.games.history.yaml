@@ -9,7 +9,7 @@ items:
       type: string
       format: date-time
     shop:
-      $ref: "../../../schemas/obj.shop.json"
+      $ref: "../../../schemas/obj.shop.yaml"
     deal:
       oneOf:
         - type: object

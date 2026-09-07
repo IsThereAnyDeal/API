@@ -8,7 +8,7 @@
   ],
   "properties": {
     "shop": {
-      "$ref": "obj.shop.json"
+      "$ref": "obj.shop.yaml"
     },
     "price": {
       "$ref": "obj.price.json"
@@ -37,7 +37,7 @@
       "$ref": "obj.drm-list.json"
     },
     "platforms": {
-      "$ref": "obj.platform-list.json"
+      "$ref": "obj.platform-list.yaml"
     },
     "timestamp": {
       "type": "string",
